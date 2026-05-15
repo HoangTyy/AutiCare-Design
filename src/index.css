@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=Fredoka:wght@400;600;700&display=swap');
+
+:root {
+  --primary: #0084FF;
+  --primary-dark: #0066CC;
+  --secondary: #2AC176;
+  --accent: #FF6B6B;
+  --warning: #FFD93D;
+  --bg-main: #FFF8D1; 
+  --white: #FFFFFF;
+  --dark: #1A1C1E; /* Deeper dark for more professional look */
+  
+  --text-main: #1A1C1E;
+  --text-muted: #4A4D50;
+  
+  --font-main: 'Be Vietnam Pro', sans-serif;
+  --font-playful: 'Fredoka', sans-serif;
+  
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-xl: 48px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
+  --shadow-md: 0 8px 15px rgba(0,0,0,0.08);
+  --shadow-lg: 0 15px 30px rgba(0,0,0,0.12);
+}
+
+/* Admin Dashboard Specific Variables (Muted & Professional) */
+.admin-theme-root {
+  --primary: #0a8a48;
+  --secondary: #2f8367;
+  --accent: #EF4444;
+  --bg-main: #e6eac2;
+  --admin-sidebar: #358249;
+  --admin-topbar: #FFFFFF;
+  --admin-card: #FFFFFF;
+  --text-main: #1A3A26;
+  --text-muted: #64748B;
+  
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+h1, h2, h3, .brand-name {
+  font-family: var(--font-main);
+  font-weight: 800;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: var(--font-main);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+/* Funtopia Style bubble text */
+.bubble-text {
+  color: white;
+  text-shadow: 
+    3px 3px 0 var(--primary),
+    -1px -1px 0 var(--primary),  
+     1px -1px 0 var(--primary),
+    -1px  1px 0 var(--primary),
+     1px  1px 0 var(--primary);
+  letter-spacing: 2px;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
