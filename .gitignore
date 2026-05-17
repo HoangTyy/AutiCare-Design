@@ -24,6 +24,6 @@ dist-ssr
 *.sw?
 
 # Project specific documentation and agent files
-context.md
-Logs.md
-.agents
+# context.md
+# Logs.md
+# .agents
