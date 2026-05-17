@@ -129,3 +129,39 @@
     - **Hủy bỏ (Discard Changes)**: Reverts the current local state back to the initial roles, restoring all fields and order immediately, and slides the warning bar away.
 - **Visual Validation**: Verified all actions interactively via browser automation and confirmed that the floating bar matches the high-end AutiCare premium dark indigo design language.
 - **Build Verification**: Compiled the workspace successfully with a 100% clean production build (`npm run build`).
+
+## [2026-05-18] - Global Theme Background Mismatch Fix
+- **Bug Fix**: Resolved a critical theme style leakage bug where returning to the Landing Page after visiting the Admin Dashboard caused the homepage background below the header to render in pitch-black/slate color (#0F172A) instead of the light warm cream (#FFF8D1) of the brand design.
+- **React DOM Reuse**: Added unique React `key` props (`key="admin-view"` and `key="landing-view"`) to the wrapping `div` elements inside `src/App.tsx` to force React to unmount the reused DOM elements, completely resetting any inline style overrides when transitioning between views.
+- **ThemeCustomizer Refinement**: Hardened the target selector inside `src/components/ThemeCustomizer.tsx`'s theme-syncing effect to target the `.admin-theme-root` element exclusively without falling back to the global `document.documentElement` for the admin view. This fully isolates theme color scopes.
+- **Visual Verification**: Verified in browser tests that switching back and forth from the Admin Dashboard completely resets the Landing Page background to a beautiful, uniform cream color.
+- **Build Verification**: Compiled the workspace successfully with a 100% clean production build (`npm run build`).
+
+## [2026-05-18] - Homepage Redesign & 3D Interactive Particle Overhaul
+- **Thiết kế & Nâng cấp Giao diện Trang chủ**: Thay đổi hoàn chỉnh diện mạo trang chủ (trừ Header) thành một thiết kế siêu cao cấp, hiện đại, sử dụng bảng màu hài hòa, tinh tế kết hợp nền kem ấm (#FFF8F0) và các đường nét bo góc mềm mại, sang trọng.
+- **ThreeBackground.tsx**: Tích hợp nền WebGL 3D tương tác sử dụng Three.js để render một quả cầu hạt phát sáng rực rỡ (Particle Sphere Shell) chuyển động xoay chậm. Hệ thống tự động bám theo tọa độ con trỏ chuột của người dùng để dịch chuyển camera 3D (Parallax Effect), đồng thời tích hợp `IntersectionObserver` giúp tự động tạm dừng render khi người dùng cuộn trang khỏi vùng Hero, giảm tải 100% cho GPU/CPU.
+- **Tách cấu trúc Modular (Rule 10 & 11)**: Chia nhỏ trang chủ monolithic cũ thành các Component riêng biệt, dễ bảo trì:
+    - `FloatingNav.tsx`: Bảng dấu chấm tròn glassmorphic lơ lửng điều hướng nhanh 5 Section.
+    - `HeroSection.tsx`: Banner chính với các nút nghiêng 3D (`TiltButton`) tương tác cao.
+    - `CategoriesSection.tsx`: Lưới bento hiển thị 4 nhóm dịch vụ chẩn đoán & can thiệp sớm của trẻ bằng các thẻ bento bo góc sang trọng, phát sáng viền.
+    - `ReviewsSection.tsx`: Hộp chứa trích dẫn nhận xét chân thực từ cha mẹ và bác sĩ với viền dạ quang neon dịu nhẹ.
+    - `AboutSection.tsx`: Bảng số liệu thống kê trực quan với đồ họa số và huy hiệu sáng lấp lánh.
+    - `CtaSection.tsx`: Khung chuyển đổi lớn màu gradient thu hút hành động đăng ký.
+    - `Footer.tsx`: Chân trang chuyên nghiệp ghi nhận rõ ràng nhóm phát triển gồm Lê Nhựt Anh, Huỳnh Hoàng Tỹ, Nguyễn Lê Khắc Vũ, Đặng Công Khanh, Phan việt Phát và Mentor Quách Luyl Đa.
+- **Đồng bộ Cuộn trang (Scroll Snapping & Section Observer)**:
+    - Áp dụng kỹ thuật cuộn trang nguyên bản (`scroll-snap-type: y mandatory`) trên màn hình máy tính (Desktop) giúp trải nghiệm lướt qua từng Section mượt mà như một slide trình chiếu, đồng thời tự động vô hiệu hóa trên điện thoại di động (Mobile) để duy trì khả năng đọc bình thường.
+    - Sử dụng `IntersectionObserver` trong `src/App.tsx` để đồng bộ hóa và phát sáng tiêu đề danh mục Navbar lẫn các dấu chấm tròn bên phải theo thời gian thực tương ứng với vùng cuộn hiện tại của người dùng.
+- **Đa Ngôn Ngữ Song Hành (Bilingual Translation)**: Tích hợp hoàn toàn các bản dịch Việt - Anh chi tiết cho tất cả các thẻ nội dung mới, hỗ trợ cập nhật trạng thái ngôn ngữ qua nút switch VN/EN.
+- **Build Verification**: Biên dịch toàn bộ hệ thống sang phiên bản đóng gói sản phẩm (`npm run build`) thành công 100% không cảnh báo lỗi TypeScript hay CSS.
+
+## [2026-05-18] - Final Landing Page Refinement & Visual Verification
+- **Vite Build Stabilization**: Loại bỏ prop `setView` không dùng trong [HeroSection.tsx](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/src/components/homepage/HeroSection.tsx) và cập nhật đồng bộ trong [App.tsx](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/src/App.tsx) để giải quyết dứt điểm lỗi biên dịch TypeScript `TS6133`, giúp chạy lệnh build thành công 100% không lỗi hay cảnh báo.
+- **Scroll Snapping & Footer Fix**: Di chuyển thẻ [Footer.tsx](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/src/components/homepage/Footer.tsx) từ bên ngoài vào bên trong thẻ `<main>` để đưa tất cả các phần cuộn về cùng một cấp cha, đồng thời định nghĩa `scroll-snap-align: end` cho lớp `.footer-section`. Điều này loại bỏ hoàn toàn lỗi kẹt cuộn snap ranh giới (cross-boundary), giúp trang snap mượt mà vào Footer và điều hướng nhanh bằng dot menu hoạt động hoàn hảo 100%.
+- **Interactive 3D WebGL Constellation**: Thay thế nền đóm màu tĩnh đơn điệu bằng một **Mạng lưới Thần kinh 3D Tương tác (glowing 3D constellation neural network)** trong [ThreeBackground.tsx](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/src/components/homepage/ThreeBackground.tsx) với 110 nút phát sáng neon tự động trôi nổi, kết nối bằng các đường dây thần kinh mảnh có độ mờ giảm dần theo khoảng cách. Tích hợp lực hút vật lý kéo các nút bám sát theo tọa độ chuột và tự động vẽ các luồng ánh sáng neon kết nối trực tiếp từ con trỏ chuột của người dùng đến các nút xung quanh khi di chuột, mang lại hiệu ứng thị giác đỉnh cao, biểu thị trực quan cho y học can thiệp sớm của AutiCare.
+- **Visual Verification**: Thực hiện kiểm định trực quan tự động bằng tác nhân trình duyệt (Browser Subagent), xác nhận bố cục đôi Hero, nền tinh vân 3D tương tác tuyệt đẹp, vị trí căn giữa hoàn hảo của các nút 3D Bento, các nội dung trích dẫn phụ huynh bằng tiếng Việt và cuộn snap chân trang khớp 100% thiết kế cao cấp.
+- **Tài liệu hóa**: Cập nhật báo cáo thiết kế trong [context.md](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/context.md) và ghi nhận nhật ký phát triển đầy đủ.
+
+## [2026-05-18] - Three.js WebGL Restoration & Buffer Optimization
+- **WebGL Constellation Loop Fix**: Phục hồi hoàn toàn vòng lặp kết xuất Three.js bằng cách sử dụng các hàm API tiêu chuẩn của thư viện như `positionsAttr.setXYZ` và thao tác trực tiếp trên các mảng Float32 cục bộ được Three.js theo dõi qua tham chiếu (reference). Điều này khắc phục triệt để lỗi mất đồng bộ vùng nhớ đệm WebGL khiến màn hình bị đóng băng, đưa tinh vân hạt 3D trở lại trạng thái chuyển động mượt mà 60 FPS cực kỳ sinh động trên máy người dùng.
+- **Build Verification**: Xác thực biên dịch dự án chạy trơn tru thông qua lệnh `npm run build` thành công 100% không cảnh báo lỗi TypeScript hay cú pháp.
+

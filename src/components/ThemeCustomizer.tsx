@@ -38,7 +38,7 @@ const ThemeCustomizer: React.FC<ThemeCustomizerProps> = ({ view }) => {
     const syncColors = () => {
       const target = view === 'landing' 
         ? document.documentElement 
-        : (document.querySelector('.admin-theme-root') as HTMLElement || document.documentElement);
+        : (document.querySelector('.admin-theme-root') as HTMLElement);
       
       if (target) {
         Object.entries(colors).forEach(([key, val]) => {

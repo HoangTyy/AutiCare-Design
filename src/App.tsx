@@ -1,12 +1,18 @@
 import { useState, useEffect } from 'react'
-import { TiltButton } from 'react-tilt-button'
-import heroBg from './assets/hero-bg.png'
-import classroomImg from './assets/classroom.png'
-import dashboardImg from './assets/dashboard.png'
 import ThemeCustomizer from './components/ThemeCustomizer'
 import AdminDashboard from './components/AdminDashboard'
 import DesignCodeHomepage from './components/DesignCodeHomepage'
 import DesignCodeAdmin from './components/DesignCodeAdmin'
+
+// Modular Landing Sections
+import HeroSection from './components/homepage/HeroSection'
+import CategoriesSection from './components/homepage/CategoriesSection'
+import ReviewsSection from './components/homepage/ReviewsSection'
+import AboutSection from './components/homepage/AboutSection'
+import CtaSection from './components/homepage/CtaSection'
+import Footer from './components/homepage/Footer'
+import FloatingNav from './components/homepage/FloatingNav'
+
 import './App.css'
 
 type Language = 'vi' | 'en'
@@ -18,48 +24,32 @@ const translations = {
     category: "Danh mục",
     reviews: "Đánh giá",
     about: "Về chúng tôi",
-    collections: "Bộ sưu tập",
+    collections: "Liên hệ",
     dashboard: "Dashboard Admin",
     login: "Đăng nhập",
-    heroTitle: "THẤU HIỂU & ĐỒNG HÀNH CÙNG TRẺ",
-    heroSub: "Giải pháp toàn diện hỗ trợ giáo viên và phụ huynh trong việc sàng lọc, theo dõi và can thiệp sớm cho trẻ phổ tự kỷ.",
+    heroTitle: "THẤU HIỂU & ĐỒNG HÀNH CÙNG TRẺ phổ tự kỷ",
+    heroSub: "Giải pháp toàn diện hỗ trợ giáo viên, cơ sở can thiệp sớm và cha mẹ trong việc sàng lọc, giám sát hành vi và đồng hành cùng sự hòa nhập của con trẻ.",
     btnStartScreening: "BẮT ĐẦU SÀNG LỌC",
-    btnViewDemo: "XEM DEMO QUẢN LÝ",
-    missionTitle: "TẦM NHÌN CỦA CHÚNG TÔI",
-    missionSub: "Chúng tôi kiến tạo môi trường giáo dục hòa nhập, nơi mọi trẻ em đều được thấu hiểu và phát triển theo cách riêng của mình.",
-    card1Title: "Môi trường học tập tối ưu",
-    card1Sub: "Cung cấp các công cụ hỗ trợ giáo viên tạo dựng lịch trình trực quan, giúp trẻ giảm lo âu và tăng tính tự lập.",
-    card2Title: "Dữ liệu là chìa khóa",
-    card2Sub: "Theo dõi tiến độ hành vi và giao tiếp của trẻ thông qua các biểu đồ trực quan, giúp chuyên gia đưa ra lộ trình can thiệp đúng đắn.",
-    btnLearnMore: "Tìm hiểu thêm",
-    btnViewReports: "Xem báo cáo mẫu",
-    ctaTitle: "SẴN SÀNG ĐỂ GIÚP ĐỠ TRẺ?",
-    ctaSub: "Tham gia cùng hơn 1000 giáo viên đang sử dụng AutiCare để thay đổi cuộc sống của học sinh mỗi ngày.",
-    btnJoinNow: "THAM GIA NGAY"
+    btnViewDemo: "DEMO TRUNG TÂM & VAI TRÒ",
+    ctaTitle: "BẮT ĐẦU HÀNH TRÌNH THAY ĐỔI NGAY HÔM NAY",
+    ctaSub: "Tham gia cùng mạng lưới hơn 50 trung tâm và 1000 chuyên gia can thiệp sớm hàng đầu sử dụng AutiCare mỗi ngày.",
+    btnJoinNow: "ĐĂNG KÝ TRẢI NGHIỆM"
   },
   en: {
     home: "Home",
-    category: "Category",
+    category: "Categories",
     reviews: "Reviews",
     about: "About us",
-    collections: "All Collections",
+    collections: "Contact",
     dashboard: "Admin Dashboard",
     login: "Login",
-    heroTitle: "UNDERSTAND & ACCOMPANY CHILDREN",
-    heroSub: "A comprehensive solution supporting teachers and parents in screening, monitoring, and early intervention for children with autism.",
+    heroTitle: "UNDERSTAND & ACCOMPANY AUTISTIC CHILDREN",
+    heroSub: "A comprehensive digital solution supporting clinical schools, teachers, and parents in early screening, behavioral analysis, and social inclusion progress.",
     btnStartScreening: "START SCREENING",
-    btnViewDemo: "VIEW MANAGEMENT DEMO",
-    missionTitle: "OUR VISION",
-    missionSub: "We create an inclusive educational environment where every child is understood and develops in their own unique way.",
-    card1Title: "Optimal Learning Environment",
-    card1Sub: "Providing tools to help teachers create visual schedules, reducing anxiety and increasing student independence.",
-    card2Title: "Data is the Key",
-    card2Sub: "Track behavioral and communication progress through visual charts, helping experts provide correct intervention pathways.",
-    btnLearnMore: "Learn More",
-    btnViewReports: "View Sample Reports",
-    ctaTitle: "READY TO HELP CHILDREN?",
-    ctaSub: "Join over 1000 teachers using AutiCare to change students' lives every day.",
-    btnJoinNow: "JOIN NOW"
+    btnViewDemo: "CENTER & ROLES DEMO",
+    ctaTitle: "START THE LIFELONG TRANSFORMATION TODAY",
+    ctaSub: "Join our network of over 50 early intervention clinical centers and 1000 specialist educators using AutiCare daily.",
+    btnJoinNow: "REGISTER FREE DEMO"
   }
 }
 
@@ -67,28 +57,70 @@ function App() {
   const [scrolled, setScrolled] = useState(false)
   const [lang, setLang] = useState<Language>('vi')
   const [view, setView] = useState<View>('landing')
+  const [activeSection, setActiveSection] = useState('hero')
 
+  // Navbar scroll visual shift
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      setScrolled(window.scrollY > 30)
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Section Tracking IntersectionObserver for active indicators
+  useEffect(() => {
+    if (view !== 'landing') return
+
+    const sections = ['hero', 'category', 'reviews', 'about', 'cta', 'footer']
+    const observers = sections.map((id) => {
+      const el = document.getElementById(id)
+      if (!el) return null
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveSection(id)
+          }
+        },
+        {
+          root: null,
+          rootMargin: '-40% 0px -40% 0px', // Trigger exactly when section crosses the middle zone
+          threshold: 0
+        }
+      )
+      observer.observe(el)
+      return { observer, el }
+    })
+
+    return () => {
+      observers.forEach((obs) => {
+        if (obs?.observer) obs.observer.unobserve(obs.el)
+      })
+    }
+  }, [view])
+
   const t = translations[lang]
 
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
+      setActiveSection(id)
+    }
+  }
+
   if (view === 'designHomepage') {
-    return <DesignCodeHomepage lang={lang} setLang={setLang} onBack={() => setView('landing')} />;
+    return <DesignCodeHomepage lang={lang} setLang={setLang} onBack={() => setView('landing')} />
   }
 
   if (view === 'designAdmin') {
-    return <DesignCodeAdmin lang={lang} setLang={setLang} onBack={() => setView('admin')} />;
+    return <DesignCodeAdmin lang={lang} setLang={setLang} onBack={() => setView('admin')} />
   }
 
   if (view === 'admin') {
     return (
-      <div className="admin-theme-root admin-view-wrapper">
+      <div className="admin-theme-root admin-view-wrapper" key="admin-view">
          <AdminDashboard 
            lang={lang} 
            setLang={setLang} 
@@ -101,18 +133,49 @@ function App() {
   }
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${view === 'landing' ? 'landing-active' : ''}`} key="landing-view">
+      {/* 1. Header Navigation Bar */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="container nav-content">
           <div className="nav-links">
-            <a href="#">{t.home}</a>
-            <a href="#">{t.category}</a>
-            <a href="#">{t.reviews}</a>
-            <a href="#">{t.about}</a>
-            <a href="#">{t.collections}</a>
+            <a 
+              href="#hero" 
+              className={activeSection === 'hero' ? 'active' : ''}
+              onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }}
+            >
+              {t.home}
+            </a>
+            <a 
+              href="#category" 
+              className={activeSection === 'category' ? 'active' : ''}
+              onClick={(e) => { e.preventDefault(); scrollToSection('category'); }}
+            >
+              {t.category}
+            </a>
+            <a 
+              href="#reviews" 
+              className={activeSection === 'reviews' ? 'active' : ''}
+              onClick={(e) => { e.preventDefault(); scrollToSection('reviews'); }}
+            >
+              {t.reviews}
+            </a>
+            <a 
+              href="#about" 
+              className={activeSection === 'about' ? 'active' : ''}
+              onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
+            >
+              {t.about}
+            </a>
+            <a 
+              href="#cta" 
+              className={activeSection === 'cta' ? 'active' : ''}
+              onClick={(e) => { e.preventDefault(); scrollToSection('cta'); }}
+            >
+              {t.collections}
+            </a>
           </div>
 
-          <div className="logo-area center-logo" onClick={() => setView('landing')} style={{ cursor: 'pointer' }}>
+          <div className="logo-area center-logo" onClick={() => scrollToSection('hero')} style={{ cursor: 'pointer' }}>
             <div className="brand-name neon-text">AutiCare</div>
           </div>
 
@@ -139,87 +202,30 @@ function App() {
         </div>
       </nav>
 
+      {/* 2. Floating Section Dot Indicator Panel (Desktop only) */}
+      <FloatingNav 
+        activeSection={activeSection} 
+        onSectionClick={scrollToSection} 
+        lang={lang} 
+      />
+
+      {/* 3. Main Sections */}
       <main>
-        <section className="hero">
-          <div className="hero-bg-overlay" style={{ backgroundImage: `url(${heroBg})` }}></div>
-          <div className="hero-content">
-            <h1 className="bubble-text">{t.heroTitle}</h1>
-            <p>{t.heroSub}</p>
-            <div className="hero-actions" style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem' }}>
-              <TiltButton 
-                elevation={6} 
-                radius={24} 
-                surfaceColor="var(--primary)" 
-                textColor="white"
-                tilt={10}
-                padding="1rem 2.5rem"
-                className="btn-tilt-lg"
-              >
-                {t.btnStartScreening}
-              </TiltButton>
-              <TiltButton 
-                elevation={6} 
-                radius={24} 
-                surfaceColor="white" 
-                textColor="var(--primary)"
-                tilt={10}
-                padding="1rem 2.5rem"
-                className="btn-tilt-lg"
-              >
-                {t.btnViewDemo}
-              </TiltButton>
-            </div>
-          </div>
-        </section>
+        <HeroSection id="hero" t={t} />
+        
+        <CategoriesSection id="category" lang={lang} />
+        
+        <ReviewsSection id="reviews" lang={lang} />
+        
+        <AboutSection id="about" lang={lang} />
+        
+        <CtaSection id="cta" t={t} />
 
-        <section className="mission container">
-          <div className="section-title">
-            <h2 className="bubble-text" style={{ color: 'var(--primary)', textShadow: '2px 2px 0 white' }}>{t.missionTitle}</h2>
-            <p>{t.missionSub}</p>
-          </div>
-          <div className="mission-grid">
-            <div className="mission-card glass">
-              <div className="mission-img-wrapper">
-                <img src={classroomImg} alt="Classroom" className="mission-img" />
-              </div>
-              <div className="mission-info">
-                <h3>{t.card1Title}</h3>
-                <p>{t.card1Sub}</p>
-                <TiltButton elevation={3} radius={12} surfaceColor="var(--secondary)" textColor="white">{t.btnLearnMore}</TiltButton>
-              </div>
-            </div>
-            <div className="mission-card glass">
-              <div className="mission-img-wrapper">
-                <img src={dashboardImg} alt="Dashboard" className="mission-img" />
-              </div>
-              <div className="mission-info">
-                <h3>{t.card2Title}</h3>
-                <p>{t.card2Sub}</p>
-                <TiltButton elevation={3} radius={12} surfaceColor="var(--primary)" textColor="white">{t.btnViewReports}</TiltButton>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="cta-banner container">
-          <div className="banner-content" style={{ background: 'var(--secondary)', color: 'white' }}>
-            <div className="banner-text">
-              <h2 className="bubble-text" style={{ color: 'white', textShadow: '2px 2px 0 var(--primary)' }}>{t.ctaTitle}</h2>
-              <p>{t.ctaSub}</p>
-            </div>
-            <TiltButton 
-              elevation={6} 
-              radius={24} 
-              surfaceColor="white" 
-              textColor="var(--secondary)"
-              padding="1rem 3rem"
-            >
-              {t.btnJoinNow}
-            </TiltButton>
-          </div>
-        </section>
+        {/* 4. Project Footer (Developers & Mentor Credits) */}
+        <Footer lang={lang} />
       </main>
 
+      {/* Design customizer system */}
       <ThemeCustomizer view={view} />
     </div>
   )

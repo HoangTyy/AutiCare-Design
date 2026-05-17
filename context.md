@@ -18,7 +18,7 @@
 - **i18n**: Custom state-based translation dictionary (VN/EN) integrated reactively inside every tab.
 
 ## Key Modules
-1. **Landing Page**: Redesigned header with Nav Links (Left), Neon Logo (Center), and Minimalist Icons (Right).
+1. **Landing Page**: Redesigned header with Nav Links (Left), Neon Logo (Center), and Minimalist Icons (Right). Redesigned homepage with high-end, elegant light warm cream (#FFF8F0) background, 3D WebGL Three.js interactive floating particle sphere (ThreeBackground.tsx), five snap-scrollable desktop sections (Hero, Categories Bento Grid, Glowing Reviews, Statistic About Counters, Gradient CTA Banner), developers and Mentor footer, and a custom right-floating glassmorphic section nav indicator (FloatingNav.tsx).
 2. **Admin Dashboard**: 
     - **Sidebar & Topbar**: Unified **Midnight Indigo** theme with neon branding and glassmorphism interactive states.
     - **Contextual UI**: Modals and breadcrumbs dynamically update based on the active tab for precise user guidance.
@@ -55,5 +55,13 @@
 - [x] Replaced automatic instant-saving with a manual commit workflow using two state comparison buffers (initialRoles and currentRoles) to ensure zero unauthorized updates to the database.
 - [x] Developed a gorgeous Discord-style floating bottom Save Bar (Cẩn thận! Bạn có những thay đổi chưa lưu) that slides up using a 3D elastic spring animation only when changes exist. If the user manually reverts all changes back to their original values, the bar automatically detects the match and slides away without requiring action.
 - [x] Integrated Discard (Reset) and Save buttons inside the floating bar. Saving writes the state to the parent, updates the local initial Roles buffer to clear the difference, and flashes a premium green success toast (✨ Đã lưu thay đổi thành công).
+- [x] Resolved a critical global theme leakage bug where returning to the Landing Page after visiting the Admin Dashboard left a pitch-black/slate background on the homepage. Fixed by introducing unique React key props to the wrapper div elements in `src/App.tsx` (`key="admin-view"` and `key="landing-view"`) to completely prevent DOM node reuse, and refactored `ThemeCustomizer.tsx` to strictly target the `.admin-theme-root` element (avoiding polluting the global `document.documentElement` element when transitioning to the admin theme).
+- [x] Overhauled the Homepage landing structure (excluding header) into a premium, world-class design utilizing curated palettes, elegant rounded corners, and dynamic animations.
+- [x] Overhauled the Homepage landing background from static scattered dots into a gorgeous, highly interactive **3D WebGL Neural Constellation Network** in `ThreeBackground.tsx`. Built 110 pulsing glow particles floating in 3D, dynamically connected by thin neural-like wire lines. Integrated mouse physical attractor forces that attract floating nodes to the cursor, and configured a dynamic link system that automatically draws vivid neon connection lines from the user's cursor to nearest nodes as the mouse moves over the viewport, perfectly symbolizing clinical early child brain interventions.
+- [x] Restored the dynamic WebGL render loop by replacing raw array modifications with standard Three.js reference-tracked Float32Array updates and the `positionsAttr.setXYZ` API. This completely resolved the memory synchronization/freeze issue and successfully restored fluid 60 FPS constellation movement.
+- [x] Resolved a critical scroll snap bug where the Footer could not be scrolled into view on Desktop. Discovered that the `<Footer>` tag was placed outside `<main>`, causing cross-boundary snapping conflicts where the browser repeatedly snapped back to the `#cta` section. Fixed by moving `<Footer>` inside the `<main>` tag so all sections are layout siblings under the same container, and declared `scroll-snap-align: end` for `.footer-section` to snap flawlessly to the footer at the very bottom.
 - [x] Completed visual browser verification and compiled Vite successfully with 100% clean production build outputs.
+- [x] Resolved a minor TypeScript compilation issue where the unused `setView` prop in `HeroSection.tsx` blocked production build compilation, updating it in both the component definition and `App.tsx` instance to produce a 100% warning-free build.
+- [x] Performed automated browser interactive visual layout verification to confirm correct landing page split columns, centered bento 3D action buttons, correct bilingual quotes, and synchronized footer snapping.
+
 
