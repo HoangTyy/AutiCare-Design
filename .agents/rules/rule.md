@@ -14,3 +14,4 @@ BẮT BUỘC: mỗi khi bắt đầu code, phải nắm lại tổng quan ngữ 
 8. Tất cả các trang phải có Reponsive.
 9 Luôn dùng font chữ "Be Vietnam Pro" cho tất cả các trang, riêng Header thì tùy
 10. 1 Trang hiển thị sẽ là một file .tsx khác nhau ( ví dụ như Dashboard, có nhiều tab, thì mỗi tab một file .tsx, không gom toàn bộ component vào một file .tsx)
+11. Cấu trúc thư mục phải chuyên nghiệp, chặt chẽ, không được chung chung quá giao diện nhiều chức năng không liên quan và khác nhau trong một file .tsx
