@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
-import { TiltButton } from 'react-tilt-button';
+import CentersTab from './dashboard/CentersTab';
+import CenterDetailView from './dashboard/CenterDetailView';
+import type { Center } from './dashboard/CenterDetailView';
+import StaffsTab from './dashboard/StaffsTab';
+import ObjectivesTab from './dashboard/ObjectivesTab';
+import BlogsTab from './dashboard/BlogsTab';
+import type { ExerciseLevel } from './dashboard/CenterLevelsTab';
+import type { ExerciseCategory } from './dashboard/CenterCategoriesTab';
 import './AdminDashboard.css';
 
-type Tab = 'centers' | 'staffs' | 'levels' | 'categories' | 'objectives' | 'blogs';
+type Tab = 'centers' | 'staffs' | 'objectives' | 'blogs';
 
 interface AdminDashboardProps {
   lang: 'vi' | 'en';
@@ -28,21 +35,91 @@ interface MenuGroup {
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, onDesignCode }) => {
   const [activeTab, setActiveTab] = useState<Tab>('centers');
   const [expandedGroups, setExpandedGroups] = useState<string[]>(['system', 'training']);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalMode, setModalMode] = useState<'create' | 'edit' | 'delete'>('create');
-  const [selectedItem, setSelectedItem] = useState<any>(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCenterForDetail, setSelectedCenterForDetail] = useState<Center | null>(null);
 
-  const openModal = (mode: 'create' | 'edit' | 'delete', item: any = null) => {
-    setModalMode(mode);
-    setSelectedItem(item);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedItem(null);
-  };
+  // Core Mock Database State for Centers, their respective Levels, and Categories
+  const [centers, setCenters] = useState<Center[]>([
+    {
+      id: 'AC-001',
+      name: 'AutiCare Central Saigon',
+      date: '2026-01-10',
+      status: 'Active',
+      address: '123 Nguyễn Thị Minh Khai, Quận 1, TP. Hồ Chí Minh',
+      phone_number: '+84 28 3930 1234',
+      email: 'saigon.central@auticare.edu.vn',
+      levels: [
+        { id: '1', name: 'Dễ - Saigon', score: '1', desc: 'Mức độ dành cho các bài tập dễ tại Saigon' },
+        { id: '2', name: 'Bình Thường - Saigon', score: '2', desc: 'Mức độ dành cho các bài tập bình thường tại Saigon' },
+        { id: '3', name: 'Khó - Saigon', score: '3', desc: 'Mức độ bài tập khó phát triển kỹ năng cao tại Saigon' },
+      ],
+      categories: [
+        { id: '1', name: 'Giáo dục thể chất - Saigon', date: '05/10/2026', isParent: true },
+        { id: '2', name: 'Vận động thô - Saigon', date: '05/12/2026', isSub: true },
+        { id: '3', name: 'Vận động tinh - Saigon', date: '05/13/2026', isSub: true },
+      ],
+      roles: [
+        { id: 'R-DIR', nameVi: 'Giám đốc Trung tâm', nameEn: 'Center Director', permissions: ['manage_center', 'manage_staffs', 'manage_roles', 'view_analytics', 'manage_levels', 'manage_categories', 'manage_exercises', 'manage_blogs'], status: 'Active', priority: 1, isDefault: true },
+        { id: 'R-DOC', nameVi: 'Bác sĩ chuyên khoa', nameEn: 'Clinical Doctor', permissions: ['view_analytics', 'manage_exercises', 'manage_levels'], status: 'Active', priority: 2, isDefault: true },
+        { id: 'R-TCH', nameVi: 'Giáo viên can thiệp', nameEn: 'Intervention Teacher', permissions: ['manage_exercises', 'view_analytics'], status: 'Active', priority: 3, isDefault: true },
+        { id: 'R-THR', nameVi: 'Trị liệu viên cao cấp', nameEn: 'Senior Therapist', permissions: ['manage_exercises'], status: 'Active', priority: 4, isDefault: false },
+      ],
+      staffs: [
+        { id: 'S-001', name: 'Dr. Nguyễn Văn A', roleId: 'R-DIR', email: 'nguyenvana.saigon@auticare.edu.vn', phone: '0901234567', joinedDate: '2026-01-10', status: 'Active' },
+        { id: 'S-002', name: 'Cô Lê Thị B', roleId: 'R-TCH', email: 'lethib.saigon@auticare.edu.vn', phone: '0907654321', joinedDate: '2026-01-12', status: 'Active' },
+        { id: 'S-003', name: 'Thầy Phạm Văn C', roleId: 'R-THR', email: 'phamvanc.saigon@auticare.edu.vn', phone: '0903334445', joinedDate: '2026-02-01', status: 'Active' },
+      ]
+    },
+    {
+      id: 'AC-002',
+      name: 'AutiCare Hanoi North',
+      date: '2026-02-15',
+      status: 'Active',
+      address: '456 Hoàng Hoa Thám, Quận Tây Hồ, Hà Nội',
+      phone_number: '+84 24 3762 5678',
+      email: 'hanoi.north@auticare.edu.vn',
+      levels: [
+        { id: '1', name: 'Cơ bản - Hanoi', score: '1', desc: 'Mức độ làm quen ban đầu tại cơ sở Hanoi' },
+        { id: '2', name: 'Nâng cao - Hanoi', score: '4', desc: 'Cấp độ nâng cao chuyên sâu tại cơ sở Hanoi' },
+      ],
+      categories: [
+        { id: '1', name: 'Phát triển ngôn ngữ - Hanoi', date: '05/10/2026', isParent: true },
+        { id: '2', name: 'Giao tiếp xã hội - Hanoi', date: '05/12/2026', isSub: true },
+      ],
+      roles: [
+        { id: 'R-DIR', nameVi: 'Giám đốc Trung tâm', nameEn: 'Center Director', permissions: ['manage_center', 'manage_staffs', 'manage_roles', 'view_analytics', 'manage_levels', 'manage_categories', 'manage_exercises', 'manage_blogs'], status: 'Active', priority: 1, isDefault: true },
+        { id: 'R-DOC', nameVi: 'Bác sĩ chuyên khoa', nameEn: 'Clinical Doctor', permissions: ['view_analytics', 'manage_exercises', 'manage_levels'], status: 'Active', priority: 2, isDefault: true },
+        { id: 'R-TCH', nameVi: 'Giáo viên can thiệp', nameEn: 'Intervention Teacher', permissions: ['manage_exercises', 'view_analytics'], status: 'Active', priority: 3, isDefault: true },
+      ],
+      staffs: [
+        { id: 'H-001', name: 'Dr. Trần Thu Hằng', roleId: 'R-DIR', email: 'tranthuhang.hn@auticare.edu.vn', phone: '0912345678', joinedDate: '2026-02-15', status: 'Active' },
+        { id: 'H-002', name: 'Cô Hoàng Mai Anh', roleId: 'R-TCH', email: 'maianh.hn@auticare.edu.vn', phone: '0918765432', joinedDate: '2026-02-20', status: 'Active' },
+      ]
+    },
+    {
+      id: 'AC-003',
+      name: 'AutiCare Da Nang Beach',
+      date: '2026-03-20',
+      status: 'Active',
+      address: '789 Võ Nguyên Giáp, Quận Sơn Trà, Đà Nẵng',
+      phone_number: '+84 23 6384 9012',
+      email: 'danang.beach@auticare.edu.vn',
+      levels: [
+        { id: '1', name: 'Nhập môn - Da Nang', score: '1', desc: 'Mức nhập môn làm quen cho trẻ tại Da Nang' }
+      ],
+      categories: [
+        { id: '1', name: 'Kỹ năng sống - Da Nang', date: '05/10/2026', isParent: true },
+        { id: '2', name: 'Tự phục vụ - Da Nang', date: '05/12/2026', isSub: true }
+      ],
+      roles: [
+        { id: 'R-DIR', nameVi: 'Giám đốc Trung tâm', nameEn: 'Center Director', permissions: ['manage_center', 'manage_staffs', 'manage_roles', 'view_analytics', 'manage_levels', 'manage_categories', 'manage_exercises', 'manage_blogs'], status: 'Active', priority: 1, isDefault: true },
+        { id: 'R-DOC', nameVi: 'Bác sĩ chuyên khoa', nameEn: 'Clinical Doctor', permissions: ['view_analytics', 'manage_exercises', 'manage_levels'], status: 'Active', priority: 2, isDefault: true },
+        { id: 'R-TCH', nameVi: 'Giáo viên can thiệp', nameEn: 'Intervention Teacher', permissions: ['manage_exercises', 'view_analytics'], status: 'Active', priority: 3, isDefault: true },
+      ],
+      staffs: [
+        { id: 'D-001', name: 'Thầy Lê Anh Tuấn', roleId: 'R-DIR', email: 'anhtuan.dn@auticare.edu.vn', phone: '0987654321', joinedDate: '2026-03-20', status: 'Active' }
+      ]
+    }
+  ]);
 
   const menuGroups: MenuGroup[] = [
     {
@@ -61,8 +138,6 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
       labelEn: 'Training Content',
       icon: '🧩',
       items: [
-        { id: 'levels', labelVi: 'Cấp độ Bài tập', labelEn: 'Exercise Levels' },
-        { id: 'categories', labelVi: 'Danh mục Bài tập', labelEn: 'Exercise Categories' },
         { id: 'objectives', labelVi: 'Mục tiêu Huấn luyện', labelEn: 'Manage Objectives' },
       ]
     },
@@ -91,210 +166,76 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
     return menuGroups[0].items[0];
   };
 
-  const getTabSingular = () => {
-    const active = getActiveItem();
-    if (lang === 'vi') {
-      if (active.id === 'centers') return 'trung tâm';
-      if (active.id === 'staffs') return 'nhân sự';
-      if (active.id === 'levels') return 'cấp độ';
-      if (active.id === 'categories') return 'danh mục';
-      if (active.id === 'objectives') return 'mục tiêu';
-      if (active.id === 'blogs') return 'bài viết';
-      return 'mục';
-    } else {
-      if (active.id === 'centers') return 'Center';
-      if (active.id === 'staffs') return 'Staff';
-      if (active.id === 'levels') return 'Level';
-      if (active.id === 'categories') return 'Category';
-      if (active.id === 'objectives') return 'Objective';
-      if (active.id === 'blogs') return 'Blog';
-      return 'Item';
+  // State Updates for Center Levels and Categories
+  const handleUpdateCenterLevels = (centerId: string, newLevels: ExerciseLevel[]) => {
+    setCenters(prev =>
+      prev.map(c => (c.id === centerId ? { ...c, levels: newLevels } : c))
+    );
+    // If the active detail view is open for this center, sync the view state too
+    if (selectedCenterForDetail && selectedCenterForDetail.id === centerId) {
+      setSelectedCenterForDetail(prev => prev ? { ...prev, levels: newLevels } : null);
     }
   };
 
-  const renderContent = () => {
-    const activeItem = getActiveItem();
-    const title = lang === 'vi' ? activeItem.labelVi : activeItem.labelEn;
-
-    // Mock data and columns based on tab
-    const getTabData = () => {
-      switch (activeTab) {
-        case 'centers': return {
-          columns: [
-            { key: 'id', labelVi: 'ID', labelEn: 'ID' },
-            { key: 'name', labelVi: 'Tên Trung tâm', labelEn: 'Center Name' },
-            { key: 'date', labelVi: 'Ngày tạo', labelEn: 'Created At' },
-            { key: 'status', labelVi: 'Trạng thái', labelEn: 'Status' }
-          ],
-          rows: [
-            { id: 'AC-001', name: 'AutiCare Central Saigon', date: '2026-01-10', status: 'Active' },
-            { id: 'AC-002', name: 'AutiCare Hanoi North', date: '2026-02-15', status: 'Active' },
-            { id: 'AC-003', name: 'AutiCare Da Nang Beach', date: '2026-03-20', status: 'Active' },
-          ]
-        };
-        case 'levels': return {
-          columns: [
-            { key: 'id', labelVi: 'ID', labelEn: 'ID' },
-            { key: 'name', labelVi: 'Tên Cấp độ', labelEn: 'Exercise Level Name' },
-            { key: 'score', labelVi: 'Điểm độ khó', labelEn: 'Complexity Score' },
-            { key: 'desc', labelVi: 'Mô tả', labelEn: 'Description' }
-          ],
-          rows: [
-            { id: '1', name: 'Dễ', score: '1', desc: 'Mức độ dành cho các bài tập dễ' },
-            { id: '2', name: 'Bình Thường', score: '2', desc: 'Mức độ dành cho các bài tập bình thường' },
-            { id: '3', name: 'Khó', score: '3', desc: 'Mức độ dành cho các bài tập khó' },
-          ]
-        };
-        case 'categories': return {
-          columns: [
-            { key: 'id', labelVi: 'ID', labelEn: 'ID' },
-            { key: 'name', labelVi: 'Tên Danh mục', labelEn: 'Exercise Category Name' },
-            { key: 'date', labelVi: 'Ngày tạo', labelEn: 'Create at' }
-          ],
-          rows: [
-            { id: '1', name: 'Giáo dục thể chất', date: '05/10/2026', isParent: true },
-            { id: '2', name: 'Vận động thô', date: '05/12/2026', isSub: true },
-            { id: '3', name: 'Vận động tinh', date: '05/13/2026', isSub: true },
-          ]
-        };
-        default: return {
-          columns: [
-            { key: 'id', labelVi: 'ID', labelEn: 'ID' },
-            { key: 'name', labelVi: 'Tên', labelEn: 'Name' },
-            { key: 'date', labelVi: 'Ngày tạo', labelEn: 'Created At' }
-          ],
-          rows: [
-            { id: 'ITEM-01', name: lang === 'vi' ? 'Dữ liệu mẫu 01' : 'Sample Item 01', date: '2026-05-16' },
-            { id: 'ITEM-02', name: lang === 'vi' ? 'Dữ liệu mẫu 02' : 'Sample Item 02', date: '2026-05-16' },
-          ]
-        };
-      }
-    };
-
-    const tabData = getTabData();
-    const lowSearch = searchTerm.toLowerCase();
-
-    let filteredRows: any[] = [];
-
-    if (activeTab === 'categories' && searchTerm) {
-      const matchIndices = new Set<number>();
-
-      // Find direct matches
-      tabData.rows.forEach((row: any, i) => {
-        if (Object.values(row).some(val => String(val).toLowerCase().includes(lowSearch))) {
-          matchIndices.add(i);
-        }
-      });
-
-      const finalIndices = new Set(matchIndices);
-
-      // Add parents if subs match
-      matchIndices.forEach(idx => {
-        const row = tabData.rows[idx] as any;
-        if (row.isSub) {
-          for (let i = idx - 1; i >= 0; i--) {
-            const potentialParent = tabData.rows[i] as any;
-            if (potentialParent.isParent) {
-              finalIndices.add(i);
-              break;
-            }
-          }
-        }
-      });
-
-      filteredRows = tabData.rows
-        .filter((_, i) => finalIndices.has(i))
-        .map((row: any) => ({
-          ...row,
-          isHighlight: Object.values(row).some(val => String(val).toLowerCase().includes(lowSearch))
-        }));
-    } else {
-      filteredRows = tabData.rows
-        .filter((row: any) =>
-          !searchTerm || Object.values(row).some(val => String(val).toLowerCase().includes(lowSearch))
-        )
-        .map((row: any) => ({
-          ...row,
-          isHighlight: !!searchTerm
-        }));
-    }
-
-    return (
-      <div className="dashboard-content-area">
-        <div className="table-header">
-          <h2 className="table-title">{title}</h2>
-          <div className="table-actions">
-            <div className="search-bar">
-              <span className="search-icon">🔍</span>
-              <input
-                type="text"
-                placeholder={lang === 'vi' ? 'Tìm kiếm...' : 'Search...'}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-            <button className="add-btn" onClick={() => openModal('create')}>
-              + {lang === 'vi' ? 'Thêm mới' : 'Add New'}
-            </button>
-          </div>
-        </div>
-
-        <div className="data-table-wrapper">
-          <table className="data-table">
-            <thead>
-              <tr>
-                {tabData.columns.map((col: any) => (
-                  <th key={col.key} style={col.key === 'id' ? { width: '80px' } : {}}>
-                    {lang === 'vi' ? col.labelVi : col.labelEn}
-                  </th>
-                ))}
-                <th style={{ textAlign: 'right', width: '100px' }}>{lang === 'vi' ? 'Thao tác' : 'Actions'}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredRows.length > 0 ? (
-                filteredRows.map((row: any, i) => (
-                  <tr key={i} className={row.isHighlight ? 'neon-highlight' : ''}>
-                    {tabData.columns.map((col: any) => (
-                      <td key={col.key} className={`${col.key}-col ${row.isSub && col.key === 'name' ? 'sub-category-cell' : ''} ${row.isParent && col.key === 'name' ? 'parent-category-cell' : ''}`}>
-                        {col.key === 'status' ? (
-                          <span className="badge active">{lang === 'vi' ? 'Hoạt động' : 'Active'}</span>
-                        ) : (
-                          <>
-                            {row.isSub && col.key === 'name' && <span className="sub-indicator">└</span>}
-                            {row[col.key]}
-                          </>
-                        )}
-                      </td>
-                    ))}
-                    <td>
-                      <div className="action-btns" style={{ justifyContent: 'flex-end' }}>
-                        <button className="edit-btn-v2" title={lang === 'vi' ? 'Chỉnh sửa' : 'Edit'} onClick={() => openModal('edit', row)}>
-                          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-                          </svg>
-                        </button>
-                        <button className="delete-btn-v2" title={lang === 'vi' ? 'Xóa' : 'Delete'} onClick={() => openModal('delete', row)}>
-                          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
-                          </svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={tabData.columns.length + 1} style={{ textAlign: 'center', padding: '3rem', color: '#94A3B8' }}>
-                    {lang === 'vi' ? 'Không tìm thấy kết quả phù hợp' : 'No matching results found'}
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
+  const handleUpdateCenterCategories = (centerId: string, newCategories: ExerciseCategory[]) => {
+    setCenters(prev =>
+      prev.map(c => (c.id === centerId ? { ...c, categories: newCategories } : c))
     );
+    // If the active detail view is open for this center, sync the view state too
+    if (selectedCenterForDetail && selectedCenterForDetail.id === centerId) {
+      setSelectedCenterForDetail(prev => prev ? { ...prev, categories: newCategories } : null);
+    }
+  };
+
+  const handleUpdateCenter = (updatedCenter: Center) => {
+    setCenters(prev =>
+      prev.map(c => (c.id === updatedCenter.id ? updatedCenter : c))
+    );
+    setSelectedCenterForDetail(updatedCenter);
+  };
+
+  const handleDeleteCenter = (centerId: string) => {
+    setCenters(prev => prev.filter(c => c.id !== centerId));
+    setSelectedCenterForDetail(null);
+  };
+
+  const handleManageDetail = (center: Center) => {
+    setSelectedCenterForDetail(center);
+  };
+
+  const renderActiveTab = () => {
+    switch (activeTab) {
+      case 'centers':
+        if (selectedCenterForDetail) {
+          return (
+            <CenterDetailView
+              lang={lang}
+              center={selectedCenterForDetail}
+              onBack={() => setSelectedCenterForDetail(null)}
+              onUpdateLevels={(newLevels) => handleUpdateCenterLevels(selectedCenterForDetail.id, newLevels)}
+              onUpdateCategories={(newCats) => handleUpdateCenterCategories(selectedCenterForDetail.id, newCats)}
+              onUpdateCenter={handleUpdateCenter}
+              onDeleteCenter={handleDeleteCenter}
+            />
+          );
+        }
+        return (
+          <CentersTab
+            lang={lang}
+            centers={centers}
+            onManageDetail={handleManageDetail}
+            onUpdateCenters={setCenters}
+          />
+        );
+      case 'staffs':
+        return <StaffsTab lang={lang} />;
+      case 'objectives':
+        return <ObjectivesTab lang={lang} />;
+      case 'blogs':
+        return <BlogsTab lang={lang} />;
+      default:
+        return <CentersTab lang={lang} centers={centers} onManageDetail={handleManageDetail} onUpdateCenters={setCenters} />;
+    }
   };
 
   return (
@@ -324,7 +265,13 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
                     <button
                       key={item.id}
                       className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
-                      onClick={() => setActiveTab(item.id)}
+                      onClick={() => {
+                        setActiveTab(item.id);
+                        // Reset center details view when switching main tabs
+                        if (item.id !== 'centers') {
+                          setSelectedCenterForDetail(null);
+                        }
+                      }}
                     >
                       <span className="nav-label">{lang === 'vi' ? item.labelVi : item.labelEn}</span>
                     </button>
@@ -348,13 +295,26 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
       <main className="dashboard-main">
         <header className="dashboard-topbar">
           <div className="topbar-left">
-            <span className="breadcrumb">Admin / {getActiveItem().labelEn}</span>
+            <span className="breadcrumb">
+              Admin /{' '}
+              {lang === 'vi' ? getActiveItem().labelVi : getActiveItem().labelEn}
+              {selectedCenterForDetail && ` / ${selectedCenterForDetail.name}`}
+            </span>
           </div>
           <div className="topbar-right">
             <button
               className="view-toggle-btn"
               onClick={onBack}
-              style={{ padding: '8px 16px', borderRadius: '20px', background: 'var(--primary)', color: 'white', fontWeight: 700, fontSize: '0.8rem', border: 'none', cursor: 'pointer' }}
+              style={{
+                padding: '8px 16px',
+                borderRadius: '20px',
+                background: 'var(--primary)',
+                color: 'white',
+                fontWeight: 700,
+                fontSize: '0.8rem',
+                border: 'none',
+                cursor: 'pointer'
+              }}
             >
               ← {lang === 'vi' ? 'Quay lại Homepage' : 'Back to Homepage'}
             </button>
@@ -363,85 +323,17 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
               <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</button>
             </div>
             <button className="icon-btn" title="Notifications">🔔</button>
-            {onDesignCode && <button className="icon-btn" title="Design Code" onClick={onDesignCode} style={{ fontSize: '0.75rem', fontWeight: 800 }}>&lt;/&gt;</button>}
+            {onDesignCode && (
+              <button className="icon-btn" title="Design Code" onClick={onDesignCode} style={{ fontSize: '0.75rem', fontWeight: 800 }}>
+                &lt;/&gt;
+              </button>
+            )}
             <button className="icon-btn" title="Settings">⚙️</button>
           </div>
         </header>
 
-        {renderContent()}
+        {renderActiveTab()}
       </main>
-
-      {/* Modern Admin Modal */}
-      {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="admin-modal animate-in">
-            <div className="modal-header">
-              <h3>
-                {modalMode === 'create' && (lang === 'vi' ? `Thêm mới ${getTabSingular()}` : `Create new ${getTabSingular().toLowerCase()}`)}
-                {modalMode === 'edit' && (lang === 'vi' ? `Chỉnh sửa ${getTabSingular()}` : `Edit ${getTabSingular().toLowerCase()}`)}
-                {modalMode === 'delete' && (lang === 'vi' ? 'Xác nhận xóa' : 'Confirm Delete')}
-              </h3>
-              <button className="close-modal" onClick={closeModal}>×</button>
-            </div>
-
-            <div className="modal-body">
-              {modalMode === 'delete' ? (
-                <div className="delete-confirm">
-                  <div className="warning-icon">⚠️</div>
-                  <p>
-                    {lang === 'vi'
-                      ? `Bạn có chắc chắn muốn xóa ${getTabSingular()} "${selectedItem?.name || selectedItem?.labelVi || 'mục này'}"?`
-                      : `Are you sure you want to delete ${getTabSingular().toLowerCase()} "${selectedItem?.name || selectedItem?.labelEn || 'this item'}"?`}
-                  </p>
-                  <p className="sub-text">{lang === 'vi' ? 'Hành động này không thể hoàn tác.' : 'This action cannot be undone.'}</p>
-                </div>
-              ) : (
-                <div className="modal-form">
-                  <div className="form-group">
-                    <label>{lang === 'vi' ? 'Tên / Tiêu đề' : 'Name / Title'}</label>
-                    <input
-                      type="text"
-                      defaultValue={selectedItem?.name || selectedItem?.labelVi || ''}
-                      placeholder="..."
-                      spellCheck="false"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>{lang === 'vi' ? 'Mô tả' : 'Description'}</label>
-                    <textarea
-                      defaultValue={selectedItem?.description || ''}
-                      placeholder="..."
-                      spellCheck="false"
-                    ></textarea>
-                  </div>
-                  {(modalMode === 'create' || modalMode === 'edit') && activeTab === 'categories' && (
-                    <div className="form-group">
-                      <label>{lang === 'vi' ? 'Danh mục cha' : 'Parent Category'}</label>
-                      <select>
-                        <option>--- {lang === 'vi' ? 'Không có' : 'None'} ---</option>
-                        <option>General</option>
-                        <option>Advanced</option>
-                      </select>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-
-            <div className="modal-footer">
-              <button className="btn-secondary" onClick={closeModal}>
-                {lang === 'vi' ? 'Hủy bỏ' : 'Cancel'}
-              </button>
-              <button className={`btn-primary ${modalMode === 'delete' ? 'btn-danger' : ''}`} onClick={() => {
-                alert(lang === 'vi' ? 'Thực hiện thành công!' : 'Operation Successful!');
-                closeModal();
-              }}>
-                {modalMode === 'delete' ? (lang === 'vi' ? 'Xác nhận xóa' : 'Confirm Delete') : (lang === 'vi' ? 'Lưu thay đổi' : 'Save Changes')}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

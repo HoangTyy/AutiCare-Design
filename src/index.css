@@ -29,15 +29,15 @@
 
 /* Admin Dashboard Specific Variables (Muted & Professional) */
 .admin-theme-root {
-  --primary: #0a8a48;
-  --secondary: #2f8367;
-  --accent: #EF4444;
-  --bg-main: #e6eac2;
-  --admin-sidebar: #358249;
+  --primary: #0D9488;
+  --secondary: #2AC176;
+  --accent: #F43F5E;
+  --bg-main: #0F172A;
+  --admin-sidebar: #1E293B;
   --admin-topbar: #FFFFFF;
   --admin-card: #FFFFFF;
-  --text-main: #1A3A26;
-  --text-muted: #64748B;
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
   
   background-color: var(--bg-main);
   color: var(--text-main);

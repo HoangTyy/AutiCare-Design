@@ -754,3 +754,94 @@ tbody tr:hover td:first-child {
 .neon-highlight {
   animation: neonPulseBlue 2s infinite alternate cubic-bezier(0.4, 0, 0.6, 1);
 }
+
+/* ==========================================================================
+   AutiCare Enhanced Statistical Charts & DB Schema Look
+   ========================================================================== */
+
+@keyframes pulseGlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 12px rgba(13, 148, 136, 0.15);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(13, 148, 136, 0.35);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 12px rgba(13, 148, 136, 0.15);
+  }
+}
+
+.chart-bar {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.chart-bar:hover {
+  filter: brightness(1.15) saturate(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(13, 148, 136, 0.35) !important;
+}
+
+.chart-bar:hover .bar-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-6px);
+}
+
+.bar-tooltip {
+  position: absolute;
+  top: -36px;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: #0F172A;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.bar-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 4px 4px 0;
+  border-style: solid;
+  border-color: #0F172A transparent transparent;
+}
+
+/* Modern Keyframe Animations for Entrance */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+

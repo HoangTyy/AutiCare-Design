@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { TiltButton } from 'react-tilt-button'
-import logo from './assets/logo.png'
 import heroBg from './assets/hero-bg.png'
 import classroomImg from './assets/classroom.png'
 import dashboardImg from './assets/dashboard.png'
@@ -89,7 +88,7 @@ function App() {
 
   if (view === 'admin') {
     return (
-      <div className="admin-view-wrapper">
+      <div className="admin-theme-root admin-view-wrapper">
          <AdminDashboard 
            lang={lang} 
            setLang={setLang} 

@@ -32,18 +32,29 @@ const ThemeCustomizer: React.FC<ThemeCustomizerProps> = ({ view }) => {
   });
 
   const colors = view === 'landing' ? landingColors : adminColors;
-  const setColors = view === 'landing' ? setLandingColors : setAdminColors;
 
   useEffect(() => {
-    // Sync colors based on view
-    const target = view === 'landing' ? document.documentElement : document.querySelector('.admin-theme-root') as HTMLElement;
-    
-    if (target) {
-      Object.entries(colors).forEach(([key, val]) => {
-        target.style.setProperty(key, val);
+    // Sync colors based on view, fallback to documentElement if element not immediately found
+    const syncColors = () => {
+      const target = view === 'landing' 
+        ? document.documentElement 
+        : (document.querySelector('.admin-theme-root') as HTMLElement || document.documentElement);
+      
+      if (target) {
+        Object.entries(colors).forEach(([key, val]) => {
+          target.style.setProperty(key, val);
+        });
+        return true;
+      }
+      return false;
+    };
+
+    if (!syncColors()) {
+      requestAnimationFrame(() => {
+        syncColors();
       });
     }
-  }, [view, colors]); // Added colors to dependency to ensure initial sync
+  }, [view, colors]);
 
   const getContrastColor = (hexColor: string) => {
     if (!hexColor || hexColor === 'transparent') return '#ffffff';
@@ -89,22 +100,29 @@ const ThemeCustomizer: React.FC<ThemeCustomizerProps> = ({ view }) => {
   };
 
   const handleColorChange = (key: string, value: string) => {
-    setColors(prev => {
-      const next = { ...prev, [key]: value };
-      
-      // Auto-contrast logic for specific background keys
-      if (key === '--admin-header-bg') {
-        next['--admin-header-text'] = getContrastColor(value);
-      } else if (key === '--admin-footer-bg') {
-        next['--admin-footer-text'] = getContrastColor(value);
-      } else if (key === '--admin-topbar-bg') {
-        next['--admin-topbar-text'] = getContrastColor(value);
-      } else if (key === '--admin-sidebar') {
-        next['--admin-sidebar-text'] = getContrastColor(value);
-      }
-      
-      return next;
-    });
+    if (view === 'landing') {
+      setLandingColors(prev => {
+        const next = { ...prev, [key]: value };
+        return next;
+      });
+    } else {
+      setAdminColors(prev => {
+        const next = { ...prev, [key]: value };
+        
+        // Auto-contrast logic for specific background keys
+        if (key === '--admin-header-bg') {
+          next['--admin-header-text'] = getContrastColor(value);
+        } else if (key === '--admin-footer-bg') {
+          next['--admin-footer-text'] = getContrastColor(value);
+        } else if (key === '--admin-topbar-bg') {
+          next['--admin-topbar-text'] = getContrastColor(value);
+        } else if (key === '--admin-sidebar') {
+          next['--admin-sidebar-text'] = getContrastColor(value);
+        }
+        
+        return next;
+      });
+    }
     
     const target = view === 'landing' ? document.documentElement : document.querySelector('.admin-theme-root') as HTMLElement;
     if (target) {
