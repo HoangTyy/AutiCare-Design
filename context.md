@@ -63,5 +63,6 @@
 - [x] Completed visual browser verification and compiled Vite successfully with 100% clean production build outputs.
 - [x] Resolved a minor TypeScript compilation issue where the unused `setView` prop in `HeroSection.tsx` blocked production build compilation, updating it in both the component definition and `App.tsx` instance to produce a 100% warning-free build.
 - [x] Performed automated browser interactive visual layout verification to confirm correct landing page split columns, centered bento 3D action buttons, correct bilingual quotes, and synchronized footer snapping.
-
-
+- [x] Expanded the "Create New Center" modal form to include `address`, `phone_number`, `email`, and `Assign center director`. Form logic now automatically generates system default roles and assigns the new director to the `staffs` roster of the freshly created center. Redesigned the modal body into a clean 2-column CSS grid.
+- [x] Restructured Action Buttons UI: Removed the "Edit" and "Delete" buttons from the `CentersTab` list view to declutter the table. Re-integrated them directly inside the `CenterDetailView` overview card header to ensure users review center details before performing destructive or modifying actions.
+- [x] Enhanced the Center Editing form to support dynamic assignment and modification of the Center Director, automatically maintaining synchronization with the internal staff roster (role `R-DIR`).

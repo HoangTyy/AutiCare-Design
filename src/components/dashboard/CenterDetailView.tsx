@@ -59,7 +59,13 @@ const translations = {
     tabRoles: "Vai trò cơ sở",
     tabStaffs: "Nhân sự cơ sở",
     overviewTitle: "Tổng quan Trung tâm",
-    centerId: "Mã trung tâm (center_id)",
+    centerId: "Mã trung tâm",
+    lblCenterName: "Tên trung tâm",
+    lblAddress: "Địa chỉ cơ sở",
+    lblPhone: "Số điện thoại",
+    lblDirector: "Giám đốc trung tâm",
+    lblEmail: "Địa chỉ Email",
+    unassigned: "Chưa phân công",
     createdDate: "Ngày tham gia",
     status: "Trạng thái",
     active: "Hoạt động",
@@ -68,7 +74,7 @@ const translations = {
     statsCategories: "Tổng danh mục",
     statsTeachers: "Nhân sự",
     statsChildren: "Vai trò nội bộ",
-    cardInfoTitle: "Hồ sơ Trung tâm Early Intervention",
+    cardInfoTitle: "Chi tiết trung tâm",
     cardInfoDesc: "Trung tâm cung cấp các chương trình can thiệp sớm và hỗ trợ kỹ năng cho trẻ tự kỷ thông qua lộ trình được thiết kế chuẩn chuyên khoa.",
     quickStats: "Chỉ số hoạt động",
     dbSchemaTitle: "Trường dữ liệu Schema Hệ thống",
@@ -101,7 +107,13 @@ const translations = {
     tabRoles: "Center Roles",
     tabStaffs: "Center Staffs",
     overviewTitle: "Center Overview",
-    centerId: "Center ID (center_id)",
+    centerId: "Center ID",
+    lblCenterName: "Center Name",
+    lblAddress: "Physical Address",
+    lblPhone: "Phone Number",
+    lblDirector: "Center Director",
+    lblEmail: "Email Address",
+    unassigned: "Unassigned",
     createdDate: "Date Joined",
     status: "Status",
     active: "Active",
@@ -110,7 +122,7 @@ const translations = {
     statsCategories: "Total Categories",
     statsTeachers: "Staff Members",
     statsChildren: "Custom Roles",
-    cardInfoTitle: "Early Intervention Center Profile",
+    cardInfoTitle: "Center detail",
     cardInfoDesc: "The center provides early intervention programs and skills support for autistic children through medically standardized, personalized pathways.",
     quickStats: "Operational Metrics",
     dbSchemaTitle: "System Database Schema Fields",
@@ -155,6 +167,7 @@ const CenterDetailView: React.FC<CenterDetailViewProps> = ({
   const [address, setAddress] = useState(center.address || '');
   const [phone, setPhone] = useState(center.phone_number || '');
   const [email, setEmail] = useState(center.email || '');
+  const [directorName, setDirectorName] = useState('');
   const [editError, setEditError] = useState('');
 
   // Delete center modal states
@@ -166,6 +179,7 @@ const CenterDetailView: React.FC<CenterDetailViewProps> = ({
     setAddress(center.address || '');
     setPhone(center.phone_number || '');
     setEmail(center.email || '');
+    setDirectorName(center.staffs?.find(s => s.roleId === 'R-DIR')?.name || '');
     setEditError('');
     setIsEditModalOpen(true);
   };
@@ -177,12 +191,40 @@ const CenterDetailView: React.FC<CenterDetailViewProps> = ({
       return;
     }
 
+    let updatedStaffs = [...(center.staffs || [])];
+    const existingDirIndex = updatedStaffs.findIndex(s => s.roleId === 'R-DIR');
+    
+    if (directorName.trim()) {
+      if (existingDirIndex >= 0) {
+        updatedStaffs[existingDirIndex] = {
+          ...updatedStaffs[existingDirIndex],
+          name: directorName
+        };
+      } else {
+        const currentDate = new Date().toISOString().split('T')[0];
+        updatedStaffs.push({
+          id: `S-${Date.now().toString().slice(-4)}`,
+          name: directorName,
+          roleId: 'R-DIR',
+          email: email,
+          phone: phone,
+          joinedDate: currentDate,
+          status: 'Active'
+        });
+      }
+    } else {
+      if (existingDirIndex >= 0) {
+        updatedStaffs.splice(existingDirIndex, 1);
+      }
+    }
+
     const updated: Center = {
       ...center,
       name: centerName,
       address,
       phone_number: phone,
-      email
+      email,
+      staffs: updatedStaffs
     };
 
     onUpdateCenter(updated);
@@ -319,43 +361,55 @@ const CenterDetailView: React.FC<CenterDetailViewProps> = ({
                   <h3 style={{ margin: 0, color: '#0F172A', fontSize: '1.2rem', fontWeight: 800 }}>
                     {t.cardInfoTitle}
                   </h3>
-                  <button
-                    onClick={handleOpenEdit}
-                    style={{
-                      background: 'rgba(13, 148, 136, 0.1)',
-                      border: '1px solid rgba(13, 148, 136, 0.2)',
-                      borderRadius: '8px',
-                      padding: '6px 12px',
-                      fontSize: '0.8rem',
-                      fontWeight: 700,
-                      color: 'var(--primary)',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s'
-                    }}
-                    onMouseOver={(e) => {
-                      e.currentTarget.style.background = 'var(--primary)';
-                      e.currentTarget.style.color = 'white';
-                    }}
-                    onMouseOut={(e) => {
-                      e.currentTarget.style.background = 'rgba(13, 148, 136, 0.1)';
-                      e.currentTarget.style.color = 'var(--primary)';
-                    }}
-                  >
-                    {t.btnEdit}
-                  </button>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <button
+                      onClick={handleOpenEdit}
+                      style={{
+                        padding: '6px 12px',
+                        borderRadius: '8px',
+                        border: '1px solid #E2E8F0',
+                        background: 'white',
+                        fontWeight: 600,
+                        fontSize: '0.8rem',
+                        color: '#0F172A',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s'
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.borderColor = 'var(--primary)';
+                        e.currentTarget.style.color = 'var(--primary)';
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.borderColor = '#E2E8F0';
+                        e.currentTarget.style.color = '#0F172A';
+                      }}
+                    >
+                      {t.btnEdit}
+                    </button>
+                    <button
+                      onClick={() => setIsDeleteModalOpen(true)}
+                      style={{
+                        padding: '6px 12px',
+                        borderRadius: '8px',
+                        border: 'none',
+                        background: '#FEF2F2',
+                        fontWeight: 600,
+                        fontSize: '0.8rem',
+                        color: '#EF4444',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s'
+                      }}
+                      onMouseOver={(e) => e.currentTarget.style.background = '#FEE2E2'}
+                      onMouseOut={(e) => e.currentTarget.style.background = '#FEF2F2'}
+                    >
+                      {t.btnDeleteCenter}
+                    </button>
+                  </div>
                 </div>
-                <p style={{ margin: '0 0 2rem 0', color: '#475569', fontSize: '0.92rem', lineHeight: '1.6' }}>
-                  {t.cardInfoDesc}
-                </p>
 
                 {/* Database Schema Grid Layout */}
                 <div style={{ background: '#F8FAFC', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '1.5rem', marginBottom: '1.5rem' }}>
-                  <div style={{ marginBottom: '1rem' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                      ⚡ {t.dbSchemaTitle}
-                    </span>
-                    <p style={{ margin: '4px 0 0 0', fontSize: '0.8rem', color: '#64748B' }}>{t.dbSchemaDesc}</p>
-                  </div>
+
 
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem' }}>
                     <div>
@@ -367,35 +421,44 @@ const CenterDetailView: React.FC<CenterDetailViewProps> = ({
 
                     <div>
                       <span style={{ display: 'block', fontSize: '0.7rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>
-                        Tên trung tâm (center_name [nvarchar])
+                        {t.lblCenterName}
                       </span>
                       <span style={{ fontSize: '0.9rem', color: '#0F172A', fontWeight: 700 }}>{center.name}</span>
                     </div>
 
                     <div>
                       <span style={{ display: 'block', fontSize: '0.7rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>
-                        Địa chỉ cơ sở (address [nvarchar])
+                        {t.lblAddress}
                       </span>
                       <span style={{ fontSize: '0.9rem', color: '#0F172A', fontWeight: 700 }}>{center.address || 'N/A'}</span>
                     </div>
 
                     <div>
                       <span style={{ display: 'block', fontSize: '0.7rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>
-                        Số điện thoại (phone_number [varchar])
+                        {t.lblPhone}
                       </span>
                       <span style={{ fontSize: '0.9rem', color: '#0F172A', fontWeight: 700 }}>{center.phone_number || 'N/A'}</span>
                     </div>
 
                     <div>
                       <span style={{ display: 'block', fontSize: '0.7rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>
-                        Địa chỉ Email (email [varchar])
+                        {t.lblDirector}
+                      </span>
+                      <span style={{ fontSize: '0.9rem', color: '#0F172A', fontWeight: 700 }}>
+                        {center.staffs?.find(s => s.roleId === 'R-DIR')?.name || t.unassigned}
+                      </span>
+                    </div>
+
+                    <div>
+                      <span style={{ display: 'block', fontSize: '0.7rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>
+                        {t.lblEmail}
                       </span>
                       <span style={{ fontSize: '0.9rem', color: '#0F172A', fontWeight: 700 }}>{center.email || 'N/A'}</span>
                     </div>
 
                     <div>
                       <span style={{ display: 'block', fontSize: '0.7rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>
-                        {t.createdDate} (date [date])
+                        {t.createdDate}
                       </span>
                       <span style={{ fontSize: '0.9rem', color: '#0F172A', fontWeight: 700 }}>{center.date}</span>
                     </div>
@@ -403,36 +466,7 @@ const CenterDetailView: React.FC<CenterDetailViewProps> = ({
                 </div>
               </div>
 
-              {/* Dangerous Area - Delete Center Button */}
-              <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '1.25rem', display: 'flex', justifyContent: 'flex-end' }}>
-                <button
-                  onClick={() => {
-                    setDeleteInput('');
-                    setIsDeleteModalOpen(true);
-                  }}
-                  style={{
-                    background: 'rgba(239, 68, 68, 0.08)',
-                    border: '1px solid rgba(239, 68, 68, 0.15)',
-                    borderRadius: '10px',
-                    padding: '8px 16px',
-                    fontSize: '0.8rem',
-                    fontWeight: 700,
-                    color: '#EF4444',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s'
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.background = '#EF4444';
-                    e.currentTarget.style.color = 'white';
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.background = 'rgba(239, 68, 68, 0.08)';
-                    e.currentTarget.style.color = '#EF4444';
-                  }}
-                >
-                  {t.btnDeleteCenter}
-                </button>
-              </div>
+
             </div>
 
             {/* Quick stats box */}
@@ -774,6 +808,19 @@ const CenterDetailView: React.FC<CenterDetailViewProps> = ({
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={t.placeholderEmail}
+                    style={{ width: '100%', padding: '10px 14px', borderRadius: '10px', border: '1px solid #E2E8F0', boxSizing: 'border-box' }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>
+                    {lang === 'vi' ? 'Giám đốc Trung tâm (Director)' : 'Center Director'}
+                  </label>
+                  <input
+                    type="text"
+                    value={directorName}
+                    onChange={(e) => setDirectorName(e.target.value)}
+                    placeholder="..."
                     style={{ width: '100%', padding: '10px 14px', borderRadius: '10px', border: '1px solid #E2E8F0', boxSizing: 'border-box' }}
                   />
                 </div>
