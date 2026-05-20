@@ -8,8 +8,9 @@ import BlogsTab from './dashboard/BlogsTab';
 import type { ExerciseLevel } from './dashboard/CenterLevelsTab';
 import type { ExerciseCategory } from './dashboard/CenterCategoriesTab';
 import './AdminDashboard.css';
+import NotificationTab from './dashboard/NotificationTab';
 
-type Tab = 'centers' | 'staffs' | 'objectives' | 'blogs';
+type Tab = 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification';
 
 interface AdminDashboardProps {
   lang: 'vi' | 'en';
@@ -34,7 +35,7 @@ interface MenuGroup {
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, onDesignCode }) => {
   const [activeTab, setActiveTab] = useState<Tab>('centers');
-  const [expandedGroups, setExpandedGroups] = useState<string[]>(['system', 'training']);
+  const [expandedGroups, setExpandedGroups] = useState<string[]>(['system', 'training', 'content']);
   const [selectedCenterForDetail, setSelectedCenterForDetail] = useState<Center | null>(null);
 
   // Core Mock Database State for Centers, their respective Levels, and Categories
@@ -148,6 +149,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
       icon: '📰',
       items: [
         { id: 'blogs', labelVi: 'Quản lý Blog', labelEn: 'Manage Blogs' },
+        { id: 'notification', labelVi: 'Quản lý Thông báo', labelEn: 'Manage Notifications' },
       ]
     }
   ];
@@ -171,7 +173,6 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
     setCenters(prev =>
       prev.map(c => (c.id === centerId ? { ...c, levels: newLevels } : c))
     );
-    // If the active detail view is open for this center, sync the view state too
     if (selectedCenterForDetail && selectedCenterForDetail.id === centerId) {
       setSelectedCenterForDetail(prev => prev ? { ...prev, levels: newLevels } : null);
     }
@@ -181,7 +182,6 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
     setCenters(prev =>
       prev.map(c => (c.id === centerId ? { ...c, categories: newCategories } : c))
     );
-    // If the active detail view is open for this center, sync the view state too
     if (selectedCenterForDetail && selectedCenterForDetail.id === centerId) {
       setSelectedCenterForDetail(prev => prev ? { ...prev, categories: newCategories } : null);
     }
@@ -233,6 +233,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
         return <ObjectivesTab lang={lang} />;
       case 'blogs':
         return <BlogsTab lang={lang} />;
+      case 'notification':
+        return <NotificationTab lang={lang} />;
       default:
         return <CentersTab lang={lang} centers={centers} onManageDetail={handleManageDetail} onUpdateCenters={setCenters} />;
     }
@@ -267,7 +269,6 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
                       className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
                       onClick={() => {
                         setActiveTab(item.id);
-                        // Reset center details view when switching main tabs
                         if (item.id !== 'centers') {
                           setSelectedCenterForDetail(null);
                         }
@@ -322,7 +323,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
               <button className={`lang-btn ${lang === 'vi' ? 'active' : ''}`} onClick={() => setLang('vi')}>VN</button>
               <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</button>
             </div>
-            <button className="icon-btn" title="Notifications">🔔</button>
+            <button className="icon-btn" title="Notifications" onClick={() => setActiveTab('notification')}>🔔</button>
             {onDesignCode && (
               <button className="icon-btn" title="Design Code" onClick={onDesignCode} style={{ fontSize: '0.75rem', fontWeight: 800 }}>
                 &lt;/&gt;
