@@ -286,8 +286,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
           <div className="user-profile">
             <div className="avatar">AD</div>
             <div className="user-info">
-              <div className="user-name">Admin User</div>
-              <div className="user-role">Super Admin</div>
+              <div className="user-name">AutiCare's Admin</div>
+              <div className="user-role">Administrator</div>
             </div>
           </div>
         </div>
