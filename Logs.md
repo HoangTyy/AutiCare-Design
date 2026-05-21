@@ -560,3 +560,102 @@
     - Neu man hinh thap hoac zoom lon, phan form ben phai se cuon noi bo thay vi bi cat noi dung; Sign in/Forgot van giu cam giac modal gon nhu truoc.
 - **Build Verification**:
     - Da chay `npm.cmd run build`; khong co loi moi tu `AuthModal.tsx` hay `App.css`. Build van bi chan boi loi TypeScript co san trong `src/components/dashboard/StaffsTab.tsx` dong 471 va 512 (`TS2367` so sanh type `"view"` voi `"edit"`).
+
+## [2026-05-21] - Sửa Khung Vuông Nút Bấm & Nâng Cấp Popup Đặt Lịch Chuyên Gia Song Ngữ
+- **Implementation**:
+    - **Sửa lỗi Khung Vuông ngoài Nút bấm**: Cập nhật `src/components/homepage/HeroSection.tsx`, loại bỏ các thẻ `<button className="action-item">` thừa bọc ngoài hai `TiltButton` chính. Chuyển trực tiếp prop `onClick` vào `TiltButton`. Điều này loại bỏ hoàn toàn các khung viền vuông đen dày và bóng cứng thừa thãi xung quanh các nút bo tròn pill-shape.
+    - **Đa ngôn ngữ hóa danh sách chuyên gia (Rule 7)**: Cập nhật `App.tsx` truyền prop `lang` vào `HeroSection`. Cập nhật dữ liệu tĩnh `experts` trong `HeroSection.tsx` thành song ngữ (English/Vietnamese) phản hồi động theo nút chuyển đổi VN/EN trên Header: hiển thị tên, chức danh và giờ trống tương ứng bằng tiếng Việt/Anh chuẩn.
+    - **Tái thiết kế toàn diện Popup Đặt lịch (Playful Geometric)**:
+        - Bổ sung đè (override) CSS của các lớp `.experts-popup-overlay`, `.experts-panel`, `.close-experts-btn`, `.expert-card`, `.expert-avatar`, `.expert-schedule-btn` tại cuối tệp `src/App.css` (thuộc layer Playful Geometric).
+        - Giao diện Popup: Thiết lập bo góc `24px`, viền Slate `2px solid var(--neo-ink)`, đổ bóng mờ mịn `#E2E8F0` kết hợp bóng cứng slate `#1E293B`, nền trắng sữa kết hợp các mảng màu nhạt Memphis.
+        - Thẻ Chuyên gia `.expert-card`: Đổ bóng card luân phiên theo màu nhóm cá tính, bo góc `20px` hiện đại, hover card có hiệu ứng nâng nhẹ và xoay góc `0.4deg` rất mượt mà.
+        - Avatar Chuyên gia `.expert-avatar`: Dạng sticker hình tròn có viền và đổ bóng, màu nền luân phiên theo palette AutiCare (Violet, Pink, Yellow) cực kỳ sống động.
+        - Nút Đóng `.close-experts-btn`: Tái thiết kế thành nút tròn sticker màu Warning Yellow, hover xoay tròn 90 độ mượt mà và chuyển màu hồng Neon nổi bật.
+        - Nút Đặt lịch `.expert-schedule-btn`: Chuyển đổi thành **Candy Button** pill-shape (`rounded-full`, viền Slate 2px, màu Mint mát mắt, shadow offset 3px, hiệu ứng hover chuyển xanh/chữ trắng và active co giãn cơ học mượt mà).
+        - Hoạt ảnh Xuất hiện: Tích hợp hiệu ứng mở modal scale bounce đàn hồi mượt mà (`play-modal-entrance` sử dụng cubic-bezier).
+        - Responsive: Tự động co giãn 1 cột cân đối trên màn hình di động, phình to nút đặt lịch 100% để tối ưu hóa trải nghiệm bấm chạm.
+    - **Khắc phục triệt để lỗi TypeScript TS2367**:
+        - Cập nhật `src/components/dashboard/StaffsTab.tsx`, loại bỏ các đoạn logic điều kiện `{modalMode === 'edit' && (...)}` thừa thãi bên trong khối `modalMode === 'view'` (nơi TS đã loại trừ chỉ còn kiểu `"view"` nên không thể so sánh với `"edit"`).
+        - Điều này hoàn toàn giải quyết lỗi TS tồn tại lâu nay trong project và trả lại trạng thái biên dịch sạch sẽ 100%.
+- **Walkthrough**:
+    - Trực quan: Giao diện Landing Page tại zoom 100% trên desktop hiển thị 2 nút chính "START ASSESSMENT" và "BOOK AN EXPERT NOW" dạng pill-shape bo tròn hoàn hảo, không còn khung vuông đen thừa thãi bao quanh.
+    - Khi bấm "BOOK AN EXPERT NOW", popup chuyên gia xuất hiện với hiệu ứng phóng to đàn hồi cực kỳ cao cấp, giao diện sạch sẽ, màu sắc bắt mắt, các thẻ chuyên gia, nút đóng, nút đặt lịch có chuyển động mượt mà.
+    - Khi bấm chuyển VN/EN, toàn bộ popup tự động dịch thông tin chuyên gia và lịch trống sang tiếng Anh/Việt hoàn hảo.
+- **Build Verification**:
+    - Chạy thành công `npm.cmd run build` trên PowerShell. Dự án biên dịch thành công 100% sạch sẽ hoàn toàn không còn bất kỳ lỗi TypeScript hay CSS nào (built in 344ms).
+
+## [2026-05-21] - Sửa Lỗi Popup Bị Đè Phía Sau Hình Ảnh & Cải Thiện Backdrop Overlay
+- **Implementation**:
+    - **Khắc phục lỗi Stacking Context (Đè phía sau hình ảnh)**: Di chuyển mã JSX của popup chuyên gia `{showExperts && (...)}` từ vị trí sâu bên trong `.hero-left` và `.hero-content` ra ngoài, đặt ở mức cao nhất trực tiếp trong `.hero.snap-section` trong tệp `src/components/homepage/HeroSection.tsx`. Điều này loại bỏ ảnh hưởng của thuộc tính `transform: rotate(-0.45deg)` trên `.hero-content`, cái vốn tạo ra một stacking context độc lập làm cho các phần tử `position: fixed` bị giới hạn diện tích bao phủ và bị xếp phía sau các phần tử khác như ảnh minh họa hoặc background Three.js.
+    - **Cải thiện Backdrop Overlay (Bóng mờ bao phủ toàn trang)**: Cập nhật CSS của lớp `.experts-popup-overlay` tại cuối tệp `src/App.css` dưới layer *Playful Geometric*. Thay đổi nền từ màu trắng kem sáng (`rgba(255, 253, 245, 0.9)`) sang một lớp phủ bóng tối/mờ cực kỳ sang trọng (`rgba(15, 23, 42, 0.65)` - Slate 900) kết hợp hiệu ứng làm mờ hậu cảnh mịn hơn (`backdrop-filter: blur(8px) !important`). Đồng thời thiết lập cứng kích thước vùng chứa (`width: 100vw`, `height: 100vh`) và tăng `z-index: 999999` để đảm bảo che phủ toàn bộ website khi hiển thị.
+- **Walkthrough**:
+    - Khi bấm nút "BOOK AN EXPERT NOW" / "ĐẶT LỊCH CHUYÊN GIA NGAY", popup xuất hiện ngay lập tức ở lớp trên cùng (không còn bị đè sau ảnh minh họa hay Three.js canvas).
+    - Hiệu ứng bóng tối mờ (slate 65% + blur 8px) bao phủ toàn bộ màn hình viewport một cách mượt mà và đẹp mắt, làm nổi bật hoàn hảo khung thông tin chuyên gia Playful Geometric.
+- **Build Verification**:
+    - Chạy thành công `npm.cmd run build` trên PowerShell. Dự án biên dịch sạch sẽ 100% không còn bất kỳ lỗi nào.
+
+## [2026-05-21] - Cân Chỉnh Hai Nút Bấm Chính Hero Nằm Song Song (Không Bị Gãy Dòng)
+- **Implementation**:
+    - **Sửa chiều rộng nút bấm**: Cập nhật CSS của `.hero-actions .soft-btn` trong tệp `src/App.css` tại dòng 188. Thay đổi chiều rộng tối đa từ `360px` về `290px` (`width: min(290px, 100%) !important`). 
+    - **Giải pháp**: Với kích thước `290px` mỗi nút cộng thêm khoảng cách gap `16px` (tổng chiều ngang yêu cầu là `596px`), hai nút bấm chính (`START ASSESSMENT` và `BOOK AN EXPERT NOW`) đã nằm hoàn hảo side-by-side trên cùng một hàng ngang bên trong cột `.hero-left` trên desktop (có chiều rộng khoảng `620px` tối đa), đưa nút đặt lịch chuyên gia về đúng vị trí bên phải của nút đánh giá theo đúng yêu cầu mà không bị gãy dòng xuống dưới.
+- **Walkthrough**:
+    - Trên màn hình desktop và máy tính bảng lớn, hai nút bấm chính hiển thị song song nằm trên một hàng ngang cân đối, nút "BOOK AN EXPERT NOW" nằm ngay bên phải nút "START ASSESSMENT".
+    - Trên màn hình thiết bị di động nhỏ, các nút tự động co giãn và xếp chồng dọc gọn gàng theo cơ chế responsive có sẵn.
+- **Build Verification**:
+    - Chạy thành công `npm.cmd run build` trên PowerShell. Dự án biên dịch sạch sẽ 100% không gặp lỗi.
+
+## [2026-05-21] - Khắc Phục Triệt Để Lỗi Gãy Hàng Dọc và Co Rúm Của 2 Nút Bấm Chính Hero Section
+- **Implementation**:
+    - **Sửa lỗi co rúm nút bấm trên di động**: Phát hiện thuộc tính `flex: 0 0 58px !important;` lỗi tại `@media (max-width: 767px)` của `.hero-actions .soft-btn` trong `src/App.css` ép cứng chiều rộng của nút về 58px khiến nút bị bóp nghẹt méo mó và chữ bị tràn ra ngoài. Tiến hành loại bỏ và thay thế bằng `flex: 0 0 auto !important;` để nút sử dụng chiều cao chung `58px` và co giãn chiều ngang tự nhiên theo tỷ lệ `width: min(320px, 100%) !important;`.
+    - **Sửa lỗi gãy hàng dọc trên desktop**: Nâng cấp toàn diện lớp `.hero-actions` trong `src/App.css` dòng 762. Chuyển từ dạng `display: inline-flex` và `flex-wrap: wrap` thành layout Flexbox có kiểm soát. Thiết lập `display: flex !important`, `gap: 1.25rem !important`, và thêm Media Query ép cứng `flex-direction: row !important` và `flex-wrap: nowrap !important` trên desktop (màn hình >= 768px). Đồng thời tự động xếp dọc và căn giữa `flex-direction: column !important; align-items: center !important; justify-content: center !important;` trên các thiết bị di động (màn hình < 768px).
+- **Walkthrough**:
+    - Trực quan: Hai nút bấm chính "START ASSESSMENT" và "BOOK AN EXPERT NOW" trên desktop hiển thị song song nằm ngang hoàn hảo trên cùng một hàng mà không có bất kỳ khả năng gãy dòng nào. Nút "BOOK AN EXPERT NOW" nằm về bên phải cực kỳ cân đối.
+    - Kích thước các nút hiển thị đầy đủ, sắc nét theo phong cách Candy Button Playful Geometric tròn trịa mà không còn bị co cụm méo mó hay tràn chữ.
+    - Trên các thiết bị di động, hai nút xếp dọc căn giữa thẳng hàng, tối ưu trải nghiệm bấm chạm.
+- **Build Verification**:
+    - Biên dịch dự án qua `npm run build` thành công 100% sạch sẽ hoàn toàn không cảnh báo hay lỗi.
+
+## [2026-05-21] - Phát Triển Tính Năng Xem Chi Tiết Chuyên Gia Với Cấu Trúc Bento Grid Và Nhận Xét Phụ Huynh Song Ngữ
+- **Implementation**:
+    - **Tích hợp nút Xem chi tiết / View Details**: Bổ sung nút bấm `.expert-detail-btn` bên cạnh nút đặt lịch của từng chuyên gia trong popup chính của `src/components/homepage/HeroSection.tsx`. Thiết kế dạng sticker card mini có bo góc tròn, viền Slate 2px và đổ bóng cứng.
+    - **Nâng cấp dữ liệu Chuyên gia đa chiều**: Mở rộng cấu trúc dữ liệu `experts` tĩnh trong `HeroSection.tsx` để tích hợp các thuộc tính `qualification` (Bằng cấp), `experienceYears` (Năm kinh nghiệm), `description` (Mô tả chuyên môn/triết lý), và mảng `feedbacks` (Đánh giá phụ huynh thực tế với rating sao và nội dung bình luận song ngữ 100%).
+    - **Xây dựng Giao diện Popup Hồ sơ Chuyên gia chi tiết**:
+        - Thiết lập lớp phủ toàn màn hình `.experts-detail-overlay` với backdrop blur 8px mịn màng và `z-index: 1000000` (đè tuyệt đối lên mọi thứ, kể cả ThreeJS canvas 3D).
+        - Panel chi tiết chuyên gia `.expert-detail-panel` mang đậm phong cách **Playful Geometric**: bo góc tròn lớn `24px`, viền Slate `#1E293B` dày 2px, đổ bóng cứng Slate `12px 12px 0px` cực kỳ cá tính.
+        - Khởi tạo bố cục **Bento Grid** `.expert-detail-bento` chia thành 3 thẻ sticker pastel Memphis nổi bật: Thẻ Bằng cấp màu Amber nhạt (`#FEF3C7`), Thẻ Kinh nghiệm màu Mint nhạt (`#D1FAE5`), và Thẻ Triết lý đồng hành chiếm trọn 2 cột màu Violet nhạt (`#EDE9FE`).
+        - Phát triển Danh sách nhận xét từ phụ huynh `.feedbacks-section` sử dụng các thẻ đánh giá dạng Sticker độc đáo, viền Slate, đổ bóng cứng, hover xoay nhẹ `0.4deg` wiggle và tích hợp hệ thống sao vàng SVG tỏa sáng động dựa trên số điểm rating.
+        - Các nút tương tác lớn tại Footer của popup gồm: nút "Quay lại danh sách / Back to list" màu trắng, và nút "Đặt lịch tư vấn / Schedule consultation" màu Mint, hover đổi sang màu Violet chữ trắng rực rỡ.
+        - Tích hợp hiệu ứng scale bounce đàn hồi mượt mà cho popup khi mở ra.
+    - **Tối ưu hóa Responsive di động**:
+        - Thiết lập tự động chuyển đổi Bento Grid và Feedbacks từ lưới nhiều cột sang dạng 1 cột xếp dọc thẳng hàng trên mobile (màn hình < 640px).
+        - Thu nhỏ bóng đổ token từ `12px` xuống `6px` và phình to chiều ngang các nút tương tác lên 100% để tối ưu trải nghiệm bấm chạm.
+    - **Đa Ngôn Ngữ Song Hành (i18n)**: Toàn bộ thông tin học vị, năm kinh nghiệm, mô tả và nhận xét của phụ huynh phản hồi động 100% khi người dùng chuyển đổi ngôn ngữ Việt - Anh trên Header.
+- **Walkthrough**:
+    - Khi người dùng click nút "Xem chi tiết / View Details" trong popup chuyên gia, một panel hồ sơ bento lộng lẫy xuất hiện đàn hồi giữa màn hình.
+    - Bố cục bento và nhận xét của phụ huynh hiển thị gọn gàng, sắc nét với màu sắc hài hòa, font chữ `Be Vietnam Pro` đồng bộ đẹp mắt.
+    - Khi đổi ngôn ngữ VN/EN, toàn bộ giao diện hồ sơ chi tiết dịch chuẩn xác ngay lập tức.
+    - Trên các thiết bị di động, giao diện tự động tối ưu hóa hiển thị dọc mượt mà.
+- **Build Verification**:
+    - Biên dịch thành công dự án chạy lệnh build client production qua `cmd.exe /c npm run build` thành công 100% không cảnh báo hay lỗi, cho ra sản phẩm cực kỳ sạch sẽ và ổn định.
+
+## [2026-05-21] - Tối Ưu Bố Cục Tiêu Đề Và Mở Rộng Modal Chi Tiết Chuyên Gia Toàn Diện
+- **Implementation**:
+    - **Mở rộng kích thước Modal toàn diện**: Tăng chiều rộng tối đa `.expert-detail-panel` trong [App.css](file:///d:/0.%20SU26/SEP490/figma/AutiCare-Design/src/App.css) từ `680px` lên `920px` (`width: min(920px, calc(100% - 2rem)) !important`), đồng thời nâng chiều cao tối đa lên `880px` để mở rộng không gian bố cục Bento Grid và feedbacks một cách phóng khoáng và hoành tráng, loại bỏ cảm giác chật chội.
+    - **Tách biệt và Căn chỉnh Padding cho Header**: Bổ sung padding `1.75rem 2rem 1.25rem 2rem` đầy đủ cho phần `.experts-header` khi nằm bên trong `.expert-detail-panel`, giúp header thẳng hàng hoàn hảo với phần content bên dưới, chấm dứt hoàn toàn tình trạng chữ và viền đứt nét sát sạt mép viền ngoài.
+    - **Giải quyết triệt để lỗi đè của Avatar & Tên Chuyên Gia**:
+        - Phát triển lớp CSS `.header-info-group` cấu trúc Flexbox (`display: flex`, `align-items: center`, `gap: 1.5rem`) để sắp xếp avatar sticker và khối text chứa tên, chức danh nằm song song một cách chuyên nghiệp nhất, loại bỏ hoàn toàn việc chồng chéo đè chữ.
+        - Phóng to kích thước của `.detail-avatar` lên `4.8rem` x `4.8rem` và tăng chiều dày bóng đổ để hài hòa với kích thước modal mới.
+        - Đồng bộ màu nền pastel của avatar chuyên gia động: cập nhật [HeroSection.tsx](file:///d:/0.%20SU26/SEP490/figma/AutiCare-Design/src/components/homepage/HeroSection.tsx) tính toán index tự động để truyền màu nền tương ứng từ danh sách chính (`#EDE9FE` cho TS. Minh, `#FCE7F3` cho Cô Lan, và `#FEF3C7` cho BS. Đức), mang lại sự nhất quán thị giác tuyệt đối.
+        - Cải tiến typography: Chuyển màu chữ chức danh chuyên gia `.detail-expert-title` sang màu Slate 600 dịu nhẹ, sang trọng, tăng cỡ chữ lên `1.05rem` và tăng phông chữ của tên chuyên gia `h3` lên `clamp(1.4rem, 2.5vw, 1.95rem)` sắc sảo.
+    - **Nâng cấp độ thoáng cho Bento Grid & Sticker Cards**:
+        - Tăng khoảng cách `gap` của Bento Grid lên `1.5rem` và padding thẻ sticker `.detail-bento-card` từ `1.25rem` lên `1.5rem` kèm bóng đổ cứng sâu hơn (`6px`). Tương tự tăng cỡ chữ tiêu đề card lên `1.08rem` và nội dung lên `0.96rem`, phình to chữ số kinh nghiệm nổi bật lên `2.2rem`.
+        - Nâng cấp thẻ feedbacks `.feedback-item-card` rộng rãi hơn với padding `1.35rem` và comment size lên `0.94rem`.
+        - Nâng cấp chân trang `.expert-detail-footer` với viền nét đứt thanh mảnh, nền trắng đồng màu sang trọng và tăng padding lên `1.5rem 2rem`.
+    - **Tối ưu responsive di động hoàn thiện**:
+        - Thêm các luật ghi đè responsive cho `@media (max-width: 640px)` trong `App.css`: thu nhỏ padding của `.experts-header` xuống `1.15rem`, thu nhỏ avatar xuống `3.6rem` x `3.6rem` và điều chỉnh chữ số h3 xuống `1.35rem` để hiển thị cân đối 100% trên màn hình điện thoại di động nhỏ.
+- **Walkthrough**:
+    - Trực quan: Modal chi tiết chuyên gia mở ra to rộng, lộng lẫy và thoáng đãng trên màn hình lớn. Không gian Bento Grid Memphis và các feedbacks sticker có bố cục thoáng đãng, các bóng đổ cá tính và màu sắc cực kỳ bắt mắt.
+    - Khu vực tiêu đề chuyên gia thẳng hàng tuyệt đẹp: avatar tròn sticker nằm gọn bên trái, tên chuyên gia viết hoa đậm nằm ở giữa trên dòng chức danh Slate 600 thanh lịch, không còn hiện tượng đè chữ hay lấn chiếm lề. Màu nền avatar của Tiến sĩ Minh đồng bộ màu tím nhạt `#EDE9FE` tuyệt đẹp từ danh sách ngoài vào trong chi tiết.
+    - Trên màn hình điện thoại di động, bố cục co giãn mượt mà, căn chỉnh lề đều đặn và sắc nét.
+- **Build Verification**:
+    - Chạy thành công `cmd.exe /c "npm run build"`, dự án được đóng gói sản phẩm hoàn hảo chỉ trong 298ms không một cảnh báo hay lỗi TypeScript nào.

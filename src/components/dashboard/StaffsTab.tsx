@@ -468,17 +468,6 @@ const StaffsTab: React.FC<StaffsTabProps> = ({ lang }) => {
                       />
                     </div>
 
-                    {modalMode === 'edit' && (
-                      <div className="form-group">
-                        <label>{t.status}</label>
-                        <select defaultValue={selectedStaff?.status || 'Inactive'} disabled>
-                          <option value="Active">{t.active}</option>
-                          <option value="Inactive">{t.inactive}</option>
-                          <option value="Banned">{t.banned}</option>
-                        </select>
-                      </div> 
-                    )}
-
                     <div className="form-group">
                       <label>{t.username}</label>
                       <input
@@ -508,18 +497,6 @@ const StaffsTab: React.FC<StaffsTabProps> = ({ lang }) => {
                         spellCheck="false" disabled
                       />
                     </div>
-
-                    {modalMode === 'edit' && (
-                      <div className="form-group">
-                        <label>{t.isVerified}</label>
-                        <input
-                          type="checkbox"
-                          checked={selectedStaff?.isVerified || false}
-                          disabled
-                          readOnly
-                        />
-                      </div>
-                    )}
                   </div>
                 )}
 

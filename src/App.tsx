@@ -34,8 +34,19 @@ const translations = {
     heroTitle: "THẤU HIỂU & ĐỒNG HÀNH CÙNG TRẺ phổ tự kỷ",
     heroSub: "Giải pháp toàn diện hỗ trợ giáo viên, cơ sở can thiệp sớm và cha mẹ trong việc sàng lọc, giám sát hành vi và đồng hành cùng sự hòa nhập của con trẻ.",
     btnStartAssessment: "BẮT ĐẦU ĐÁNH GIÁ",
+    btnBookExpert: "ĐẶT HẸN VỚI CHUYÊN GIA NGAY",
+    expertPanelTitle: "Chọn chuyên gia can thiệp sớm",
+    expertPanelSub: "Gặp chuyên gia uy tín để tư vấn nhanh về hành vi và lộ trình phát triển.",
+    btnScheduleNow: "Đặt lịch ngay",
+    btnViewDetail: "Xem chi tiết",
+    expertDetailTitle: "Hồ sơ chuyên gia chi tiết",
+    lblQualification: "Bằng cấp & Học vị",
+    lblExperience: "Kinh nghiệm can thiệp",
+    lblFeedbacks: "Nhận xét từ cha mẹ",
+    lblYears: "năm kinh nghiệm",
+    btnBackToList: "Quay lại danh sách",
     btnViewDemo: "DEMO TRUNG TÂM & VAI TRÒ",
-    ctaTitle: "BẮT ĐẦU HÀNH TRÌNH THAY ĐỔI NGAY HÔM NAY",
+    ctaTitle: "BẮT ĐẦU HÀNH TRÌNH THAY ĐỒỔI NGAY HÔM NAY",
     ctaSub: "Tham gia cùng mạng lưới hơn 50 trung tâm và 1000 chuyên gia can thiệp sớm hàng đầu sử dụng AutiCare mỗi ngày.",
     btnJoinNow: "ĐĂNG KÝ TRẢI NGHIỆM"
   },
@@ -52,6 +63,17 @@ const translations = {
     heroTitle: "UNDERSTAND & ACCOMPANY AUTISTIC CHILDREN",
     heroSub: "A comprehensive digital solution supporting clinical schools, teachers, and parents in early screening, behavioral analysis, and social inclusion progress.",
     btnStartAssessment: "START ASSESSMENT",
+    btnBookExpert: "BOOK AN EXPERT NOW",
+    expertPanelTitle: "Choose an early intervention specialist",
+    expertPanelSub: "Connect with top experts for fast guidance on behavior and development plans.",
+    btnScheduleNow: "Schedule now",
+    btnViewDetail: "View details",
+    expertDetailTitle: "Detailed Expert Profile",
+    lblQualification: "Qualifications & Credentials",
+    lblExperience: "Intervention Experience",
+    lblFeedbacks: "Parent Feedbacks",
+    lblYears: "years of experience",
+    btnBackToList: "Back to list",
     btnViewDemo: "CENTER & ROLES DEMO",
     ctaTitle: "START THE LIFELONG TRANSFORMATION TODAY",
     ctaSub: "Join our network of over 50 early intervention clinical centers and 1000 specialist educators using AutiCare daily.",
@@ -280,7 +302,7 @@ function App() {
 
       {/* 3. Main Sections */}
       <main>
-        <HeroSection id="hero" t={t} onStartAssessment={() => setView('assessment')} />
+        <HeroSection id="hero" t={t} lang={lang} onStartAssessment={() => setView('assessment')} />
         
         <CategoriesSection id="category" lang={lang} />
         
