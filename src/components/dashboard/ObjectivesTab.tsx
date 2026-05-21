@@ -228,11 +228,10 @@ interface ReadModalProps {
   isOpen: boolean;
   closeModal: () => void;
   selectedObj: any;
-  lang: string;
   t: any;
 }
 
-export const ReadModal: React.FC<ReadModalProps> = ({ isOpen, closeModal, selectedObj, lang, t }) => {
+export const ReadModal: React.FC<ReadModalProps> = ({ isOpen, closeModal, selectedObj, t }) => {
   if (!isOpen) return null;
 
   return (
@@ -286,8 +285,8 @@ const ObjectivesTab: React.FC<ObjectivesTabProps> = ({ lang }) => {
     { id: 'OBJ-002', nameVi: 'Phát âm nguyên âm đơn', nameEn: 'Single Vowel Pronunciation', targetDate: '2026-05-12', status: 'Completed' },
     { id: 'OBJ-003', nameVi: 'Nhận biết các màu sắc cơ bản', nameEn: 'Basic Color Recognition', targetDate: '2026-05-15', status: 'Processing' },
   ]);
-  // Tách phần tử thứ nhất thành planPhase, phần tử thứ hai thành setPlanPhase
-const [planPhase, setPlanPhase] = useState<PlanPhase>({
+  // Tách phần tử thứ nhất thành planPhase
+  const [planPhase] = useState<PlanPhase>({
   id: 'PP-008',
   name: 'Phase 1',
   start_date: '2026-01-01',
@@ -446,7 +445,6 @@ const [planPhase, setPlanPhase] = useState<PlanPhase>({
       isOpen={isModalOpen && modalMode === 'read'} 
       closeModal={closeModal} 
       selectedObj={selectedObj} 
-      lang={lang} 
       t={t}
     />
 </div>

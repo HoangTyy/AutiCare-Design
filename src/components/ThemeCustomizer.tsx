@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 interface ThemeCustomizerProps {
-  view: 'landing' | 'admin';
+  view: 'landing' | 'admin' | 'assessment';
 }
 
 const ThemeCustomizer: React.FC<ThemeCustomizerProps> = ({ view }) => {
@@ -31,14 +31,33 @@ const ThemeCustomizer: React.FC<ThemeCustomizerProps> = ({ view }) => {
     '--admin-topbar-text': '#1E293B',
   });
 
-  const colors = view === 'landing' ? landingColors : adminColors;
+  const [assessmentColors, setAssessmentColors] = useState({
+    '--assessment-bg':          '#FFFDF5', // Warm cream background
+    '--assessment-card-bg':     '#FFFFFF', // Card white
+    '--assessment-accent':      '#8B5CF6', // Violet accent (available tools)
+    '--assessment-border':      '#E2E8F0', // Default border
+    '--assessment-text':        '#1E293B', // Slate foreground
+    '--assessment-text-muted':  '#64748B', // Muted text
+    '--group-1-color':          '#FBBF24', // Amber — Chẩn đoán Chuyên sâu
+    '--group-2-color':          '#F472B6', // Pink  — Sàng lọc Nhanh
+    '--group-3-color':          '#8B5CF6', // Violet — Hành vi Thích ứng
+    '--group-4-color':          '#60A5FA', // Blue  — Tâm vận động
+  });
+
+  const colors = view === 'landing' 
+    ? landingColors 
+    : view === 'admin' 
+      ? adminColors 
+      : assessmentColors;
 
   useEffect(() => {
     // Sync colors based on view, fallback to documentElement if element not immediately found
     const syncColors = () => {
       const target = view === 'landing' 
         ? document.documentElement 
-        : (document.querySelector('.admin-theme-root') as HTMLElement);
+        : view === 'admin'
+          ? (document.querySelector('.admin-theme-root') as HTMLElement)
+          : (document.querySelector('.assessment-theme-root') as HTMLElement);
       
       if (target) {
         Object.entries(colors).forEach(([key, val]) => {
@@ -96,6 +115,22 @@ const ThemeCustomizer: React.FC<ThemeCustomizerProps> = ({ view }) => {
       return landingMap[key] || key.replace('--', '').replace('-', ' ');
     }
 
+    if (view === 'assessment') {
+      const assessmentMap: Record<string, string> = {
+        '--assessment-bg':         'Nền trang Đánh giá',
+        '--assessment-card-bg':    'Nền thẻ bài test (Card)',
+        '--assessment-accent':     'Màu nhấn chủ đạo (Violet)',
+        '--assessment-border':     'Màu viền mặc định',
+        '--assessment-text':       'Màu chữ chính',
+        '--assessment-text-muted': 'Màu chữ mô tả phụ',
+        '--group-1-color':         'Màu nhóm 1 — Chẩn đoán (Amber)',
+        '--group-2-color':         'Màu nhóm 2 — Sàng lọc (Pink)',
+        '--group-3-color':         'Màu nhóm 3 — Hành vi (Violet)',
+        '--group-4-color':         'Màu nhóm 4 — Vận động (Blue)',
+      };
+      return assessmentMap[key] || key.replace('--', '').replace(/-/g, ' ');
+    }
+
     return labelMap[key] || key.replace('--', '').replace('admin-', '').replace('-', ' ');
   };
 
@@ -105,7 +140,7 @@ const ThemeCustomizer: React.FC<ThemeCustomizerProps> = ({ view }) => {
         const next = { ...prev, [key]: value };
         return next;
       });
-    } else {
+    } else if (view === 'admin') {
       setAdminColors(prev => {
         const next = { ...prev, [key]: value };
         
@@ -122,21 +157,33 @@ const ThemeCustomizer: React.FC<ThemeCustomizerProps> = ({ view }) => {
         
         return next;
       });
+    } else {
+      setAssessmentColors(prev => {
+        const next = { ...prev, [key]: value };
+        return next;
+      });
     }
     
-    const target = view === 'landing' ? document.documentElement : document.querySelector('.admin-theme-root') as HTMLElement;
+    const target = view === 'landing' 
+      ? document.documentElement 
+      : view === 'admin'
+        ? document.querySelector('.admin-theme-root') as HTMLElement
+        : document.querySelector('.assessment-theme-root') as HTMLElement;
+        
     if (target) {
       target.style.setProperty(key, value);
       
-      // Immediate property sync for auto-contrast
-      if (key === '--admin-header-bg') {
-        target.style.setProperty('--admin-header-text', getContrastColor(value));
-      } else if (key === '--admin-footer-bg') {
-        target.style.setProperty('--admin-footer-text', getContrastColor(value));
-      } else if (key === '--admin-topbar-bg') {
-        target.style.setProperty('--admin-topbar-text', getContrastColor(value));
-      } else if (key === '--admin-sidebar') {
-        target.style.setProperty('--admin-sidebar-text', getContrastColor(value));
+      // Immediate property sync for auto-contrast in admin
+      if (view === 'admin') {
+        if (key === '--admin-header-bg') {
+          target.style.setProperty('--admin-header-text', getContrastColor(value));
+        } else if (key === '--admin-footer-bg') {
+          target.style.setProperty('--admin-footer-text', getContrastColor(value));
+        } else if (key === '--admin-topbar-bg') {
+          target.style.setProperty('--admin-topbar-text', getContrastColor(value));
+        } else if (key === '--admin-sidebar') {
+          target.style.setProperty('--admin-sidebar-text', getContrastColor(value));
+        }
       }
     }
   };
@@ -147,7 +194,7 @@ const ThemeCustomizer: React.FC<ThemeCustomizerProps> = ({ view }) => {
         .map(([key, val]) => `${key}: ${val};`)
         .join('\n');
     navigator.clipboard.writeText(configString);
-    alert(`${view === 'landing' ? 'Landing' : 'Admin'} theme configuration copied!`);
+    alert(`${view === 'landing' ? 'Landing' : view === 'admin' ? 'Admin' : 'Đánh giá'} theme configuration copied!`);
   };
 
   return (
@@ -162,7 +209,7 @@ const ThemeCustomizer: React.FC<ThemeCustomizerProps> = ({ view }) => {
 
       <div className="customizer-panel glass">
         <div className="panel-header">
-          <h3>Design Lab - {view === 'landing' ? 'Landing' : 'Admin'}</h3>
+          <h3>Design Lab - {view === 'landing' ? 'Landing' : view === 'admin' ? 'Admin' : 'Đánh giá'}</h3>
           <button onClick={() => setIsOpen(false)}>×</button>
         </div>
         
@@ -170,7 +217,9 @@ const ThemeCustomizer: React.FC<ThemeCustomizerProps> = ({ view }) => {
           <p className="hint">
             {view === 'landing' 
               ? 'Tùy chỉnh giao diện trang chủ' 
-              : 'Tùy chỉnh giao diện quản trị Admin'}
+              : view === 'admin'
+                ? 'Tùy chỉnh giao diện quản trị Admin'
+                : 'Tùy chỉnh giao diện Trang Đánh giá'}
           </p>
           
           {Object.entries(colors).map(([key, value]) => (

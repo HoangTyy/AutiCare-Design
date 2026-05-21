@@ -7,9 +7,10 @@ import heroIllustration from '../../assets/hero-illustration.png';
 interface HeroSectionProps {
   id: string;
   t: any;
+  onStartAssessment: () => void;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ id, t }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ id, t, onStartAssessment }) => {
   return (
     <section id={id} className="hero snap-section">
       {/* 3D Three.js Interactive Particle System */}
@@ -20,7 +21,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ id, t }) => {
           <h1 className="bubble-text glow-text">{t.heroTitle}</h1>
           <p className="hero-desc">{t.heroSub}</p>
           
-          <div className="hero-actions">
+          <div className="hero-actions" onClick={onStartAssessment} style={{ cursor: 'pointer', display: 'inline-block' }}>
             <TiltButton 
               elevation={6} 
               radius={24} 
@@ -30,7 +31,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ id, t }) => {
               padding="1.2rem 3rem"
               className="btn-tilt-lg glow-btn-primary"
             >
-              {t.btnStartScreening}
+              {t.btnStartAssessment}
             </TiltButton>
           </div>
         </div>

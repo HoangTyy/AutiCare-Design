@@ -1,0 +1,1040 @@
+/* ============================================================
+   ToolAssessmentPage.css
+   Playful Geometric Design System — "Medical Playful" Edition
+   AutiCare Assessment — Be Vietnam Pro throughout (Rule 9)
+   Stable Grid, Wild Decoration.
+   ============================================================ */
+
+/* ── Google Fonts: Be Vietnam Pro only ────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
+
+/* ── Design Tokens ─────────────────────────────────────────── */
+.assessment-theme-root {
+  /* Design Lab–linked variables */
+  --assessment-bg:           #FFFDF5;
+  --assessment-card-bg:      #FFFFFF;
+  --assessment-accent:       #8B5CF6;
+  --assessment-border:       #E2E8F0;
+  --assessment-text:         #1E293B;
+  --assessment-text-muted:   #64748B;
+
+  /* Playful Geometric — Group Colors (also Design Lab–linked) */
+  --group-1-color:   #FBBF24;   /* Amber  — Chẩn đoán Chuyên sâu  */
+  --group-2-color:   #F472B6;   /* Pink   — Sàng lọc Nhanh         */
+  --group-3-color:   #8B5CF6;   /* Violet — Hành vi Thích ứng      */
+  --group-4-color:   #60A5FA;   /* Blue   — Tâm vận động           */
+
+  /* Hard Shadow system */
+  --shadow-dark:      #1E293B;
+  --shadow-sm:        3px 3px 0px var(--shadow-dark);
+  --shadow-md:        5px 5px 0px var(--shadow-dark);
+  --shadow-lg:        8px 8px 0px var(--shadow-dark);
+  --shadow-md-hover:  7px 7px 0px var(--shadow-dark);
+  --shadow-lg-hover:  10px 10px 0px var(--shadow-dark);
+  --shadow-active:    2px 2px 0px var(--shadow-dark);
+  --shadow-soft:      6px 6px 0px #E2E8F0;
+  --shadow-soft-hover:8px 8px 0px #CBD5E1;
+
+  /* Border */
+  --border-chunky: 2px solid var(--shadow-dark);
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --radius-pill: 9999px;
+
+  /* Bouncy easing */
+  --ease-bounce:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out:     cubic-bezier(0.4, 0, 0.2, 1);
+
+  min-height: 100vh;
+  font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+  color: var(--assessment-text);
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  position: relative;
+
+  /* Warm cream background */
+  background-color: var(--assessment-bg);
+
+  /* Polka-dot grid pattern overlay */
+  background-image: radial-gradient(circle, #CBD5E1 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-attachment: fixed;
+}
+
+/* ── Floating Decoration Shapes ───────────────────────────── */
+.assessment-deco {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.assessment-deco-circle-1 {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(251, 191, 36, 0.12);
+  border: 3px dashed rgba(251, 191, 36, 0.35);
+  top: -40px;
+  right: 80px;
+  animation: deco-float 8s ease-in-out infinite;
+}
+
+.assessment-deco-circle-2 {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(244, 114, 182, 0.1);
+  border: 2px dashed rgba(244, 114, 182, 0.3);
+  bottom: 120px;
+  left: -30px;
+  animation: deco-float 11s ease-in-out infinite reverse;
+}
+
+.assessment-deco-triangle {
+  width: 0;
+  height: 0;
+  border-left: 36px solid transparent;
+  border-right: 36px solid transparent;
+  border-bottom: 62px solid rgba(139, 92, 246, 0.12);
+  bottom: 200px;
+  right: 40px;
+  animation: deco-spin 20s linear infinite;
+}
+
+.assessment-deco-square {
+  width: 60px;
+  height: 60px;
+  background: rgba(96, 165, 250, 0.1);
+  border: 2px dashed rgba(96, 165, 250, 0.3);
+  border-radius: 8px;
+  top: 200px;
+  left: 20px;
+  transform: rotate(15deg);
+  animation: deco-float 13s ease-in-out infinite;
+}
+
+@keyframes deco-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-16px); }
+}
+
+@keyframes deco-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Hide decorations on mobile to avoid overlap */
+@media (max-width: 768px) {
+  .assessment-deco { display: none; }
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/*  1. PAGE WRAPPER                                           */
+/* ─────────────────────────────────────────────────────────── */
+.assessment-layout-wrapper {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/*  2. HEADER                                                 */
+/* ─────────────────────────────────────────────────────────── */
+.assessment-header {
+  background: var(--assessment-card-bg);
+  border-bottom: var(--border-chunky);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 1rem 0;
+}
+
+.assessment-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* ── Back Button — Candy Pill ─── */
+.btn-back {
+  background: var(--assessment-card-bg);
+  border: var(--border-chunky);
+  color: var(--assessment-text);
+  padding: 0.55rem 1.2rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s var(--ease-bounce);
+  transform: translate(0, 0);
+}
+
+.btn-back:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-back:active {
+  transform: translate(1px, 1px);
+  box-shadow: var(--shadow-active);
+}
+
+/* ── Brand Title ─── */
+.brand-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.brand-title h2 {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin: 0;
+  color: var(--assessment-text);
+}
+
+.brand-title span {
+  font-size: 0.7rem;
+  color: var(--assessment-text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* ── Language Switch ─── */
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.lang-switch {
+  display: flex;
+  background: var(--assessment-card-bg);
+  border: var(--border-chunky);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+  gap: 2px;
+  box-shadow: var(--shadow-sm);
+}
+
+.lang-btn {
+  background: transparent;
+  border: none;
+  color: var(--assessment-text-muted);
+  cursor: pointer;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  transition: all 0.18s var(--ease-bounce);
+}
+
+.lang-btn.active {
+  background: var(--assessment-text);
+  color: #FFFFFF;
+}
+
+.lang-btn:not(.active):hover {
+  background: #F1F5F9;
+  color: var(--assessment-text);
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/*  3. MAIN LAYOUT                                            */
+/* ─────────────────────────────────────────────────────────── */
+.assessment-layout {
+  max-width: 1280px;
+  margin: 2.5rem auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 2.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/*  4. GROUP SIDEBAR                                          */
+/* ─────────────────────────────────────────────────────────── */
+.group-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.sidebar-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--assessment-text-muted);
+  padding-left: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+/* ── Group Card — Sticker Card ─── */
+.group-card {
+  background: var(--assessment-card-bg);
+  border: var(--border-chunky);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  text-align: left;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.25s var(--ease-bounce);
+  position: relative;
+}
+
+.group-card:hover {
+  transform: rotate(-1deg) scale(1.02);
+  box-shadow: var(--shadow-soft-hover);
+}
+
+/* Active states driven by group-N classes */
+.group-card.active.group-1 {
+  border-color: var(--group-1-color);
+  box-shadow: 5px 5px 0px var(--group-1-color);
+}
+.group-card.active.group-2 {
+  border-color: var(--group-2-color);
+  box-shadow: 5px 5px 0px var(--group-2-color);
+}
+.group-card.active.group-3 {
+  border-color: var(--group-3-color);
+  box-shadow: 5px 5px 0px var(--group-3-color);
+}
+.group-card.active.group-4 {
+  border-color: var(--group-4-color);
+  box-shadow: 5px 5px 0px var(--group-4-color);
+}
+
+/* ── Group Icon Circle ─── */
+.group-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 2px solid transparent;
+  transition: all 0.25s var(--ease-bounce);
+  color: var(--assessment-text-muted);
+  background: #F1F5F9;
+}
+
+.group-card.group-1 .group-icon {
+  background: rgba(251, 191, 36, 0.15);
+  border-color: rgba(251, 191, 36, 0.4);
+}
+.group-card.group-2 .group-icon {
+  background: rgba(244, 114, 182, 0.12);
+  border-color: rgba(244, 114, 182, 0.35);
+}
+.group-card.group-3 .group-icon {
+  background: rgba(139, 92, 246, 0.12);
+  border-color: rgba(139, 92, 246, 0.35);
+}
+.group-card.group-4 .group-icon {
+  background: rgba(96, 165, 250, 0.12);
+  border-color: rgba(96, 165, 250, 0.35);
+}
+
+/* Active icon — filled color */
+.group-card.active.group-1 .group-icon { background: rgba(251,191,36,0.25); border-color: var(--group-1-color); color: #92400E; }
+.group-card.active.group-2 .group-icon { background: rgba(244,114,182,0.2); border-color: var(--group-2-color); color: #9D174D; }
+.group-card.active.group-3 .group-icon { background: rgba(139,92,246,0.18); border-color: var(--group-3-color); color: #5B21B6; }
+.group-card.active.group-4 .group-icon { background: rgba(96,165,250,0.18); border-color: var(--group-4-color); color: #1D4ED8; }
+
+/* Wiggle on icon hover */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25%       { transform: rotate(-8deg); }
+  75%       { transform: rotate(8deg); }
+}
+.group-card:hover .group-icon {
+  animation: wiggle 0.5s var(--ease-bounce);
+}
+
+/* ── Group Info ─── */
+.group-info { display: flex; flex-direction: column; gap: 0.25rem; }
+
+.group-info h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--assessment-text);
+  transition: color 0.2s;
+}
+.group-card.active.group-1 .group-info h3 { color: #92400E; }
+.group-card.active.group-2 .group-info h3 { color: #9D174D; }
+.group-card.active.group-3 .group-info h3 { color: #5B21B6; }
+.group-card.active.group-4 .group-info h3 { color: #1D4ED8; }
+
+.group-info p {
+  font-size: 0.78rem;
+  color: var(--assessment-text-muted);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/*  5. TOOLS WORKSPACE                                        */
+/* ─────────────────────────────────────────────────────────── */
+.tools-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: pop-in 0.35s var(--ease-bounce);
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0);    }
+}
+
+/* ── Workspace Header ─── */
+.workspace-header {
+  padding-bottom: 1.2rem;
+  border-bottom: var(--border-chunky);
+  position: relative;
+}
+
+.workspace-header h1 {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0 0 0.3rem 0;
+  color: var(--assessment-text);
+  letter-spacing: -0.5px;
+}
+
+/* Color stripe under the h1 driven by active group */
+.workspace-header::after {
+  content: '';
+  display: block;
+  height: 4px;
+  width: 56px;
+  border-radius: var(--radius-pill);
+  background: var(--assessment-accent);
+  margin-top: 0.6rem;
+}
+
+.workspace-header p {
+  font-size: 0.9rem;
+  color: var(--assessment-text-muted);
+  margin: 0.35rem 0 0;
+  font-weight: 500;
+}
+
+/* ── Tools Grid ─── */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/*  6. TOOL CARD — Sticker Card                              */
+/* ─────────────────────────────────────────────────────────── */
+.tool-card {
+  background: var(--assessment-card-bg);
+  border: var(--border-chunky);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.28s var(--ease-bounce);
+}
+
+.tool-card:hover {
+  transform: rotate(-0.6deg) translateY(-3px);
+  box-shadow: var(--shadow-soft-hover);
+}
+
+/* Available card gets a violet pop shadow */
+.tool-card.available {
+  box-shadow: 6px 6px 0px rgba(139, 92, 246, 0.25);
+}
+.tool-card.available:hover {
+  box-shadow: 9px 9px 0px rgba(139, 92, 246, 0.35);
+  transform: rotate(-0.6deg) translateY(-4px);
+}
+
+/* ── Status Badges ─── */
+.badge-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+.status-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.3rem 0.9rem;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 2px solid transparent;
+}
+
+.status-badge.available {
+  background: var(--assessment-accent);
+  color: #FFFFFF;
+  border-color: var(--shadow-dark);
+  box-shadow: 2px 2px 0 var(--shadow-dark);
+}
+
+.status-badge.available .pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  animation: pulse-dot 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-dot {
+  from { opacity: 0.5; transform: scale(0.8); }
+  to   { opacity: 1;   transform: scale(1.2); }
+}
+
+.status-badge.coming-soon {
+  background: #F1F5F9;
+  color: var(--assessment-text-muted);
+  border-color: #CBD5E1;
+}
+
+/* ── Tool Meta ─── */
+.tool-meta { margin-bottom: 1rem; }
+
+.tool-meta h2 {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 1.7rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -1px;
+  color: var(--assessment-text);
+  line-height: 1;
+}
+
+.tool-meta h4 {
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin: 0.4rem 0 0;
+  color: var(--assessment-text-muted);
+  line-height: 1.35;
+}
+
+/* ── Tool Description ─── */
+.tool-desc {
+  font-size: 0.85rem;
+  color: var(--assessment-text-muted);
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+  flex-grow: 1;
+  font-weight: 400;
+}
+
+/* ── Card Footer ─── */
+.card-footer {
+  margin-top: auto;
+  border-top: 2px solid #F1F5F9;
+  padding-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.tool-age {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: var(--assessment-text-muted);
+  font-weight: 500;
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/*  7. BUTTONS                                                */
+/* ─────────────────────────────────────────────────────────── */
+
+/* ── Card Action Button — Secondary (Learn More) ─── */
+.btn-card-action {
+  background: var(--assessment-card-bg);
+  border: var(--border-chunky);
+  color: var(--assessment-text);
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s var(--ease-bounce);
+  transform: translate(0, 0);
+  white-space: nowrap;
+}
+
+.btn-card-action:hover {
+  background: #FBBF24;
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-card-action:active {
+  transform: translate(1px, 1px);
+  box-shadow: var(--shadow-active);
+}
+
+/* ── Card Action Button — Primary (Start Assessment) ─── */
+.btn-card-action.btn-start {
+  background: var(--assessment-accent);
+  color: #FFFFFF;
+  border-color: var(--shadow-dark);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-card-action.btn-start:hover {
+  background: #7C3AED;
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-card-action.btn-start:active {
+  transform: translate(1px, 1px);
+  box-shadow: var(--shadow-active);
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/*  8. DETAIL MODAL                                           */
+/* ─────────────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1.5rem;
+  animation: overlay-in 0.2s ease-out;
+}
+
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal-content-wrapper {
+  background: var(--assessment-card-bg);
+  border: var(--border-chunky);
+  box-shadow: 12px 12px 0px var(--shadow-dark);
+  width: 100%;
+  max-width: 640px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  animation: modal-pop 0.4s var(--ease-bounce);
+}
+
+@keyframes modal-pop {
+  from { transform: scale(0.85) translateY(20px); opacity: 0; }
+  to   { transform: scale(1)    translateY(0);    opacity: 1; }
+}
+
+/* Dot-pattern header band instead of plain color */
+.modal-header-bg {
+  height: 52px;
+  background-color: var(--assessment-accent);
+  background-image: radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 1px);
+  background-size: 14px 14px;
+  border-bottom: var(--border-chunky);
+}
+
+/* Available modal: violet band */
+.modal-content-wrapper.modal-available .modal-header-bg {
+  background-color: var(--assessment-accent);
+}
+/* Coming Soon modal: amber band */
+.modal-content-wrapper.modal-coming-soon .modal-header-bg {
+  background-color: #FBBF24;
+}
+
+.modal-inner-content {
+  padding: 2rem 2.2rem 2.2rem;
+}
+
+.modal-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.modal-title-area h2 {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0;
+  color: var(--assessment-text);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.modal-title-area h4 {
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin: 0.45rem 0 0;
+  color: var(--assessment-text-muted);
+}
+
+/* ── Close Button ─── */
+.btn-close-modal {
+  background: var(--assessment-card-bg);
+  border: var(--border-chunky);
+  color: var(--assessment-text);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s var(--ease-bounce);
+}
+
+.btn-close-modal:hover {
+  background: #FEE2E2;
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Modal Info Grid ─── */
+.modal-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.info-item {
+  background: #F8FAFC;
+  border: 2px solid #E2E8F0;
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.info-item .info-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--assessment-text-muted);
+}
+
+.info-item .info-val {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--assessment-text);
+  line-height: 1.4;
+}
+
+/* ── Modal Body ─── */
+.modal-body-section {
+  margin-bottom: 1.5rem;
+}
+
+.modal-body-section h3 {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--assessment-text-muted);
+  margin: 0 0 0.6rem;
+}
+
+.modal-body-section p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--assessment-text);
+  margin: 0;
+  font-weight: 400;
+}
+
+/* ── State Banner ─── */
+.state-banner {
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin-bottom: 1.75rem;
+  font-weight: 500;
+}
+
+.state-banner.available {
+  background: rgba(139, 92, 246, 0.06);
+  border-color: rgba(139, 92, 246, 0.25);
+  color: var(--assessment-text);
+}
+
+.state-banner.coming-soon {
+  background: rgba(251, 191, 36, 0.08);
+  border-color: rgba(251, 191, 36, 0.35);
+  color: #78350F;
+}
+
+.banner-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Modal Actions ─── */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.85rem;
+  border-top: 2px solid #F1F5F9;
+  padding-top: 1.5rem;
+}
+
+.btn-modal {
+  padding: 0.7rem 1.6rem;
+  border-radius: var(--radius-pill);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-bounce);
+  transform: translate(0, 0);
+}
+
+/* Secondary (close) */
+.btn-modal.btn-secondary {
+  background: var(--assessment-card-bg);
+  border: var(--border-chunky);
+  color: var(--assessment-text);
+  box-shadow: var(--shadow-sm);
+}
+.btn-modal.btn-secondary:hover {
+  background: #F1F5F9;
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-md);
+}
+.btn-modal.btn-secondary:active {
+  transform: translate(1px, 1px);
+  box-shadow: var(--shadow-active);
+}
+
+/* Primary (start) — Violet candy */
+.btn-modal.btn-primary {
+  background: var(--assessment-accent);
+  border: var(--border-chunky);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-sm);
+}
+.btn-modal.btn-primary:hover {
+  background: #7C3AED;
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-md);
+}
+.btn-modal.btn-primary:active {
+  transform: translate(1px, 1px);
+  box-shadow: var(--shadow-active);
+}
+
+/* Notify — Amber candy */
+.btn-modal.btn-notify {
+  background: #FBBF24;
+  border: var(--border-chunky);
+  color: var(--shadow-dark);
+  box-shadow: var(--shadow-sm);
+}
+.btn-modal.btn-notify:hover {
+  background: #F59E0B;
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-md);
+}
+.btn-modal.btn-notify:active {
+  transform: translate(1px, 1px);
+  box-shadow: var(--shadow-active);
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/*  9. TOAST NOTIFICATIONS                                    */
+/* ─────────────────────────────────────────────────────────── */
+.toast-container {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+  min-width: 320px;
+}
+
+.toast {
+  background: var(--assessment-card-bg);
+  border: var(--border-chunky);
+  color: var(--assessment-text);
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: 5px 5px 0px var(--shadow-dark);
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  pointer-events: auto;
+  animation: toast-pop 0.4s var(--ease-bounce), toast-out 0.3s ease-in 3.7s forwards;
+}
+
+.toast.toast-orange {
+  border-left: 5px solid #FBBF24;
+}
+
+@keyframes toast-pop {
+  from { transform: scale(0.85) translateY(20px); opacity: 0; }
+  to   { transform: scale(1)    translateY(0);    opacity: 1; }
+}
+
+@keyframes toast-out {
+  from { transform: translateY(0);   opacity: 1; }
+  to   { transform: translateY(20px); opacity: 0; }
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/*  10. RESPONSIVE                                            */
+/* ─────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .assessment-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .group-sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .assessment-header .container {
+    padding: 0 1rem;
+  }
+
+  .assessment-layout {
+    padding: 0 1rem;
+    margin: 1.5rem auto;
+  }
+
+  .group-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content-wrapper {
+    box-shadow: 6px 6px 0px var(--shadow-dark);
+    border-radius: var(--radius-md);
+  }
+
+  .modal-info-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .modal-inner-content {
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+
+  .modal-title-area h2 {
+    font-size: 1.5rem;
+  }
+
+  .modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .btn-modal {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Reduce hard shadows on mobile */
+  .tool-card { box-shadow: 3px 3px 0 #E2E8F0; }
+  .group-card.active.group-1 { box-shadow: 3px 3px 0 var(--group-1-color); }
+  .group-card.active.group-2 { box-shadow: 3px 3px 0 var(--group-2-color); }
+  .group-card.active.group-3 { box-shadow: 3px 3px 0 var(--group-3-color); }
+  .group-card.active.group-4 { box-shadow: 3px 3px 0 var(--group-4-color); }
+
+  /* Disable rotation on mobile for readability */
+  .tool-card:hover { transform: translateY(-3px); }
+  .group-card:hover { transform: scale(1.01); }
+
+  .toast-container { min-width: calc(100vw - 2rem); left: 1rem; transform: none; }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .group-card, .tool-card, .btn-back,
+    .btn-card-action, .btn-modal, .btn-close-modal {
+      transition: none;
+    }
+    .assessment-deco { display: none; }
+    @keyframes wiggle { from {} to {} }
+    @keyframes deco-float { from {} to {} }
+    @keyframes deco-spin { from {} to {} }
+    @keyframes pop-in { from {} to {} }
+    @keyframes modal-pop { from {} to {} }
+    @keyframes toast-pop { from {} to {} }
+  }
+}

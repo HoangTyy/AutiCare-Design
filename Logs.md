@@ -344,3 +344,78 @@
 ## [2026-05-19] - Center Information Editing Upgrade
 - **Director Editing**: Bổ sung trường "Giám đốc Trung tâm (Director)" vào form Chỉnh sửa thông tin cơ sở trong `CenterDetailView.tsx`.
 - **Dynamic Roster Sync**: Cập nhật logic khi lưu thông tin: hệ thống tự động tìm và thay đổi tên của nhân viên có `roleId` là `R-DIR` (Giám đốc). Nếu xóa tên, hệ thống tự động loại bỏ role này khỏi danh sách. Nếu thêm mới khi chưa có, tự động tạo mới nhân sự giữ vị trí Giám đốc với chuẩn ID động `S-XXXX`. Đảm bảo tính nhất quán dữ liệu giữa cấu hình cơ sở và danh sách staffs nội bộ.
+
+## [2026-05-21] - Trang chọn Bài test Sàng lọc & Tích hợp Design Lab
+- **Phát triển ScreeningPage.tsx & ScreeningPage.css**: 
+    - Xây dựng trang giao diện độc lập với nền tối cao cấp Slate & Indigo lôi cuốn, cung cấp bộ 10 công cụ lâm sàng chuẩn hóa chia làm 4 nhóm lớn (Chẩn đoán Chuyên sâu, Sàng lọc Nhanh, Hành vi Thích ứng & Kỹ năng, Tâm vận động Tổng quát).
+    - Hỗ trợ hiển thị song ngữ Việt - Anh toàn diện cho tất cả thông tin giới thiệu, nhóm và chi tiết của từng bài test sàng lọc.
+    - Thiết kế Glassmorphism tối cực kỳ premium với hiệu ứng Neon Cyber Blue phát sáng khi chọn nhóm, các góc bo tròn nhẹ nhàng 24px sang trọng, Responsive hoàn chỉnh 100% trên Mobile và Desktop.
+    - Xây dựng Popup Modal kính mờ (Bilingual Modal) hiển thị các thông tin lâm sàng chi tiết của bài test: Đối tượng/Độ tuổi, Thời gian trung bình, Chuyên viên thực hiện, Mục đích chính.
+    - Đồng bộ trạng thái bài test: PEP-3 hiển thị "Có sẵn / Available", các công cụ khác hiển thị "Sắp ra mắt / Coming Soon". Bấm "Thực hiện bài test" đối với PEP-3 sẽ kích hoạt Toast lấp lánh phản hồi ngữ cảnh (hướng dẫn mở khóa sau Children Profile), bấm đăng ký nhận thông báo đối với các công cụ còn lại.
+- **Tích hợp & Khai báo View**: 
+    - Khai báo view `'screening'` trong `src/App.tsx`, bọc trong `.screening-theme-root` để cách ly giao diện.
+    - Liên kết click button "BẮT ĐẦU SÀNG LỌC" từ `HeroSection.tsx` đến trang Sàng lọc thông qua prop `onStartScreening`.
+- **Mở rộng Smart Design Lab (ThemeCustomizer.tsx)**:
+    - Mở rộng hỗ trợ view `'screening'`, cho phép chỉnh sửa trực tiếp 6 biến màu đặc trưng của trang Sàng lọc (`--screening-bg`, `--screening-card-bg`, `--screening-accent`, `--screening-border-neon`, `--screening-text`, `--screening-text-muted`) theo thời gian thực.
+    - Đảm bảo cơ chế cách ly tuyệt đối, không làm rò rỉ giao diện (leak) khi quay trở về Landing Page.
+- **TypeScript Stabilization**:
+    - Khắc phục triệt để 2 lỗi biên dịch TypeScript `TS6133` (unused variables: `lang` trong `ReadModal` và `setPlanPhase` trong `ObjectivesTab.tsx`).
+- **Build Verification**:
+    - Chạy thử nghiệm và biên dịch thành công 100% dự án thông qua lệnh `npm run build` với đầu ra tối ưu, không có lỗi hay cảnh báo nào.
+
+## [2026-05-21] - Tái thiết kế Tông màu Sáng ấm Trang Sàng lọc (Homepage Theme)
+- **Tái thiết kế giao diện (`ScreeningPage.css`)**:
+    - Thay đổi toàn diện giao diện từ tông tối Cyber/Neon trước đó sang tông màu sáng kem ấm áp chuyên nghiệp (Pastel Slate & Teal kem sáng ấm #FFF8F0), phù hợp tối đa cho bác sĩ lâm sàng và giáo viên sử dụng lâu dài.
+    - Chuyển nền trang chính sang dạng gradient kem ấm mượt mà (`#FFF8F0` kết hợp `#FFFBEB`).
+    - Thiết kế lại header `.screening-header` sang nền trắng mờ bán trong suốt kết hợp viền mòng két nhạt. Đổi màu chữ tiêu đề tối lịch lãm sang mòng két đậm (#0D9488).
+    - Sidebar `.group-card` & `.group-icon` chuyển sang dạng thẻ kem sữa mịn, active hiển thị viền Teal và vạch biên trái. Màu chữ active là Teal đậm.
+    - Thay đổi `.tool-card` sang nền trắng sữa sạch sẽ, viền mảnh mịn màng, loại bỏ hoàn toàn các vệt phát sáng neon, đổ bóng mờ dịu mắt (soft shadow).
+    - Nút bấm `.btn-card-action` và `.btn-start` chuyển sang màu mòng két ấm áp y tế (Teal #0D9488), hover nổi bật phẳng trực quan.
+    - Hộp thoại chi tiết Modal `.modal-content-wrapper` nền trắng kem ấm áp, các bảng thông số lâm sàng nền kem nhạt dịu mắt, overlay mờ sáng tinh tế.
+    - Thiết kế lại Toast cảnh báo phông nền trắng thanh lịch, viền mòng két nhạt.
+- **Cập nhật Design Lab (`ThemeCustomizer.tsx`)**:
+    - Đồng bộ màu sắc mặc định của `screeningColors` sang tông sáng ấm y tế.
+    - Cập nhật nhãn hiển thị trong Smart Design Lab từ *"Màu viền Neon nổi bật (Cyber)"* sang *"Màu viền nổi bật (Accent)"*.
+- **Xác thực Biên dịch (Build Verification)**:
+    - Chạy kiểm thử thành công lệnh biên dịch đóng gói sản phẩm `npm run build` đạt tỉ lệ thành công 100% không cảnh báo hay lỗi cú pháp/TypeScript.
+
+## [2026-05-21] - Tái Cấu Trúc Toàn Diện Mô-đun Đánh giá Công cụ (Tool Assessment)
+- **Tái cấu trúc Thư mục và Tập tin (Rule 2)**:
+    - Di chuyển và đổi tên cấu trúc thư mục từ `src/components/screening/` sang `src/components/assessment/` chuyên nghiệp, dễ quản lý hơn.
+    - Đổi tên tệp giao diện và logic từ `ScreeningPage.tsx` / `ScreeningPage.css` thành `ToolAssessmentPage.tsx` / `ToolAssessmentPage.css`.
+    - Xóa sạch hoàn toàn thư mục cũ `src/components/screening/` để tránh dư thừa mã nguồn.
+- **Cập nhật mã nguồn và Logic giao diện (`ToolAssessmentPage.tsx` & `ToolAssessmentPage.css`)**:
+    - Đổi tên component chính từ `ScreeningPage` sang `ToolAssessmentPage`.
+    - Cập nhật toàn bộ các class CSS từ dạng `.screening-*` sang `.assessment-*`.
+    - Chuyển đổi toàn bộ các biến CSS tùy chỉnh từ `--screening-*` sang `--assessment-*`.
+    - Điều chỉnh thuật ngữ hiển thị từ "Sàng lọc / Screening" sang "Đánh giá công cụ / Tool Assessment" để khớp chuẩn chuyên môn y tế.
+    - Duy trì hỗ trợ song ngữ Việt - Anh đầy đủ cho cả 10 công cụ lâm sàng trong 4 nhóm và các modal chi tiết.
+- **Cập nhật các Tệp tin Phụ thuộc**:
+    - **`src/App.tsx`**: Cập nhật đường dẫn import từ `ToolAssessmentPage`, chuyển đổi route view từ `'screening'` sang `'assessment'`, và cập nhật bản dịch tiếng Việt / tiếng Anh trong từ điển ngôn ngữ.
+    - **`src/components/homepage/HeroSection.tsx`**: Cập nhật callback từ `onStartScreening` thành `onStartAssessment` và thay đổi nhãn nút bấm tương ứng.
+    - **`src/components/ThemeCustomizer.tsx`**: Đổi tên bộ biến màu mặc định thành `assessmentColors`, ánh xạ các biến CSS `--assessment-*` trong Design Lab, và định vị chính xác vùng cách ly `.assessment-theme-root` giúp thay đổi giao diện theo thời gian thực mà không ảnh hưởng tới trang khác (Rule 5).
+    - Chạy thành công lệnh `npm.cmd run build` trên hệ thống Windows, đạt tỉ lệ biên dịch thành công 100% không phát sinh bất kỳ lỗi TypeScript hay CSS nào.
+
+## [2026-05-21] - Áp dụng Playful Geometric Design System cho Trang Tool Assessment
+- **Triết lý thiết kế "Medical Playful"**: Áp dụng phong cách **Playful Geometric** (cảm hứng Memphis Group hiện đại) pha trộn chuyên nghiệp y tế — cấu trúc nội dung nghiêm túc, decoration xung quanh sống động và có cá tính. Phương châm "Stable Grid, Wild Decoration".
+- **Viết lại hoàn toàn `ToolAssessmentPage.css`**:
+    - **Dot-grid pattern background**: Nền `#FFFDF5` (warm cream) kết hợp polka-dot pattern SVG (`radial-gradient` 28px) cố định `background-attachment: fixed` tạo chiều sâu trực quan.
+    - **Hệ thống Hard Shadow**: Định nghĩa đầy đủ `--shadow-sm/md/lg/hover/active` dạng hard offset (`4px 4px 0px #1E293B`) theo đúng đặc tả Playful Geometric — không blur, chỉ offset màu tối.
+    - **4 màu nhóm công cụ lâm sàng**: Mỗi nhóm có màu định danh riêng: Nhóm 1 Chẩn đoán chuyên sâu (Amber `#FBBF24`), Nhóm 2 Sàng lọc Nhanh (Pink `#F472B6`), Nhóm 3 Hành vi Thích ứng (Violet `#8B5CF6`), Nhóm 4 Tâm vận động (Blue `#60A5FA`).
+    - **Floating Decoration Shapes**: Thêm 4 hình trang trí nền tuyệt đối — 2 dashed circle (amber/pink), 1 spinning triangle (violet), 1 rotating square (blue) — hoạt ảnh float/spin chậm nhẹ nhàng, ẩn hoàn toàn trên mobile.
+    - **Sticker Card — Group Cards**: Mỗi group card active hiển thị `border: 2px solid [group-color]` + hard shadow màu tương ứng nhóm. Hover: `rotate(-1deg) scale(1.02)` + icon wiggle animation (`rotate: 0->-8->8->0deg`). Transition bouncy `cubic-bezier(0.34, 1.56, 0.64, 1)`.
+    - **Sticker Card — Tool Cards**: `border: 2px solid #1E293B`, `box-shadow: 6px 6px 0px #E2E8F0` (soft hard shadow). Hover: `rotate(-0.6deg) translateY(-3px)`. Card Available có violet shadow `rgba(139,92,246,0.25)`.
+    - **Candy Buttons**: Nút "Start Assessment" — bg violet, `border: 2px solid #1E293B`, hard shadow, hover translate-lift và shadow mở rộng. Nút "Learn More" — outline pill, hover fill Amber. Nút Notify — Amber candy.
+    - **Pop Modal**: `border: 2px solid #1E293B`, `box-shadow: 12px 12px 0px #1E293B`. Header band là dot-pattern SVG (violet/amber tùy status). Entrance animation `scale(0.85) -> scale(1)` bounce. Nút close xoay 90° khi hover.
+    - **Pop Toasts**: `border: 2px solid #1E293B`, `box-shadow: 5px 5px 0px #1E293B`, bounce pop entrance.
+    - **Accessibility**: Tôn trọng `prefers-reduced-motion`, vô hiệu hóa wiggle/bounce/float animations khi người dùng yêu cầu. Giảm hard shadow về `3px` trên mobile.
+- **Cập nhật `ToolAssessmentPage.tsx`**:
+    - Thêm `groupIndexMap` record mapping `group_id -> 1|2|3|4` để CSS class `group-N` nhận diện màu nhóm.
+    - Thêm 4 decoration div elements (`.assessment-deco-circle-1/2`, `.assessment-deco-triangle`, `.assessment-deco-square`) vào layout wrapper.
+    - Thêm class `modal-available` / `modal-coming-soon` vào modal wrapper để CSS band header đổi màu theo trạng thái.
+- **Cập nhật `ThemeCustomizer.tsx` — Design Lab**:
+    - Bổ sung 4 biến màu nhóm (`--group-1-color` đến `--group-4-color`) vào `assessmentColors` state object.
+    - Cập nhật `assessmentColors` default values sang palette Playful Geometric (`--assessment-accent: #8B5CF6` Violet, `--assessment-bg: #FFFDF5`).
+    - Cập nhật `assessmentMap` labels với tên mô tả nhóm rõ ràng ("Màu nhóm 1 — Chẩn đoán (Amber)", v.v.).
+- **Xác thực Biên dịch (Build Verification)**:
+    - Chạy `npm.cmd run build`, Vite biên dịch thành công 100% (✓ 47 modules transformed, ✓ built in 262ms) không có lỗi TypeScript hay CSS.

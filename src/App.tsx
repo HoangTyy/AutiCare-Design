@@ -3,6 +3,7 @@ import ThemeCustomizer from './components/ThemeCustomizer'
 import AdminDashboard from './components/AdminDashboard'
 import DesignCodeHomepage from './components/DesignCodeHomepage'
 import DesignCodeAdmin from './components/DesignCodeAdmin'
+import ToolAssessmentPage from './components/assessment/ToolAssessmentPage'
 
 // Modular Landing Sections
 import HeroSection from './components/homepage/HeroSection'
@@ -16,7 +17,7 @@ import FloatingNav from './components/homepage/FloatingNav'
 import './App.css'
 
 type Language = 'vi' | 'en'
-type View = 'landing' | 'admin' | 'designHomepage' | 'designAdmin'
+type View = 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment'
 
 const translations = {
   vi: {
@@ -29,7 +30,7 @@ const translations = {
     login: "Đăng nhập",
     heroTitle: "THẤU HIỂU & ĐỒNG HÀNH CÙNG TRẺ phổ tự kỷ",
     heroSub: "Giải pháp toàn diện hỗ trợ giáo viên, cơ sở can thiệp sớm và cha mẹ trong việc sàng lọc, giám sát hành vi và đồng hành cùng sự hòa nhập của con trẻ.",
-    btnStartScreening: "BẮT ĐẦU SÀNG LỌC",
+    btnStartAssessment: "BẮT ĐẦU ĐÁNH GIÁ",
     btnViewDemo: "DEMO TRUNG TÂM & VAI TRÒ",
     ctaTitle: "BẮT ĐẦU HÀNH TRÌNH THAY ĐỔI NGAY HÔM NAY",
     ctaSub: "Tham gia cùng mạng lưới hơn 50 trung tâm và 1000 chuyên gia can thiệp sớm hàng đầu sử dụng AutiCare mỗi ngày.",
@@ -45,7 +46,7 @@ const translations = {
     login: "Login",
     heroTitle: "UNDERSTAND & ACCOMPANY AUTISTIC CHILDREN",
     heroSub: "A comprehensive digital solution supporting clinical schools, teachers, and parents in early screening, behavioral analysis, and social inclusion progress.",
-    btnStartScreening: "START SCREENING",
+    btnStartAssessment: "START ASSESSMENT",
     btnViewDemo: "CENTER & ROLES DEMO",
     ctaTitle: "START THE LIFELONG TRANSFORMATION TODAY",
     ctaSub: "Join our network of over 50 early intervention clinical centers and 1000 specialist educators using AutiCare daily.",
@@ -116,6 +117,19 @@ function App() {
 
   if (view === 'designAdmin') {
     return <DesignCodeAdmin lang={lang} setLang={setLang} onBack={() => setView('admin')} />
+  }
+
+  if (view === 'assessment') {
+    return (
+      <div className="assessment-theme-root assessment-view-wrapper" key="assessment-view">
+         <ToolAssessmentPage 
+           lang={lang} 
+           setLang={setLang} 
+           onBack={() => setView('landing')}
+         />
+         <ThemeCustomizer view={view} />
+      </div>
+    )
   }
 
   if (view === 'admin') {
@@ -211,7 +225,7 @@ function App() {
 
       {/* 3. Main Sections */}
       <main>
-        <HeroSection id="hero" t={t} />
+        <HeroSection id="hero" t={t} onStartAssessment={() => setView('assessment')} />
         
         <CategoriesSection id="category" lang={lang} />
         
