@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 
 interface ThemeCustomizerProps {
   view: 'landing' | 'admin' | 'assessment';
+  onDesignCode?: () => void;
 }
 
-const ThemeCustomizer: React.FC<ThemeCustomizerProps> = ({ view }) => {
+const ThemeCustomizer: React.FC<ThemeCustomizerProps> = ({ view, onDesignCode }) => {
   const [isOpen, setIsOpen] = useState(false);
   
   const [landingColors, setLandingColors] = useState({
-    '--primary': '#0084FF',
-    '--secondary': '#2AC176',
-    '--accent': '#FF6B6B',
-    '--bg-main': '#FFF8D1',
-    '--text-main': '#1A1C1E',
+    '--primary': '#8B5CF6',
+    '--secondary': '#F472B6',
+    '--accent': '#34D399',
+    '--bg-main': '#FFFDF5',
+    '--text-main': '#1E293B',
   });
 
   const [adminColors, setAdminColors] = useState({
@@ -222,6 +223,13 @@ const ThemeCustomizer: React.FC<ThemeCustomizerProps> = ({ view }) => {
                 : 'Tùy chỉnh giao diện Trang Đánh giá'}
           </p>
           
+          {onDesignCode && (
+            <button className="design-code-lab-btn" type="button" onClick={onDesignCode}>
+              <span className="design-code-icon" aria-hidden="true">&lt;&gt;</span>
+              <span>Design Code</span>
+            </button>
+          )}
+
           {Object.entries(colors).map(([key, value]) => (
             <div className="color-field" key={key}>
               <label>{getLabel(key)}</label>

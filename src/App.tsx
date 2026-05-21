@@ -4,6 +4,7 @@ import AdminDashboard from './components/AdminDashboard'
 import DesignCodeHomepage from './components/DesignCodeHomepage'
 import DesignCodeAdmin from './components/DesignCodeAdmin'
 import ToolAssessmentPage from './components/assessment/ToolAssessmentPage'
+import AuthModal from './components/auth/AuthModal'
 
 // Modular Landing Sections
 import HeroSection from './components/homepage/HeroSection'
@@ -27,7 +28,9 @@ const translations = {
     about: "Về chúng tôi",
     collections: "Liên hệ",
     dashboard: "Dashboard Admin",
+    signOut: "Dang xuat",
     login: "Đăng nhập",
+    notifications: "Thong bao",
     heroTitle: "THẤU HIỂU & ĐỒNG HÀNH CÙNG TRẺ phổ tự kỷ",
     heroSub: "Giải pháp toàn diện hỗ trợ giáo viên, cơ sở can thiệp sớm và cha mẹ trong việc sàng lọc, giám sát hành vi và đồng hành cùng sự hòa nhập của con trẻ.",
     btnStartAssessment: "BẮT ĐẦU ĐÁNH GIÁ",
@@ -43,7 +46,9 @@ const translations = {
     about: "About us",
     collections: "Contact",
     dashboard: "Admin Dashboard",
+    signOut: "Sign out",
     login: "Login",
+    notifications: "Notifications",
     heroTitle: "UNDERSTAND & ACCOMPANY AUTISTIC CHILDREN",
     heroSub: "A comprehensive digital solution supporting clinical schools, teachers, and parents in early screening, behavioral analysis, and social inclusion progress.",
     btnStartAssessment: "START ASSESSMENT",
@@ -59,6 +64,9 @@ function App() {
   const [lang, setLang] = useState<Language>('vi')
   const [view, setView] = useState<View>('landing')
   const [activeSection, setActiveSection] = useState('hero')
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  const [currentUserName, setCurrentUserName] = useState<string | null>(null)
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false)
 
   // Navbar scroll visual shift
   useEffect(() => {
@@ -102,6 +110,17 @@ function App() {
   }, [view])
 
   const t = translations[lang]
+  const notificationItems = lang === 'vi'
+    ? [
+        { title: 'Cap nhat he thong', body: 'He thong se bao tri de cap nhat.' },
+        { title: 'Canh bao tai khoan', body: 'Da phat hien mot loi bao mat.' },
+        { title: 'Loi moi hop', body: 'Ban vua duoc moi tham gia mot cuoc hop.' },
+      ]
+    : [
+        { title: 'System Update', body: 'System will be under maintenance for update.' },
+        { title: 'Account warning', body: 'A security fault has been occurred.' },
+        { title: 'Meeting invite', body: 'You has been invited to a meeting.' },
+      ]
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id)
@@ -198,9 +217,32 @@ function App() {
               <button className="icon-btn" title="Search">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               </button>
-              <button className="icon-btn" title="Design Code" onClick={() => setView('designHomepage')}>
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              </button>
+              <div className="notification-menu">
+                <button
+                  className={`icon-btn notification-btn ${isNotificationsOpen ? 'active' : ''}`}
+                  title={t.notifications}
+                  aria-label={t.notifications}
+                  aria-expanded={isNotificationsOpen}
+                  onClick={() => setIsNotificationsOpen((open) => !open)}
+                >
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                  </svg>
+                  <span className="notification-dot" aria-hidden="true" />
+                </button>
+
+                {isNotificationsOpen && (
+                  <div className="notification-panel" role="menu">
+                    {notificationItems.map((item) => (
+                      <button className="notification-item" type="button" key={item.title} role="menuitem">
+                        <span className="notification-title">{item.title}</span>
+                        <span className="notification-body">{item.body}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
               <button className="icon-btn" title={t.dashboard} onClick={() => setView('admin')}>
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
                   <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
@@ -212,6 +254,19 @@ function App() {
               <button className={`lang-btn ${lang === 'vi' ? 'active' : ''}`} onClick={() => setLang('vi')}>VN</button>
               <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</button>
             </div>
+
+            {currentUserName ? (
+              <div className="auth-session">
+                <span className="auth-user-chip">{currentUserName}</span>
+                <button className="auth-signout-btn" type="button" onClick={() => setCurrentUserName(null)}>
+                  {t.signOut}
+                </button>
+              </div>
+            ) : (
+              <button className="auth-open-btn" type="button" onClick={() => setIsAuthModalOpen(true)}>
+                {t.login}
+              </button>
+            )}
           </div>
         </div>
       </nav>
@@ -240,7 +295,13 @@ function App() {
       </main>
 
       {/* Design customizer system */}
-      <ThemeCustomizer view={view} />
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        lang={lang}
+        onClose={() => setIsAuthModalOpen(false)}
+        onSignIn={() => setCurrentUserName('Auticare Admin')}
+      />
+      <ThemeCustomizer view={view} onDesignCode={() => setView('designHomepage')} />
     </div>
   )
 }

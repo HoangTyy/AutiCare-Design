@@ -21,10 +21,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ id, t, onStartAssessment }) =
           <h1 className="bubble-text glow-text">{t.heroTitle}</h1>
           <p className="hero-desc">{t.heroSub}</p>
           
-          <div className="hero-actions" onClick={onStartAssessment} style={{ cursor: 'pointer', display: 'inline-block' }}>
+          <div className="hero-actions neo-button-surface" onClick={onStartAssessment} style={{ cursor: 'pointer', display: 'inline-block' }}>
             <TiltButton 
               elevation={6} 
-              radius={24} 
+              radius={0} 
               surfaceColor="var(--primary)" 
               textColor="white"
               tilt={10}

@@ -66,7 +66,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ id, lang }) => {
           <div className="about-action">
             <TiltButton 
               elevation={5} 
-              radius={16} 
+              radius={0} 
               surfaceColor="var(--primary)" 
               textColor="white"
               padding="0.8rem 2.5rem"

@@ -146,7 +146,7 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({ id, lang }) => {
             className={`bento-card bento-${idx + 1} glass`}
             style={{ 
               '--card-glow': cat.borderColor,
-              background: `linear-gradient(135deg, rgba(255, 255, 255, 0.8), ${cat.color})`
+              backgroundColor: cat.color
             } as React.CSSProperties}
           >
             <div className="bento-badge" style={{ backgroundColor: cat.borderColor }}>
@@ -165,7 +165,7 @@ const CategoriesSection: React.FC<CategoriesSectionProps> = ({ id, lang }) => {
             <div className="bento-action">
               <TiltButton 
                 elevation={5} 
-                radius={12} 
+                radius={0} 
                 surfaceColor={cat.borderColor} 
                 textColor="white"
                 padding="0.6rem 1.5rem"

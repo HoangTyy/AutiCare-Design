@@ -419,3 +419,144 @@
     - Cập nhật `assessmentMap` labels với tên mô tả nhóm rõ ràng ("Màu nhóm 1 — Chẩn đoán (Amber)", v.v.).
 - **Xác thực Biên dịch (Build Verification)**:
     - Chạy `npm.cmd run build`, Vite biên dịch thành công 100% (✓ 47 modules transformed, ✓ built in 262ms) không có lỗi TypeScript hay CSS.
+
+## [2026-05-21] - Neo-Brutalism Homepage Redesign giu nguyen Palette AutiCare
+- **Implementation**:
+    - Tai thiet ke toan bo layer giao dien Homepage trong `src/App.css` theo ngon ngu **Neo-Brutalism**: nen giay kem co dot-grid/grid texture, vien den day 4px, hard shadow offset (`4px/8px/12px`), card dang sticker, badge xoay nhe, section title uppercase co text-shadow cung.
+    - Giu nguyen bang mau AutiCare hien co va van de Design Lab dieu khien qua cac bien `--primary`, `--secondary`, `--accent`, `--bg-main`, `--text-main`. Palette chu dao tiep tuc la xanh duong `#0084FF`, xanh la `#2AC176`, do coral `#FF6B6B`, vang `#FFD93D`, nen kem `#FFF8D1`.
+    - Chuyen Navbar thanh mot block noi bat o giua man hinh voi border den day, hard shadow, logo AutiCare dang sticker mau xanh duong, link hover/active dang nhan co hoc mau vang.
+    - Chuyen Hero tu glassmorphism mem sang collage board: headline lon uppercase co text-shadow xanh, description nam trong sticker panel, CTA nhan co hoc, anh minh hoa dat tren panel vien den va nen vang, kem badge `EARLY INTERVENTION`, `AUTICARE`, `+ CARE`.
+    - Chuyen Categories, Reviews, About, CTA, Footer sang he thong card Neo-Brutalism: card khong bo goc, border den, shadow cung, rotation nhe xen ke, hover lift va active press.
+    - Loai bo blur/glass/gradient mem tren Homepage va thay bang color blocking, pattern texture, outline, shadow cung. Cac nut `TiltButton` trong `HeroSection.tsx`, `CategoriesSection.tsx`, `AboutSection.tsx`, `CtaSection.tsx` da doi `radius={0}` de khop aesthetic goc vuong.
+    - Design Lab toggle va panel tren Homepage cung duoc dong bo Neo-Brutalism: panel border day, header xanh duong, nut copy mau do, input focus nen vang va shadow cung.
+- **Walkthrough**:
+    - Homepage van giu kien truc tach file theo Rule 10: `HeroSection`, `CategoriesSection`, `ReviewsSection`, `AboutSection`, `CtaSection`, `Footer`, `FloatingNav`; thay doi chu yeu tap trung o `App.css` de tranh tao style le tung component.
+    - Nguoi dung van co nut doi ngon ngu VN/EN tren header; cac noi dung song ngu hien co khong bi thay doi.
+    - Design Lab Landing tiep tuc tac dong truc tiep len palette, nhung toan bo visual moi lay cac mau nay de ve border/color-block/sticker nen khong pha vo kha nang tuy bien.
+    - Responsive duoc giu va tang cuong: desktop van scroll snap, tablet chuyen grid 2 cot, mobile stack 1 cot, an floating nav va giam visual rotation de khong gay vo layout.
+- **Build Verification**:
+    - Da chay `npm.cmd run build`, nhung build bi chan boi loi TypeScript ngoai pham vi Homepage trong `src/components/dashboard/StaffsTab.tsx` tai dong 471 va 512: so sanh type `"view"` voi `"edit"` khong co giao nhau (`TS2367`). Cac thay doi Homepage khong tao loi TypeScript moi trong qua trinh nay.
+
+## [2026-05-21] - Dieu chinh Header Homepage tai Zoom 100%
+- **Implementation**:
+    - Tang chieu ngang `.navbar` trong `src/App.css` tu `min(1180px, calc(100% - 28px))` len `min(1360px, calc(100% - 20px))` de header du dai hon tren desktop zoom 100%.
+    - Override rieng `.navbar .nav-content` voi `max-width: none` va padding gon hon, tranh viec class `.container` gioi han noi dung header lam cac cum link/logo/icon bi nen.
+    - Dieu chinh grid header thanh `minmax(470px, 1fr) auto minmax(430px, 1fr)` de cum nav trai, logo giua va cum icon/ngon ngu/phai/Login co khong gian can bang hon.
+    - Doi mau chu logo `AUTICARE` trong `.neon-text` va `.neon-text-static` sang trang `#FFFFFF`, them `text-shadow: 2px 2px 0 #000` de chu ro hon tren nen xanh Primary Blue.
+- **Walkthrough**:
+    - Header van giu phong cach Neo-Brutalism: border den day, hard shadow, sticker logo va interaction co hoc.
+    - Thay doi chi tac dong Homepage header/footer logo static, khong thay doi logic chuyen ngon ngu VN/EN, Design Code, Admin Dashboard hay scroll navigation.
+    - Design Lab van giu kha nang doi mau Primary Blue; chu logo trang + shadow den giup dam bao do tuong phan tot hon neu nen logo tiep tuc la mau dam.
+- **Build Verification**:
+    - Da chay lai `npm.cmd run build`; build van bi chan boi loi TypeScript co san trong `src/components/dashboard/StaffsTab.tsx` tai dong 471 va 512 (`TS2367`). Khong ghi nhan loi moi tu thay doi CSS header.
+
+## [2026-05-21] - Them Auth Modal Sign in / Sign up / Forgot Password cho Homepage
+- **Implementation**:
+    - Tao component moi `src/components/auth/AuthModal.tsx` de quan ly 3 form xac thuc trong cung mot modal: `Sign in`, `Sign up`, va `Forgot password`. Khong tao route hay page rieng, dung dung yeu cau "ko can tach ra trang khac nhau".
+    - Tich hop `AuthModal` vao `src/App.tsx`, them state `isAuthModalOpen` va nut `Login` tren header Homepage. Moi lan mo modal, form mac dinh tu reset ve `Sign in`.
+    - Form `Sign in` co nut **Sign in with Google**, email/password, remember me, link Forgot Password, link Register. Form `Sign up` co full name, email, password, confirm password. Form `Forgot password` co email va nut gui lien ket khoi phuc.
+    - Them animation **Slip** trong `src/App.css`: khi bam `Register`, `Forgot password`, hoac quay lai `Sign in`, panel form truot ngang voi `auth-slip-forward` / `auth-slip-backward` trong cung mot modal.
+    - Thiet ke modal giu dung phong cach Neo-Brutalism hien tai: overlay dot pattern, khung modal border den day, hard shadow 16px, poster ben trai mau Primary Blue, sticker `SECURE`, `CARE ID`, logo AutiCare, input border day, nut co hoc hard-shadow.
+    - Ho tro song ngu theo `lang` hien co cua Homepage. Copy hien thi co ban co ca `vi` va `en`; nut chuyen VN/EN tren header van doi noi dung modal theo state ngon ngu.
+    - Them responsive modal: tren mobile modal chuyen 1 cot, poster thu gon, form full width, shadow giam kich thuoc de khong tran man hinh.
+- **Walkthrough**:
+    - Nguoi dung bam nut `Login` tren header de mo modal. Modal luon bat dau o `Sign in`.
+    - Bam `Register` o cuoi form Sign in se slip sang Sign up. Bam `Dang nhap / Sign in` trong Sign up se slip nguoc ve Sign in.
+    - Bam `Forgot password?` se slip sang Forgot Password. Bam `Back to sign in` se slip nguoc ve Sign in.
+    - Modal co the dong bang nut `X`, click vao overlay, hoac phim `Escape`.
+- **Build Verification**:
+    - Da chay `npm.cmd run build`; TypeScript khong bao loi moi tu `AuthModal.tsx`, `App.tsx`, hay `App.css`. Build van bi chan boi loi co san trong `src/components/dashboard/StaffsTab.tsx` dong 471 va 512 (`TS2367`).
+
+## [2026-05-21] - Kich hoat Sign in Demo Account va Sign out tren Header
+- **Implementation**:
+    - Them state `currentUserName` trong `src/App.tsx` de quan ly trang thai dang nhap UI-only cho Homepage.
+    - Cap nhat `AuthModal.tsx` nhan prop `onSignIn`; khi submit form Sign in hoac bam nut Sign in with Google, modal se goi `onSignIn()`, dong modal, va gan user mau la `Auticare Admin`.
+    - Form Sign in hien tai khong can nhap gi. Email/password mau duoc dien san: `admin@auticare.vn` va `auticare-admin`; co them note demo trong modal de nguoi dung biet chi can bam Sign in.
+    - Header Homepage sau khi dang nhap an nut Login, hien chip ten `Auticare Admin` va nut `Sign out` / `Dang xuat`. Bam Sign out se xoa state user va dua header ve trang thai Login ban dau.
+    - Them CSS cho `.auth-session`, `.auth-user-chip`, `.auth-signout-btn` trong `src/App.css`, giu style Neo-Brutalism: border den day, hard shadow, chip user nen xanh la, nut sign out nen trang.
+- **Walkthrough**:
+    - Bam Login tren header -> modal mo mac dinh Sign in voi tai khoan mau da dien san.
+    - Bam nut Sign in -> modal dong, header hien `Auticare Admin` + Sign out.
+    - Bam Sign in with Google cung dang nhap demo tuong tu de phuc vu luong UI.
+    - Bam Sign out -> quay lai trang thai chua dang nhap, hien lai nut Login.
+- **Build Verification**:
+    - Da chay lai `npm.cmd run build`; khong co loi moi tu auth demo state. Build van bi chan boi loi TypeScript co san trong `src/components/dashboard/StaffsTab.tsx` dong 471 va 512 (`TS2367`).
+
+## [2026-05-21] - Chuan hoa Font Homepage va Thu gon Mat do Hien thi 100% Zoom
+- **Implementation**:
+    - Cap nhat `src/App.css` de ep font `Be Vietnam Pro` cho noi dung Homepage ngoai Header: `main`, cac section, Footer, FloatingNav, Auth Modal va Design Lab Landing. Header duoc giu scope rieng, logo AutiCare van dung `Titan One` theo nhan dien hien co.
+    - Loai bo viec ep font truc tiep len `.nav-links a` trong nhom rule chung cua Homepage, tranh Header bi keo theo cac rule typography cua body section.
+    - Thu gon kich co homepage theo cam giac zoom 90% tai muc browser zoom 100%: giam `padding-top` desktop section, max-width container tu 1200px ve 1080px, giam font headline/section title, giam padding/gap cua Hero, cards, Reviews, About, CTA va Footer.
+    - Giam kich thuoc Hero image, card min-height, text body trong card, spacing Footer va padding cac nut TiltButton de cac section vua viewport hon ma khong doi palette, border, hard shadow hay phong cach Neo-Brutalism hien co.
+- **Walkthrough**:
+    - Khi xem o zoom 100%, moi section Homepage co mat do tuong duong truoc day khi zoom 90%, giup han che mat noi dung o canh duoi/canh phai trong scroll snap desktop.
+    - Header khong bi thiet ke lai; thay doi font/scale tap trung vao vung noi dung ben duoi Header.
+    - Design Lab van tiep tuc dieu khien palette AutiCare qua cac CSS variables hien co.
+- **Build Verification**:
+    - Da chay `npm.cmd run build`; khong ghi nhan loi moi tu cac thay doi Homepage/CSS. Build van bi chan boi loi TypeScript co san trong `src/components/dashboard/StaffsTab.tsx` dong 471 va 512 (`TS2367`).
+
+## [2026-05-21] - Canh giua Cards Danh muc va Tang do doc Hero Title
+- **Implementation**:
+    - Cap nhat `src/App.css` cho `.glow-text` o Hero: bo shadow xanh duong offset lon gay kho doc, thay bang chu den co `-webkit-text-stroke: 1px #000`, shadow trang va vang nhe hon de van giu cam giac poster Neo-Brutalism nhung ro chu hon tren nen trang.
+    - Cap nhat `.bento-grid` them `margin-left/right: auto` va offset rieng cho desktop `.category .bento-grid { left: -2.8rem; }` tai breakpoint tren 1121px de 4 card Danh muc nam vao tam thi giac thay vi lech sang phai.
+    - Khong thay doi mau palette AutiCare, data song ngu hay component JSX; thay doi chi nam trong layer CSS cua Homepage.
+- **Walkthrough**:
+    - Section Hero hien doc title "THAU HIEU & DONG HANH..." ro hon vi khong con bong xanh day che canh chu.
+    - Section Danh muc hien 4 card nam canh giua hon trong viewport desktop; tablet/mobile khong bi offset de tranh vo responsive.
+- **Build Verification**:
+    - Da chay `npm.cmd run build`; khong ghi nhan loi moi tu CSS Homepage. Build van bi chan boi loi TypeScript co san trong `src/components/dashboard/StaffsTab.tsx` dong 471 va 512 (`TS2367`).
+
+## [2026-05-21] - Sua Khoang Cach Hero Title va Button Fill Surface
+- **Implementation**:
+    - Cap nhat `.glow-text` trong `src/App.css`: tang `line-height` tu `0.95` len `1.08` va tang `margin-bottom` de cac dong cua title Hero co khoang cach ro hon, tranh dau tieng Viet va chu dong tren de len dong duoi.
+    - Sua cac nut `TiltButton` cua Homepage (`Hero`, `Danh muc`, `About`, `CTA`) bang cach override truc tiep cac class cua `react-tilt-button`: `.soft-btn`, `.soft-btn__wrapper`, `.soft-btn__content`, `.soft-btn__inner`.
+    - Dat `--button-raise-level: 0px`, width/height `100%`, an pseudo side layer `.soft-btn__wrapper::before`, dua border den vao `.soft-btn__content`, va bo padding mac dinh tren button de surface mau lap day toan bo khung nut.
+    - Hero button duoc dat width toi da 360px va height 58px; cac button card dung full width theo container, text can giua va co line-height on dinh.
+- **Walkthrough**:
+    - Hero title "THAU HIEU & DONG HANH CUNG TRE..." khi xuong dong khong con de len nhau, dac biet voi dau tieng Viet.
+    - Cac button khong con hien o mau nho nam giua khung trang; phan mau xanh/la/do/vang lap day toan bo nut, giu border den va hard shadow.
+- **Build Verification**:
+    - Da chay `npm.cmd run build`; khong co loi moi tu CSS Homepage. Build van bi chan boi loi TypeScript co san trong `src/components/dashboard/StaffsTab.tsx` dong 471 va 512 (`TS2367`).
+
+## [2026-05-21] - Di chuyen Design Code vao Design Lab va Them Notification Dropdown
+- **Implementation**:
+    - Go bo nut `Design Code` dang icon `<>` khoi cum icon tren Header Homepage trong `src/App.tsx`.
+    - Mo rong `ThemeCustomizer.tsx` voi prop tuy chon `onDesignCode`; rieng Landing truyen `onDesignCode={() => setView('designHomepage')}` de hien nut **Design Code** ben trong Design Lab.
+    - Them button `design-code-lab-btn` trong panel Design Lab, gom icon `<>` va label `Design Code`, giu style Neo-Brutalism border den, hard shadow, nen vang.
+    - Them notification icon vao Header Homepage, co state `isNotificationsOpen`, aria-label/aria-expanded, cham do thong bao va dropdown click duoc.
+    - Dropdown thong bao co 3 item mau: System Update, Account warning, Meeting invite; co ban song ngu VN/EN theo `lang`.
+    - Them CSS `.notification-menu`, `.notification-panel`, `.notification-item`, `.notification-title`, `.notification-body`, `.notification-dot` trong `src/App.css`, giu phong cach sticker: border den, hard shadow, nen kem/trang, title xanh AutiCare.
+- **Walkthrough**:
+    - Tren Header khong con icon `<>`; nguoi dung mo Design Lab bang nut bang mau vang o goc duoi, sau do bam **Design Code** ben trong panel.
+    - Bam icon thong bao tren Header se mo/tat danh sach thong bao mau. Moi item la mot button rieng, co hover/active co hoc.
+- **Build Verification**:
+    - Da chay `npm.cmd run build`; khong co loi moi tu Header/Design Lab/Notification. Build van bi chan boi loi TypeScript co san trong `src/components/dashboard/StaffsTab.tsx` dong 471 va 512 (`TS2367`).
+
+## [2026-05-21] - Chuyen Homepage sang Playful Geometric Design System
+- **Implementation**:
+    - Cap nhat default Landing tokens trong `src/components/ThemeCustomizer.tsx` sang Playful Geometric: Violet `#8B5CF6`, Pink `#F472B6`, Mint `#34D399`, Cream `#FFFDF5`, Slate `#1E293B`.
+    - Them layer override **Playful Geometric Landing Layer** o cuoi `src/App.css` de giu kien truc component hien co nhung doi ngon ngu visual: slate ink thay pure black, border 2px, radius 16-34px, hard shadow khong blur, dot-grid va confetti shapes.
+    - Header Homepage duoc lam mem hon voi rounded container, slate border, white paper background, nav link pill, logo sticker rounded va icon button rounded square.
+    - Hero chuyen thanh collage/blob card: nen trang co yellow/violet/mint shapes, headline slate + yellow shadow, description speech-bubble card, image wrapper blob radius va dot pattern.
+    - Cards trong Categories/Reviews/About/Footer chuyen sang sticker cards rounded 24px, shadow mau nhe theo nhom (violet/pink/yellow/mint), hover co bounce scale/rotate nhe.
+    - Buttons trong Hero/Cards/About/CTA duoc override thanh candy pill: border slate 2px, hard shadow, rounded-full, surface fill day du, hover/active co hoc.
+    - CTA banner chuyen thanh color block violet + amber, Footer/Auth Modal/Notification/Design Lab duoc dong bo voi Playful Geometric: rounded panels, slate border, hard shadow nhe, title xanh/violet.
+    - Giu rule project: toan bo Landing van dung `Be Vietnam Pro`; khong ap dung Outfit/Plus Jakarta de tranh vi pham Rule 9.
+- **Walkthrough**:
+    - Homepage van dung component tree hien co (`HeroSection`, `CategoriesSection`, `ReviewsSection`, `AboutSection`, `CtaSection`, `Footer`, `FloatingNav`) va Design Lab tiep tuc dieu khien palette qua CSS variables.
+    - Nguoi dung se thay giao dien bot "neo-brutalism den day", chuyen sang cam giac san choi/sticker book: bo goc lon, mau violet-pink-yellow-mint, dot-grid, blob/image mask, card hover wiggle.
+    - Notification dropdown, Auth Modal va nut Design Code trong Design Lab duoc giu chuc nang, chi duoc style lai cho dong bo.
+- **Build Verification**:
+    - Da chay `npm.cmd run build`; khong co loi moi tu `App.css` hay `ThemeCustomizer.tsx`. Build van bi chan boi loi TypeScript co san trong `src/components/dashboard/StaffsTab.tsx` dong 471 va 512 (`TS2367`).
+
+## [2026-05-21] - Sua Modal Create Account Bi Cat Noi Dung
+- **Implementation**:
+    - Cap nhat `src/components/auth/AuthModal.tsx` de them class theo mode (`auth-mode-signIn`, `auth-mode-signUp`, `auth-mode-forgot`) vao shell modal, giup CSS xu ly rieng tung form ma khong tach trang.
+    - Cap nhat `src/App.css` cho auth modal: tang `max-height` len 820px, doi `.auth-form-zone` tu `overflow: hidden` sang scroll doc noi bo, them scrollbar gon theo mau Slate/Playful Geometric.
+    - Rieng `auth-mode-signUp` duoc can noi dung tu tren xuong, giam nhe spacing subtitle/form/input/switch row va mo rong cot form tren desktop de cac field Create Account khong bi ket phan duoi.
+    - Them media query cho man hinh desktop thap de Sign up tu dong nen heading va padding; them override mobile de Create Account luon ve layout 1 cot, khong bi rule desktop de len.
+- **Walkthrough**:
+    - Bam `Dang nhap`/`Login`, chuyen qua `Register`/`Create account`: toan bo field Full name, Email, Password, Confirm password, nut submit va dong chuyen ve Sign in deu hien thi day du.
+    - Neu man hinh thap hoac zoom lon, phan form ben phai se cuon noi bo thay vi bi cat noi dung; Sign in/Forgot van giu cam giac modal gon nhu truoc.
+- **Build Verification**:
+    - Da chay `npm.cmd run build`; khong co loi moi tu `AuthModal.tsx` hay `App.css`. Build van bi chan boi loi TypeScript co san trong `src/components/dashboard/StaffsTab.tsx` dong 471 va 512 (`TS2367` so sanh type `"view"` voi `"edit"`).

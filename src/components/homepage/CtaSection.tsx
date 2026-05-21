@@ -21,7 +21,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({ id, t }) => {
           <div className="banner-action">
             <TiltButton 
               elevation={6} 
-              radius={24} 
+              radius={0} 
               surfaceColor="white" 
               textColor="var(--secondary)"
               tilt={12}
