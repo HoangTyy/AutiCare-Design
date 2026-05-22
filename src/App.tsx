@@ -10,6 +10,7 @@ import AuthModal from './components/auth/AuthModal'
 import HeroSection from './components/homepage/HeroSection'
 import CategoriesSection from './components/homepage/CategoriesSection'
 import ReviewsSection from './components/homepage/ReviewsSection'
+import BlogsSection from './components/homepage/BlogsSection'
 import AboutSection from './components/homepage/AboutSection'
 import CtaSection from './components/homepage/CtaSection'
 import Footer from './components/homepage/Footer'
@@ -25,6 +26,7 @@ const translations = {
     home: "Trang chủ",
     category: "Danh mục",
     reviews: "Đánh giá",
+    blogs: "Tin tức",
     about: "Về chúng tôi",
     collections: "Liên hệ",
     dashboard: "Dashboard Admin",
@@ -54,6 +56,7 @@ const translations = {
     home: "Home",
     category: "Categories",
     reviews: "Reviews",
+    blogs: "News",
     about: "About us",
     collections: "Contact",
     dashboard: "Admin Dashboard",
@@ -103,7 +106,7 @@ function App() {
   useEffect(() => {
     if (view !== 'landing') return
 
-    const sections = ['hero', 'category', 'reviews', 'about', 'cta', 'footer']
+    const sections = ['hero', 'category', 'reviews', 'blogs', 'about', 'cta', 'footer']
     const observers = sections.map((id) => {
       const el = document.getElementById(id)
       if (!el) return null
@@ -215,6 +218,13 @@ function App() {
               {t.reviews}
             </a>
             <a 
+              href="#blogs" 
+              className={activeSection === 'blogs' ? 'active' : ''}
+              onClick={(e) => { e.preventDefault(); scrollToSection('blogs'); }}
+            >
+              {t.blogs}
+            </a>
+            <a 
               href="#about" 
               className={activeSection === 'about' ? 'active' : ''}
               onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
@@ -307,6 +317,8 @@ function App() {
         <CategoriesSection id="category" lang={lang} />
         
         <ReviewsSection id="reviews" lang={lang} />
+        
+        <BlogsSection id="blogs" lang={lang} />
         
         <AboutSection id="about" lang={lang} />
         
