@@ -5,6 +5,9 @@ import DesignCodeHomepage from './components/DesignCodeHomepage'
 import DesignCodeAdmin from './components/DesignCodeAdmin'
 import ToolAssessmentPage from './components/assessment/ToolAssessmentPage'
 import AuthModal from './components/auth/AuthModal'
+import ProfileModal from './components/homepage/ProfileModal'
+import ParentInvoicesModal from './components/homepage/ParentInvoicesModal'
+import ParentSupportTicketsModal from './components/homepage/ParentSupportTicketsModal'
 
 // Modular Landing Sections
 import HeroSection from './components/homepage/HeroSection'
@@ -128,6 +131,10 @@ function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [currentUserName, setCurrentUserName] = useState<string | null>(null)
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false)
+  const [showProfile, setShowProfile] = useState(false)
+  const [showParentInvoices, setShowParentInvoices] = useState(false)
+  const [showSupportTickets, setShowSupportTickets] = useState(false)
+  const [justBooked, setJustBooked] = useState(false)
 
   // Navbar scroll visual shift
   useEffect(() => {
@@ -325,7 +332,13 @@ function App() {
 
             {currentUserName ? (
               <div className="auth-session">
-                <span className="auth-user-chip">{currentUserName}</span>
+                <button 
+                  className="auth-user-chip" 
+                  onClick={() => setShowProfile(true)}
+                  title="Thông tin cá nhân"
+                >
+                  {currentUserName}
+                </button>
                 <button className="auth-signout-btn" type="button" onClick={() => setCurrentUserName(null)}>
                   {t.signOut}
                 </button>
@@ -348,7 +361,18 @@ function App() {
 
       {/* 3. Main Sections */}
       <main>
-        <HeroSection id="hero" t={t} lang={lang} onStartAssessment={() => setView('assessment')} />
+        <HeroSection 
+          id="hero" 
+          t={t} 
+          lang={lang} 
+          onStartAssessment={() => setView('assessment')} 
+          onInvoiceGenerated={() => {
+            setJustBooked(true);
+            setTimeout(() => {
+              setShowParentInvoices(true);
+            }, 2000);
+          }}
+        />
         
         <CategoriesSection id="category" lang={lang} />
         
@@ -364,12 +388,30 @@ function App() {
         <Footer lang={lang} />
       </main>
 
-      {/* Design customizer system */}
+      {/* Modals */}
       <AuthModal
         isOpen={isAuthModalOpen}
         lang={lang}
         onClose={() => setIsAuthModalOpen(false)}
         onSignIn={() => setCurrentUserName('Auticare Admin')}
+      />
+      <ProfileModal 
+        isOpen={showProfile}
+        onClose={() => setShowProfile(false)}
+        lang={lang}
+        onOpenInvoices={() => setShowParentInvoices(true)}
+        onOpenSupportTickets={() => setShowSupportTickets(true)}
+      />
+      <ParentInvoicesModal 
+        isOpen={showParentInvoices}
+        onClose={() => setShowParentInvoices(false)}
+        lang={lang}
+        justBooked={justBooked}
+      />
+      <ParentSupportTicketsModal 
+        isOpen={showSupportTickets}
+        onClose={() => setShowSupportTickets(false)}
+        lang={lang}
       />
       <ThemeCustomizer view={view} onDesignCode={() => setView('designHomepage')} />
     </div>
