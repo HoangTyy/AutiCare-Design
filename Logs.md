@@ -1,5 +1,14 @@
 # Project Logs
 
+## [2026-05-22] - Giải quyết Xung đột Git & Đồng bộ hóa Hệ thống (Kế hoạch Can thiệp & Đặt lịch Chuyên gia)
+- **Giải quyết xung đột (Git Conflicts)**:
+  - Khắc phục hoàn toàn xung đột mã nguồn trong `src/components/AdminDashboard.tsx`, tích hợp tab Kế hoạch can thiệp (`plans`) và Đặt lịch trống (`schedule`) chạy song song hoàn hảo trong Admin Dashboard.
+  - Giải quyết xung đột trong `Logs.md` bằng cách gộp nhật ký làm việc của hai nhánh cục bộ và nhánh từ xa.
+  - Giải quyết xung đột trong `context.md` tại phân vùng ghi nhận thiết kế, bảo lưu toàn vẹn tài liệu của cả hai tính năng lớn: Hệ thống Giai đoạn can thiệp (local) và Quy trình Đặt lịch chuyên gia dynamic kèm Vé hẹn AutiCare Memphis (remote).
+- **Đồng bộ hóa & Xác thực**:
+  - Chạy `git pull` và `git push` thành công, đưa toàn bộ mã nguồn đã đồng bộ lên kho lưu trữ GitHub từ xa nhánh `main`.
+  - Vite Dev Server tự động cập nhật HMR thành công không phát sinh bất kỳ lỗi biên dịch hay xung đột cú pháp nào.
+
 ## [2026-05-22] - Tinh chỉnh Giao diện Phase Details (Bỏ emoji, đồng bộ nút bấm & thêm Status)
 - **Loại bỏ emoji bánh răng (`⚙️`)**:
   - Loại bỏ hoàn toàn biểu tượng bánh răng `⚙️` khỏi tiêu đề **Phase Overview** trong trang Chi tiết Giai đoạn can thiệp (`PlanDetailView.tsx`) nhằm làm cho giao diện tinh tế, thanh nhã và chuyên nghiệp hơn.
