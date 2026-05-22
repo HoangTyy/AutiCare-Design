@@ -5,6 +5,9 @@ import type { Center } from './dashboard/CenterDetailView';
 import StaffsTab from './dashboard/StaffsTab';
 import ObjectivesTab from './dashboard/ObjectivesTab';
 import BlogsTab from './dashboard/BlogsTab';
+import InvoicesTab from './dashboard/InvoicesTab';
+import SupportTicketsTab from './dashboard/SupportTicketsTab';
+import PlanFeedbacksTab from './dashboard/PlanFeedbacksTab';
 import ScheduleTab from './dashboard/ScheduleTab';
 import type { ExerciseLevel } from './dashboard/CenterLevelsTab';
 import type { ExerciseCategory } from './dashboard/CenterCategoriesTab';
@@ -15,7 +18,7 @@ import PlanDetailView from './dashboard/PlanDetailView';
 import type { Plan } from './dashboard/PlanDetailView';
 import ExercisesTab from './dashboard/ExercisesTab';
 
-type Tab = 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises';
+type Tab = 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks';
 
 interface AdminDashboardProps {
   lang: 'vi' | 'en';
@@ -294,16 +297,27 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
         { id: 'objectives', labelVi: 'Mục tiêu Huấn luyện', labelEn: 'Manage Objectives' },
         { id: 'plans', labelVi: 'Kế hoạch Can thiệp', labelEn: 'Manage Plans' },
         { id: 'exercises', labelVi: 'Quản lý Bài tập', labelEn: 'Manage Exercises' },
+        { id: 'feedbacks', labelVi: 'Đánh giá Kế hoạch', labelEn: 'Plan Feedbacks' },
       ]
     },
     {
       id: 'content',
-      labelVi: 'Truyền thông',
-      labelEn: 'Communication',
+      labelVi: 'Truyền thông & CSKH',
+      labelEn: 'Communication & Support',
       icon: '📰',
       items: [
         { id: 'blogs', labelVi: 'Quản lý Blog', labelEn: 'Manage Blogs' },
         { id: 'notification', labelVi: 'Quản lý Thông báo', labelEn: 'Manage Notifications' },
+        { id: 'support', labelVi: 'Yêu cầu Hỗ trợ', labelEn: 'Support Tickets' },
+      ]
+    },
+    {
+      id: 'finance',
+      labelVi: 'Tài chính',
+      labelEn: 'Finance',
+      icon: '💰',
+      items: [
+        { id: 'invoices', labelVi: 'Quản lý Hóa đơn', labelEn: 'Manage Invoices' },
       ]
     }
   ];
@@ -421,6 +435,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
         return <ScheduleTab lang={lang} />;
       case 'exercises':
         return <ExercisesTab lang={lang} />;
+      case 'invoices':
+        return <InvoicesTab lang={lang} />;
+      case 'support':
+        return <SupportTicketsTab lang={lang} />;
+      case 'feedbacks':
+        return <PlanFeedbacksTab lang={lang} />;
       default:
         return <CentersTab lang={lang} centers={centers} onManageDetail={handleManageDetail} onUpdateCenters={setCenters} />;
     }
