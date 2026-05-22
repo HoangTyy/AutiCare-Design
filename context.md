@@ -298,6 +298,96 @@ Vung `.auth-form-zone` trong `src/App.css` khong con khoa bang `overflow: hidden
   - **Bổ sung thuộc tính Trạng thái (Status)**: Thêm thuộc tính `Status` vào trực tiếp trong lưới thông tin của Phase Overview. Trạng thái hiển thị sống động thông qua badge `.phase-status-badge` có màu sắc động tương ứng với `Active` (hoạt động) và `Inactive` (không hoạt động), tự động phản hồi theo sự thay đổi ngôn ngữ Việt/Anh của hệ thống.
 
 
+### Appointment Scheduling Management System (Dashboard) (2026-05-22)
+- **Database Schema Integration**: Cập nhật logic hiển thị và quản lý bám sát schema mới `appointment_slot`. Một bảng duy nhất quản lý các khung giờ với định dạng `datetime`.
+- **Admin Dashboard (`ScheduleTab.tsx`)**:
+  - Giao diện cung cấp Data Table để **Quản lý Lịch trống** cho Bác sĩ và Điều phối viên.
+  - Tích hợp Modal bật lên cho phép tạo khung giờ trực tiếp (Create Appointment Slot) bằng trường `datetime-local` HTML5 natively, kết hợp staff ID và loại hình khám Online/Offline.
+  - Logic Xóa khung giờ (Delete Appointment Slot): Cung cấp cảnh báo an toàn. Nút xóa sẽ bị mờ và khóa tương tác (`not-allowed`) với những khung giờ đã mang trạng thái `Booked` (Đã có người đặt).
+- **Visual Status Badges**: Cập nhật file `.css` bổ sung `.badge-status` dạng pill siêu thực tế với màu xanh (`Available`) và đỏ nhạt (`Booked`) dành riêng cho chức năng quản lý lịch trình trong Dashboard.
+## Homepage Expert Booking Flow Context Update (2026-05-22)
+
+Luồng đặt lịch chuyên gia từ trang chủ AutiCare đã được nâng cấp toàn diện từ hộp thoại thông báo `alert` thô sơ sang giao diện đặt lịch **Playful Geometric** thông minh tích hợp chọn ngày/giờ tư vấn và chốt hẹn bằng chiếc **Vé hẹn AutiCare (Appointment Ticket)** độc đáo.
+
+### 1. Kiến trúc Trạng thái & Logic Đặt lịch (State & Flow Logic)
+- **Quản lý Trạng thái Động (Reactive Booking States)**: Tích hợp trực tiếp bên trong `src/components/homepage/HeroSection.tsx`, quản lý 5 trạng thái đồng bộ:
+  - `bookingExpert`: Lưu thông tin chuyên gia đang được đặt lịch (Tiến sĩ Minh, Cô Lan, hoặc Bác sĩ Đức).
+  - `selectedDate`: Lưu trữ chuỗi ngày được người dùng chọn (ví dụ: `Thứ Sáu, 22/05` / `Friday, 22/05`).
+  - `selectedTimeSlot`: Lưu trữ ca tư vấn 2 tiếng được chọn.
+  - `bookingSuccess`: Cờ boolean đánh dấu việc hoàn tất quy trình và kích hoạt màn hình hiển thị Vé hẹn.
+  - `ticketCode`: Mã vé ngẫu nhiên duy nhất được sinh tự động khi chốt hẹn thành công (định dạng `AC-XXXX` với XXXX là 4 chữ số ngẫu nhiên).
+- **Bộ sinh Ngày tự động (Auto-generated Schedule Dates)**: Hàm `getNextDays()` tự động tính toán và sinh ra **4 ngày khả dụng tiếp theo** kể từ ngày hiện tại của thiết bị người dùng. Đặc biệt, tên các thứ và định dạng ngày được nội địa hóa động 100% theo ngôn ngữ được chọn trên Header (ví dụ: tiếng Việt ra `Thứ Bảy, 23/05` còn tiếng Anh ra `Saturday, 23/05`), đảm bảo tính chính xác về mặt thời gian và trải nghiệm người dùng bản địa.
+- **Khung ca tư vấn cố định (Fixed Consultation Slots)**: Định nghĩa cứng mảng 5 ca tư vấn, mỗi ca kéo dài đúng 2 tiếng/phiên theo chuẩn y tế:
+  - Ca 1: `08:00 - 10:00`
+  - Ca 2: `10:00 - 12:00`
+  - Ca 3: `13:00 - 15:00`
+  - Ca 4: `15:00 - 17:00`
+  - Ca 5: `18:00 - 20:00`
+
+### 2. Giao diện Đặt lịch Bento Grid (Bento Geometric Selection Panels)
+- **Lớp phủ nền mờ mịn (Backdrop Blur Overlay)**: Lớp phủ `.booking-popup-overlay` áp dụng màu nền Slate 900 `rgba(15, 23, 42, 0.65)` kết hợp hiệu ứng kính mờ mịn màng `backdrop-filter: blur(8px) !important` và `z-index: 1000002` để đảm bảo đè lên toàn bộ giao diện Landing Page (bao gồm cả ThreeJS WebGL).
+- **Lưới Bento Chọn Ngày & Giờ**: 
+  - Khung lưới `.date-grid` (4 cột) và `.time-grid` (3 cột) hiển thị các lựa chọn dưới dạng sticker bento bo góc tròn vừa phải `12px`, viền xám Slate `#1E293B` dày 2px và đổ bóng cứng đặc trưng.
+  - Hiệu ứng Hover nâng nhẹ (`transform: translateY(-2px)`) kết hợp bóng đổ dịch chuyển làm tăng tính phản hồi vật lý.
+  - Khi được chọn, thẻ ngày sẽ đổi sang nền xanh Violet (`--primary`) và thẻ giờ đổi sang nền Mint (`--secondary`), chữ chuyển sang màu tương phản cao, tạo nhịp điệu thị giác rực rỡ và trực quan.
+- **Chốt chặn an toàn (Validation Flow)**: Nút "Xác nhận đặt lịch / Confirm Booking" mặc định bị vô hiệu hóa (`.disabled-btn`), giảm độ mờ và hiển thị dòng chữ nhắc nhở màu đỏ `.booking-required-hint` cho đến khi người dùng chọn đủ cả Ngày và Giờ, ngăn ngừa dữ liệu rỗng.
+
+### 3. Thiết kế Đồ họa Vé hẹn AutiCare Độc đáo (Appointment Ticket Masterpiece)
+Khi người dùng bấm xác nhận, hệ thống ẩn khu vực lựa chọn và kích hoạt màn hình thành công rực rỡ với tâm điểm là chiếc **Vé hẹn AutiCare (Appointment Ticket)**.
+- **Họa tiết Nền Memphis**: Nền vé `.booking-ticket-card` được phủ họa tiết Memphis chấm tròn cổ điển `radial-gradient(#1e293b 8%, transparent 8%)` với kích thước grid `16px 16px` trên nền kem ấm nhạt `#FFFDF5`, tạo chất cảm giấy in tự nhiên.
+- **Chi tiết Răng cưa & Nét đứt (Perforated & Ticket Ridges)**:
+  - Đường phân tách vé đứt quãng giả lập bằng viền nét đứt dày dặn `border-bottom: 2px dashed #1E293B`.
+  - Hai bên sườn có các lỗ khoét bán nguyệt lõm vào trong (sử dụng pseudo-elements `::before` và `::after` với `radial-gradient` trong CSS) mô phỏng răng cưa xé vé cổ điển.
+- **Nhãn Trạng thái CONFIRMED**: Sticker màu mint `.ticket-stamp` nghiêng góc `5deg` nằm chéo ở góc vé với chữ viết hoa đậm `CONFIRMED` bao quanh bởi đường viền đôi cá tính.
+- **Mã vạch giả lập (Barcoded Ticket System)**: Thiết kế một khối mã vạch chân thực `.ticket-barcode` ở chân vé bằng cách sử dụng một chuỗi các đường thẳng đứng (`border-left`) có độ rộng và khoảng cách dày mỏng khác nhau, tạo cảm giác chuyên nghiệp giống như vé vào cổng thực tế.
+- **Sticker Rung Rinh Chúc Mừng**: Ở đỉnh vé có một biểu tượng sticker tích tròn màu Mint `.success-tick-sticker` tự động kích hoạt hiệu ứng rung lắc nhẹ (`animation: wobble 1s ease-in-out infinite`) để ăn mừng khoảnh khắc đặt lịch thành công của phụ huynh.
+
+### 4. Tương thích Design Lab & Responsive di động
+- **Đồng bộ Design Lab (Color Token Mapping)**:
+  - Lưới chọn ngày ánh xạ trực tiếp biến CSS `--primary` (được cập nhật động từ thanh trượt màu Violet của Design Lab).
+  - Lưới chọn giờ và các nút thành công ánh xạ trực tiếp biến CSS `--secondary` (Mint) hoặc `--accent` (Mint sáng).
+  - Khi người dùng điều chỉnh màu sắc trên bảng điều khiển Smart Design Lab, toàn bộ giao diện đặt lịch, các trạng thái active và màu chủ đạo của Vé hẹn AutiCare sẽ tự động đổi màu theo thời gian thực một cách hoàn hảo.
+- **Hỗ trợ Responsive Toàn diện (Mobile Optimization)**:
+  - Trên màn hình di động nhỏ (`< 640px`), các lưới Bento chọn ngày và giờ tự động co dãn và chuyển thành layout 1 cột xếp dọc thẳng hàng để tối ưu không gian cuộn.
+  - Các bóng đổ cứng được giảm kích thước từ `8px` xuống `3px` để tránh hiện tượng tràn lề thiết bị.
+  - Chiếc Vé hẹn AutiCare tự động thu nhỏ padding từ `2rem` xuống `1.25rem` và mã vạch co nhỏ lại để hiển thị trọn vẹn, sắc nét trên mọi dòng điện thoại thông minh hiện nay.
+
+### 5. Thiết kế Mở rộng Không gian Rộng rãi & Dashboard 2 Cột Song Song (2026-05-22)
+Đáp ứng nhu cầu về giao diện rộng mở, trực quan, dễ bấm chọn và cực kỳ sang trọng, luồng Đặt lịch Chuyên gia đã được nâng cấp thiết kế tối ưu hóa diện tích hiển thị vượt trội trên màn hình lớn.
+
+- **Loại bỏ ghi chú thời lượng tư vấn (Clean Typography)**: Xóa bỏ hoàn toàn các đoạn chú thích tĩnh `(2 tiếng/phiên)` và `(2 hours/session)` tại khóa tiêu đề chọn giờ `bookingSelectTime` ở cả hai bản dịch Việt/Anh. Giao diện trở nên tinh giản, gọn gàng, giảm mật độ chữ thừa thãi.
+- **Nâng cấp Modal Chọn Chuyên Gia Rộng Rãi (`.experts-panel`)**:
+  - **Không gian hoành tráng**: Nới rộng chiều rộng tối đa lên `1140px` (`width: min(1140px, 95%) !important`) và chiều cao tối đa lên `850px` trên desktop.
+  - **Bố cục Lưới 3 cột đứng (`.expert-list`)**: Thay vì danh sách xếp dọc đơn điệu, 3 chuyên gia hàng đầu được xếp thành **lưới 3 cột đứng** (`grid-template-columns: repeat(3, 1fr) !important; gap: 1.75rem !important`) cực kỳ thoáng đãng, lấp đầy không gian mới một cách cân đối.
+  - **Thẻ Hồ sơ Dọc (Vertical Profile Cards - `.expert-card`)**:
+    - Tái cấu trúc thẻ chuyên gia thành dạng thẻ đứng (`flex-direction: column !important; text-align: center !important`).
+    - Phóng to `.expert-avatar` sticker lên `5.5rem` x `5.5rem` với cỡ chữ viết tắt `1.45rem` nổi bật trên cùng của thẻ có viền Slate và bóng đổ đậm cá tính.
+    - Khối text `.expert-info` được căn giữa (`align-items: center !important; text-align: center !important; flex-grow: 1 !important`), tạo khoảng cách đều đặn và thoáng mắt.
+    - Xếp dọc các nút tương tác bên dưới `.expert-actions-row` (`flex-direction: column !important; width: 100% !important; gap: 0.75rem !important`) và kéo giãn các nút bấm Candy Button full width `100%` ở đáy thẻ, mang lại bố cục cân đối và dễ click chọn.
+- **Nâng cấp Dashboard Đặt Lịch 2 Cột Song Song (`.booking-panel`)**:
+  - **Không gian hoành tráng**: Mở rộng chiều rộng tối đa từ `650px` lên `980px` (`width: min(980px, 95%) !important`) giúp giao diện cực kỳ rộng rãi.
+  - **Dashboard 2 cột song song (`.booking-content-scroll`)**: Thay đổi bố cục cuộn dọc chật hẹp cũ thành cấu trúc **2 cột song song thời thượng** (`display: grid !important; grid-template-columns: 1.15fr 0.85fr !important; gap: 2.5rem !important; align-items: start !important; max-height: none !important`), mang lại giao diện trực quan như một bảng điều khiển trung tâm.
+    - **Cột Trái (Chọn ngày tư vấn - `.date-grid`)**: Được tái cấu trúc thành **Lưới Grid 2x2** (`grid-template-columns: repeat(2, 1fr) !important`). Các thẻ ngày `.date-card` được nới rộng kích thước (`padding: 1.25rem 0.85rem !important`), chữ số ngày hiển thị to rõ rệt, khoảng cách chạm bấm vô cùng thoải mái.
+    - **Cột Phải (Chọn giờ tư vấn - `.time-grid`)**: Được tái cấu trúc thành **Danh sách dọc đơn cột** (`grid-template-columns: 1fr !important`). Mỗi mốc giờ `.time-slot-card` được thiết kế dưới dạng **dải pill ngang thanh lịch** (`padding: 0.95rem 1.25rem !important; justify-content: flex-start !important`), tích hợp icon đồng hồ nhỏ bên trái, tạo bố cục xếp dọc cực thoáng mắt, dễ nhìn và dễ lựa chọn.
+- **Tính tương thích responsive**: Tự động co dãn thông minh, khi ở màn hình di động nhỏ dưới 768px sẽ co lại thành layout 1 cột dọc cuộn trong suốt mượt mà, tối ưu hóa trải nghiệm bấm chạm 100% cho phụ huynh trên điện thoại.
+
+### 6. Thiết Kế Chi Tiết Time Slots & Vé Hẹn Tư Vấn Động (2026-05-22)
+Nhằm mang lại trải nghiệm đặt lịch chi tiết, trực quan và chuyên nghiệp tối đa cho phụ huynh, hệ thống chọn khung ca tư vấn (Time Slots) và Vé hẹn AutiCare thành công đã được chi tiết hóa toàn diện.
+
+- **Cấu trúc Dữ liệu Ca Tư Vấn Thông Minh**: Thay thế mảng tĩnh chuỗi đơn giản cũ bằng mảng đối tượng động chứa đầy đủ thông tin: định dạng mốc giờ 2 tiếng (`time`), hình thức ca tư vấn (`type` nhận 'Online' | 'Offline') và trạng thái hiện thời của ca (`status` nhận 'available' | 'booked').
+- **Thiết kế Nhãn Sticker Đa Dạng (Playful Geometric Badges)**:
+  - Mỗi dải ca tư vấn nằm ngang hiển thị thời gian ở bên trái và cụm **nhãn dán (badges)** sặc sỡ phong cách Memphis ở bên phải:
+    - **Nhãn Hình thức**: Nhãn `.online` dùng tông màu tím nhạt (`#EDE9FE`, chữ tím `#6D28D9`), nhãn `.offline` dùng tông màu vàng hổ phách nhạt (`#FEF3C7`, chữ hổ phách `#B45309`).
+    - **Nhãn Trạng thái**: Nhãn `.available` (Đang trống) dùng tông màu xanh mint tươi tắn (`#D1FAE5`, chữ xanh đậm `#047857`), nhãn `.booked` (Đã bận) dùng tông màu xám nhạt (`#E2E8F0`, chữ xám `#475569`).
+  - Thiết kế có sự tương thích cao: Khi dải ca giờ được click chọn `.selected` (chuyển sang nền Violet của hệ thống), các nhãn sticker này tự động chuyển nền về trắng thuần `#FFFFFF` để đảm bảo độ tương phản màu tốt nhất và giữ tính thẩm mỹ cao cấp.
+- **Cơ chế Khóa Ca Đã Bận (Smart Blocker Interactivity)**:
+  - Đối với các ca giờ đã bị bận (`status === 'booked'`), hệ thống tự động khóa tương tác bằng thuộc tính HTML `disabled` và áp dụng lớp kiểu dáng `.booked` chuyên biệt.
+  - Về mặt visual, các ca bận bị làm mờ đi (`opacity: 0.55`), đổi nền sang màu xám Slate nhẹ `#F1F5F9` và đổi con trỏ chuột thành biểu tượng cấm bấm (`not-allowed`), ngăn chặn hoàn toàn việc click nhầm.
+- **Tích hợp Vé hẹn Động Song Ngữ (Dynamic i18n Ticket)**:
+  - Khi chốt hẹn thành công, chiếc **Vé hẹn AutiCare (Appointment Ticket)** Memphis tự động cập nhật dòng "Hình thức / Format" dựa trên thuộc tính `type` của ca tư vấn được chọn thay vì hiển thị tĩnh:
+    - Chọn ca **Online**: Vé tự động xuất dòng **"Trực tuyến (Zoom/Google Meet)"** (VN) / **"Online (Zoom/Google Meet)"** (EN).
+    - Chọn ca **Offline**: Vé tự động xuất dòng **"Trực tiếp (Tại trung tâm)"** (VN) / **"Offline (At Clinical Center)"** (EN).
+  - Tích hợp 4 nhãn song ngữ đa ngôn ngữ cho hình thức và trạng thái ca tư vấn trên lưới chọn giờ, hoạt động mượt mà và đồng bộ khi người dùng click chuyển đổi ngôn ngữ Việt - Anh trên thanh Header.
 
 
 

@@ -765,6 +765,81 @@
 - **Build Verification**:
     - Đã chạy biên dịch thành công 100% bản dựng sản phẩm thông qua lệnh `cmd.exe /c npm run build` sạch sẽ hoàn toàn không còn bất kỳ cảnh báo hay lỗi kiểu dữ liệu TypeScript nào (hoàn thành chỉ trong 257ms).
 
+## [2026-05-22] - Phát Triển Luồng Đặt Lịch Chuyên Gia Tích Hợp Chọn Ngày/Giờ Và Vé Hẹn AutiCare Song Ngữ Cao Cấp
+- **Implementation**:
+    - **Tích hợp logic từ điển dịch song ngữ (Rule 7)**: Bổ sung 14 khóa dịch mới vào từ điển `translations` tại [App.tsx](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/src/App.tsx) phục vụ luồng đặt lịch: tiêu đề modal, chọn ngày, chọn giờ, nút xác nhận, màn hình thành công, và các nhãn trên chiếc vé hẹn AutiCare bằng cả hai ngôn ngữ `vi` và `en`.
+    - **Logic Đặt Lịch Động (HeroSection.tsx)**:
+        - Thiết lập các state mới quản lý chuyên gia đang được đặt lịch (`bookingExpert`), ngày được chọn (`selectedDate`), khung giờ (`selectedTimeSlot`), trạng thái hoàn tất (`bookingSuccess`), và mã vé ngẫu nhiên (`ticketCode` sinh dạng `AC-XXXX`).
+        - Lập trình bộ sinh ngày khả dụng tiếp theo tự động (`getNextDays`) tự động tạo 4 ngày kể từ hôm nay theo đúng ngôn ngữ đã chọn (VD: `Thứ Sáu, 22/05` bằng tiếng Việt hoặc `Friday, 22/05` bằng tiếng Anh).
+        - Định nghĩa mảng 5 ca tư vấn 2 tiếng/phiên (`08:00 - 10:00`, `10:00 - 12:00`, `13:00 - 15:00`, `15:00 - 17:00`, `18:00 - 20:00`).
+        - Chuyển hướng các nút "Schedule" ở cả 2 luồng (danh sách chuyên gia bên ngoài và popup chi tiết hồ sơ bên trong) để mở trực tiếp modal chọn ngày giờ thay vì thông báo alert thô sơ.
+    - **Giao Diện Đặt Lịch Playful Geometric (HeroSection.tsx & App.css)**:
+        - Xây dựng modal overlay `.booking-popup-overlay` có độ mờ hậu cảnh mịn màng, phủ tuyệt đối với `z-index: 1000002`.
+        - Thiết kế lưới chọn ngày `.date-grid` và lưới chọn giờ `.time-grid` dạng các thẻ sticker Bento bo góc vừa phải (`12px`), viền Slate `#1E293B` 2px và bóng đổ cứng cá tính. Tích hợp hiệu ứng hover nâng nhẹ và hiệu ứng đổi màu pastel khi được chọn: chọn ngày sang nền Blue (`--primary`), chọn giờ sang nền Mint (`--secondary`).
+        - Thêm dòng thông báo nhắc nhở màu đỏ cảnh báo `.booking-required-hint` và vô hiệu hóa nút xác nhận `.disabled-btn` cho đến khi người dùng chọn đầy đủ thông tin.
+    - **Giao Diện Vé Hẹn AutiCare Độc Đáo (Appointment Ticket)**:
+        - Khi đặt lịch thành công, hiển thị màn hình chúc mừng có nhãn sticker tích tròn rung rinh vui nhộn `.success-tick-sticker` và một chiếc **Vé hẹn gặp AutiCare** cao cấp.
+        - Chiếc vé được phủ họa tiết Memphis radial chấm tròn cổ điển, viền nét đứt đứt quãng răng cưa ở hai mép, thanh Brand AutiCare, nhãn `CONFIRMED` nghiêng cá tính, các trường thông tin hiển thị in đậm rõ ràng, và mã vạch giả lập `.ticket-barcode` bằng các vạch dọc dày mỏng sáng tạo.
+    - **Tối ưu responsive di động hoàn thiện (Rule 8)**:
+        - Thêm các luật responsive co giãn cho màn hình nhỏ dưới 640px: lưới ngày giờ và thông tin vé hẹn tự động chuyển thành lưới dọc 1 cột để vừa khít màn hình, giảm bóng đổ để giao diện nhẹ nhàng hơn.
+- **Walkthrough**:
+    - Trực quan: Luồng đặt lịch chuyên gia nâng cấp mang diện mạo cực kỳ đẳng cấp, chuyển động đàn hồi êm ái, màu sắc pastel ấm áp đồng bộ Design Lab. Chiếc vé hẹn AutiCare nhận được phản hồi trực quan sinh động như một vé xem phim Memphis cá tính.
+    - Khi người dùng click "Schedule Now" trên chuyên gia, thay vì alert sẽ mở ra modal chọn ngày và giờ tư vấn 2 tiếng. Chọn đầy đủ thông tin và xác nhận sẽ hiển thị vé hẹn đẹp mắt kèm mã xác thực độc nhất.
+    - Chuyển đổi ngôn ngữ trên Header hoạt động hoàn hảo 100% trên toàn bộ chi tiết ngày/giờ, vé hẹn và các nhãn liên quan.
+- **Build Verification**:
+    - Biên dịch thành công dự án production build qua `cmd.exe /c "npm run build"` thành công 100% không cảnh báo hay lỗi TypeScript, khẳng định mã nguồn cực kỳ chuẩn mực và an toàn.
 
+## [2026-05-22] - Nới Rộng Và Tối Ưu Hóa Giao Diện Đặt Lịch Chọn Chuyên Gia & Dashboard 2 Cột Song Song
+- **Implementation**:
+    - **Loại bỏ ghi chú thời lượng tư vấn (Rule 1)**: Đã xóa hoàn toàn đoạn text `(2 tiếng/phiên)` và `(2 hours/session)` trong từ điển dịch thuật `translations` tại [App.tsx](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/src/App.tsx) đối với khóa `bookingSelectTime` của cả hai ngôn ngữ tiếng Việt (`vi`) và tiếng Anh (`en`). Điều này làm tiêu đề chọn giờ trở nên gọn gàng, thoáng đãng hơn.
+    - **Nâng cấp Modal Chọn Chuyên Gia Rộng Rãi (`.experts-panel`)**:
+        - Thiết lập chiều rộng tối đa từ `840px` lên `1140px` (`width: min(1140px, 95%) !important`) và nâng chiều cao tối đa lên `850px` trên màn hình lớn.
+        - Chuyển đổi danh sách chuyên gia từ layout xếp dọc chật hẹp thành **Lưới 3 cột song song** (`grid-template-columns: repeat(3, 1fr) !important; gap: 1.75rem !important`) cho 3 chuyên gia trên desktop.
+        - Thiết kế lại `.expert-card` thành layout **Thẻ Hồ sơ Dọc (Vertical Profile Cards)** với avatar to tròn (`width: 5.5rem`, `height: 5.5rem`) nổi bật trên cùng có viền và bóng đổ đậm, căn giữa phần text `.expert-info` (`text-align: center`) và xếp dọc các nút tương tác bên dưới (`flex-direction: column !important`), các nút Candy Button co giãn `100%` chiều ngang lấp đầy không gian.
+    - **Nâng cấp Dashboard Đặt Lịch 2 Cột Song Song (`.booking-panel`)**:
+        - Mở rộng chiều rộng modal đặt lịch từ `650px` lên `980px` (`width: min(980px, 95%) !important`).
+        - Trên desktop (màn hình >= 768px), tái cấu trúc vùng cuộn dọc `.booking-content-scroll` thành **Dashboard 2 cột song song** (`display: grid`, `grid-template-columns: 1.15fr 0.85fr`, `gap: 2.5rem`), loại bỏ chiều cao cuộn dọc chật hẹp (`max-height: none`).
+        - **Cột Trái (Chọn ngày tư vấn)**: Cấu trúc lại lưới ngày `.date-grid` thành **Lưới 2x2** (`grid-template-columns: repeat(2, 1fr)`). Các thẻ ngày `.date-card` được nới rộng (`padding: 1.25rem 0.85rem`), hiển thị ngày số to rõ ràng và cực kỳ dễ chạm bấm.
+        - **Cột Phải (Chọn giờ tư vấn)**: Cấu trúc lại lưới giờ `.time-grid` thành **Danh sách dọc 1 cột** (`grid-template-columns: 1fr`). Nới rộng các nút chọn giờ `.time-slot-card` thành các **dải pill ngang thanh lịch** (`padding: 0.95rem 1.25rem`, `justify-content: flex-start`), tạo bố cục vô cùng trực quan và sang trọng.
+    - **Đồng bộ responsive (Rule 8)**: Đảm bảo khi co về màn hình nhỏ dưới 768px, cả hai modal tự động cuộn dọc mượt mà, co giãn 100% chiều ngang phù hợp tuyệt đối cho trải nghiệm di động.
+- **Walkthrough**:
+    - Khi bấm "BOOK AN EXPERT NOW", popup chọn chuyên gia xuất hiện to rộng lộng lẫy trên màn hình máy tính với 3 cột chuyên gia cân đối. Mỗi chuyên gia hiển thị dưới dạng thẻ hồ sơ dọc với avatar to, tên căn giữa và các nút Candy Button kéo dài đầy đặn.
+    - Khi bấm Đặt lịch ("Schedule now"), popup Đặt lịch tư vấn xuất hiện dưới dạng một Dashboard 2 cột cực kỳ chuyên nghiệp và sang trọng: bên trái là lưới 2x2 các thẻ ngày to rõ, bên phải là danh sách các dải ca giờ nằm ngang xếp dọc rất thoáng mắt, loại bỏ hoàn toàn các ghi chú thời lượng thừa.
+- **Build Verification**:
+    - Dự án biên dịch hoàn tất thành công 100% qua lệnh `npm.cmd run build` trên Windows PowerShell mà không phát sinh bất kỳ lỗi TypeScript hay CSS nào (thời gian biên dịch 1.25s).
 
+## [2026-05-22] - Chi Tiết Hóa Khung Giờ Tư Vấn (Time Slots) Với Hình Thức Online/Offline Và Trạng Thái Trống/Bận
 
+- **Implementation**:
+    - **Tích hợp Từ điển Song ngữ mới (Rule 7)**: Bổ sung 4 khóa dịch thuật mới phục vụ thuộc tính ca giờ vào tệp [App.tsx](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/src/App.tsx): `slotOnline` (Trực tuyến / Online), `slotOffline` (Trực tiếp / Offline), `slotAvailable` (Đang trống / Available), `slotBooked` (Đã bận / Booked).
+    - **Cấu trúc Dữ liệu Ca Tư Vấn Đa Chiều (HeroSection.tsx)**:
+        - Nâng cấp mảng ca tư vấn tĩnh `timeSlots` từ mảng chuỗi đơn giản thành mảng đối tượng động chứa `id`, `time` (khung giờ 2 tiếng), `type` ('Online' | 'Offline') và `status` ('available' | 'booked').
+        - Cài đặt demo 2 ca giờ bận (`slot-2` 10:00 - 12:00 Offline, `slot-5` 18:00 - 20:00 Online) và 3 ca giờ trống còn lại khả dụng.
+    - **Logic Tương Tác & Hiển Thị Đặt Lịch Thông Minh (HeroSection.tsx)**:
+        - Điều chỉnh lưới render ca tư vấn trong Dashboard để hiển thị các nhãn sticker (badges) nhỏ phản ánh hình thức (Online/Offline) và trạng thái (Trống/Bận) của ca giờ.
+        - Khóa tương tác của người dùng bằng cách áp dụng thuộc tính `disabled` của HTML và lớp CSS `.booked` khi ca giờ có trạng thái `status === 'booked'`. Người dùng không thể click chọn các ca bận này.
+        - Cập nhật logic hiển thị dòng "Hình thức / Format" trên **Vé hẹn AutiCare (Appointment Ticket)**. Thay vì hiển thị tĩnh một chuỗi cố định, giá trị này tự động trích xuất thuộc tính `type` của ca tư vấn được phụ huynh chọn và kết hợp dịch song ngữ theo ngôn ngữ hiện hành của Landing Page (Online hiển thị Zoom/Meet, Offline hiển thị Địa chỉ phòng khám trung tâm).
+    - **Phong cách Thiết kế Playful Geometric Bắt Mắt (App.css)**:
+        - Tạo kiểu dáng cho thẻ `.time-slot-card` dạng dải pill nằm ngang bo tròn `16px`, viền Slate 2px, bóng đổ cứng đặc trưng.
+        - Xây dựng hệ thống nhãn sticker `.slot-type-badge` và `.slot-status-badge` với viền Slate mỏng `1.5px`, màu nền pastel Memphis sặc sỡ: màu tím nhạt cho Online, màu hổ phách cho Offline, màu xanh mint cho trống và xám nhạt cho bận.
+        - Thiết kế thẻ bận `.time-slot-card.booked` làm mờ `opacity: 0.55`, đổi nền sang xám nhạt, viền nhạt hơn và thay đổi con trỏ chuột thành `not-allowed` để phản ánh trực quan trạng thái bị khóa.
+        - Xây dựng quy tắc override màu nền trắng cho các nhãn sticker khi thẻ giờ ở trạng thái được chọn `.selected` nhằm duy trì độ tương tương phản cao tuyệt đối và nâng tầm thẩm mỹ.
+- **Walkthrough**:
+    - Trực quan: Dashboard đặt lịch tư vấn hiển thị danh sách các dải ca giờ vô cùng thoáng đãng và ngập tràn cá tính Playful Geometric. Các nhãn sticker Online/Offline và Trống/Bận nhỏ nhắn, sắc sảo giúp phụ huynh dễ dàng quét thông tin.
+    - Các ca giờ đã bị bận (Ca 2 và Ca 5) tự động được làm mờ đi, viền nhạt và khi rê chuột vào sẽ hiện con trỏ cấm, hoàn toàn không thể click chọn.
+    - Khi đặt lịch thành công, chiếc Vé hẹn AutiCare hiển thị chính xác và đồng bộ hình thức tư vấn thực tế của ca giờ đã đặt bằng cả tiếng Việt và tiếng Anh.
+- **Build Verification**:
+    - Biên dịch thành công 100% gói client sản phẩm qua lệnh `npm.cmd run build`. Không phát sinh bất kỳ lỗi TypeScript hay CSS nào, bảo đảm hệ thống vận hành trơn tru và cực kỳ ổn định.
+
+## [2026-05-22] - Xây dựng Tính năng Quản lý Lịch khám (Appointment Scheduling) trên Admin Dashboard
+- **Implementation**:
+    - **Cấu trúc Dữ liệu Đơn giản (appointment_slot)**: Chuyển đổi logic sang schema mới tinh gọn gồm một bảng duy nhất `appointment_slot`. Các trường `start_time` và `end_time` là chuỗi `datetime`. Trạng thái `status` hiển thị 'Available' hoặc 'Booked'. Hình thức hiển thị 'Online' hoặc 'Offline'.
+    - **ScheduleTab.tsx (Dashboard Admin)**: Xây dựng tab giao diện Quản lý Lịch trống dành riêng cho Bác sĩ / Điều phối viên trên Admin Dashboard. Tích hợp bảng danh sách Data Table liệt kê tất cả các slot. Cột thao tác cho phép Xóa (Delete) những slot nào có trạng thái 'Available'. Những slot đã 'Booked' sẽ khóa chức năng xóa (khóa mờ button và ngăn chặn qua alert).
+    - **Form Tạo Lịch (Create Appointment Slot)**: Tích hợp Modal bật lên 1 cột cho phép Bác sĩ tạo khung giờ mới. Nhập `staff_id`, chọn `location_type`, và nhập liệu trực tiếp `start_time` / `end_time` dạng `datetime-local`.
+    - **AdminDashboard.tsx**: Đăng ký thẻ tab "Lịch trình" / "Quản lý Lịch trống" vào sidebar dưới dạng mục `scheduling`.
+    - **CSS Styles (`AdminDashboard.css`)**: Bổ sung bộ class CSS `.badge-status`, `.badge-status.available`, `.badge-status.booked` để hiển thị nhãn trạng thái trực quan dạng viên thuốc (pill) với màu nền xanh lá và đỏ nhạt mờ theo chuẩn thiết kế Playful Geometric.
+- **Walkthrough**:
+    - Tích hợp 1 bảng mô phỏng thành công (`appointment_slot`).
+    - Giao diện mượt mà và trực quan, hỗ trợ đầy đủ tiếng Việt và tiếng Anh.
+- **Build Verification**:
+    - Xác thực không phát sinh lỗi TypeScript.

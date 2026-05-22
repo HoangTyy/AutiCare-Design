@@ -11,6 +11,7 @@ const FloatingNav: React.FC<FloatingNavProps> = ({ activeSection, onSectionClick
     { id: 'hero', labelVi: 'Trang chủ', labelEn: 'Home' },
     { id: 'category', labelVi: 'Danh mục', labelEn: 'Categories' },
     { id: 'reviews', labelVi: 'Đánh giá', labelEn: 'Reviews' },
+    { id: 'blogs', labelVi: 'Tin tức', labelEn: 'News' },
     { id: 'about', labelVi: 'Về chúng tôi', labelEn: 'About us' },
     { id: 'cta', labelVi: 'Liên hệ', labelEn: 'Contact' },
     { id: 'footer', labelVi: 'Chân trang', labelEn: 'Footer' },

@@ -10,6 +10,7 @@ import AuthModal from './components/auth/AuthModal'
 import HeroSection from './components/homepage/HeroSection'
 import CategoriesSection from './components/homepage/CategoriesSection'
 import ReviewsSection from './components/homepage/ReviewsSection'
+import BlogsSection from './components/homepage/BlogsSection'
 import AboutSection from './components/homepage/AboutSection'
 import CtaSection from './components/homepage/CtaSection'
 import Footer from './components/homepage/Footer'
@@ -25,6 +26,7 @@ const translations = {
     home: "Trang chủ",
     category: "Danh mục",
     reviews: "Đánh giá",
+    blogs: "Tin tức",
     about: "Về chúng tôi",
     collections: "Liên hệ",
     dashboard: "Dashboard Admin",
@@ -48,12 +50,31 @@ const translations = {
     btnViewDemo: "DEMO TRUNG TÂM & VAI TRÒ",
     ctaTitle: "BẮT ĐẦU HÀNH TRÌNH THAY ĐỒỔI NGAY HÔM NAY",
     ctaSub: "Tham gia cùng mạng lưới hơn 50 trung tâm và 1000 chuyên gia can thiệp sớm hàng đầu sử dụng AutiCare mỗi ngày.",
-    btnJoinNow: "ĐĂNG KÝ TRẢI NGHIỆM"
+    btnJoinNow: "ĐĂNG KÝ TRẢI NGHIỆM",
+    bookingModalTitle: "Đặt lịch hẹn tư vấn",
+    bookingSelectDate: "1. Chọn ngày tư vấn",
+    bookingSelectTime: "2. Chọn giờ tư vấn",
+    bookingBtnConfirm: "Xác nhận đặt lịch",
+    bookingSuccessTitle: "Đặt lịch thành công!",
+    bookingSuccessSub: "Thông tin cuộc hẹn của bạn đã được ghi nhận. Chuyên gia sẽ liên hệ bạn sớm nhất.",
+    bookingTicketTitle: "VÉ HẸN AUTICARE",
+    bookingExpertLbl: "Chuyên gia",
+    bookingTimeLbl: "Thời gian",
+    bookingMethodLbl: "Hình thức",
+    bookingMethodVal: "Trực tuyến (Zoom/Google Meet)",
+    bookingCodeLbl: "Mã số vé",
+    bookingBtnClose: "Hoàn tất & Đóng",
+    bookingRequiredHint: "Vui lòng chọn ngày và giờ để tiếp tục",
+    slotOnline: "Trực tuyến",
+    slotOffline: "Trực tiếp",
+    slotAvailable: "Đang trống",
+    slotBooked: "Đã bận"
   },
   en: {
     home: "Home",
     category: "Categories",
     reviews: "Reviews",
+    blogs: "News",
     about: "About us",
     collections: "Contact",
     dashboard: "Admin Dashboard",
@@ -77,7 +98,25 @@ const translations = {
     btnViewDemo: "CENTER & ROLES DEMO",
     ctaTitle: "START THE LIFELONG TRANSFORMATION TODAY",
     ctaSub: "Join our network of over 50 early intervention clinical centers and 1000 specialist educators using AutiCare daily.",
-    btnJoinNow: "REGISTER FREE DEMO"
+    btnJoinNow: "REGISTER FREE DEMO",
+    bookingModalTitle: "Book a Consultation Session",
+    bookingSelectDate: "1. Select Date",
+    bookingSelectTime: "2. Select Time Slot",
+    bookingBtnConfirm: "Confirm Booking",
+    bookingSuccessTitle: "Booking Successful!",
+    bookingSuccessSub: "Your appointment details have been saved. Our expert will contact you shortly.",
+    bookingTicketTitle: "AUTICARE APPOINTMENT TICKET",
+    bookingExpertLbl: "Expert",
+    bookingTimeLbl: "Time",
+    bookingMethodLbl: "Format",
+    bookingMethodVal: "Online (Zoom/Google Meet)",
+    bookingCodeLbl: "Ticket Code",
+    bookingBtnClose: "Done & Close",
+    bookingRequiredHint: "Please select a date and time to continue",
+    slotOnline: "Online",
+    slotOffline: "Offline",
+    slotAvailable: "Available",
+    slotBooked: "Booked"
   }
 }
 
@@ -103,7 +142,7 @@ function App() {
   useEffect(() => {
     if (view !== 'landing') return
 
-    const sections = ['hero', 'category', 'reviews', 'about', 'cta', 'footer']
+    const sections = ['hero', 'category', 'reviews', 'blogs', 'about', 'cta', 'footer']
     const observers = sections.map((id) => {
       const el = document.getElementById(id)
       if (!el) return null
@@ -215,6 +254,13 @@ function App() {
               {t.reviews}
             </a>
             <a 
+              href="#blogs" 
+              className={activeSection === 'blogs' ? 'active' : ''}
+              onClick={(e) => { e.preventDefault(); scrollToSection('blogs'); }}
+            >
+              {t.blogs}
+            </a>
+            <a 
               href="#about" 
               className={activeSection === 'about' ? 'active' : ''}
               onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
@@ -307,6 +353,8 @@ function App() {
         <CategoriesSection id="category" lang={lang} />
         
         <ReviewsSection id="reviews" lang={lang} />
+        
+        <BlogsSection id="blogs" lang={lang} />
         
         <AboutSection id="about" lang={lang} />
         
