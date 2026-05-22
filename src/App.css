@@ -3669,3 +3669,485 @@
   }
 }
 
+/* ==========================================================================
+   Playful Geometric - Expert Booking Modal & Success Ticket Styles
+   ========================================================================== */
+
+.booking-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000002;
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: rgba(15, 23, 42, 0.5) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  animation: modal-fade-in 250ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.booking-panel {
+  width: min(650px, 100%) !important;
+  background: #FFFFFF !important;
+  border: 3px solid #1E293B !important;
+  border-radius: 20px !important;
+  box-shadow: 10px 10px 0px #1E293B !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+  animation: panel-pop-in 350ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes panel-pop-in {
+  from {
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.booking-content-scroll {
+  max-height: 60vh !important;
+  overflow-y: auto !important;
+  padding: 1.5rem 2rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.5rem !important;
+}
+
+.booking-section h4 {
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 1.05rem !important;
+  color: #1E293B !important;
+  margin: 0 0 1rem 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+.booking-section h4 .bento-icon {
+  font-size: 1.25rem !important;
+}
+
+.date-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 0.75rem !important;
+}
+
+.date-card {
+  background: #FFFFFF !important;
+  border: 2px solid #1E293B !important;
+  border-radius: 12px !important;
+  padding: 0.75rem 0.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.25rem !important;
+  cursor: pointer !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+  transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.date-card:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+  background: #F8FAFC !important;
+}
+
+.date-card.selected {
+  background: var(--primary, #0084FF) !important;
+  color: #FFFFFF !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+}
+
+.date-card.selected .date-day-name {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.date-card.selected .date-day-val {
+  color: #FFFFFF !important;
+}
+
+.date-day-name {
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  color: #64748B !important;
+  transition: color 150ms ease !important;
+}
+
+.date-day-val {
+  font-size: 1.05rem !important;
+  font-weight: 800 !important;
+  color: #1E293B !important;
+  transition: color 150ms ease !important;
+}
+
+.time-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0.75rem !important;
+}
+
+@media (min-width: 480px) {
+  .time-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+.time-slot-card {
+  background: #FFFFFF !important;
+  border: 2px solid #1E293B !important;
+  border-radius: 12px !important;
+  padding: 0.75rem 0.85rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  cursor: pointer !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+  transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.time-slot-card:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+  background: #F8FAFC !important;
+}
+
+.time-slot-card.selected {
+  background: var(--secondary, #2AC176) !important;
+  color: #FFFFFF !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+}
+
+.time-slot-card.selected .time-icon,
+.time-slot-card.selected .time-text {
+  color: #FFFFFF !important;
+}
+
+.time-icon {
+  font-size: 0.95rem !important;
+  color: #64748B !important;
+  display: inline-flex !important;
+  transition: color 150ms ease !important;
+}
+
+.time-text {
+  font-size: 0.9rem !important;
+  font-weight: 800 !important;
+  color: #1E293B !important;
+  transition: color 150ms ease !important;
+}
+
+.booking-footer-action-zone {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  gap: 0.35rem !important;
+}
+
+.booking-required-hint {
+  font-size: 0.76rem !important;
+  font-weight: 700 !important;
+  color: var(--accent, #FF6B6B) !important;
+  text-transform: uppercase !important;
+}
+
+.detail-schedule-cta.disabled-btn {
+  background: #E2E8F0 !important;
+  border-color: #CBD5E1 !important;
+  color: #94A3B8 !important;
+  box-shadow: 2px 2px 0px #CBD5E1 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+.detail-schedule-cta.disabled-btn:hover {
+  background: #E2E8F0 !important;
+  border-color: #CBD5E1 !important;
+  color: #94A3B8 !important;
+  box-shadow: 2px 2px 0px #CBD5E1 !important;
+  transform: none !important;
+}
+
+.booking-success-container {
+  padding: 2.25rem 2rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 1.75rem !important;
+  background: #FFFFFF !important;
+  position: relative !important;
+}
+
+.success-header-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  gap: 0.5rem !important;
+}
+
+.success-tick-sticker {
+  width: 3.5rem !important;
+  height: 3.5rem !important;
+  background: var(--secondary, #2AC176) !important;
+  border: 3px solid #1E293B !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1.85rem !important;
+  font-weight: 900 !important;
+  color: #FFFFFF !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+  transform: rotate(-5deg) !important;
+  animation: tick-sticker-wobble 2s ease-in-out infinite alternate !important;
+}
+
+@keyframes tick-sticker-wobble {
+  0% { transform: rotate(-5deg) scale(1); }
+  100% { transform: rotate(5deg) scale(1.08); }
+}
+
+.success-header-wrapper h2 {
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-weight: 900 !important;
+  font-size: 1.65rem !important;
+  color: #1E293B !important;
+  margin: 0 !important;
+  text-transform: uppercase !important;
+}
+
+.success-sub-desc {
+  font-size: 0.94rem !important;
+  font-weight: 600 !important;
+  color: #64748B !important;
+  margin: 0 !important;
+}
+
+/* Appointment Ticket (Memphis-Neo-Brutalist inspired) */
+.appointment-ticket {
+  width: 100% !important;
+  background: radial-gradient(circle, rgba(30, 41, 59, 0.05) 1.5px, transparent 1.5px) 0 0 / 16px 16px, #FFFDF5 !important;
+  border: 3px solid #1E293B !important;
+  border-radius: 16px !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+.appointment-ticket::before,
+.appointment-ticket::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  width: 1.25rem !important;
+  height: 1.25rem !important;
+  background: #FFFFFF !important;
+  border: 3px solid #1E293B !important;
+  border-radius: 50% !important;
+  z-index: 10 !important;
+}
+
+.appointment-ticket::before {
+  left: -0.75rem !important;
+  transform: translateY(-50%) !important;
+}
+
+.appointment-ticket::after {
+  right: -0.75rem !important;
+  transform: translateY(-50%) !important;
+}
+
+.ticket-top {
+  padding: 1rem 1.5rem !important;
+  border-bottom: 2px dashed #1E293B !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  background: var(--primary, #0084FF) !important;
+  color: #FFFFFF !important;
+}
+
+.ticket-brand {
+  font-family: 'Titan One', 'Be Vietnam Pro', sans-serif !important;
+  font-size: 1.35rem !important;
+  letter-spacing: 1px !important;
+  text-shadow: 2px 2px 0px #1E293B !important;
+  text-transform: uppercase !important;
+}
+
+.ticket-badge {
+  background: var(--accent, #FF6B6B) !important;
+  border: 2px solid #1E293B !important;
+  border-radius: 6px !important;
+  color: #FFFFFF !important;
+  font-size: 0.72rem !important;
+  font-weight: 900 !important;
+  padding: 0.2rem 0.65rem !important;
+  box-shadow: 2px 2px 0px #1E293B !important;
+  transform: rotate(2deg) !important;
+  letter-spacing: 0.5px !important;
+}
+
+.ticket-body {
+  padding: 1.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.15rem !important;
+}
+
+.ticket-title {
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 1.1rem !important;
+  color: #1E293B !important;
+  margin: 0 !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+  letter-spacing: 0.5px !important;
+}
+
+.ticket-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 1rem !important;
+}
+
+.ticket-field {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.15rem !important;
+}
+
+.ticket-field small {
+  font-size: 0.74rem !important;
+  font-weight: 700 !important;
+  color: #64748B !important;
+  text-transform: uppercase !important;
+}
+
+.ticket-field strong {
+  font-size: 0.94rem !important;
+  font-weight: 800 !important;
+  color: #1E293B !important;
+  line-height: 1.3 !important;
+}
+
+.ticket-code-text {
+  color: var(--primary, #0084FF) !important;
+  font-size: 1.15rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 1px !important;
+}
+
+.ticket-barcode {
+  padding: 0.85rem 1.5rem !important;
+  border-top: 2px dashed rgba(30, 41, 59, 0.15) !important;
+  background: rgba(30, 41, 59, 0.02) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 3px !important;
+  height: 2.25rem !important;
+}
+
+.barcode-line {
+  background: #1E293B !important;
+  height: 100% !important;
+  border-radius: 1px !important;
+}
+
+.barcode-line.w-1 { width: 1.5px !important; }
+.barcode-line.w-2 { width: 3px !important; }
+.barcode-line.w-3 { width: 4.5px !important; }
+.barcode-line.w-4 { width: 6px !important; }
+
+.booking-success-footer {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.success-done-btn {
+  width: min(280px, 100%) !important;
+  background: var(--primary, #0084FF) !important;
+  border: 2px solid #1E293B !important;
+  border-radius: 999px !important;
+  color: #FFFFFF !important;
+  padding: 0.82rem 2rem !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-weight: 900 !important;
+  font-size: 0.94rem !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+  cursor: pointer !important;
+  transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+}
+
+.success-done-btn:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+  background: var(--secondary, #2AC176) !important;
+}
+
+.success-done-btn:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: none !important;
+}
+
+/* Booking Responsive Overrides */
+@media (max-width: 640px) {
+  .booking-panel {
+    width: 100% !important;
+    max-height: calc(100vh - 2rem) !important;
+    box-shadow: 6px 6px 0px #1E293B !important;
+  }
+  
+  .booking-content-scroll {
+    padding: 1.15rem 1.15rem !important;
+    gap: 1.15rem !important;
+  }
+  
+  .date-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.55rem !important;
+  }
+  
+  .date-card {
+    padding: 0.65rem 0.35rem !important;
+  }
+  
+  .time-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.55rem !important;
+  }
+  
+  .ticket-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+  
+  .booking-success-container {
+    padding: 1.5rem 1.15rem !important;
+    gap: 1.25rem !important;
+  }
+}
+

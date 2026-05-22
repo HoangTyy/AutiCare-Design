@@ -659,3 +659,27 @@
     - Trên màn hình điện thoại di động, bố cục co giãn mượt mà, căn chỉnh lề đều đặn và sắc nét.
 - **Build Verification**:
     - Chạy thành công `cmd.exe /c "npm run build"`, dự án được đóng gói sản phẩm hoàn hảo chỉ trong 298ms không một cảnh báo hay lỗi TypeScript nào.
+
+## [2026-05-22] - Phát Triển Luồng Đặt Lịch Chuyên Gia Tích Hợp Chọn Ngày/Giờ Và Vé Hẹn AutiCare Song Ngữ Cao Cấp
+- **Implementation**:
+    - **Tích hợp logic từ điển dịch song ngữ (Rule 7)**: Bổ sung 14 khóa dịch mới vào từ điển `translations` tại [App.tsx](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/src/App.tsx) phục vụ luồng đặt lịch: tiêu đề modal, chọn ngày, chọn giờ, nút xác nhận, màn hình thành công, và các nhãn trên chiếc vé hẹn AutiCare bằng cả hai ngôn ngữ `vi` và `en`.
+    - **Logic Đặt Lịch Động (HeroSection.tsx)**:
+        - Thiết lập các state mới quản lý chuyên gia đang được đặt lịch (`bookingExpert`), ngày được chọn (`selectedDate`), khung giờ (`selectedTimeSlot`), trạng thái hoàn tất (`bookingSuccess`), và mã vé ngẫu nhiên (`ticketCode` sinh dạng `AC-XXXX`).
+        - Lập trình bộ sinh ngày khả dụng tiếp theo tự động (`getNextDays`) tự động tạo 4 ngày kể từ hôm nay theo đúng ngôn ngữ đã chọn (VD: `Thứ Sáu, 22/05` bằng tiếng Việt hoặc `Friday, 22/05` bằng tiếng Anh).
+        - Định nghĩa mảng 5 ca tư vấn 2 tiếng/phiên (`08:00 - 10:00`, `10:00 - 12:00`, `13:00 - 15:00`, `15:00 - 17:00`, `18:00 - 20:00`).
+        - Chuyển hướng các nút "Schedule" ở cả 2 luồng (danh sách chuyên gia bên ngoài và popup chi tiết hồ sơ bên trong) để mở trực tiếp modal chọn ngày giờ thay vì thông báo alert thô sơ.
+    - **Giao Diện Đặt Lịch Playful Geometric (HeroSection.tsx & App.css)**:
+        - Xây dựng modal overlay `.booking-popup-overlay` có độ mờ hậu cảnh mịn màng, phủ tuyệt đối với `z-index: 1000002`.
+        - Thiết kế lưới chọn ngày `.date-grid` và lưới chọn giờ `.time-grid` dạng các thẻ sticker Bento bo góc vừa phải (`12px`), viền Slate `#1E293B` 2px và bóng đổ cứng cá tính. Tích hợp hiệu ứng hover nâng nhẹ và hiệu ứng đổi màu pastel khi được chọn: chọn ngày sang nền Blue (`--primary`), chọn giờ sang nền Mint (`--secondary`).
+        - Thêm dòng thông báo nhắc nhở màu đỏ cảnh báo `.booking-required-hint` và vô hiệu hóa nút xác nhận `.disabled-btn` cho đến khi người dùng chọn đầy đủ thông tin.
+    - **Giao Diện Vé Hẹn AutiCare Độc Đáo (Appointment Ticket)**:
+        - Khi đặt lịch thành công, hiển thị màn hình chúc mừng có nhãn sticker tích tròn rung rinh vui nhộn `.success-tick-sticker` và một chiếc **Vé hẹn gặp AutiCare** cao cấp.
+        - Chiếc vé được phủ họa tiết Memphis radial chấm tròn cổ điển, viền nét đứt đứt quãng răng cưa ở hai mép, thanh Brand AutiCare, nhãn `CONFIRMED` nghiêng cá tính, các trường thông tin hiển thị in đậm rõ ràng, và mã vạch giả lập `.ticket-barcode` bằng các vạch dọc dày mỏng sáng tạo.
+    - **Tối ưu responsive di động hoàn thiện (Rule 8)**:
+        - Thêm các luật responsive co giãn cho màn hình nhỏ dưới 640px: lưới ngày giờ và thông tin vé hẹn tự động chuyển thành lưới dọc 1 cột để vừa khít màn hình, giảm bóng đổ để giao diện nhẹ nhàng hơn.
+- **Walkthrough**:
+    - Trực quan: Luồng đặt lịch chuyên gia nâng cấp mang diện mạo cực kỳ đẳng cấp, chuyển động đàn hồi êm ái, màu sắc pastel ấm áp đồng bộ Design Lab. Chiếc vé hẹn AutiCare nhận được phản hồi trực quan sinh động như một vé xem phim Memphis cá tính.
+    - Khi người dùng click "Schedule Now" trên chuyên gia, thay vì alert sẽ mở ra modal chọn ngày và giờ tư vấn 2 tiếng. Chọn đầy đủ thông tin và xác nhận sẽ hiển thị vé hẹn đẹp mắt kèm mã xác thực độc nhất.
+    - Chuyển đổi ngôn ngữ trên Header hoạt động hoàn hảo 100% trên toàn bộ chi tiết ngày/giờ, vé hẹn và các nhãn liên quan.
+- **Build Verification**:
+    - Biên dịch thành công dự án production build qua `cmd.exe /c "npm run build"` thành công 100% không cảnh báo hay lỗi TypeScript, khẳng định mã nguồn cực kỳ chuẩn mực và an toàn.

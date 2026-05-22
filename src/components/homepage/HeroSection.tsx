@@ -14,6 +14,13 @@ interface HeroSectionProps {
 const HeroSection: React.FC<HeroSectionProps> = ({ id, t, lang, onStartAssessment }) => {
   const [showExperts, setShowExperts] = React.useState(false)
   const [selectedExpert, setSelectedExpert] = React.useState<any | null>(null)
+  
+  // Custom Scheduling Flow States
+  const [bookingExpert, setBookingExpert] = React.useState<any | null>(null)
+  const [selectedDate, setSelectedDate] = React.useState<any | null>(null)
+  const [selectedTimeSlot, setSelectedTimeSlot] = React.useState<string | null>(null)
+  const [bookingSuccess, setBookingSuccess] = React.useState<boolean>(false)
+  const [ticketCode, setTicketCode] = React.useState<string>('')
 
   const experts = lang === 'vi' ? [
     { 
@@ -90,6 +97,45 @@ const HeroSection: React.FC<HeroSectionProps> = ({ id, t, lang, onStartAssessmen
       ]
     },
   ]
+
+  // Dynamic next 4 days generator for booking slots
+  const getNextDays = (lang: string) => {
+    const days = [];
+    const now = new Date();
+    for (let i = 1; i <= 4; i++) {
+      const nextDate = new Date(now);
+      nextDate.setDate(now.getDate() + i);
+      
+      let dayName = '';
+      if (lang === 'vi') {
+        const weekday = nextDate.getDay();
+        dayName = weekday === 0 ? 'Chủ Nhật' : `Thứ ${weekday + 1}`;
+      } else {
+        const weekdayStr = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        dayName = weekdayStr[nextDate.getDay()];
+      }
+      
+      const dateStr = `${nextDate.getDate().toString().padStart(2, '0')}/${(nextDate.getMonth() + 1).toString().padStart(2, '0')}`;
+      days.push({
+        id: nextDate.toISOString().split('T')[0],
+        dayName,
+        dateStr,
+        fullDate: nextDate.toLocaleDateString(lang === 'vi' ? 'vi-VN' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' })
+      });
+    }
+    return days;
+  };
+
+  const nextDays = React.useMemo(() => getNextDays(lang), [lang]);
+
+  // Standard 2-hour sessions as requested by user
+  const timeSlots = [
+    '08:00 - 10:00',
+    '10:00 - 12:00',
+    '13:00 - 15:00',
+    '15:00 - 17:00',
+    '18:00 - 20:00'
+  ];
 
   return (
     <section id={id} className="hero snap-section">
@@ -172,8 +218,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ id, t, lang, onStartAssessmen
                       {t.btnViewDetail}
                     </button>
                     <button className="expert-schedule-btn" type="button" onClick={() => {
-                      alert(lang === 'vi' ? `Đã kích hoạt quy trình đặt lịch với ${expert.name}!` : `Scheduling flow with ${expert.name} activated!`);
                       setShowExperts(false);
+                      setBookingExpert(expert);
+                      setSelectedDate(null);
+                      setSelectedTimeSlot(null);
+                      setBookingSuccess(false);
+                      setTicketCode(`AC-${Math.floor(1000 + Math.random() * 9000)}`);
                     }}>
                       {t.btnScheduleNow}
                     </button>
@@ -275,13 +325,193 @@ const HeroSection: React.FC<HeroSectionProps> = ({ id, t, lang, onStartAssessmen
                 {t.btnBackToList}
               </button>
               <button className="expert-schedule-btn detail-schedule-cta" type="button" onClick={() => {
-                alert(lang === 'vi' ? `Đã kích hoạt quy trình đặt lịch với ${selectedExpert.name}!` : `Scheduling flow with ${selectedExpert.name} activated!`);
+                const targetExpert = selectedExpert;
                 setSelectedExpert(null);
-                setShowExperts(false);
+                setBookingExpert(targetExpert);
+                setSelectedDate(null);
+                setSelectedTimeSlot(null);
+                setBookingSuccess(false);
+                setTicketCode(`AC-${Math.floor(1000 + Math.random() * 9000)}`);
               }}>
                 {t.btnScheduleNow}
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* 3. Booking Time Slots Selection Modal */}
+      {bookingExpert && (
+        <div className="booking-popup-overlay" onClick={() => {
+          if (!bookingSuccess) {
+            setBookingExpert(null);
+          }
+        }}>
+          <div className="booking-panel glass" onClick={(event) => event.stopPropagation()}>
+            {!bookingSuccess ? (
+              <>
+                <div className="experts-header">
+                  <div className="header-info-group">
+                    <div 
+                      className="expert-avatar detail-avatar" 
+                      aria-hidden="true"
+                      style={{
+                        backgroundColor: (() => {
+                          const idx = experts.findIndex(e => e.name === bookingExpert.name);
+                          const cols = ['#EDE9FE', '#FCE7F3', '#FEF3C7'];
+                          return idx !== -1 ? cols[idx % cols.length] : '#FEF3C7';
+                        })()
+                      }}
+                    >
+                      {bookingExpert.name.split(' ').map((part: string) => part[0]).join('')}
+                    </div>
+                    <div>
+                      <h3>{t.bookingModalTitle}</h3>
+                      <p className="detail-expert-title">{bookingExpert.name} — {bookingExpert.title}</p>
+                    </div>
+                  </div>
+                  <button className="close-experts-btn" type="button" onClick={() => setBookingExpert(null)}>
+                    ×
+                  </button>
+                </div>
+
+                <div className="expert-detail-content booking-content-scroll">
+                  {/* Select Date Area */}
+                  <div className="booking-section">
+                    <h4>
+                      <span className="bento-icon">📅</span>
+                      {t.bookingSelectDate}
+                    </h4>
+                    <div className="date-grid">
+                      {nextDays.map((day) => {
+                        const isSelected = selectedDate?.id === day.id;
+                        return (
+                          <button
+                            key={day.id}
+                            type="button"
+                            className={`date-card ${isSelected ? 'selected' : ''}`}
+                            onClick={() => setSelectedDate(day)}
+                          >
+                            <span className="date-day-name">{day.dayName}</span>
+                            <span className="date-day-val">{day.dateStr}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Select Time Slots Area */}
+                  <div className="booking-section" style={{ marginTop: '0.5rem' }}>
+                    <h4>
+                      <span className="bento-icon">🕒</span>
+                      {t.bookingSelectTime}
+                    </h4>
+                    <div className="time-grid">
+                      {timeSlots.map((slot) => {
+                        const isSelected = selectedTimeSlot === slot;
+                        return (
+                          <button
+                            key={slot}
+                            type="button"
+                            className={`time-slot-card ${isSelected ? 'selected' : ''}`}
+                            onClick={() => setSelectedTimeSlot(slot)}
+                          >
+                            <span className="time-icon">🕒</span>
+                            <span className="time-text">{slot}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="expert-detail-footer">
+                  <button className="expert-back-btn" type="button" onClick={() => {
+                    setBookingExpert(null);
+                    setShowExperts(true);
+                  }}>
+                    {t.btnBackToList}
+                  </button>
+                  <div className="booking-footer-action-zone">
+                    {!selectedDate || !selectedTimeSlot ? (
+                      <span className="booking-required-hint">{t.bookingRequiredHint}</span>
+                    ) : null}
+                    <button 
+                      className={`expert-schedule-btn detail-schedule-cta ${(!selectedDate || !selectedTimeSlot) ? 'disabled-btn' : ''}`} 
+                      type="button" 
+                      disabled={!selectedDate || !selectedTimeSlot}
+                      onClick={() => setBookingSuccess(true)}
+                    >
+                      {t.bookingBtnConfirm}
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              // Success Screen with Appointment Ticket
+              <div className="booking-success-container">
+                <div className="success-header-wrapper">
+                  <div className="success-tick-sticker" aria-hidden="true">✓</div>
+                  <h2>{t.bookingSuccessTitle}</h2>
+                  <p className="success-sub-desc">{t.bookingSuccessSub}</p>
+                </div>
+
+                {/* Appointment Ticket Playful Geometric */}
+                <div className="appointment-ticket">
+                  <div className="ticket-top">
+                    <span className="ticket-brand">AutiCare</span>
+                    <span className="ticket-badge">CONFIRMED</span>
+                  </div>
+                  <div className="ticket-body">
+                    <h3 className="ticket-title">{t.bookingTicketTitle}</h3>
+                    
+                    <div className="ticket-grid">
+                      <div className="ticket-field">
+                        <small>{t.bookingExpertLbl}</small>
+                        <strong>{bookingExpert.name}</strong>
+                      </div>
+                      <div className="ticket-field">
+                        <small>{t.bookingTimeLbl}</small>
+                        <strong>{selectedTimeSlot} <br/> {selectedDate?.fullDate}</strong>
+                      </div>
+                      <div className="ticket-field">
+                        <small>{t.bookingMethodLbl}</small>
+                        <strong>{t.bookingMethodVal}</strong>
+                      </div>
+                      <div className="ticket-field">
+                        <small>{t.bookingCodeLbl}</small>
+                        <strong className="ticket-code-text">{ticketCode}</strong>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Decorative Ticket bar code */}
+                  <div className="ticket-barcode" aria-hidden="true">
+                    <div className="barcode-line w-2"></div>
+                    <div className="barcode-line w-4"></div>
+                    <div className="barcode-line w-1"></div>
+                    <div className="barcode-line w-3"></div>
+                    <div className="barcode-line w-2"></div>
+                    <div className="barcode-line w-1"></div>
+                    <div className="barcode-line w-4"></div>
+                    <div className="barcode-line w-2"></div>
+                    <div className="barcode-line w-3"></div>
+                    <div className="barcode-line w-1"></div>
+                    <div className="barcode-line w-2"></div>
+                    <div className="barcode-line w-4"></div>
+                  </div>
+                </div>
+
+                <div className="booking-success-footer">
+                  <button className="expert-schedule-btn success-done-btn" type="button" onClick={() => {
+                    setBookingExpert(null);
+                    setShowExperts(false);
+                  }}>
+                    {t.bookingBtnClose}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

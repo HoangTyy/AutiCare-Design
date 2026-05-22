@@ -249,3 +249,51 @@ Vung `.auth-form-zone` trong `src/App.css` khong con khoa bang `overflow: hidden
   - **Danh sách nhận xét phụ huynh rộng rãi**: Thẻ đánh giá sticker `.feedback-item-card` nâng padding lên `1.35rem`, bóng đổ cứng `5px` và comment text `.feedback-comment` tăng cỡ lên `0.94rem` dễ đọc.
   - **Chân trang đồng điệu**: Phân vùng `.expert-detail-footer` nâng padding lên `1.5rem 2rem`, đổi sang nền trắng thuần và border nét đứt dashed mảnh màu xám Slate tạo nhịp điệu đồ họa liền mạch với đầu trang.
   - **Responsive di động hoàn hảo (Mobile Layout Adapts)**: Trên màn hình di động (`< 640px`), modal tự động thu hẹp padding đầu trang `.experts-header` xuống `1.15rem`, giảm gap `.header-info-group` xuống `0.85rem`, co nhỏ avatar xuống `3.6rem` x `3.6rem` và chữ số tiêu đề `h3` xuống `1.35rem` để hiển thị sắc nét, thẳng hàng và không bị tràn lề.
+
+## Homepage Expert Booking Flow Context Update (2026-05-22)
+
+Luồng đặt lịch chuyên gia từ trang chủ AutiCare đã được nâng cấp toàn diện từ hộp thoại thông báo `alert` thô sơ sang giao diện đặt lịch **Playful Geometric** thông minh tích hợp chọn ngày/giờ tư vấn và chốt hẹn bằng chiếc **Vé hẹn AutiCare (Appointment Ticket)** độc đáo.
+
+### 1. Kiến trúc Trạng thái & Logic Đặt lịch (State & Flow Logic)
+- **Quản lý Trạng thái Động (Reactive Booking States)**: Tích hợp trực tiếp bên trong `src/components/homepage/HeroSection.tsx`, quản lý 5 trạng thái đồng bộ:
+  - `bookingExpert`: Lưu thông tin chuyên gia đang được đặt lịch (Tiến sĩ Minh, Cô Lan, hoặc Bác sĩ Đức).
+  - `selectedDate`: Lưu trữ chuỗi ngày được người dùng chọn (ví dụ: `Thứ Sáu, 22/05` / `Friday, 22/05`).
+  - `selectedTimeSlot`: Lưu trữ ca tư vấn 2 tiếng được chọn.
+  - `bookingSuccess`: Cờ boolean đánh dấu việc hoàn tất quy trình và kích hoạt màn hình hiển thị Vé hẹn.
+  - `ticketCode`: Mã vé ngẫu nhiên duy nhất được sinh tự động khi chốt hẹn thành công (định dạng `AC-XXXX` với XXXX là 4 chữ số ngẫu nhiên).
+- **Bộ sinh Ngày tự động (Auto-generated Schedule Dates)**: Hàm `getNextDays()` tự động tính toán và sinh ra **4 ngày khả dụng tiếp theo** kể từ ngày hiện tại của thiết bị người dùng. Đặc biệt, tên các thứ và định dạng ngày được nội địa hóa động 100% theo ngôn ngữ được chọn trên Header (ví dụ: tiếng Việt ra `Thứ Bảy, 23/05` còn tiếng Anh ra `Saturday, 23/05`), đảm bảo tính chính xác về mặt thời gian và trải nghiệm người dùng bản địa.
+- **Khung ca tư vấn cố định (Fixed Consultation Slots)**: Định nghĩa cứng mảng 5 ca tư vấn, mỗi ca kéo dài đúng 2 tiếng/phiên theo chuẩn y tế:
+  - Ca 1: `08:00 - 10:00`
+  - Ca 2: `10:00 - 12:00`
+  - Ca 3: `13:00 - 15:00`
+  - Ca 4: `15:00 - 17:00`
+  - Ca 5: `18:00 - 20:00`
+
+### 2. Giao diện Đặt lịch Bento Grid (Bento Geometric Selection Panels)
+- **Lớp phủ nền mờ mịn (Backdrop Blur Overlay)**: Lớp phủ `.booking-popup-overlay` áp dụng màu nền Slate 900 `rgba(15, 23, 42, 0.65)` kết hợp hiệu ứng kính mờ mịn màng `backdrop-filter: blur(8px) !important` và `z-index: 1000002` để đảm bảo đè lên toàn bộ giao diện Landing Page (bao gồm cả ThreeJS WebGL).
+- **Lưới Bento Chọn Ngày & Giờ**: 
+  - Khung lưới `.date-grid` (4 cột) và `.time-grid` (3 cột) hiển thị các lựa chọn dưới dạng sticker bento bo góc tròn vừa phải `12px`, viền xám Slate `#1E293B` dày 2px và đổ bóng cứng đặc trưng.
+  - Hiệu ứng Hover nâng nhẹ (`transform: translateY(-2px)`) kết hợp bóng đổ dịch chuyển làm tăng tính phản hồi vật lý.
+  - Khi được chọn, thẻ ngày sẽ đổi sang nền xanh Violet (`--primary`) và thẻ giờ đổi sang nền Mint (`--secondary`), chữ chuyển sang màu tương phản cao, tạo nhịp điệu thị giác rực rỡ và trực quan.
+- **Chốt chặn an toàn (Validation Flow)**: Nút "Xác nhận đặt lịch / Confirm Booking" mặc định bị vô hiệu hóa (`.disabled-btn`), giảm độ mờ và hiển thị dòng chữ nhắc nhở màu đỏ `.booking-required-hint` cho đến khi người dùng chọn đủ cả Ngày và Giờ, ngăn ngừa dữ liệu rỗng.
+
+### 3. Thiết kế Đồ họa Vé hẹn AutiCare Độc đáo (Appointment Ticket Masterpiece)
+Khi người dùng bấm xác nhận, hệ thống ẩn khu vực lựa chọn và kích hoạt màn hình thành công rực rỡ với tâm điểm là chiếc **Vé hẹn AutiCare (Appointment Ticket)**.
+- **Họa tiết Nền Memphis**: Nền vé `.booking-ticket-card` được phủ họa tiết Memphis chấm tròn cổ điển `radial-gradient(#1e293b 8%, transparent 8%)` với kích thước grid `16px 16px` trên nền kem ấm nhạt `#FFFDF5`, tạo chất cảm giấy in tự nhiên.
+- **Chi tiết Răng cưa & Nét đứt (Perforated & Ticket Ridges)**:
+  - Đường phân tách vé đứt quãng giả lập bằng viền nét đứt dày dặn `border-bottom: 2px dashed #1E293B`.
+  - Hai bên sườn có các lỗ khoét bán nguyệt lõm vào trong (sử dụng pseudo-elements `::before` và `::after` với `radial-gradient` trong CSS) mô phỏng răng cưa xé vé cổ điển.
+- **Nhãn Trạng thái CONFIRMED**: Sticker màu mint `.ticket-stamp` nghiêng góc `5deg` nằm chéo ở góc vé với chữ viết hoa đậm `CONFIRMED` bao quanh bởi đường viền đôi cá tính.
+- **Mã vạch giả lập (Barcoded Ticket System)**: Thiết kế một khối mã vạch chân thực `.ticket-barcode` ở chân vé bằng cách sử dụng một chuỗi các đường thẳng đứng (`border-left`) có độ rộng và khoảng cách dày mỏng khác nhau, tạo cảm giác chuyên nghiệp giống như vé vào cổng thực tế.
+- **Sticker Rung Rinh Chúc Mừng**: Ở đỉnh vé có một biểu tượng sticker tích tròn màu Mint `.success-tick-sticker` tự động kích hoạt hiệu ứng rung lắc nhẹ (`animation: wobble 1s ease-in-out infinite`) để ăn mừng khoảnh khắc đặt lịch thành công của phụ huynh.
+
+### 4. Tương thích Design Lab & Responsive di động
+- **Đồng bộ Design Lab (Color Token Mapping)**:
+  - Lưới chọn ngày ánh xạ trực tiếp biến CSS `--primary` (được cập nhật động từ thanh trượt màu Violet của Design Lab).
+  - Lưới chọn giờ và các nút thành công ánh xạ trực tiếp biến CSS `--secondary` (Mint) hoặc `--accent` (Mint sáng).
+  - Khi người dùng điều chỉnh màu sắc trên bảng điều khiển Smart Design Lab, toàn bộ giao diện đặt lịch, các trạng thái active và màu chủ đạo của Vé hẹn AutiCare sẽ tự động đổi màu theo thời gian thực một cách hoàn hảo.
+- **Hỗ trợ Responsive Toàn diện (Mobile Optimization)**:
+  - Trên màn hình di động nhỏ (`< 640px`), các lưới Bento chọn ngày và giờ tự động co dãn và chuyển thành layout 1 cột xếp dọc thẳng hàng để tối ưu không gian cuộn.
+  - Các bóng đổ cứng được giảm kích thước từ `8px` xuống `3px` để tránh hiện tượng tràn lề thiết bị.
+  - Chiếc Vé hẹn AutiCare tự động thu nhỏ padding từ `2rem` xuống `1.25rem` và mã vạch co nhỏ lại để hiển thị trọn vẹn, sắc nét trên mọi dòng điện thoại thông minh hiện nay.
+
