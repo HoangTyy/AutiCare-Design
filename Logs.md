@@ -725,3 +725,16 @@
     - Khi đặt lịch thành công, chiếc Vé hẹn AutiCare hiển thị chính xác và đồng bộ hình thức tư vấn thực tế của ca giờ đã đặt bằng cả tiếng Việt và tiếng Anh.
 - **Build Verification**:
     - Biên dịch thành công 100% gói client sản phẩm qua lệnh `npm.cmd run build`. Không phát sinh bất kỳ lỗi TypeScript hay CSS nào, bảo đảm hệ thống vận hành trơn tru và cực kỳ ổn định.
+
+## [2026-05-22] - Xây dựng Tính năng Quản lý Lịch khám (Appointment Scheduling) trên Admin Dashboard
+- **Implementation**:
+    - **Cấu trúc Dữ liệu Đơn giản (appointment_slot)**: Chuyển đổi logic sang schema mới tinh gọn gồm một bảng duy nhất `appointment_slot`. Các trường `start_time` và `end_time` là chuỗi `datetime`. Trạng thái `status` hiển thị 'Available' hoặc 'Booked'. Hình thức hiển thị 'Online' hoặc 'Offline'.
+    - **ScheduleTab.tsx (Dashboard Admin)**: Xây dựng tab giao diện Quản lý Lịch trống dành riêng cho Bác sĩ / Điều phối viên trên Admin Dashboard. Tích hợp bảng danh sách Data Table liệt kê tất cả các slot. Cột thao tác cho phép Xóa (Delete) những slot nào có trạng thái 'Available'. Những slot đã 'Booked' sẽ khóa chức năng xóa (khóa mờ button và ngăn chặn qua alert).
+    - **Form Tạo Lịch (Create Appointment Slot)**: Tích hợp Modal bật lên 1 cột cho phép Bác sĩ tạo khung giờ mới. Nhập `staff_id`, chọn `location_type`, và nhập liệu trực tiếp `start_time` / `end_time` dạng `datetime-local`.
+    - **AdminDashboard.tsx**: Đăng ký thẻ tab "Lịch trình" / "Quản lý Lịch trống" vào sidebar dưới dạng mục `scheduling`.
+    - **CSS Styles (`AdminDashboard.css`)**: Bổ sung bộ class CSS `.badge-status`, `.badge-status.available`, `.badge-status.booked` để hiển thị nhãn trạng thái trực quan dạng viên thuốc (pill) với màu nền xanh lá và đỏ nhạt mờ theo chuẩn thiết kế Playful Geometric.
+- **Walkthrough**:
+    - Tích hợp 1 bảng mô phỏng thành công (`appointment_slot`).
+    - Giao diện mượt mà và trực quan, hỗ trợ đầy đủ tiếng Việt và tiếng Anh.
+- **Build Verification**:
+    - Xác thực không phát sinh lỗi TypeScript.

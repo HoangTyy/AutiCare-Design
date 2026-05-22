@@ -982,3 +982,26 @@ tbody tr:hover td:first-child {
   color: #334155;
   white-space: pre-wrap;
 }
+
+/* ==========================================================================
+   SCHEDULE SYSTEM STYLES (Appended)
+   ========================================================================== */
+
+.badge-status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.badge-status.available {
+  background-color: rgba(34, 197, 94, 0.15); /* Green tint */
+  color: #16a34a;
+}
+
+.badge-status.booked {
+  background-color: rgba(239, 68, 68, 0.15); /* Red tint */
+  color: #dc2626;
+}
