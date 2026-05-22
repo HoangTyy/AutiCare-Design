@@ -250,6 +250,13 @@ Vung `.auth-form-zone` trong `src/App.css` khong con khoa bang `overflow: hidden
   - **Chân trang đồng điệu**: Phân vùng `.expert-detail-footer` nâng padding lên `1.5rem 2rem`, đổi sang nền trắng thuần và border nét đứt dashed mảnh màu xám Slate tạo nhịp điệu đồ họa liền mạch với đầu trang.
   - **Responsive di động hoàn hảo (Mobile Layout Adapts)**: Trên màn hình di động (`< 640px`), modal tự động thu hẹp padding đầu trang `.experts-header` xuống `1.15rem`, giảm gap `.header-info-group` xuống `0.85rem`, co nhỏ avatar xuống `3.6rem` x `3.6rem` và chữ số tiêu đề `h3` xuống `1.35rem` để hiển thị sắc nét, thẳng hàng và không bị tràn lề.
 
+### Appointment Scheduling Management System (Dashboard) (2026-05-22)
+- **Database Schema Integration**: Cập nhật logic hiển thị và quản lý bám sát schema mới `appointment_slot`. Một bảng duy nhất quản lý các khung giờ với định dạng `datetime`.
+- **Admin Dashboard (`ScheduleTab.tsx`)**:
+  - Giao diện cung cấp Data Table để **Quản lý Lịch trống** cho Bác sĩ và Điều phối viên.
+  - Tích hợp Modal bật lên cho phép tạo khung giờ trực tiếp (Create Appointment Slot) bằng trường `datetime-local` HTML5 natively, kết hợp staff ID và loại hình khám Online/Offline.
+  - Logic Xóa khung giờ (Delete Appointment Slot): Cung cấp cảnh báo an toàn. Nút xóa sẽ bị mờ và khóa tương tác (`not-allowed`) với những khung giờ đã mang trạng thái `Booked` (Đã có người đặt).
+- **Visual Status Badges**: Cập nhật file `.css` bổ sung `.badge-status` dạng pill siêu thực tế với màu xanh (`Available`) và đỏ nhạt (`Booked`) dành riêng cho chức năng quản lý lịch trình trong Dashboard.
 ## Homepage Expert Booking Flow Context Update (2026-05-22)
 
 Luồng đặt lịch chuyên gia từ trang chủ AutiCare đã được nâng cấp toàn diện từ hộp thoại thông báo `alert` thô sơ sang giao diện đặt lịch **Playful Geometric** thông minh tích hợp chọn ngày/giờ tư vấn và chốt hẹn bằng chiếc **Vé hẹn AutiCare (Appointment Ticket)** độc đáo.
