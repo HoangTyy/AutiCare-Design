@@ -1,5 +1,62 @@
 # Project Logs
 
+## [2026-05-22] - Tinh chỉnh Giao diện Phase Details (Bỏ emoji, đồng bộ nút bấm & thêm Status)
+- **Loại bỏ emoji bánh răng (`⚙️`)**:
+  - Loại bỏ hoàn toàn biểu tượng bánh răng `⚙️` khỏi tiêu đề **Phase Overview** trong trang Chi tiết Giai đoạn can thiệp (`PlanDetailView.tsx`) nhằm làm cho giao diện tinh tế, thanh nhã và chuyên nghiệp hơn.
+- **Đồng bộ hóa nút "+ Add Objective"**:
+  - Chuyển đổi nút thêm mục tiêu can thiệp từ class Playful neon cũ (`add-obj-btn`) sang class nút phẳng chuẩn hệ thống (`add-btn`), giúp đồng bộ 100% về kích thước, màu sắc Primary Teal/Indigo và giao diện phẳng thanh lịch với các nút thêm mới khác trong Admin Dashboard.
+- **Tích hợp thuộc tính Status (Trạng thái)**:
+  - Thêm trường hiển thị **Status (Trạng thái)** trực tiếp vào lưới thông tin tổng quan của Giai đoạn (`overview-grid`).
+  - Trạng thái được render động dưới dạng badge màu `.phase-status-badge` hoạt động (Active) hoặc không hoạt động (Inactive) thông qua từ điển dịch thuật song ngữ `t.active` và `t.inactive` tương ứng với giá trị `selectedPhase.status`.
+- **Biên dịch và Xác thực**:
+  - Dự án chạy `npm run build` hoàn thành biên dịch sạch sẽ 100% không phát sinh bất kỳ lỗi cú pháp hay cảnh báo kiểu dữ liệu nào.
+
+## [2026-05-22] - Loại bỏ hoàn toàn Hoạt động can thiệp (Manage Activities) khỏi Phase Details
+- **Tối giản hóa giao diện Giai đoạn can thiệp**:
+  - Loại bỏ hoàn toàn phân vùng **Hoạt động can thiệp (Manage Activities)** ra khỏi trang Chi tiết Giai đoạn (`PlanDetailView.tsx`) theo mong muốn của người dùng.
+  - Giao diện sau thay đổi gồm hai card xếp dọc độc lập: Card 1 (Trên) hiển thị thông tin tổng quan của Giai đoạn (Phase Overview), Card 2 (Dưới) hiển thị duy nhất phân vùng quản lý mục tiêu hành vi (Manage Objectives).
+- **Dọn dẹp triệt để mã nguồn**:
+  - Xóa bỏ/comment sạch sẽ các biến state cục bộ liên quan đến Activity: `isActModalOpen`, `actModalMode`, `selectedAct`, `actName`, `actDesc`, `actDuration` để đảm bảo trình biên dịch TypeScript không báo lỗi unused variables (`TS6133`).
+  - Xóa bỏ các hàm modal xử lý liên quan: `openActModal`, `handleSaveAct`.
+  - Loại bỏ khối JSX của cửa sổ modal CRUD Activity `{isActModalOpen && (...)}` ở cuối component.
+- **Biên dịch và Xác thực**:
+  - Dự án chạy `cmd.exe /c npm run build` biên dịch thành công 100% sạch sẽ và mượt mà chỉ trong 245ms.
+
+## [2026-05-22] - Tách biệt Giao diện và Sửa lỗi Cấu trúc JSX cho Phase Details
+- **Tách biệt Phase Details & Objectives thành 2 Card riêng**:
+  - Tách hoàn toàn giao diện con của tab "Overview" trong Phase Details thành hai phần cấu trúc riêng biệt (`.phase-detail-card` cho Metadata/Overview và một `.phase-detail-card` độc lập phía dưới cho Objectives Management).
+  - Loại bỏ nút tab "Manage Objectives" trùng lặp cũ nhằm tối giản hoá thanh Tab bar và tập trung trải nghiệm trực quan.
+- **Sửa lỗi cú pháp JSX & Tối ưu hóa DOM Tree**:
+  - Dọn dẹp các dấu đóng ngoặc nhọn `{` `}` dư thừa, các thẻ đóng `div` lạc lõng sinh ra do việc chuyển dịch code trước đó.
+  - Sắp xếp lại luồng rẽ nhánh điều kiện `{phaseActiveTab === 'overview' && (...)}` để chứa đúng một cây phân cấp JSX hợp lệ với một thẻ bọc ngoài duy nhất `.tab-pane-content`, giải quyết triệt để lỗi biên dịch `[PARSE_ERROR] Expected ',' or ')' but found '{'`.
+- **Biên dịch và Chạy Thử**:
+  - Khởi động thành công Dev Server thông qua tác vụ nền `npm run dev`.
+  - Biên dịch hoàn tất 100% bản dựng Production thành công rực rỡ không cảnh báo/lỗi bằng lệnh `npm run build`.
+
+## [2026-05-22] - Đóng khung Plan Phase & Tích hợp Click out to Close Popups (Phase 2)
+- **Đóng khung Phase Workspace (Playful Geometric Frame)**: Thiết kế và tích hợp khung bao bọc vững chãi cho khu vực quản lý chi tiết Giai đoạn can thiệp (Plan Phase Detail Workspace) trong `PlanDetailView.tsx`.
+  - Toàn bộ Workspace (bao gồm nút Back `t.backToPhases` và các tab con, hoạt động, mục tiêu) được đóng gói bên trong thẻ `.phase-detail-workspace-card` lớn.
+  - Áp dụng các token CSS Playful Geometric đặc trưng: viền Slate dày (`3px solid #1E293B`), bóng đổ cứng 3D offset (`8px 8px 0px #1E293B`), bo góc (`24px`), nền trắng sạch sẽ (`#FFFFFF`), kết hợp hiệu ứng hover nhấc nổi nhẹ (`transform: translate(-2px, -2px)` và tăng bóng đổ lên `10px 10px 0px #1E293B`).
+  - Thay thế card `.phase-detail-card` bên trong thành cấu trúc phẳng `.phase-detail-inner` để loại bỏ việc lặp lại bóng đổ cứng thô kệch lồng nhau, giúp không gian thông tin bên trong thoáng đạt và chuyên nghiệp.
+- **Tích hợp Click out to Close Popups cho hệ thống Modals**: Cập nhật cả 5 cửa sổ Popups/Modals CRUD trong `PlanDetailView.tsx` (Edit Plan, Delete Plan Confirmation, Phase CRUD, Activity CRUD, Objective CRUD) để tối ưu hóa tương tác:
+  - Cho phép người dùng đóng nhanh modal bằng cách click vào lớp nền mờ bên ngoài (`.modal-overlay`).
+  - Tích hợp hàm chặn nổi bọt sự kiện `onClick={(e) => e.stopPropagation()}` trên thẻ con `.admin-modal` chứa nội dung form nhằm ngăn chặn việc đóng nhầm modal ngoài ý muốn khi đang thao tác nhập liệu bên trong form.
+- **Đóng gói sản phẩm**: Biên dịch dự án hoàn hảo 100% bằng `cmd.exe /c npm run build`, bảo đảm không có bất kỳ lỗi TypeScript hay Vite bundler nào phát sinh.
+
+## [2026-05-22] - Tinh giản tối đa Plan Detail (Phẳng hóa) & Tối ưu hóa Plan Phase
+- **Đơn giản hóa triệt để Plan Detail (Plan Profile Card)**: Tinh chỉnh thẩm mỹ vùng thông tin chi tiết Kế hoạch (`PlanDetailView.tsx`) để trút bỏ hoàn toàn lớp vỏ sặc sỡ và "màu mè" cũ, chuyển sang phong cách phẳng (Flat Design) và thanh lịch.
+  - Loại bỏ hoàn toàn viền đen sẫm dày (`3px solid #1E293B`) và bóng đổ cứng (`8px 8px 0px #1E293B`) của `.plan-profile-card`. Thay thế bằng viền Slate mảnh nhẹ (`1px solid #CBD5E1`) và bóng đổ mờ mịn siêu nhẹ (`0 4px 20px rgba(15, 23, 42, 0.03)`).
+  - Thay thế badge tiêu đề `Plan Profile` màu tím neon sặc sỡ bằng một nhãn chữ tinh tế, màu trung tính nhã nhặn (nền xám Slate nhạt `#F1F5F9`, chữ xám trầm `#64748B`, viền mảnh `#E2E8F0`).
+  - Giảm cỡ chữ `.profile-title` xuống `1.6rem` và độ đậm `font-weight: 800` để tiêu đề cân đối, sang trọng.
+  - Tinh giản Bento Grid 4 hộp Điểm mạnh, Điểm yếu, Sở thích, Phản hồi: phẳng hoàn toàn, nền `#F8FAFC`, viền siêu mỏng `#E2E8F0`, loại bỏ transition nhấc nổi hover (`transform`) để làm cho vùng thông tin này thực sự tĩnh lặng và sạch sẽ.
+  - Tinh giản các nút thao tác ở góc trên (`.back-btn-v2`, `.edit-detail-btn-v2`, `.delete-detail-btn-v2`) thành thiết kế nút phẳng modern, thanh thoát: viền mỏng `1px solid #CBD5E1`, nền trắng tinh khiết, hover đổi nền xám nhẹ, loại bỏ bóng đổ cứng thô ráp.
+  - Tinh giản trạng thái `.plan-status-badge` (không viền đen thô, border transparent) và `.assessment-tool-box` (nền xám nhạt dịu mắt).
+- **Làm nổi bật Plan Phase (Visual Focal Point)**: Duy trì và nâng cấp phân cấp thị giác để dẫn mắt chuyên gia xuống khu vực quản lý giai đoạn can thiệp lồng ghép bên dưới.
+  - Vùng `.phase-management-card` bên dưới vẫn giữ nguyên bóng đổ cứng Slate chắc chắn (`8px 8px 0px #1E293B`) và đường viền dày (`3px solid #1E293B`) của phong cách Playful Geometric để tự động trở thành tiêu điểm làm việc chính khi phần thông tin chung chìm xuống.
+  - Tương tác hàng bảng `.phase-row` trong danh sách: khi hover chuột, hàng bảng nhấc nổi 3D (`transform: translateY(-4px) scale(1.008)`), đổi nền sang tím pastel ngọt ngào `#FAF5FF` và có bóng đổ cứng Slate `6px 6px 0px #1E293B`.
+- **Đóng gói sản phẩm**: Biên dịch dự án thành công 100% bằng `npm run build` qua `cmd.exe`, hoàn toàn không có lỗi TypeScript hay cú pháp, sẵn sàng hoạt động ổn định.
+
+
 ## [2026-05-16] - Initial Setup & Design Lab
 - **Initialize**: Created React + TypeScript project using Vite.
 
@@ -659,3 +716,55 @@
     - Trên màn hình điện thoại di động, bố cục co giãn mượt mà, căn chỉnh lề đều đặn và sắc nét.
 - **Build Verification**:
     - Chạy thành công `cmd.exe /c "npm run build"`, dự án được đóng gói sản phẩm hoàn hảo chỉ trong 298ms không một cảnh báo hay lỗi TypeScript nào.
+
+## [2026-05-22] - Tích Hợp Quản Lý Kế Hoạch Can Thiệp (Manage plans) Song Ngữ Trong Admin Dashboard
+- **Implementation**:
+    - **Tích hợp router tab 'plans'**: Cập nhật hàm `renderActiveTab()` trong [AdminDashboard.tsx](file:///e:/%C4%90%E1%BB%93%20%C3%A1n%20t%E1%BB%91t%20nghi%E1%BB%87p/AutiCare-Design/src/components/AdminDashboard.tsx) để hỗ trợ render tab `plans` với các components `PlansTab` và `PlanDetailView` tương ứng.
+    - **Đồng bộ state chi tiết**: Tích hợp biến state `selectedPlanForDetail` và thiết lập logic reset state này về `null` khi người dùng chuyển sang các tab khác trong sidebar.
+    - **Cập nhật breadcrumb**: Bổ sung hiển thị `/ [Plan Name]` vào thanh Breadcrumb Topbar khi Admin đang ở trong giao diện xem chi tiết của một Kế hoạch.
+    - **Sửa lỗi type verbatimModuleSyntax**: Sửa lỗi TypeScript `TS1484` trong [AdminDashboard.tsx](file:///e:/%C4%90%E1%BB%93%20%C3%A1n%20t%E1%BB%91t%20nghi%E1%BB%87p/AutiCare-Design/src/components/AdminDashboard.tsx) bằng cách tách biệt import loại `type { Plan }` và import component React `PlanDetailView` theo đúng quy tắc nghiêm ngặt của dự án.
+    - **Sửa lỗi translations deleteSub**: Khắc phục lỗi thiếu trường `deleteSub` trong [PlanDetailView.tsx](file:///e:/%C4%90%E1%BB%93%20%C3%A1n%20t%E1%BB%91t%20nghi%E1%BB%87p/AutiCare-Design/src/components/dashboard/PlanDetailView.tsx) bằng cách bổ sung khóa `deleteSub` song ngữ (VN/EN) vào các đối tượng từ điển `translations.vi` và `translations.en`.
+- **Walkthrough**:
+    - **Trực quan**: Trong Admin Dashboard, tab "Kế hoạch Can thiệp" (Manage Plans) hoạt động mượt mà. Admin có thể xem danh sách kế hoạch, tìm kiếm nhanh, thêm mới, sửa, xóa kế hoạch trực tiếp từ popup.
+    - Click vào nút "Chi tiết" sẽ dẫn tới trang [PlanDetailView.tsx](file:///e:/%C4%90%E1%BB%93%20%C3%A1n%20t%E1%BB%91t%20nghi%E1%BB%87p/AutiCare-Design/src/components/dashboard/PlanDetailView.tsx) có đầy đủ thông tin chi tiết của Kế hoạch (Điểm mạnh, Điểm yếu, Sở thích, Phản hồi gia đình) cùng sơ đồ quản lý Giai đoạn (Plan Phases) lồng ghép 3 sub-tabs cực kỳ chuyên nghiệp (Tổng quan, Hoạt động can thiệp, Mục tiêu hành vi).
+    - Mọi thao tác CRUD trên Phase, Activity và Objective hoạt động hoàn hảo và đồng bộ dữ liệu chuẩn xác lên DB mock của AdminDashboard cha.
+    - Responsive hoạt động trơn tru trên mọi thiết bị và hỗ trợ song ngữ Việt/Anh mượt mà qua nút chuyển đổi toàn cục.
+- **Build Verification**:
+    - Chạy thành công lệnh `cmd /c "npm run build"`, dự án được đóng gói sản phẩm hoàn hảo 100% không còn bất kỳ cảnh báo hay lỗi TypeScript nào.
+
+## [2026-05-22] - Đồng Bộ Hóa Toàn Diện Giao Diện Quản Lý Kế Hoạch (PlansTab)
+- **Implementation**:
+    - **Loại bỏ inline CSS thô**: Xóa bỏ toàn bộ các thẻ inline style `style={{ ... }}` gây sai lệch bố cục visual khỏi tệp [PlansTab.tsx](file:///e:/Đồ án tốt nghiệp/AutiCare-Design/src/components/dashboard/PlansTab.tsx).
+    - **Áp dụng class hệ thống chuẩn**: Đồng bộ các thẻ bao quanh và thẻ bảng sang sử dụng `.dashboard-content-area`, `.table-header`, `.table-title`, `.table-actions`, `.search-bar`, `.add-btn`, `.data-table-wrapper` và `.data-table` của hệ thống.
+    - **Đồng bộ hóa Action Buttons**: Thay thế các nút Candy-Btn emoji thô bằng bộ ba nút SVG chuẩn gồm `view-btn-v2` (icon con mắt), `edit-btn-v2` (icon bút chì) và `delete-btn-v2` (icon thùng rác) căn lề phải và có khoảng cách gap mượt mà.
+    - **Đồng bộ hóa Modal và Grid Form**: Tái cơ cấu popup Modal sang `.modal-overlay`, `.admin-modal`, `.modal-header`, `.modal-body`, `.modal-footer` cùng với CSS grid `.modal-form-grid` và các trường `.form-group` có `.form-group-full` cho các textarea mô tả rộng, tạo sự đồng bộ hoàn hảo với các tab nhân sự và mục tiêu.
+    - **Bảo toàn Responsive & Logic**: Tích hợp block CSS di động cho `.modal-form-grid` tự động co về 1 cột dưới màn hình 720px, bảo đảm độ nhạy và co giãn mượt mà.
+- **Walkthrough**:
+    - Giao diện danh sách kế hoạch can thiệp hiển thị thống nhất 100% với giao diện quản lý staffs và objectives: cùng màu sắc, cùng kiểu chữ, cùng bóng đổ cứng và kiểu viền bo góc.
+    - Bộ nút thao tác cuối dòng nhìn chuyên nghiệp và hiện đại hơn với các biểu tượng vector sắc nét.
+    - Popup thêm/sửa kế hoạch hiển thị dưới dạng grid 2 cột cân đối, thoáng đãng và có độ thẩm mỹ cực kỳ cao.
+- **Build Verification**:
+    - Chạy thành công lệnh đóng gói `npm.cmd run build` đạt kết quả biên dịch 100% sạch sẽ không cảnh báo hay lỗi TypeScript.
+
+## [2026-05-22] - Khôi Phục Nguyên Trạng BlogsTab & NotificationTab
+- **Implementation**:
+    - **Khôi phục hoàn toàn**: Khôi phục nguyên vẹn 100% hai tệp tin [BlogsTab.tsx](file:///e:/Đồ án tốt nghiệp/AutiCare-Design/src/components/dashboard/BlogsTab.tsx) và [NotificationTab.tsx](file:///e:/Đồ án tốt nghiệp/AutiCare-Design/src/components/dashboard/NotificationTab.tsx) về trạng thái gốc của hệ thống (`origin/main`).
+    - **Bảo đảm tính cô lập**: Đảm bảo tuyệt đối không có bất kỳ thay đổi nào ngoài phạm vi chức năng Kế hoạch Can thiệp (`Plan` và `Plan Phase`), tuân thủ nghiêm ngặt chỉ dẫn của người dùng và các quy định của dự án.
+    - **Xác thực đóng gói**: Chạy thành công lệnh build dự án đạt kết quả biên dịch 100% không còn bất kỳ cảnh báo hay lỗi kiểu dữ liệu TypeScript nào.
+
+## [2026-05-22] - Phân Tách Phase Overview Và Manage Activity Thành Các Card Dọc Riêng Biệt
+- **Implementation**:
+    - **Loại bỏ cơ chế chia tab con (Sub-Tabs)**: Loại bỏ hoàn toàn thanh `sub-tabs-container` điều hướng tab cũ trong trang chi tiết Giai đoạn (`PlanDetailView.tsx`). Dọn dẹp triệt để biến trạng thái `phaseActiveTab` và `setPhaseActiveTab` ở cả phần khai báo state và sự kiện click hàng Phase trong danh sách, giải quyết triệt để lỗi biên dịch `TS6133` (unused variable) và `TS2304` (Cannot find name).
+    - **Bố cục 2 Card xếp chồng dọc**:
+        - **Card 1 (Phía trên)**: Phase Overview hiển thị chi tiết siêu dữ liệu của Phase (Mã PH, Mã PL, Phương pháp, Ngày bắt đầu/kết thúc, Trạng thái, v.v.) qua lưới `.overview-grid`.
+        - **Card 2 (Phía dưới)**: Manage Activity & Objectives gộp chung hai mảng quản lý Hoạt động can thiệp (Activities) và Mục tiêu hành vi (Objectives) xếp dọc trong cùng một card. Phần trên là Quản lý hoạt động có nút "Thêm hoạt động", phần dưới là Quản lý mục tiêu có nút "Thêm mục tiêu". Điều này cho phép xem và thao tác đồng thời cả hai phần dữ liệu mà không cần click chuyển tab mỏi mắt.
+    - **Bổ sung Nút bấm Thao tác Activities (Edit/Delete)**: Tích hợp đầy đủ cụm nút hành động Sửa (`edit-btn-v2`) và Xóa (`delete-btn-v2`) sử dụng vector icon SVG mảnh mịn sắc nét cho từng thẻ Hoạt động `.item-card-v2` (trong thiết kế cũ đang thiếu nút thao tác này). Gắn chính xác các sự kiện click với hàm modal `openActModal('update', act)` và `openActModal('delete', act)`.
+- **Walkthrough**:
+    - Trực quan: Trong trang chi tiết Giai đoạn, giao diện hiển thị 2 Card dọc rõ rệt, ngăn nắp theo phong cách Flat / Playful Geometric. Mọi thông tin meta của giai đoạn được phơi bày rõ nét ở card trên, trong khi card dưới hỗ trợ thêm/sửa/xóa các bài hoạt động rèn luyện và mục tiêu can thiệp.
+    - Nút bấm hành động của cả Hoạt động và Mục tiêu đều sử dụng icon SVG phẳng sang trọng, hover chuyển màu sắc nét, tạo sự đồng bộ hoàn chỉnh với các tab quản lý khác trong Admin Dashboard.
+- **Build Verification**:
+    - Đã chạy biên dịch thành công 100% bản dựng sản phẩm thông qua lệnh `cmd.exe /c npm run build` sạch sẽ hoàn toàn không còn bất kỳ cảnh báo hay lỗi kiểu dữ liệu TypeScript nào (hoàn thành chỉ trong 257ms).
+
+
+
+

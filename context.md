@@ -249,3 +249,55 @@ Vung `.auth-form-zone` trong `src/App.css` khong con khoa bang `overflow: hidden
   - **Danh sách nhận xét phụ huynh rộng rãi**: Thẻ đánh giá sticker `.feedback-item-card` nâng padding lên `1.35rem`, bóng đổ cứng `5px` và comment text `.feedback-comment` tăng cỡ lên `0.94rem` dễ đọc.
   - **Chân trang đồng điệu**: Phân vùng `.expert-detail-footer` nâng padding lên `1.5rem 2rem`, đổi sang nền trắng thuần và border nét đứt dashed mảnh màu xám Slate tạo nhịp điệu đồ họa liền mạch với đầu trang.
   - **Responsive di động hoàn hảo (Mobile Layout Adapts)**: Trên màn hình di động (`< 640px`), modal tự động thu hẹp padding đầu trang `.experts-header` xuống `1.15rem`, giảm gap `.header-info-group` xuống `0.85rem`, co nhỏ avatar xuống `3.6rem` x `3.6rem` và chữ số tiêu đề `h3` xuống `1.35rem` để hiển thị sắc nét, thẳng hàng và không bị tràn lề.
+
+### Manage plans & Plan phase sub-system (2026-05-22)
+- **Kiến trúc dữ liệu**:
+  - Mỗi Kế hoạch Can thiệp (`Plan`) được liên kết với một ID chuyên gia can thiệp (`center_staff_id`) và trẻ phổ tự kỷ (`child_id`), nắm giữ các metadata gồm `plan_name`, `academic_year`, `assessment_tool`, `child_strengths`, `child_weaknesses`, `child_interests`, `family_feedback`, `start_date`, `end_date`, `status` và danh sách các giai đoạn lồng ghép (`phases`).
+  - Mỗi giai đoạn (`PlanPhase`) chứa các thuộc tính `phase_name`, `phase_type`, `status` và hai danh sách con độc lập: Hoạt động can thiệp (`activities`) và Mục tiêu hành vi (`objectives`).
+- **Giao diện Danh sách (PlansTab)**:
+  - Áp dụng hoàn hảo phong cách **Playful Geometric Design** hệ thống: Sử dụng cấu trúc HTML & CSS đồng bộ hoàn toàn với các Tab quản lý khác trong Admin Dashboard (không sử dụng inline style).
+  - Sử dụng các lớp CSS chung như `.dashboard-content-area`, `.table-header`, `.table-title`, `.table-actions`, `.search-bar`, `.add-btn` và `.data-table-wrapper` bao quanh `.data-table`.
+  - Bộ nút thao tác cuối hàng (Actions) đồng bộ 100% bằng các icon SVG chất lượng cao: `view-btn-v2` (icon con mắt), `edit-btn-v2` (icon bút chì) và `delete-btn-v2` (icon thùng rác).
+  - Tích hợp popup CRUD đồng bộ sử dụng `.modal-overlay`, `.admin-modal`, `.modal-header`, `.modal-body` và `.modal-footer` cùng với CSS form grid `.modal-form-grid` (có cấu trúc co giãn tự động 1 cột trên mobile < 720px) và modal xóa `.delete-confirm`.
+- **Giao diện Chi tiết (PlanDetailView)**:
+  - Tương tự triết lý của `CenterDetailView`, component này sử dụng hệ thống sub-navigation bên trong để hiển thị chi tiết Kế hoạch và danh sách Giai đoạn.
+  - **Triết lý thiết kế Tương phản Thị giác (Visual Contrast & Flat Design)**:
+    - **Phần thông tin chung (Plan Detail / Plan Profile Card)**: Được tinh giản tối đa, triệt tiêu sự màu mè sặc sỡ và chunky. Sử dụng cấu trúc phẳng (Flat Card) với đường viền Slate mỏng nhẹ (`1px solid #CBD5E1`), bóng đổ mờ mịn siêu nhẹ (`0 4px 20px rgba(15, 23, 42, 0.03)`). Tiêu đề và badge nhãn (`Plan Profile`) tối giản, màu Slate xám trầm trung tính `#64748B` trên nền `#F1F5F9`. Bốn hộp thông tin trẻ (Điểm mạnh, Điểm yếu, Sở thích, Phản hồi) xếp thành lưới Bento Grid 2 cột phẳng tĩnh lặng (nền `#F8FAFC`, viền `#E2E8F0`, không nhấc nổi hover), giúp thông tin hiển thị khoa học và sang trọng như một bệnh án y tế chuẩn mực. Các nút bấm góc trên cũng được phẳng hóa thanh nhã (Flat Buttons) không có bóng đổ cứng đen sẫm.
+    - **Phần Giai đoạn can thiệp (Plan Phase / Phase-management-card)**: Giữ nguyên phong cách Playful Geometric đậm nét (viền đen sẫm dày `3px solid #1E293B` và bóng đổ cứng chắc chắn `8px 8px 0px #1E293B`) kết hợp hiệu ứng nhấc nổi 3D khi hover. Khi phần thông tin tĩnh ở trên phẳng lặng chìm xuống, vùng Giai đoạn can thiệp lồng ghép bên dưới tự động trở thành tiêu điểm thị giác cực mạnh, thu hút mọi tương tác làm việc của chuyên gia.
+  - Mỗi Giai đoạn khi click vào chi tiết sẽ mở ra một vùng Workspace lồng ghép với 3 sub-tabs điều hướng bằng các thẻ tab bo góc nhô cao (`overview`, `activities`, `objectives`), đảm bảo tính chặt chẽ trong phân lớp giao diện và trải nghiệm editorial dashboard chuyên nghiệp.
+  - Hỗ trợ đầy đủ i18n song ngữ (VN/EN) đồng bộ tức thời khi bấm nút chuyển đổi ngôn ngữ ở Header.
+  - **Tối ưu hóa và loại bỏ Inline CSS**: Toàn bộ CSS định hình giao diện cho chi tiết kế hoạch đã được đưa vào khối `<style>` cục bộ và hệ thống class của Admin Dashboard, xóa bỏ hoàn toàn inline styles thô ráp.
+  - **Lưới Form Grid 2 Cột và 5 Modals Hệ Thống**: Nâng cấp toàn diện 5 popup Modals (Chỉnh sửa Kế hoạch, Xóa Kế hoạch, Thêm/Sửa Giai đoạn, Thêm/Sửa Hoạt động, Thêm/Sửa Mục tiêu) sang cấu trúc chung thống nhất với lớp nền mờ `.modal-overlay`, khung gỗ `.admin-modal`, tiêu đề `.modal-header`, thân hộp `.modal-body` và chân nút `.modal-footer`. Các form nhập liệu sử dụng cấu trúc lưới `.modal-form-grid` (2 cột co giãn linh hoạt) và lớp `.form-group-full` cho các ô textarea nhập liệu lớn như điểm mạnh, điểm yếu hay sở thích của trẻ.
+  - **Đồng bộ hóa Action Buttons**: Thay thế hoàn toàn bộ nút Candy emoji thô ráp thành bộ biểu tượng vector chất lượng cao dùng SVG chuẩn (`view-btn-v2`, `edit-btn-v2`, `delete-btn-v2`) cho mọi hành động quản lý trong danh sách Giai đoạn, Hoạt động can thiệp, và Mục tiêu.
+  - **Bảo toàn và Khôi phục Nguyên Trạng các Tab Quản Lý Khác**: Tuân thủ tuyệt đối quy tắc chỉ cho phép thay đổi phần Kế hoạch và Giai đoạn can thiệp. Hai tệp tin `BlogsTab.tsx` và `NotificationTab.tsx` được khôi phục nguyên vẹn 100% về trạng thái ban đầu của dự án, đảm bảo an toàn hệ thống và tính sạch sẽ tối đa cho mã nguồn.
+
+### Plan Phase Workspace Frame & Backdrop Click Modals Closure (2026-05-22)
+- **Đóng khung Phase Workspace (Playful Geometric Frame)**:
+  - Nâng cấp trải nghiệm quản lý chi tiết Giai đoạn can thiệp bằng cách bọc toàn bộ không gian làm việc chi tiết Phase Workspace (bao gồm nút quay lại `t.backToPhases`, thông tin Giai đoạn, các sub-tabs con điều hướng và toàn bộ danh sách Hoạt động / Mục tiêu) vào một khung gỗ `.phase-detail-workspace-card` lớn.
+  - Khung gỗ này áp dụng đầy đủ triết lý thiết kế Playful Geometric: viền Slate sẫm dày (`3px solid #1E293B`), bóng đổ cứng 3D offset (`8px 8px 0px #1E293B`), và bo góc lớn (`24px`). Khi người dùng hover chuột, khung sẽ nhấc nổi nhẹ (`transform: translate(-2px, -2px)`) và bóng đổ sẽ nở rộng (`10px 10px 0px #1E293B`) để phản hồi sống động.
+  - Phẳng hóa và làm thanh lịch hóa card chi tiết bên trong thành `.phase-detail-inner` (loại bỏ viền đen dày và bóng đổ cứng lặp lại), triệt tiêu hoàn toàn cảm giác thô kệch, nặng nề do lồng khung 3D liên tiếp, mang lại không gian làm việc thoáng đãng, chuyên nghiệp bậc nhất.
+- **Tích hợp Click out to Close Popups (Tương tác Đóng Modal Ngoài Overlay)**:
+  - Nâng cấp tính năng đóng cửa sổ Popups cho cả 5 Modal trong `PlanDetailView.tsx` (Chỉnh sửa Kế hoạch, Xóa Kế hoạch, Thao tác Giai đoạn, Thao tác Hoạt động, Thao tác Mục tiêu).
+  - Khi người dùng click vào lớp nền mờ `.modal-overlay` bao ngoài, modal sẽ tự động được đóng lại, giúp tối ưu hóa thao tác đóng nhanh không cần click chính xác nút hủy bỏ hoặc dấu nhân (x).
+  - Tích hợp kỹ thuật chặn nổi bọt sự kiện `onClick={(e) => e.stopPropagation()}` trực tiếp trên container `.admin-modal` chứa nội dung form. Điều này đảm bảo khi người dùng đang click và tương tác bên trong form modal (nhập liệu, chọn dropdown, nhấn nút lưu) thì không bị kích hoạt sự kiện click out, bảo vệ dữ liệu form đang nhập một cách tuyệt đối an toàn.
+
+### Phase Details Layout Split (Card Separation & Single Objectives Focus - 2026-05-22)
+- **Loại bỏ hoàn toàn cơ chế chia Tab con (Sub-Tabs)**:
+  - Xóa bỏ hoàn toàn thanh điều hướng `sub-tabs-container` để loại bỏ cơ chế click chuyển tab.
+  - Dọn dẹp triệt để các biến trạng thái điều phối tab `phaseActiveTab` và `setPhaseActiveTab` ở cả khai báo và sự kiện click để đảm bảo dự án biên dịch sạch 100% không cảnh báo.
+- **Loại bỏ hoàn toàn Hoạt động can thiệp (Manage Activities)**:
+  - Theo phản hồi và yêu cầu mới nhất của người dùng, phân vùng **Hoạt động can thiệp (Manage Activities)** đã bị loại bỏ hoàn toàn khỏi giao diện chi tiết Giai đoạn.
+  - Tất cả các biến state cục bộ (`isActModalOpen`, `actModalMode`, `selectedAct`, `actName`, `actDesc`, `actDuration`), các hàm modal xử lý (`openActModal`, `handleSaveAct`) và khối JSX chứa modal của Activity đều được dọn dẹp triệt để nhằm giữ sạch mã nguồn và tránh cảnh báo/lỗi biên dịch `TS6133` (unused variables).
+- **Phân tách giao diện thành 2 Card dọc độc lập xếp chồng**:
+  - **Card 1 (Phía trên) - Phase Overview**: Nền trắng sữa phẳng tĩnh lặng, bo góc và đổ bóng mịn màng. Hiển thị toàn bộ siêu dữ liệu hành chính của giai đoạn (PH-ID, PL-ID, Loại giai đoạn, Ngày bắt đầu/kết thúc, v.v.) qua lưới `.overview-grid` chuyên nghiệp.
+  - **Card 2 (Phía dưới) - Manage Objectives**: Chỉ tập trung duy nhất vào việc quản lý mục tiêu hành vi can thiệp (`Manage Objectives`). Thiết kế áp dụng phong cách Playful Geometric nổi bật (viền đen sẫm dày `3px solid #1E293B` và bóng đổ cứng chắc chắn `8px 8px 0px #1E293B`) kết hợp hiệu ứng nhấc nổi 3D khi hover. Bên trong chứa nút "Thêm mục tiêu mới" Candy Button màu hồng ngọt ngào và danh sách mục tiêu can thiệp hiển thị qua lưới `.cards-grid` đi kèm các vector icon SVG sắc nét để thực hiện CRUD (Sửa/Xóa).
+  - Bố cục mới này giúp các chuyên gia lâm sàng tập trung cao độ vào các mục tiêu can thiệp cốt lõi của từng Giai đoạn can thiệp mà không bị phân tán thông tin.
+- **Tinh chỉnh giao diện Phase Details chi tiết (2026-05-22)**:
+  - **Loại bỏ emoji**: Biểu tượng bánh răng (`⚙️`) đã được gỡ bỏ hoàn toàn khỏi tiêu đề của Card Phase Overview nhằm giảm độ "màu mè", giúp trang chi tiết hiển thị giống như một bảng hồ sơ chuyên môn thực sự.
+  - **Đồng bộ hóa Nút bấm**: Nút "+ Add Objective" đã được chuyển đổi từ kiểu Candy hồng cũ (`add-obj-btn`) sang nút phẳng chuẩn mực (`add-btn`) màu Primary Teal của hệ thống Admin Dashboard. Việc này giúp loại bỏ cảm giác thiết kế lộn xộn, đồng điệu tuyệt đối với các nút thêm mới khác.
+  - **Bổ sung thuộc tính Trạng thái (Status)**: Thêm thuộc tính `Status` vào trực tiếp trong lưới thông tin của Phase Overview. Trạng thái hiển thị sống động thông qua badge `.phase-status-badge` có màu sắc động tương ứng với `Active` (hoạt động) và `Inactive` (không hoạt động), tự động phản hồi theo sự thay đổi ngôn ngữ Việt/Anh của hệ thống.
+
+
+
+
+

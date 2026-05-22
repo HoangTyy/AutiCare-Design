@@ -9,8 +9,11 @@ import type { ExerciseLevel } from './dashboard/CenterLevelsTab';
 import type { ExerciseCategory } from './dashboard/CenterCategoriesTab';
 import './AdminDashboard.css';
 import NotificationTab from './dashboard/NotificationTab';
+import PlansTab from './dashboard/PlansTab';
+import PlanDetailView from './dashboard/PlanDetailView';
+import type { Plan } from './dashboard/PlanDetailView';
 
-type Tab = 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification';
+type Tab = 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans';
 
 interface AdminDashboardProps {
   lang: 'vi' | 'en';
@@ -37,6 +40,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
   const [activeTab, setActiveTab] = useState<Tab>('centers');
   const [expandedGroups, setExpandedGroups] = useState<string[]>(['system', 'training', 'content']);
   const [selectedCenterForDetail, setSelectedCenterForDetail] = useState<Center | null>(null);
+  const [selectedPlanForDetail, setSelectedPlanForDetail] = useState<Plan | null>(null);
 
   // Core Mock Database State for Centers, their respective Levels, and Categories
   const [centers, setCenters] = useState<Center[]>([
@@ -122,6 +126,143 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
     }
   ]);
 
+  const [plans, setPlans] = useState<Plan[]>([
+    {
+      plan_id: 1,
+      plan_name: 'Kế hoạch can thiệp sớm hành vi & giao tiếp - Nguyễn Minh Khôi',
+      academic_year: '2026-2027',
+      assessment_tool: 'CARS-2 (Thang đánh giá mức độ tự kỷ ở trẻ em)',
+      child_strengths: 'Có khả năng nhận biết hình ảnh nhanh, thích các trò chơi xếp hình Lego, phản xạ tốt với âm thanh nhạc cụ.',
+      child_weaknesses: 'Chưa nói được câu dài, thiếu giao tiếp mắt chủ động, thường la hét khi không vừa ý.',
+      child_interests: 'Xếp hình Lego, nghe nhạc thiếu nhi, xem phim hoạt hình Pororo.',
+      family_feedback: 'Mong muốn con cải thiện khả năng giao tiếp mắt và tự phục vụ cơ bản.',
+      start_date: '2026-05-01',
+      end_date: '2026-11-01',
+      status: 'Active',
+      center_staff_id: 1,
+      child_id: 1,
+      created_at: '2026-05-01 08:30:00',
+      updated_at: '2026-05-01 08:30:00',
+      phases: [
+        {
+          plan_phase_id: 1,
+          plan_id: 1,
+          phase_name: 'Giai đoạn 1: Thiết lập giao tiếp mắt và cử chỉ cơ bản',
+          phase_type: 'PECS & ABA',
+          start_date: '2026-05-01',
+          end_date: '2026-07-31',
+          status: 'Active',
+          is_deleted: false,
+          created_at: '2026-05-01 08:30:00',
+          updated_at: '2026-05-01 08:30:00',
+          activities: [
+            {
+              activity_id: 1,
+              plan_phase_id: 1,
+              activity_name: 'Ghép tranh Lego tìm kiếm tương tác mắt',
+              description: 'Giáo viên cầm mảnh Lego đặt ngang tầm mắt để thu hút sự chú ý của trẻ, khi trẻ nhìn vào mắt giáo viên thì trao mảnh ghép.',
+              duration: '30 phút / buổi',
+              status: 'Active'
+            }
+          ],
+          objectives: [
+            {
+              objective_id: 1,
+              plan_phase_id: 1,
+              objective_name: 'Duy trì giao tiếp mắt tối thiểu 3 giây',
+              target_score: 'Đạt 4/5 lần thử',
+              description: 'Khi có hiệu lệnh gọi tên từ giáo viên can thiệp.',
+              status: 'Active'
+            }
+          ]
+        },
+        {
+          plan_phase_id: 2,
+          plan_id: 1,
+          phase_name: 'Giai đoạn 2: Phát triển ngôn ngữ nói đơn từ và câu ngắn',
+          phase_type: 'TEACCH',
+          start_date: '2026-08-01',
+          end_date: '2026-10-31',
+          status: 'Active',
+          is_deleted: false,
+          created_at: '2026-05-01 08:35:00',
+          updated_at: '2026-05-01 08:35:00',
+          activities: [
+            {
+              activity_id: 2,
+              plan_phase_id: 2,
+              activity_name: 'Gọi tên con vật qua thẻ hình ảnh',
+              description: 'Sử dụng các thẻ tranh ảnh sắc nét để hướng dẫn trẻ phát âm các từ đơn.',
+              duration: '45 phút / buổi',
+              status: 'Active'
+            }
+          ],
+          objectives: [
+            {
+              objective_id: 2,
+              plan_phase_id: 2,
+              objective_name: 'Phát âm chính xác 10 từ đơn cơ bản',
+              target_score: 'Đạt 80%',
+              description: 'Tự phát âm không cần nhắc mẫu.',
+              status: 'Active'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      plan_id: 2,
+      plan_name: 'Kế hoạch can thiệp điều hòa giác quan & tự phục vụ - Trần Đức Nam',
+      academic_year: '2026-2027',
+      assessment_tool: 'Sensory Profile 2 (Hồ sơ giác quan trẻ em)',
+      child_strengths: 'Thể chất tốt, thích vận động leo trèo, hợp tác tốt với giáo viên nam.',
+      child_weaknesses: 'Nhạy cảm quá mức với tiếng ồn lớn, gặp khó khăn khi cầm thìa tự xúc ăn.',
+      child_interests: 'Chơi bóng, xích đu, chơi với nước.',
+      family_feedback: 'Gia đình muốn hỗ trợ con tự cầm thìa ăn cơm và giảm bớt cơn bùng nổ khi gặp tiếng ồn.',
+      start_date: '2026-05-10',
+      end_date: '2026-11-10',
+      status: 'Active',
+      center_staff_id: 2,
+      child_id: 2,
+      created_at: '2026-05-10 09:00:00',
+      updated_at: '2026-05-10 09:00:00',
+      phases: [
+        {
+          plan_phase_id: 3,
+          plan_id: 2,
+          phase_name: 'Giai đoạn 1: Điều hòa cảm giác thính giác và vận động thô',
+          phase_type: 'Sensory Integration',
+          start_date: '2026-05-10',
+          end_date: '2026-08-10',
+          status: 'Active',
+          is_deleted: false,
+          created_at: '2026-05-10 09:00:00',
+          updated_at: '2026-05-10 09:00:00',
+          activities: [
+            {
+              activity_id: 3,
+              plan_phase_id: 3,
+              activity_name: 'Nghe nhạc êm dịu kết hợp chơi đất nặn',
+              description: 'Giúp trẻ làm quen với các tần số âm thanh khác nhau trong môi trường thư giãn.',
+              duration: '40 phút / buổi',
+              status: 'Active'
+            }
+          ],
+          objectives: [
+            {
+              objective_id: 3,
+              plan_phase_id: 3,
+              objective_name: 'Chấp nhận đeo tai nghe chống ồn',
+              target_score: 'Nhẫn nại tối thiểu 10 phút',
+              description: 'Khi đi vào môi trường ồn ào.',
+              status: 'Active'
+            }
+          ]
+        }
+      ]
+    }
+  ]);
+
   const menuGroups: MenuGroup[] = [
     {
       id: 'system',
@@ -140,6 +281,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
       icon: '🧩',
       items: [
         { id: 'objectives', labelVi: 'Mục tiêu Huấn luyện', labelEn: 'Manage Objectives' },
+        { id: 'plans', labelVi: 'Kế hoạch Can thiệp', labelEn: 'Manage Plans' },
       ]
     },
     {
@@ -227,6 +369,34 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
             onUpdateCenters={setCenters}
           />
         );
+      case 'plans':
+        if (selectedPlanForDetail) {
+          return (
+            <PlanDetailView
+              lang={lang}
+              plan={selectedPlanForDetail}
+              onBack={() => setSelectedPlanForDetail(null)}
+              onUpdatePlan={(updatedPlan) => {
+                setPlans(prev =>
+                  prev.map(p => p.plan_id === updatedPlan.plan_id ? updatedPlan : p)
+                );
+                setSelectedPlanForDetail(updatedPlan);
+              }}
+              onDeletePlan={(planId) => {
+                setPlans(prev => prev.filter(p => p.plan_id !== planId));
+                setSelectedPlanForDetail(null);
+              }}
+            />
+          );
+        }
+        return (
+          <PlansTab
+            lang={lang}
+            plans={plans}
+            onManageDetail={(plan) => setSelectedPlanForDetail(plan)}
+            onUpdatePlans={setPlans}
+          />
+        );
       case 'staffs':
         return <StaffsTab lang={lang} />;
       case 'objectives':
@@ -272,6 +442,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
                         if (item.id !== 'centers') {
                           setSelectedCenterForDetail(null);
                         }
+                        if (item.id !== 'plans') {
+                          setSelectedPlanForDetail(null);
+                        }
                       }}
                     >
                       <span className="nav-label">{lang === 'vi' ? item.labelVi : item.labelEn}</span>
@@ -300,6 +473,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
               Admin /{' '}
               {lang === 'vi' ? getActiveItem().labelVi : getActiveItem().labelEn}
               {selectedCenterForDetail && ` / ${selectedCenterForDetail.name}`}
+              {selectedPlanForDetail && ` / ${selectedPlanForDetail.plan_name}`}
             </span>
           </div>
           <div className="topbar-right">
