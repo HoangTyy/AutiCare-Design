@@ -18,7 +18,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ id, t, lang, onStartAssessmen
   // Custom Scheduling Flow States
   const [bookingExpert, setBookingExpert] = React.useState<any | null>(null)
   const [selectedDate, setSelectedDate] = React.useState<any | null>(null)
-  const [selectedTimeSlot, setSelectedTimeSlot] = React.useState<string | null>(null)
+  const [selectedTimeSlot, setSelectedTimeSlot] = React.useState<any | null>(null)
   const [bookingSuccess, setBookingSuccess] = React.useState<boolean>(false)
   const [ticketCode, setTicketCode] = React.useState<string>('')
 
@@ -128,14 +128,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({ id, t, lang, onStartAssessmen
 
   const nextDays = React.useMemo(() => getNextDays(lang), [lang]);
 
-  // Standard 2-hour sessions as requested by user
-  const timeSlots = [
-    '08:00 - 10:00',
-    '10:00 - 12:00',
-    '13:00 - 15:00',
-    '15:00 - 17:00',
-    '18:00 - 20:00'
-  ];
+  // Standard 2-hour sessions with Online/Offline types and availability statuses
+  const timeSlots = React.useMemo(() => [
+    { id: 'slot-1', time: '08:00 - 10:00', type: 'Online', status: 'available' },
+    { id: 'slot-2', time: '10:00 - 12:00', type: 'Offline', status: 'booked' },
+    { id: 'slot-3', time: '13:00 - 15:00', type: 'Online', status: 'available' },
+    { id: 'slot-4', time: '15:00 - 17:00', type: 'Offline', status: 'available' },
+    { id: 'slot-5', time: '18:00 - 20:00', type: 'Online', status: 'booked' }
+  ], []);
 
   return (
     <section id={id} className="hero snap-section">
@@ -408,16 +408,31 @@ const HeroSection: React.FC<HeroSectionProps> = ({ id, t, lang, onStartAssessmen
                     </h4>
                     <div className="time-grid">
                       {timeSlots.map((slot) => {
-                        const isSelected = selectedTimeSlot === slot;
+                        const isSelected = selectedTimeSlot?.id === slot.id;
+                        const isBooked = slot.status === 'booked';
                         return (
                           <button
-                            key={slot}
+                            key={slot.id}
                             type="button"
-                            className={`time-slot-card ${isSelected ? 'selected' : ''}`}
-                            onClick={() => setSelectedTimeSlot(slot)}
+                            className={`time-slot-card ${isSelected ? 'selected' : ''} ${isBooked ? 'booked' : ''}`}
+                            onClick={() => {
+                              if (!isBooked) setSelectedTimeSlot(slot);
+                            }}
+                            disabled={isBooked}
                           >
-                            <span className="time-icon">🕒</span>
-                            <span className="time-text">{slot}</span>
+                            <div className="time-slot-main">
+                              <span className="time-icon">🕒</span>
+                              <span className="time-text">{slot.time}</span>
+                            </div>
+                            
+                            <div className="slot-badges">
+                              <span className={`slot-type-badge ${slot.type.toLowerCase()}`}>
+                                {slot.type === 'Online' ? t.slotOnline : t.slotOffline}
+                              </span>
+                              <span className={`slot-status-badge ${slot.status}`}>
+                                {slot.status === 'available' ? t.slotAvailable : t.slotBooked}
+                              </span>
+                            </div>
                           </button>
                         );
                       })}
@@ -472,11 +487,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({ id, t, lang, onStartAssessmen
                       </div>
                       <div className="ticket-field">
                         <small>{t.bookingTimeLbl}</small>
-                        <strong>{selectedTimeSlot} <br/> {selectedDate?.fullDate}</strong>
+                        <strong>{selectedTimeSlot?.time} <br/> {selectedDate?.fullDate}</strong>
                       </div>
                       <div className="ticket-field">
                         <small>{t.bookingMethodLbl}</small>
-                        <strong>{t.bookingMethodVal}</strong>
+                        <strong>
+                          {selectedTimeSlot?.type === 'Online' 
+                            ? (lang === 'vi' ? 'Trực tuyến (Zoom/Google Meet)' : 'Online (Zoom/Google Meet)')
+                            : (lang === 'vi' ? 'Trực tiếp (Tại trung tâm)' : 'Offline (At Clinical Center)')}
+                        </strong>
                       </div>
                       <div className="ticket-field">
                         <small>{t.bookingCodeLbl}</small>

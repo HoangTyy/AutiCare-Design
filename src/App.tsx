@@ -53,7 +53,7 @@ const translations = {
     btnJoinNow: "ĐĂNG KÝ TRẢI NGHIỆM",
     bookingModalTitle: "Đặt lịch hẹn tư vấn",
     bookingSelectDate: "1. Chọn ngày tư vấn",
-    bookingSelectTime: "2. Chọn giờ tư vấn (2 tiếng/phiên)",
+    bookingSelectTime: "2. Chọn giờ tư vấn",
     bookingBtnConfirm: "Xác nhận đặt lịch",
     bookingSuccessTitle: "Đặt lịch thành công!",
     bookingSuccessSub: "Thông tin cuộc hẹn của bạn đã được ghi nhận. Chuyên gia sẽ liên hệ bạn sớm nhất.",
@@ -64,7 +64,11 @@ const translations = {
     bookingMethodVal: "Trực tuyến (Zoom/Google Meet)",
     bookingCodeLbl: "Mã số vé",
     bookingBtnClose: "Hoàn tất & Đóng",
-    bookingRequiredHint: "Vui lòng chọn ngày và giờ để tiếp tục"
+    bookingRequiredHint: "Vui lòng chọn ngày và giờ để tiếp tục",
+    slotOnline: "Trực tuyến",
+    slotOffline: "Trực tiếp",
+    slotAvailable: "Đang trống",
+    slotBooked: "Đã bận"
   },
   en: {
     home: "Home",
@@ -97,7 +101,7 @@ const translations = {
     btnJoinNow: "REGISTER FREE DEMO",
     bookingModalTitle: "Book a Consultation Session",
     bookingSelectDate: "1. Select Date",
-    bookingSelectTime: "2. Select Time Slot (2 hours/session)",
+    bookingSelectTime: "2. Select Time Slot",
     bookingBtnConfirm: "Confirm Booking",
     bookingSuccessTitle: "Booking Successful!",
     bookingSuccessSub: "Your appointment details have been saved. Our expert will contact you shortly.",
@@ -108,7 +112,11 @@ const translations = {
     bookingMethodVal: "Online (Zoom/Google Meet)",
     bookingCodeLbl: "Ticket Code",
     bookingBtnClose: "Done & Close",
-    bookingRequiredHint: "Please select a date and time to continue"
+    bookingRequiredHint: "Please select a date and time to continue",
+    slotOnline: "Online",
+    slotOffline: "Offline",
+    slotAvailable: "Available",
+    slotBooked: "Booked"
   }
 }
 

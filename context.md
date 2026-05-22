@@ -297,3 +297,42 @@ Khi người dùng bấm xác nhận, hệ thống ẩn khu vực lựa chọn v
   - Các bóng đổ cứng được giảm kích thước từ `8px` xuống `3px` để tránh hiện tượng tràn lề thiết bị.
   - Chiếc Vé hẹn AutiCare tự động thu nhỏ padding từ `2rem` xuống `1.25rem` và mã vạch co nhỏ lại để hiển thị trọn vẹn, sắc nét trên mọi dòng điện thoại thông minh hiện nay.
 
+### 5. Thiết kế Mở rộng Không gian Rộng rãi & Dashboard 2 Cột Song Song (2026-05-22)
+Đáp ứng nhu cầu về giao diện rộng mở, trực quan, dễ bấm chọn và cực kỳ sang trọng, luồng Đặt lịch Chuyên gia đã được nâng cấp thiết kế tối ưu hóa diện tích hiển thị vượt trội trên màn hình lớn.
+
+- **Loại bỏ ghi chú thời lượng tư vấn (Clean Typography)**: Xóa bỏ hoàn toàn các đoạn chú thích tĩnh `(2 tiếng/phiên)` và `(2 hours/session)` tại khóa tiêu đề chọn giờ `bookingSelectTime` ở cả hai bản dịch Việt/Anh. Giao diện trở nên tinh giản, gọn gàng, giảm mật độ chữ thừa thãi.
+- **Nâng cấp Modal Chọn Chuyên Gia Rộng Rãi (`.experts-panel`)**:
+  - **Không gian hoành tráng**: Nới rộng chiều rộng tối đa lên `1140px` (`width: min(1140px, 95%) !important`) và chiều cao tối đa lên `850px` trên desktop.
+  - **Bố cục Lưới 3 cột đứng (`.expert-list`)**: Thay vì danh sách xếp dọc đơn điệu, 3 chuyên gia hàng đầu được xếp thành **lưới 3 cột đứng** (`grid-template-columns: repeat(3, 1fr) !important; gap: 1.75rem !important`) cực kỳ thoáng đãng, lấp đầy không gian mới một cách cân đối.
+  - **Thẻ Hồ sơ Dọc (Vertical Profile Cards - `.expert-card`)**:
+    - Tái cấu trúc thẻ chuyên gia thành dạng thẻ đứng (`flex-direction: column !important; text-align: center !important`).
+    - Phóng to `.expert-avatar` sticker lên `5.5rem` x `5.5rem` với cỡ chữ viết tắt `1.45rem` nổi bật trên cùng của thẻ có viền Slate và bóng đổ đậm cá tính.
+    - Khối text `.expert-info` được căn giữa (`align-items: center !important; text-align: center !important; flex-grow: 1 !important`), tạo khoảng cách đều đặn và thoáng mắt.
+    - Xếp dọc các nút tương tác bên dưới `.expert-actions-row` (`flex-direction: column !important; width: 100% !important; gap: 0.75rem !important`) và kéo giãn các nút bấm Candy Button full width `100%` ở đáy thẻ, mang lại bố cục cân đối và dễ click chọn.
+- **Nâng cấp Dashboard Đặt Lịch 2 Cột Song Song (`.booking-panel`)**:
+  - **Không gian hoành tráng**: Mở rộng chiều rộng tối đa từ `650px` lên `980px` (`width: min(980px, 95%) !important`) giúp giao diện cực kỳ rộng rãi.
+  - **Dashboard 2 cột song song (`.booking-content-scroll`)**: Thay đổi bố cục cuộn dọc chật hẹp cũ thành cấu trúc **2 cột song song thời thượng** (`display: grid !important; grid-template-columns: 1.15fr 0.85fr !important; gap: 2.5rem !important; align-items: start !important; max-height: none !important`), mang lại giao diện trực quan như một bảng điều khiển trung tâm.
+    - **Cột Trái (Chọn ngày tư vấn - `.date-grid`)**: Được tái cấu trúc thành **Lưới Grid 2x2** (`grid-template-columns: repeat(2, 1fr) !important`). Các thẻ ngày `.date-card` được nới rộng kích thước (`padding: 1.25rem 0.85rem !important`), chữ số ngày hiển thị to rõ rệt, khoảng cách chạm bấm vô cùng thoải mái.
+    - **Cột Phải (Chọn giờ tư vấn - `.time-grid`)**: Được tái cấu trúc thành **Danh sách dọc đơn cột** (`grid-template-columns: 1fr !important`). Mỗi mốc giờ `.time-slot-card` được thiết kế dưới dạng **dải pill ngang thanh lịch** (`padding: 0.95rem 1.25rem !important; justify-content: flex-start !important`), tích hợp icon đồng hồ nhỏ bên trái, tạo bố cục xếp dọc cực thoáng mắt, dễ nhìn và dễ lựa chọn.
+- **Tính tương thích responsive**: Tự động co dãn thông minh, khi ở màn hình di động nhỏ dưới 768px sẽ co lại thành layout 1 cột dọc cuộn trong suốt mượt mà, tối ưu hóa trải nghiệm bấm chạm 100% cho phụ huynh trên điện thoại.
+
+### 6. Thiết Kế Chi Tiết Time Slots & Vé Hẹn Tư Vấn Động (2026-05-22)
+Nhằm mang lại trải nghiệm đặt lịch chi tiết, trực quan và chuyên nghiệp tối đa cho phụ huynh, hệ thống chọn khung ca tư vấn (Time Slots) và Vé hẹn AutiCare thành công đã được chi tiết hóa toàn diện.
+
+- **Cấu trúc Dữ liệu Ca Tư Vấn Thông Minh**: Thay thế mảng tĩnh chuỗi đơn giản cũ bằng mảng đối tượng động chứa đầy đủ thông tin: định dạng mốc giờ 2 tiếng (`time`), hình thức ca tư vấn (`type` nhận 'Online' | 'Offline') và trạng thái hiện thời của ca (`status` nhận 'available' | 'booked').
+- **Thiết kế Nhãn Sticker Đa Dạng (Playful Geometric Badges)**:
+  - Mỗi dải ca tư vấn nằm ngang hiển thị thời gian ở bên trái và cụm **nhãn dán (badges)** sặc sỡ phong cách Memphis ở bên phải:
+    - **Nhãn Hình thức**: Nhãn `.online` dùng tông màu tím nhạt (`#EDE9FE`, chữ tím `#6D28D9`), nhãn `.offline` dùng tông màu vàng hổ phách nhạt (`#FEF3C7`, chữ hổ phách `#B45309`).
+    - **Nhãn Trạng thái**: Nhãn `.available` (Đang trống) dùng tông màu xanh mint tươi tắn (`#D1FAE5`, chữ xanh đậm `#047857`), nhãn `.booked` (Đã bận) dùng tông màu xám nhạt (`#E2E8F0`, chữ xám `#475569`).
+  - Thiết kế có sự tương thích cao: Khi dải ca giờ được click chọn `.selected` (chuyển sang nền Violet của hệ thống), các nhãn sticker này tự động chuyển nền về trắng thuần `#FFFFFF` để đảm bảo độ tương phản màu tốt nhất và giữ tính thẩm mỹ cao cấp.
+- **Cơ chế Khóa Ca Đã Bận (Smart Blocker Interactivity)**:
+  - Đối với các ca giờ đã bị bận (`status === 'booked'`), hệ thống tự động khóa tương tác bằng thuộc tính HTML `disabled` và áp dụng lớp kiểu dáng `.booked` chuyên biệt.
+  - Về mặt visual, các ca bận bị làm mờ đi (`opacity: 0.55`), đổi nền sang màu xám Slate nhẹ `#F1F5F9` và đổi con trỏ chuột thành biểu tượng cấm bấm (`not-allowed`), ngăn chặn hoàn toàn việc click nhầm.
+- **Tích hợp Vé hẹn Động Song Ngữ (Dynamic i18n Ticket)**:
+  - Khi chốt hẹn thành công, chiếc **Vé hẹn AutiCare (Appointment Ticket)** Memphis tự động cập nhật dòng "Hình thức / Format" dựa trên thuộc tính `type` của ca tư vấn được chọn thay vì hiển thị tĩnh:
+    - Chọn ca **Online**: Vé tự động xuất dòng **"Trực tuyến (Zoom/Google Meet)"** (VN) / **"Online (Zoom/Google Meet)"** (EN).
+    - Chọn ca **Offline**: Vé tự động xuất dòng **"Trực tiếp (Tại trung tâm)"** (VN) / **"Offline (At Clinical Center)"** (EN).
+  - Tích hợp 4 nhãn song ngữ đa ngôn ngữ cho hình thức và trạng thái ca tư vấn trên lưới chọn giờ, hoạt động mượt mà và đồng bộ khi người dùng click chuyển đổi ngôn ngữ Việt - Anh trên thanh Header.
+
+
+
