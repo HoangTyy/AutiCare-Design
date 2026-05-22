@@ -1,5 +1,53 @@
 # Project Logs
 
+## [2026-05-22] - Nâng cấp tương tác click hàng bảng xem chi tiết trong Quản lý Trung tâm
+- **Cải tiến tương tác duyệt danh sách trung tâm (CentersTab)**:
+  - Cho phép người dùng click vào bất kỳ đâu trên hàng dữ liệu (`<tr>`) để truy cập ngay màn hình Chi tiết trung tâm (`CenterDetailView`) thay vì chỉ giới hạn nút con mắt.
+  - Bổ sung `cursor: pointer` vào style inline của thẻ `<tr>` giúp người dùng dễ dàng nhận biết vùng tương tác khi di chuột qua.
+  - Tích hợp hàm chặn nổi bọt sự kiện `e.stopPropagation()` trên nút xem chi tiết cũ để ngăn chặn việc kích hoạt kép sự kiện click của hàng.
+- **Biên dịch & Xác thực**:
+  - Chạy biên dịch sản phẩm `cmd.exe /c npm run build` thành công rực rỡ 100% không cảnh báo hay lỗi kiểu dữ liệu TypeScript.
+
+## [2026-05-22] - Đồng bộ hóa giao diện và nút hành động Quản lý bài tập (ExercisesTab) với Quản lý nhân sự (StaffsTab)
+- **Đồng bộ hóa các bộ lọc Select**:
+  - Định nghĩa lớp CSS `.filter-select` cục bộ trong component `ExercisesTab.tsx` với thiết kế hiện đại: nền xám nhạt (`#F1F5F9`), viền xám mỏng (`1px solid #E2E8F0`), bo góc `12px`, font chữ `Be Vietnam Pro` đậm đà và có hiệu ứng focus phát sáng xanh nhẹ.
+  - Loại bỏ hoàn toàn inline style viền đen dày cộp Memphis thô cứng cũ trên hai bộ chọn Cấp độ (Level Filter) và Danh mục (Category Filter) để ăn khớp 100% với giao diện thanh tìm kiếm `.search-bar` hiện có.
+- **Phẳng hóa Badge Cấp độ (Level Badge)**:
+  - Loại bỏ thuộc tính `border: 1.5px solid #1E293B` của nhãn hiển thị Cấp độ trong danh sách bảng phẳng, đưa về chuẩn thiết kế nhãn trạng thái phẳng không viền đen của hệ thống.
+- **Tối giản hóa nút phát YouTube trong Modal Chi tiết bài tập**:
+  - Tái thiết kế nút "Play YouTube ▶" trong cửa sổ Xem chi tiết bài tập từ dạng shadow Memphis sặc sỡ sang nút phẳng (Flat Button) tinh tế và sang trọng: nền Primary (`var(--primary)`), chữ trắng, bo góc 10px, loại bỏ hoàn toàn shadow và viền đen dày thô, tạo sự đồng bộ tối đa với form grid 2 cột.
+- **Kiểm định & Biên dịch**:
+  - Dự án chạy biên dịch sản phẩm `cmd.exe /c npm run build` thành công xuất sắc chỉ trong 286ms, hoàn toàn sạch sẽ không một lỗi TypeScript hay cảnh báo.
+
+## [2026-05-22] - Triển khai chức năng Quản lý bài tập can thiệp (Manage exercises)
+- **Tích hợp mô-đun quản lý bài tập can thiệp mới (ExercisesTab)**:
+  - Triển khai đầy đủ tính năng hiển thị danh sách (View list), tìm kiếm nâng cao (Search) và bộ lọc (Filters) bài tập theo Cấp độ và Danh mục huấn luyện.
+  - Tích hợp tính năng tạo bài tập mới (Create exercise) hỗ trợ các thuộc tính quan trọng: Tên, Mô tả, Mục tiêu cần đạt, Trạng thái hoạt động, Link video YouTube hướng dẫn, Cấp độ độ khó và Danh mục huấn luyện.
+  - Tích hợp tính năng cập nhật bài tập (Update exercise) tuân thủ chặt chẽ ràng buộc nghiệp vụ: chỉ cho phép cập nhật Mô tả (Description), Mục tiêu (Target) và Link video hướng dẫn (tutorial_url). Các trường thông tin khác được cấu hình ở chế độ chỉ đọc (read-only/disabled) hoặc ẩn để đảm bảo tính an toàn dữ liệu.
+  - Xây dựng giao diện xem chi tiết bài tập (View detail) dưới dạng thẻ sticker bento grid tinh tế, trực quan, tích hợp trình phát video YouTube mockup thông minh.
+  - Triển khai tính năng xóa bài tập (Delete exercise) với hộp thoại xác nhận 3D Playful Geometric an toàn.
+- **Tích hợp vào Admin Dashboard**:
+  - Đăng ký tab `'exercises'` vào danh sách tab của `AdminDashboard.tsx`.
+  - Cập nhật menu điều hướng Sidebar trong nhóm "training" (Nội dung Huấn luyện) cho phép chuyên gia truy cập nhanh chóng.
+  - Thêm case render `<ExercisesTab lang={lang} />` vào switch-case của hàm `renderActiveTab()`.
+- **Thẩm mỹ & Đa ngôn ngữ (i18n)**:
+  - Thiết kế đồng bộ hoàn hảo theo phong cách **Playful Geometric** đặc trưng của AutiCare: Viền Slate dày (`3px solid #1E293B`), bóng đổ cứng 3D chunky offset, bo góc `24px`, màu sắc tương phản cao Memphis rực rỡ và các Candy Button hình viên thuốc cực kỳ Premium.
+  - Tuân thủ Rule 9: Sử dụng duy nhất font chữ `Be Vietnam Pro` cho toàn bộ nội dung hiển thị trong mô-đun để tối ưu hoá khả năng đọc tiếng Việt.
+  - Hỗ trợ song ngữ Việt/Anh (i18n) hoàn chỉnh cho toàn bộ giao diện, nút bấm, thông báo toast/alert của mô-đun.
+- **Biên dịch & Đóng gói**:
+  - Biên dịch thành công 100% bản dựng production bằng lệnh `cmd.exe /c npm run build`, đảm bảo dự án sạch sẽ không phát sinh bất kỳ lỗi TypeScript hay cảnh báo nào.
+
+## [2026-05-22] - Thay thế cột Center Director thành Physical Address tại danh sách Trung tâm
+- **Thay đổi giao diện danh sách Trung tâm (Centers Tab)**:
+  - Loại bỏ hoàn toàn cột hiển thị **Center Director (Giám đốc trung tâm)** trong bảng danh sách các cơ sở trung tâm (`CentersTab.tsx`) để đáp ứng trải nghiệm mới.
+  - Thay thế bằng cột mới **Physical Address (Địa chỉ cơ sở)** hiển thị rõ ràng thông tin địa lý của trung tâm trực tiếp ngoài danh sách.
+- **Tải dữ liệu & Hỗ trợ Đa ngôn ngữ (i18n)**:
+  - Bổ sung cấu trúc ngôn ngữ song ngữ mới `physicalAddress: "Địa chỉ cơ sở"` (VI) và `physicalAddress: "Physical Address"` (EN) vào bộ tài nguyên dịch thuật `translations`.
+  - Thay thế logic trích xuất thông tin staffs sang dùng trường `center.address` lấy trực tiếp từ schema cơ sở dữ liệu.
+  - Tích hợp fallback thông minh: Khi địa chỉ trống, hiển thị `Chưa cập nhật` (VI) hoặc `Not updated` (EN) tùy thuộc ngôn ngữ hệ thống đang chọn.
+- **Biên dịch & Xác thực**:
+  - Chạy thành công bản dựng production bằng lệnh `cmd.exe /c npm run build`, đảm bảo dự án biên dịch sạch 100% không cảnh báo hay lỗi kiểu dữ liệu TypeScript.
+
 ## [2026-05-22] - Giải quyết Xung đột Git & Đồng bộ hóa Hệ thống (Kế hoạch Can thiệp & Đặt lịch Chuyên gia)
 - **Giải quyết xung đột (Git Conflicts)**:
   - Khắc phục hoàn toàn xung đột mã nguồn trong `src/components/AdminDashboard.tsx`, tích hợp tab Kế hoạch can thiệp (`plans`) và Đặt lịch trống (`schedule`) chạy song song hoàn hảo trong Admin Dashboard.

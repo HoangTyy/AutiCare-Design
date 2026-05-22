@@ -13,8 +13,9 @@ import NotificationTab from './dashboard/NotificationTab';
 import PlansTab from './dashboard/PlansTab';
 import PlanDetailView from './dashboard/PlanDetailView';
 import type { Plan } from './dashboard/PlanDetailView';
+import ExercisesTab from './dashboard/ExercisesTab';
 
-type Tab = 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule';
+type Tab = 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises';
 
 interface AdminDashboardProps {
   lang: 'vi' | 'en';
@@ -292,6 +293,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
       items: [
         { id: 'objectives', labelVi: 'Mục tiêu Huấn luyện', labelEn: 'Manage Objectives' },
         { id: 'plans', labelVi: 'Kế hoạch Can thiệp', labelEn: 'Manage Plans' },
+        { id: 'exercises', labelVi: 'Quản lý Bài tập', labelEn: 'Manage Exercises' },
       ]
     },
     {
@@ -417,6 +419,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
         return <NotificationTab lang={lang} />;
       case 'schedule':
         return <ScheduleTab lang={lang} />;
+      case 'exercises':
+        return <ExercisesTab lang={lang} />;
       default:
         return <CentersTab lang={lang} centers={centers} onManageDetail={handleManageDetail} onUpdateCenters={setCenters} />;
     }

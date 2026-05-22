@@ -17,6 +17,7 @@ const translations = {
     name: "Tên Trung tâm",
     date: "Ngày tạo",
     director: "Giám đốc trung tâm",
+    physicalAddress: "Địa chỉ cơ sở",
     status: "Trạng thái",
     actions: "Thao tác",
     active: "Hoạt động",
@@ -47,6 +48,7 @@ const translations = {
     name: "Center Name",
     date: "Created At",
     director: "Center Director",
+    physicalAddress: "Physical Address",
     status: "Status",
     actions: "Actions",
     active: "Active",
@@ -191,25 +193,32 @@ const CentersTab: React.FC<CentersTabProps> = ({
             <tr>
               <th style={{ width: '150px' }}>{t.id}</th>
               <th>{t.name}</th>
-              <th>{t.director}</th>
+              <th>{t.physicalAddress}</th>
               <th style={{ textAlign: 'right', width: '220px' }}>{t.actions}</th>
             </tr>
           </thead>
           <tbody>
             {filteredCenters.length > 0 ? (
               filteredCenters.map((center) => (
-                <tr key={center.id}>
+                <tr 
+                  key={center.id} 
+                  onClick={() => onManageDetail(center)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <td className="id-col">{center.id}</td>
                   <td className="name-col">{center.name}</td>
                   <td>
-                    {center.staffs?.find(s => s.roleId === 'R-DIR')?.name || (lang === 'vi' ? 'Chưa phân công' : 'Unassigned')}
+                    {center.address || (lang === 'vi' ? 'Chưa cập nhật' : 'Not updated')}
                   </td>
                   <td>
                     <div className="action-btns" style={{ justifyContent: 'flex-end', gap: '8px' }}>
                       <button
                         className="edit-btn-v2"
                         title={t.btnDetails}
-                        onClick={() => onManageDetail(center)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onManageDetail(center);
+                        }}
                         style={{ color: '#0EA5E9' }}
                       >
                         <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">

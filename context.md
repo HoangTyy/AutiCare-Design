@@ -67,6 +67,7 @@
 - [x] Expanded the "Create New Center" modal form to include `address`, `phone_number`, `email`, and `Assign center director`. Form logic now automatically generates system default roles and assigns the new director to the `staffs` roster of the freshly created center. Redesigned the modal body into a clean 2-column CSS grid.
 - [x] Restructured Action Buttons UI: Removed the "Edit" and "Delete" buttons from the `CentersTab` list view to declutter the table. Re-integrated them directly inside the `CenterDetailView` overview card header to ensure users review center details before performing destructive or modifying actions.
 - [x] Enhanced the Center Editing form to support dynamic assignment and modification of the Center Director, automatically maintaining synchronization with the internal staff roster (role `R-DIR`).
+- [x] Replaced the `Center Director` column with `Physical Address` column in the center list view of `CentersTab.tsx`. Displays the geographic address of the center, falling back to "Chưa cập nhật / Not updated" if empty. This provides a direct spatial context of the clinics at first glance.
 - [x] Xây dựng thành công Trang chọn bài test Đánh giá Công cụ (`ToolAssessmentPage.tsx`) song ngữ hoàn hảo hỗ trợ 10 bài test lâm sàng chi tiết chia thành 4 nhóm nội dung.
 - [x] Tái thiết kế toàn diện trang Đánh giá Công cụ (`ToolAssessmentPage.css`) sang tông màu sáng kem ấm áp y tế chuyên nghiệp và gần gũi (#FFF8F0), các thẻ trắng sữa (#FFFFFF) có độ bo góc hợp lý và đổ bóng mờ siêu mịn (soft shadows), loại bỏ hoàn toàn neon phát sáng cyber.
 - [x] Tích hợp Popup giới thiệu lâm sàng chi tiết cho từng công cụ và hệ thống thông báo Toast lấp lánh phản hồi ngữ cảnh.
@@ -74,6 +75,7 @@
 - [x] Khắc phục triệt để các lỗi biên dịch TypeScript `TS6133` (unused variables) trong `ObjectivesTab.tsx` và xác thực quy trình biên dịch sản phẩm `npm run build` thành công 100% không cảnh báo sau khi đổi màu.
 - [x] Tái cấu trúc toàn diện, di chuyển toàn bộ mô-đun Sàng lọc (Screening) thành Đánh giá Công cụ (Tool Assessment), chuyển đổi tên lớp CSS và biến `--screening-*` thành `--assessment-*` độc lập hoàn hảo.
 - [x] Dọn dẹp hoàn toàn các tệp và thư mục sàng lọc cũ (`src/components/screening/`) và xác thực Vite production build thành công 100% không cảnh báo.
+- [x] Nâng cấp tương tác duyệt danh sách trung tâm (`CentersTab.tsx`): Cho phép người dùng click trực tiếp vào bất kỳ vị trí nào trên hàng dữ liệu trung tâm (`<tr>`) để điều hướng trực tiếp sang trang Chi tiết trung tâm (`CenterDetailView`). Cấu hình thuộc tính `cursor: pointer` tạo bàn tay chỉ hướng trực quan khi rê chuột, cùng cơ chế `e.stopPropagation()` ở nút biểu tượng con mắt cũ để tránh đúp sự kiện click chuột.
 
 ## Homepage Design Context Update - Neo-Brutalism AutiCare Palette (2026-05-21)
 
@@ -388,6 +390,48 @@ Nhằm mang lại trải nghiệm đặt lịch chi tiết, trực quan và chuy
     - Chọn ca **Online**: Vé tự động xuất dòng **"Trực tuyến (Zoom/Google Meet)"** (VN) / **"Online (Zoom/Google Meet)"** (EN).
     - Chọn ca **Offline**: Vé tự động xuất dòng **"Trực tiếp (Tại trung tâm)"** (VN) / **"Offline (At Clinical Center)"** (EN).
   - Tích hợp 4 nhãn song ngữ đa ngôn ngữ cho hình thức và trạng thái ca tư vấn trên lưới chọn giờ, hoạt động mượt mà và đồng bộ khi người dùng click chuyển đổi ngôn ngữ Việt - Anh trên thanh Header.
+
+### Intervention Exercises Management System (Dashboard) (2026-05-22)
+
+- **Kiến trúc Tách biệt & Đóng gói (Decoupled Module - Rule 10)**:
+  - Toàn bộ tính năng Quản lý bài tập can thiệp được đóng gói trọn vẹn trong một component duy nhất `ExercisesTab.tsx` đặt dưới thư mục `src/components/dashboard/`, đảm bảo cấu trúc dự án chuyên nghiệp, dễ tìm kiếm, dễ bảo trì.
+  - Tích hợp mượt mà vào luồng switch-case của `AdminDashboard.tsx` qua tab `'exercises'` và đăng ký trực quan trên menu Sidebar của nhóm huấn luyện ("training").
+- **Kiến trúc Dữ liệu & Schema Schema SQLite/PostgreSQL**:
+  - Giao diện quản trị ánh xạ trực tiếp và quản lý chuẩn xác cấu trúc thực thể `exercise`: `exercise_id` (integer/PK), `exercise_name` (nvarchar), `exercise_description` (text), `exercise_target` (nvarchar), `status` (varchar), `tutorial_url` (tutorial video - youtube link), `exercise_level_id` (integer/FK), `exercise_category_id` (integer/FK) cùng các siêu dữ liệu `center_id`, `created_by`, `created_at`, `updated_at`.
+- **Ràng buộc Nghiệp vụ Cập nhật nghiêm ngặt (Strict Update Rules)**:
+  - Form chỉnh sửa (Update Mode) tuân thủ chặt chẽ chỉ cho phép sửa đổi 3 thuộc tính: Mô tả chi tiết (`exercise_description`), Mục tiêu trị liệu (`exercise_target`) và Link video YouTube hướng dẫn (`tutorial_url`).
+  - Toàn bộ các trường dữ liệu quan trọng như Tên bài tập, Cấp độ, Danh mục huấn luyện được tự động đưa về trạng thái chỉ đọc (read-only/disabled) với nền xám `#F1F5F9` và con trỏ khóa `not-allowed`, ngăn chặn mọi thay đổi cấu trúc bài tập ngoài ý muốn.
+- **Visual Design - Playful Geometric & Bento Card Grid**:
+  - **Lưới Bento Thông tin Chi tiết**: Modal Xem chi tiết bài tập được thiết kế theo cấu trúc Bento Grid sặc sỡ cá tính. Các khối thông tin ID bài tập, Cấp độ khó, Danh mục huấn luyện và Trung tâm liên kết được bọc trong các hộp sticker riêng biệt có viền Slate dày `2px`, đổ bóng cứng offset 3D `4px 4px 0px #1E293B`, màu nền kem Memphis `#FFFDF5`.
+  - **Bảng dữ liệu kiểu thẻ nổi (Floating Cards Table)**: Bảng danh sách bài tập thừa hưởng các token CSS đặc trưng với viền Slate dày dặn `3px solid #1E293B` và bóng đổ cứng offset 3D `8px 8px 0px #1E293B`. Hàng dữ liệu nhấc nổi 3D khi hover chuột, kết hợp các nút Candy Button hình viên thuốc pill-shape sặc sỡ chứa icon SVG chất lượng cao (mắt xanh trời cho Xem, bút cam cho Sửa, thùng rác đỏ cho Xóa) tạo trải nghiệm tương tác đậm đà cá tính.
+  - **Mockup Youtube Video Player**: Trong thẻ chi tiết, nếu có URL video hướng dẫn, hệ thống tự động dựng một khung phát video mockup màu xanh da trời `.tutorial-video-block` có nút hành động pill đỏ neon bắt mắt "Play YouTube ▶", kết nối trực tiếp đến video thực tế.
+- **Tìm kiếm nâng cao & Bộ lọc thông minh (Live Search & Fast Filters)**:
+  - Khung tìm kiếm thời gian thực cho phép truy xuất nhanh theo cả Tên bài tập và Mã ID bài tập (`EX-XXX`).
+  - Tích hợp 2 bộ lọc nhanh dạng dropdown: lọc theo Cấp độ khó (Dễ/Bình thường/Khó) và Danh mục huấn luyện, tự động phản hồi tức thì trạng thái danh sách bảng mà không cần tải lại trang.
+- **Tương thích Design Lab & Đa ngôn ngữ (i18n)**:
+  - Toàn bộ các nút bấm chính, Candy Button, và form modal liên kết trực tiếp với các token màu CSS của Design Lab (như `var(--primary)`), tự động phản ứng và thay đổi màu sắc ngay lập tức khi chuyên gia trượt thay đổi màu sắc trên bảng điều khiển.
+  - Tích hợp từ điển song ngữ Việt/Anh (`translations.vi` / `translations.en`) đồng bộ hóa 100% khi nhấn nút chuyển đổi ngôn ngữ trên Topbar, hỗ trợ từ các nhãn form, tên cấp độ cho đến các popup cảnh báo xóa.
+  - Tuân thủ Rule 9: Sử dụng duy nhất font chữ `Be Vietnam Pro` cho toàn bộ nội dung hiển thị trong mô-đun để tối ưu hoá khả năng đọc tiếng Việt.
+
+### 7. Đồng bộ hóa giao diện và nút hành động Quản lý bài tập (ExercisesTab) với Quản lý nhân sự (StaffsTab) (2026-05-22)
+Nhằm đạt được sự đồng bộ tuyệt đối 100% về ngôn ngữ thiết kế, cấu trúc thẩm mỹ và tính nhất quán trải nghiệm người dùng trong hệ thống Admin Dashboard, mô-đun Quản lý bài tập can thiệp (`ExercisesTab.tsx`) đã được tái thiết kế và tinh chỉnh sâu sắc để đồng điệu hoàn hảo với mô-đun Quản lý nhân sự (`StaffsTab.tsx`).
+
+- **Đồng bộ hóa bộ lọc dữ liệu (Modern Select Filters)**:
+  - Loại bỏ hoàn toàn kiểu viền đen dày cộp Memphis thô cứng cũ (`border: 2px solid #1E293B`) của hai thẻ chọn bộ lọc Cấp độ (Level Filter) và Danh mục (Category Filter).
+  - Thay thế bằng cấu trúc bộ lọc hiện đại thông qua lớp CSS `.filter-select` cục bộ: sử dụng viền xám siêu mỏng nhẹ (`1px solid #E2E8F0`), nền xám nhạt (`#F1F5F9`), bo góc `12px` thanh thoát, cỡ chữ `0.85rem` và font chữ `Be Vietnam Pro` đậm nét.
+  - Tích hợp hiệu ứng focus phát sáng nhẹ nhàng (`border-color: var(--primary); box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1); background: white`) tương tự như thanh tìm kiếm `.search-bar`, tạo sự cân bằng và đối xứng hoàn mỹ về mặt bố cục.
+- **Phẳng hóa các nhãn Cấp độ (Flat Level Badges)**:
+  - Loại bỏ thuộc tính viền đen Memphis thô cứng `border: 1.5px solid #1E293B` trên nhãn hiển thị Cấp độ trong danh sách bảng.
+  - Giữ lại cấu trúc nhãn dạng phẳng (Flat Badge) với màu sắc pastel dịu mắt (xanh mint cho Dễ, xám cho Bình thường, cam nhạt cho Khó), đồng bộ hoàn toàn với nhãn trạng thái của `StaffsTab.tsx`, mang lại cảm giác dễ chịu và tập trung cao độ khi duyệt dữ liệu.
+- **Đồng bộ hóa bộ nút thao tác cuối hàng (Unified Action Buttons)**:
+  - Sử dụng chung bộ lớp `.action-btns button` cấp độ hệ thống trong `AdminDashboard.css`.
+  - Thay vì bị áp cứng màu xanh lá cũ, bộ nút action cuối hàng của `ExercisesTab.tsx` nay đã đồng điệu hoàn hảo với `StaffsTab.tsx`:
+    - **Nút Xem chi tiết (`.view-btn-v2`)**: Khi hover chuyển sang nền xanh dương pastel `#EFF6FF`, viền `#BFDBFE` và icon màu xanh dương Primary.
+    - **Nút Chỉnh sửa (`.edit-btn-v2`)**: Khi hover chuyển sang nền xanh dương pastel `#EFF6FF`, viền `#BFDBFE` và icon màu xanh dương Primary.
+    - **Nút Xóa (`.delete-btn-v2`)**: Khi hover chuyển sang nền đỏ pastel `#FEF2F2`, viền `#FECACA` và icon đỏ hồng `#EF4444`.
+    - Tất cả các nút khi hover đều có chuyển động nhấc nhẹ tinh tế (`transform: translateY(-1.5px)`) bằng transition mượt mà, tăng cường phản hồi xúc giác (micro-interactions).
+- **Phẳng hóa nút phát YouTube trong Modal Chi tiết bài tập**:
+  - Tái thiết kế nút "Play YouTube ▶" từ dạng shadow Memphis nổi sặc sỡ sang dạng phẳng thanh nhã (Flat Button): sử dụng màu nền Primary (`var(--primary)`), chữ trắng, bo góc `10px`, loại bỏ hoàn toàn viền đen dày thô và shadow cứng, giúp nút nằm cân đối và chuyên nghiệp tuyệt đối bên cạnh thanh URL bị khóa của biểu mẫu.
 
 
 
