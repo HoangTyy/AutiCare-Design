@@ -5,6 +5,8 @@ import DesignCodeHomepage from './components/DesignCodeHomepage'
 import DesignCodeAdmin from './components/DesignCodeAdmin'
 import ToolAssessmentPage from './components/assessment/ToolAssessmentPage'
 import AuthModal from './components/auth/AuthModal'
+import UserProfilePage from './components/profile/UserProfilePage'
+import type { UserProfile } from './components/profile/UserProfilePage'
 
 // Modular Landing Sections
 import HeroSection from './components/homepage/HeroSection'
@@ -19,7 +21,7 @@ import FloatingNav from './components/homepage/FloatingNav'
 import './App.css'
 
 type Language = 'vi' | 'en'
-type View = 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment'
+type View = 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment' | 'profile'
 
 const translations = {
   vi: {
@@ -129,6 +131,17 @@ function App() {
   const [currentUserName, setCurrentUserName] = useState<string | null>(null)
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false)
 
+  // Profile settings
+  const [userProfile, setUserProfile] = useState<UserProfile>({
+    username: 'parent_minhanh',
+    email: 'phuhuynh.minhanh@gmail.com',
+    avatar: '🦖',
+    phonenumber: '0987654321',
+    full_name: 'Nguyễn Thị Minh Anh',
+    address: '456 Đường Hòa Bình, Phường 12, Quận Tân Bình, TP. Hồ Chí Minh',
+    job: 'Phụ huynh trẻ tự kỷ / Kế toán viên'
+  })
+
   // Navbar scroll visual shift
   useEffect(() => {
     const handleScroll = () => {
@@ -197,6 +210,21 @@ function App() {
 
   if (view === 'designAdmin') {
     return <DesignCodeAdmin lang={lang} setLang={setLang} onBack={() => setView('admin')} />
+  }
+
+  if (view === 'profile') {
+    return (
+      <UserProfilePage
+        lang={lang}
+        setLang={setLang}
+        profile={userProfile}
+        onBack={() => setView('landing')}
+        onSave={(updatedProfile) => {
+          setUserProfile(updatedProfile);
+          setCurrentUserName(updatedProfile.full_name);
+        }}
+      />
+    )
   }
 
   if (view === 'assessment') {
@@ -325,7 +353,13 @@ function App() {
 
             {currentUserName ? (
               <div className="auth-session">
-                <span className="auth-user-chip">{currentUserName}</span>
+                <span 
+                  className="auth-user-chip" 
+                  onClick={() => setView('profile')}
+                  title={lang === 'vi' ? 'Xem hồ sơ cá nhân' : 'View User Profile'}
+                >
+                  {currentUserName}
+                </span>
                 <button className="auth-signout-btn" type="button" onClick={() => setCurrentUserName(null)}>
                   {t.signOut}
                 </button>
@@ -369,7 +403,7 @@ function App() {
         isOpen={isAuthModalOpen}
         lang={lang}
         onClose={() => setIsAuthModalOpen(false)}
-        onSignIn={() => setCurrentUserName('Auticare Admin')}
+        onSignIn={() => setCurrentUserName(userProfile.full_name)}
       />
       <ThemeCustomizer view={view} onDesignCode={() => setView('designHomepage')} />
     </div>

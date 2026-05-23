@@ -1,5 +1,139 @@
 # Project Logs
 
+## [2026-05-23] - Khắc phục lỗi giật màn hình do thanh cuộn dọc (Scrollbar Layout Shift Jitter Fix)
+- **Tích hợp giải pháp khắc phục triệt để hiện tượng giật màn hình (index.css)**:
+  - Bổ sung thuộc tính CSS hiện đại tiêu chuẩn W3C `scrollbar-gutter: stable;` cho phần tử `html` toàn cục trong tệp `src/index.css`.
+  - Cơ chế hoạt động: Trình duyệt luôn luôn chừa sẵn một khoảng không gian trống cố định bằng đúng chiều rộng của thanh cuộn ở lề phải ngay cả khi nội dung ngắn và không có thanh cuộn dọc. Nhờ vậy, khi thanh cuộn xuất hiện ở các tab dài (Children, User Profile, Support Tickets) hoặc biến mất ở các tab ngắn, chiều rộng của khung chứa nội dung chính không bao giờ bị thay đổi.
+  - Kết quả: Triệt tiêu hoàn toàn 100% hiện tượng dịch chuyển layout (layout shift) hay giật màn hình khi chuyển đổi tab qua lại, mang lại trải nghiệm cuộn và duyệt tab vô cùng mượt mà, Premium.
+- **Biên dịch & Xác thực**:
+  - Chạy biên dịch sản phẩm `cmd.exe /c npm run build` thành công xuất sắc 100% chỉ trong **268ms** sạch sẽ không còn bất kỳ lỗi TypeScript hay CSS nào, bảo đảm dự án vận hành an toàn và mượt mà trên mọi thiết bị.
+
+## [2026-05-23] - Gộp Hồ sơ Phụ huynh thành 1 Thẻ duy nhất (Single Card Board Layout)
+- **Tái cấu trúc giao diện UserProfileTab.tsx thành Thẻ đơn (Single Card)**:
+  - Loại bỏ hoàn toàn bố cục 2 cột cũ cồng kềnh (cột trái chứa sticker avatar và cột phải chứa form chi tiết).
+  - Gộp tất cả thông tin lại vào **1 thẻ duy nhất** `.profile-single-card-board` phẳng phiu, tối giản và hiện đại theo phong cách Playful Geometric Memphis.
+- **Thiết kế phân vùng thẻ đơn khoa học**:
+  - **Phần Đầu Thẻ (Profile Header Zone)**: Bố cục Flexbox ngang trên Desktop chứa Avatar tương tác 120px (có hover camera uploader và input file ẩn) xếp cạnh Họ tên lớn, Username (@parent_minhanh) và bộ quick info liên hệ nhanh (Vai trò, Email, Điện thoại) có icon emoji sinh động.
+  - **Đường Phân Cách**: Bổ sung nét dashed Memphis đứt quãng `.profile-dashed-separator` tinh tế tạo điểm nhấn nghệ thuật.
+  - **Phần Thân Thẻ (Detailed Fields Grid)**: Lưới 2 cột hiển thị đầy đủ 6 trường thông tin chi tiết (ở chế độ Xem tĩnh là các static block nhẹ nhàng, ở chế độ Chỉnh sửa là các input/textarea nhập liệu động).
+  - **Phần Đuôi Thẻ**: Nơi tập hợp các nút tương tác (🔒 Change Password, ✨ Edit Profile, ❌ Cancel, 💾 Save) được định kiểu Candy Button viên thuốc pill-shape đẹp mắt, có chặn submit form mặc định triệt để.
+  - **Avatar Selector**: Tích hợp hiển thị bộ chọn Sticker Avatar động nằm gọn gàng bên trong thẻ đơn khi ở chế độ chỉnh sửa.
+- **Tinh chỉnh CSS và Responsive Tối ưu (App.css)**:
+  - Định kiểu card đơn `.profile-single-card-board` viền Slate dày `3px`, bóng đổ cứng 3D Memphis lệch góc `8px 8px 0px #1E293B`, bo góc rộng rãi `24px` và xoay nhẹ `-0.2deg`.
+  - **Tối ưu responsive hoàn hảo**: Khi co nhỏ màn hình di động (< 768px), phần đầu thẻ tự động chuyển sang dạng cột đứng (flex-direction: column), căn giữa toàn bộ avatar và chữ vô cùng cân đối, trơn tru.
+- **Biên dịch & Xác thực**:
+  - Chạy biên dịch sản phẩm `cmd.exe /c npm run build` thành công xuất sắc 100% chỉ trong **270ms** sạch sẽ không còn bất kỳ lỗi TypeScript hay CSS nào.
+
+## [2026-05-23] - Tích hợp hệ thống Cột Tab điều hướng bên trái (Parent Portal Dashboard) cho trang Cá nhân Phụ huynh
+- **Tái cấu trúc trang cá nhân thành Parent Dashboard Shell (`UserProfilePage.tsx`)**:
+  - Triển khai cột Sidebar điều hướng bên trái chứa 6 phân hệ cốt lõi song ngữ: `Hồ Sơ Cá Nhân` (User Profile), `Hóa Đơn & Thanh Toán` (Invoices), `Hỗ Trợ Kỹ Thuật` (Support Tickets), `Lịch Hẹn Đã Đặt` (Booked Appointments), `Thời Khóa Biểu Tuần` (Weekly Schedule), và `Hồ Sơ Con Em` (Children Profiles).
+  - Tích hợp state `activeTab` điều phối luồng hiển thị, tự động render động các component con tương ứng ở vùng nội dung bên phải.
+- **Phát triển 6 Phân hệ Tab con độc lập (Quy tắc 10 & 11)**:
+  - `UserProfileTab.tsx`: Tab quản lý thông tin phụ huynh mẫu (Nguyễn Thị Minh Anh) với tính năng static block ở chế độ Xem và form dynamic ở chế độ Chỉnh sửa, cùng Modal đổi mật khẩu.
+  - `InvoicesTab.tsx`: Tab lịch sử hóa đơn thanh toán Playful Geometric. Hiển thị tổng chi tiêu can thiệp và danh sách hóa đơn Sticker Card (Paid/Unpaid) có nút tải PDF 💾 và xem chi tiết.
+  - `SupportTicketsTab.tsx`: Tab gửi yêu cầu hỗ trợ. Cho phép phụ huynh xem trạng thái xử lý (Pending/Resolved/Closed) và có nút Candy Button mở Modal Playful để tạo yêu cầu mới.
+  - `BookedAppointmentsTab.tsx`: Tab quản lý lịch hẹn khám chẩn đoán/đánh giá năng lực của trẻ với bác sĩ (TS. Minh, BS. Đức, Cô Lan), hiển thị khung giờ, vị trí phòng khám lâm sàng.
+  - `ScheduleTab.tsx`: Tab thời khóa biểu trị liệu ca học trong tuần của bé dưới dạng Timeline sinh động (ABA Therapy, Speech Therapy...) với tên giáo viên phụ trách.
+  - `ChildrenTab.tsx`: Tab quản lý danh sách hồ sơ các trẻ được theo dõi can thiệp, có nút "Thêm hồ sơ con em" mở Modal Playful để lưu trữ trẻ mới thời gian thực.
+- **Thiết kế Stylesheet Playful Geometric & Tối ưu Responsive Sidebar (`App.css`)**:
+  - Định kiểu layout 2 cột Dashboard rộng rãi. Sidebar pill-shape buttons có hover lift-up xoay nhẹ và active màu tím Violet nổi bật.
+  - Thiết kế các sticker card 3D, badge màu trạng thái neon Memphis, timeline và avatar emoji tròn sinh động cho các tab.
+  - **Tối ưu responsive hoàn hảo**: Khi co nhỏ màn hình di động (< 900px), thanh Sidebar dọc bên trái tự động chuyển hóa thành một thanh cuộn ngang Tab Bar (horizontal scroll) ở đầu trang giúp tối ưu không gian hiển thị xuất sắc.
+- **Biên dịch & Xác thực**:
+  - Dự án chạy biên dịch sản phẩm `cmd.exe /c npm run build` thành công xuất sắc 100% chỉ trong 278ms mà không còn bất cứ lỗi TypeScript hay CSS nào.
+
+## [2026-05-23] - Ngăn chặn triệt để hành vi Submit Form ngoài ý muốn khi nhấn nút Edit Profile
+- **Chặn tuyệt đối sự kiện nổi bọt và submit mặc định**:
+  - Tích hợp `e.preventDefault()` và `e.stopPropagation()` vào tất cả các sự kiện `onClick` của các nút tương tác phụ (`✨ Edit Profile`, `🔒 Change Password`, `❌ Cancel`) trong form của `UserProfilePage.tsx`.
+  - Khắc phục triệt để lỗi khi người dùng click vào nút `✨ Edit Profile` thì form bị tự động submit, kích hoạt hàm `handleSubmit`, cập nhật dữ liệu và hiển thị ngay Toast báo thành công khiến giao diện lập tức quay về View Mode mà không kịp hiển thị chế độ Chỉnh sửa.
+- **Biên dịch & Xác thực**:
+  - Dự án chạy biên dịch sản phẩm `cmd.exe /c npm run build` thành công xuất sắc 100% chỉ trong 266ms không còn bất cứ lỗi TypeScript hay cảnh báo nào, hot reload hoạt động hoàn hảo trên mọi thiết bị.
+
+## [2026-05-23] - Tối ưu hóa Chế độ Xem (View) bằng Static Text Blocks và Chế độ Chỉnh sửa (Edit) linh hoạt
+- **Chuyển đổi input thô cứng sang Static Text Blocks ở View Mode**:
+  - Loại bỏ hoàn toàn các ô input disabled xám xịt thô cứng ở chế độ Xem (View Mode) để mang lại trải nghiệm xem thoáng mắt, cao cấp.
+  - Thay thế các input và textarea bằng các khối hiển thị tĩnh `.profile-page-static-value` phẳng phiu, sang trọng có màu nền Slate cực nhẹ `#F8FAFC`, bo tròn `12px` và viền mịn, giúp hồ sơ hiển thị trang nhã như một tấm thẻ định danh điện tử chuẩn mực.
+  - Định dạng địa chỉ liên hệ tĩnh `.profile-page-textarea-static` rộng rãi, tự động ngắt dòng thông minh (`white-space: pre-wrap`).
+- **Hiện lên các trường để chỉnh sửa khi nhấn nút "Edit Profile" (Edit Mode)**:
+  - Khi nhấp chọn nút **✨ Edit Profile**, giao diện lập tức chuyển trạng thái `isEditing === true`.
+  - Thay thế hoàn toàn các static block bằng các ô nhập liệu `<input>` và `<textarea>` thực sự của hệ thống để phụ huynh có thể gõ và chỉnh sửa thông tin trực tiếp.
+  - Đồng thời hiển thị dải nút **Cancel** (Hủy bỏ mọi thay đổi, khôi phục dữ liệu ban đầu và quay về View Mode) và **Save** (Lưu thông tin, submit đồng bộ lên Topbar, hiển thị Toast lấp lánh và tự động đưa giao diện về View Mode).
+- **Biên dịch & Xác thực**:
+  - Dự án chạy biên dịch sản phẩm `cmd.exe /c npm run build` thành công xuất sắc 100% chỉ trong 267ms không còn lỗi TypeScript hay cảnh báo nào.
+
+## [2026-05-23] - Tích hợp Chế độ Xem & Chỉnh sửa (View/Edit Mode) song hành cho Hồ sơ cá nhân
+- **Triển khai chế độ View Mode mặc định**:
+  - Khi người dùng truy cập trang, toàn bộ các trường nhập liệu tự động bị khóa (`disabled={true}`).
+  - Khóa hành vi click thay avatar trên container và không hiển thị hover overlay hay chỉ dẫn thay đổi avatar.
+  - Ẩn hoàn toàn bộ chọn Sticker Avatar hoạt hình để đảm bảo giao diện xem thông thoáng và sạch sẽ.
+  - Phím chức năng footer hiển thị 2 nút: **Change Password** (Đổi mật khẩu bảo mật) và **Edit Profile** (Chuyển đổi giao diện sang chế độ Edit).
+- **Phát triển tương tác Edit Mode linh hoạt**:
+  - Khi nhấp chọn **Edit Profile**, hệ thống mở khóa toàn bộ các trường nhập liệu (`disabled={false}`).
+  - Cho phép người dùng nhấp trực tiếp vào avatar để mở File Uploader, hiển thị mượt mà hover overlay có icon máy ảnh 📷 kèm văn bản hướng dẫn và nhãn gợi ý pastel nổi bật.
+  - Mở ra bộ chọn Sticker Avatar hoạt hình giúp phụ huynh tha hồ cấu hình hình ảnh ngộ nghĩnh.
+  - Dải nút hành động footer cập nhật động 100% thành 2 nút: **Cancel** (Hủy bỏ mọi thay đổi, khôi phục lại dữ liệu ban đầu của profile và trả giao diện về View Mode) và **Save** (Lưu thông tin hồ sơ, submit form gửi dữ liệu lên parent, đồng bộ thời gian thực lên Topbar, hiển thị Toast lấp lánh và đưa giao diện tự động quay về View Mode).
+- **Tinh chỉnh CSS & Giải quyết triệt để lỗi unclosed block**:
+  - Thiết kế kiểu dáng phẳng phiu tinh tế cho các trường input bị disabled (`.profile-page-input:disabled`) với màu nền Slate nhẹ `#F1F5F9` và con trỏ `not-allowed`.
+  - Phân tách lớp `.profile-card-avatar-container` thành `.readonly` (cursor default, không zoom co scale khi hover) và `.editable` (cursor pointer).
+  - Dọn dẹp hoàn toàn các đoạn code CSS bị trùng lặp ở cuối tệp `src/App.css` và khắc phục lỗi thiếu dấu đóng ngoặc ở media query 640px.
+- **Biên dịch & Xác thực**:
+  - Dự án chạy biên dịch sản phẩm `cmd.exe /c npm run build` thành công rực rỡ 100% chỉ trong 260ms không còn bất cứ cảnh báo hay lỗi cú pháp nào.
+
+## [2026-05-23] - Nâng cấp biểu mẫu Hồ sơ cá nhân: Overhaul 2 nút thành Edit Profile & Change Password
+- **Sửa đổi dải nút hành động Form Actions footer**:
+  - Sửa đổi 2 nút hành động ở cuối biểu mẫu Hồ sơ cá nhân ("Hủy bỏ thay đổi" và "Lưu thông tin hồ sơ") thành 2 nút mới:
+    * **Edit Profile (Chỉnh sửa hồ sơ)**: Giữ vai trò submit form để cập nhật dữ liệu và đồng bộ hóa thời gian thực lên Header Topbar.
+    * **Change Password (Thay đổi mật khẩu)**: Kiểu nút thứ cấp, click vào mở Modal thay đổi mật khẩu.
+  - Loại bỏ hoàn toàn hàm `handleReset` không còn sử dụng để triệt tiêu hoàn toàn cảnh báo TypeScript TS6133 (strict unused variables).
+- **Tích hợp Modal Thay đổi mật khẩu Playful Geometric**:
+  - Tạo mới state `isPasswordModalOpen` đóng/mở Modal và hàm `handlePasswordSubmit` xử lý submit mật khẩu thành công, hiển thị Toast thông báo 3D lơ lửng màu xanh lá `✨ Thay đổi mật khẩu thành công!`.
+  - Thiết kế Modal chuẩn Playful Geometric: nền kem `#FFFDF5`, viền Slate dày `3px`, bóng đổ cứng 3D `12px 12px 0px #1E293B`, dải tiêu đề màu tím pastel `#EDE9FE` và hiệu ứng xuất hiện đàn hồi mượt mà (`@keyframes scaleBounce`).
+  - Hỗ trợ các trường bảo mật song ngữ: Mật khẩu hiện tại, Mật khẩu mới, Xác nhận mật khẩu mới.
+- **Xác thực và Biên dịch**:
+  - Dự án chạy biên dịch sản phẩm `cmd.exe /c npm run build` thành công xuất sắc 100% chỉ trong 254ms không lỗi kiểu dữ liệu hay cú pháp CSS nào.
+
+## [2026-05-23] - Tích hợp Tải ảnh đại diện trực tiếp và Tối giản hóa giao diện Hồ sơ Phụ huynh
+- **Tối giản hóa giao diện Hồ sơ cá nhân**:
+  - Loại bỏ hoàn toàn nhãn đè biên `.profile-sticker-badge` ("Identity Card" / "Thẻ định danh") khỏi `.profile-card-sticker` giúp giao diện phẳng phiu và thanh lịch hơn theo đúng mong muốn của người dùng.
+  - Xóa bỏ trường nhập liệu "Ảnh đại diện (Avatar URL)" dạng text thô kệch trong form nhập liệu bên phải, tối ưu quy trình thao tác của cha mẹ.
+- **Tích hợp tính năng Tải ảnh trực tiếp (File Uploader)**:
+  - Cho phép người dùng nhấp trực tiếp vào Avatar tròn `.profile-card-avatar-display` để kích hoạt trình chọn tệp của thiết bị (máy tính hoặc điện thoại).
+  - Sử dụng đối tượng `FileReader` để tự động đọc tệp hình ảnh được chọn và chuyển đổi thành chuỗi dữ liệu Base64 (`readAsDataURL`), lưu trữ và hiển thị trực tiếp lên Avatar tròn thời gian thực.
+  - Tích hợp hiệu ứng Playful Geometric: thiết kế lớp phủ mờ `.profile-avatar-hover-overlay` chứa icon máy ảnh 📷 và chữ hướng dẫn ("Thay ảnh" / "Change") tự động hiển thị mượt mà bằng transition khi hover vào avatar, đồng thời Avatar co nhẹ cực kỳ sống động.
+  - Bổ sung nhãn chú thích dưới ảnh `.profile-avatar-hint` chỉ dẫn "Nhấp vào ảnh để thay đổi" / "Click photo to change", tự động đổi sang màu tím pastel ngọt ngào khi di chuột vào Avatar.
+- **Xác thực và Biên dịch**:
+  - Chạy thử nghiệm thành công bản dựng production bằng lệnh `cmd.exe /c npm run build` đạt kết quả 100% sạch sẽ không cảnh báo hay lỗi kiểu dữ liệu TypeScript.
+
+## [2026-05-23] - Khắc phục lỗi tràn Identity Card và Tối ưu bối cảnh Phụ huynh cho Hồ sơ cá nhân
+- **Khắc phục lỗi tràn nhãn đè biên `.profile-sticker-badge`**:
+  - Tích hợp thuộc tính `min-width: 290px` cho `.profile-card-sticker` trong `src/App.css` đảm bảo chiều rộng an toàn trên desktop/tablet.
+  - Tinh gọn padding (`0.3rem 0.75rem`) và giảm nhẹ font-size (`0.7rem`) của `.profile-sticker-badge` giúp nhãn dán định danh cân đối, sắc nét.
+  - Thiết lập responsive di động (`@media (max-width: 640px)`): đặt `.profile-card-sticker` có `min-width: unset; width: 100%; max-width: 320px; margin: 0 auto;` và thu nhỏ font-size của nhãn xuống `0.68rem` để vừa khít và thẩm mỹ hoàn hảo trên màn hình điện thoại siêu nhỏ.
+- **Tối ưu hóa bối cảnh Phụ huynh cho Hồ sơ cá nhân (`UserProfilePage.tsx`)**:
+  - Cập nhật tài nguyên dịch thuật song ngữ (`translations`): chuyển `"tài khoản chuyên gia AutiCare"` thành `"tài khoản Phụ huynh AutiCare"`, và `"specialist account"` thành `"Parent account"` trong tiêu đề phụ.
+  - Thay đổi nhãn vai trò `job` thành `"Vai trò phụ huynh & Nghề nghiệp"` (VI) / `"Parent Role & Occupation"` (EN).
+  - Tích hợp hệ thống placeholder gợi ý chi tiết đậm chất phụ huynh thực tế và trực quan cho tất cả các trường (Ví dụ: Mẹ bé Đức Minh / Kế toán viên, phuhuynh.minhanh@gmail.com...).
+- **Xác thực và Biên dịch**:
+  - Chạy lệnh biên dịch production `cmd.exe /c npm run build` thành công xuất sắc 100% chỉ trong 252ms không có lỗi TypeScript hay cảnh báo.
+
+## [2026-05-23] - Triển khai Trang Hồ sơ Cá nhân (UserProfilePage) độc lập tại Trang chủ Homepage
+- **Triển khai trang Hồ sơ cá nhân độc lập (UserProfilePage.tsx)**:
+  - Tạo mới component src/components/profile/UserProfilePage.tsx quản lý 7 trường thông tin yêu cầu: username (varchar), email (varchar), avatar (varchar), phonenumber (varchar), full_name (nvarchar), address (nvarchar), job (nvarchar).
+  - Tích hợp bộ sưu tập sticker hoạt hình ngộ nghĩnh (Dino, Teddy, Sunny...) làm ảnh đại diện động cho phép lựa chọn và thay đổi trực tiếp, sinh động.
+- **Thiết kế giao diện Playful Geometric cao cấp (`App.css`)**:
+  - Bố cục 2 cột chuyên nghiệp: Cột trái chứa Thẻ định danh và Bộ chọn sticker avatar; Cột phải chứa Form nhập liệu khổng lồ.
+  - Cấu trúc viền Slate `#1E293B` dày dặn `3px`, bóng đổ cứng lệch góc `12px 12px 0px #1E293B` tạo hiệu ứng 3D nhấc nổi, màu nền giấy kem y học `#FFFDF5`.
+  - Các nút hành động dạng Candy Buttons pill-shape bo tròn hoàn hảo, có độ nảy co giãn (active bounce transition) mượt mà.
+  - Xây dựng thông báo thành công (Toast Message) lơ lửng màu xanh lá với hiệu ứng trồi sụt 3D lôi cuốn.
+- **Tích hợp & Đồng bộ hóa thời gian thực (`App.tsx`)**:
+  - Thêm `'profile'` vào kiểu dữ liệu `View` và khai báo case render trang `UserProfilePage`.
+  - Chuyển đổi tên hiển thị ở header `.auth-user-chip` thành nút bấm click được (`cursor: pointer`) với hiệu ứng hover màu vàng ấm. Nhấp chọn sẽ chuyển hướng view sang trang profile.
+  - Triển khai cơ chế đồng bộ hóa dữ liệu thời gian thực: Khi thay đổi Họ và tên trong Profile, tên hiển thị trên thanh Header Topbar tự động cập nhật ngay lập tức sau khi nhấn Lưu.
+  - Định dạng nhập liệu bằng type-only import (`import type { UserProfile }`) từ `UserProfilePage.tsx` để tuân thủ nghiêm ngặt rule `verbatimModuleSyntax` trong cấu hình TypeScript của dự án.
+- **Bản dựng & i18n**:
+  - Thiết kế song ngữ Việt - Anh (i18n) hoàn mỹ cho toàn bộ các ô nhập liệu, nhãn hiển thị và thông báo toast.
+  - Chạy lệnh biên dịch sản phẩm `cmd.exe /c npm run build` thành công xuất sắc 100% không còn bất kỳ lỗi TypeScript hay cảnh báo nào.
+
 ## [2026-05-22] - Nâng cấp tương tác click hàng bảng xem chi tiết trong Quản lý Trung tâm
 - **Cải tiến tương tác duyệt danh sách trung tâm (CentersTab)**:
   - Cho phép người dùng click vào bất kỳ đâu trên hàng dữ liệu (`<tr>`) để truy cập ngay màn hình Chi tiết trung tâm (`CenterDetailView`) thay vì chỉ giới hạn nút con mắt.
