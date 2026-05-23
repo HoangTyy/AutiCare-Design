@@ -1034,3 +1034,11 @@
     - Giao diện mượt mà và trực quan, hỗ trợ đầy đủ tiếng Việt và tiếng Anh.
 - **Build Verification**:
     - Xác thực không phát sinh lỗi TypeScript.
+
+### 2026-05-23: Triển khai 4 Hệ thống Lớn (Profile, Invoices, Support Tickets, Plan Feedbacks)
+- Tạo mới `ProfileModal.tsx` quản lý thông tin cá nhân trên Homepage.
+- Khôi phục `InvoicesTab.tsx` cho Kế toán và `ParentInvoicesModal.tsx` tích hợp luồng PayOS. Cấu hình tự động sinh Hóa đơn ngay sau khi Book chuyên gia ở `HeroSection.tsx`.
+- Xây dựng hệ thống Support Ticket với giao diện chat bong bóng thời gian thực qua `ParentSupportTicketsModal.tsx` (phía Phụ huynh) và `SupportTicketsTab.tsx` (phía Admin).
+- Thiết kế `PlanFeedbacksTab.tsx` ở Admin Dashboard để quản trị nhận xét/đánh giá từ phụ huynh.
+- Cập nhật `AdminDashboard.css` bổ sung CSS hóa đơn và PayOS.
+- Đã chạy npm build thành công không lỗi (100% clean production build).

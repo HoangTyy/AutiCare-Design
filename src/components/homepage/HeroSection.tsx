@@ -9,9 +9,10 @@ interface HeroSectionProps {
   t: any;
   lang: string;
   onStartAssessment: () => void;
+  onInvoiceGenerated?: () => void;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ id, t, lang, onStartAssessment }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ id, t, lang, onStartAssessment, onInvoiceGenerated }) => {
   const [showExperts, setShowExperts] = React.useState(false)
   const [selectedExpert, setSelectedExpert] = React.useState<any | null>(null)
   
@@ -455,7 +456,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ id, t, lang, onStartAssessmen
                       className={`expert-schedule-btn detail-schedule-cta ${(!selectedDate || !selectedTimeSlot) ? 'disabled-btn' : ''}`} 
                       type="button" 
                       disabled={!selectedDate || !selectedTimeSlot}
-                      onClick={() => setBookingSuccess(true)}
+                      onClick={() => {
+                        setBookingSuccess(true);
+                        if (onInvoiceGenerated) onInvoiceGenerated();
+                      }}
                     >
                       {t.bookingBtnConfirm}
                     </button>
