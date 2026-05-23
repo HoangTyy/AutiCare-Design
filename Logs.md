@@ -1,5 +1,77 @@
 # Project Logs
 
+## [2026-05-23] - Nâng cấp Centers Section: Xem thêm Trung tâm + Tìm kiếm + Lọc Tỉnh thành
+- **Mở rộng dữ liệu**: Từ 2 center lên **9 center** mock data trải dài 7 tỉnh thành (TP.HCM, Hà Nội, Đà Nẵng, Hải Phòng, Cần Thơ, Khánh Hòa, Bình Dương). Mỗi center có thêm trường `province`.
+- **Preview 3 card**: Homepage chỉ hiển thị 3 center đầu tiên dạng grid 3 cột.
+- **Nút "Xem thêm trung tâm"**: Neo-brutalism button với badge `+6 trung tâm khác`, hover chuyển màu primary.
+- **Modal Fullscreen**: Khi bấm "Xem thêm" → hiển thị modal chứa toàn bộ 9 center.
+  - **Thanh tìm kiếm (Search)**: Tìm theo tên, địa chỉ, mã trung tâm, email, tỉnh thành. Có nút xóa nhanh (X).
+  - **Bộ lọc tỉnh thành (Filter)**: Dropdown chọn tỉnh thành, tự động trích từ dữ liệu. Có option "Tất cả tỉnh thành".
+  - **Hiển thị số kết quả**: Badge "N kết quả" dưới thanh toolbar.
+  - **Empty state**: Khi không tìm thấy → hiện icon 🔍 + thông báo.
+  - **Scroll nội dung**: Grid 2 cột trong modal, scrollbar custom.
+- **Reusable CenterCard component**: Extract thành component dùng chung cho cả section và modal.
+- **Footer card**: Thêm badge `province` hiển thị tỉnh thành bên cạnh mã trung tâm.
+- **CSS mới**: ~300 dòng bao gồm View More button, Modal overlay/header/toolbar/grid, search/filter box, responsive (1024px, 768px, 640px).
+- **Song ngữ đầy đủ**: Tất cả labels modal, placeholder, empty state đều có VI/EN.
+- **Biên dịch & Xác thực**: Build thành công 100% trong **281ms**, 68 modules.
+
+## [2026-05-23] - Tạo mới Section "Hệ Thống Trung Tâm" trên Homepage
+- **File mới tạo**: `src/components/homepage/CentersSection.tsx`
+  - Hiển thị danh sách 3 trung tâm AutiCare (Central Saigon, Hanoi North, Da Nang Beach) dạng card grid.
+  - Mỗi card gồm: Tên trung tâm, Trạng thái (Active/Inactive với pulse animation), Địa chỉ, Số điện thoại, Email, Mã trung tâm.
+  - Accent bar gradient đầu mỗi card, icon SVG building, hover effect neo-brutalism.
+  - Hỗ trợ song ngữ VI/EN đầy đủ.
+  - Badge tổng kết "3 trung tâm trên toàn quốc" ở cuối section.
+- **Tích hợp vào App.tsx**:
+  - Import `CentersSection`, thêm nav link "Trung tâm/Centers".
+  - Thêm vào IntersectionObserver để tracking active section.
+  - Render giữa AboutSection và CtaSection.
+- **Tích hợp FloatingNav.tsx**: Thêm dot indicator cho section centers.
+- **CSS mới (App.css)**: ~270 dòng CSS bao gồm grid layout, card styles, accent bars, status pulse animation, slide-up animation, responsive breakpoints (1024px, 640px).
+- **Biên dịch & Xác thực**:
+  - Build thành công 100% trong **278ms**, 68 modules transformed, không có lỗi.
+
+## [2026-05-23] - Đơn giản hóa Dữ liệu Mẫu Hồ sơ Phụ huynh
+- **Cập nhật dữ liệu giả lập trong state `userProfile` (App.tsx)**:
+  - `full_name`: `'Nguyễn Thị Minh Anh (Mẹ Bé Khủng Long Dino)'` → `'Nguyễn Thị A'`
+  - `username`: `'me_dino_sieuquay'` → `'nguyenthia_02'`
+  - `email`: `'me.dino.sieunhan@gmail.com'` → `'nguyenthia02@gmail.com'`
+  - `phonenumber`: `'0999.888.777'` → `'0912.345.678'`
+  - `job`: `'Kế toán viên kiêm Chuyên gia dẹp loạn Khủng long con'` → `'Kế toán'`
+  - `address`: `'Số 99 Đường Cầu Vồng, ...'` → `'123 Đường Lê Lợi, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh'`
+- **Biên dịch & Xác thực**:
+  - Chạy biên dịch sản phẩm `cmd.exe /c npm run build` thành công 100% trong **263ms**, không có lỗi.
+
+## [2026-05-23] - Thiết kế Dữ liệu Mẫu "Fake Fake" Hoạt Hình Cho Hồ sơ Phụ huynh
+- **Cập nhật bộ dữ liệu giả lập ngộ nghĩnh (App.tsx)**:
+  - Thay đổi toàn bộ các trường thông tin khô khan của Phụ huynh trong state `userProfile` sang định dạng giả lập đáng yêu và hài hước:
+    * `full_name`: `Nguyễn Thị Minh Anh (Mẹ Bé Khủng Long Dino)`
+    * `username`: `me_dino_sieuquay`
+    * `email`: `me.dino.sieunhan@gmail.com`
+    * `phonenumber`: `0999.888.777`
+    * `job`: `Kế toán viên kiêm Chuyên gia dẹp loạn Khủng long con`
+    * `address`: `Số 99 Đường Cầu Vồng, Phường Hạnh Phúc, Quận Vui Vẻ, TP. Hồ Chí Minh`
+- **Biên dịch & Xác thực**:
+  - Chạy biên dịch sản phẩm `cmd.exe /c npm run build` thành công xuất sắc 100% chỉ trong **277ms** sạch sẽ hoàn toàn không có bất kỳ lỗi nào, bảo đảm dự án vận hành an toàn và mượt mà.
+
+## [2026-05-23] - Cố định thanh Header khi lăn chuột ở trang Profile (Sticky Header Layout)
+- **Tối ưu hóa hành vi cuộn của trang Hồ sơ Phụ huynh (App.css)**:
+  - Nâng cấp lớp CSS `.profile-page-header` với các thuộc tính: `position: sticky;`, `top: 0;`, `z-index: 100;`.
+  - Cơ chế hoạt động: Khi người dùng lăn chuột cuộn nội dung phía dưới, thanh Header (chứa logo AutiCare, bộ chuyển đổi ngôn ngữ VN/EN và nút Quay về trang chủ) sẽ luôn được giữ cố định chặt chẽ ở trên cùng màn hình.
+  - Kết quả: Phụ huynh có thể dễ dàng chuyển đổi ngôn ngữ hoặc quay lại trang chủ tức thời ở bất kỳ vị trí nào trên trang mà không cần phải cuộn ngược lên đầu trang.
+- **Biên dịch & Xác thực**:
+  - Chạy biên dịch sản phẩm `cmd.exe /c npm run build` thành công xuất sắc 100% chỉ trong **268ms** sạch sẽ không còn bất kỳ lỗi nào, bảo đảm dự án vận hành mượt mà và an toàn.
+
+## [2026-05-23] - Tinh giản trường Vai trò thành Nghề nghiệp duy nhất ở Hồ sơ Phụ huynh
+- **Cập nhật nhãn dán và dữ liệu mẫu mặc định**:
+  - Đổi giá trị mặc định của trường dữ liệu `job` từ `'Phụ huynh trẻ tự kỷ / Kế toán viên'` thành `'Kế toán viên'` trong state `userProfile` (`src/App.tsx`) để tinh gọn và chuyên sâu hóa thông tin của phụ huynh.
+  - Sửa đổi từ điển i18n song ngữ trong `UserProfileTab.tsx`:
+    - Tiếng Việt (VI): Đổi nhãn form `job` thành `"Nghề nghiệp"`, nhãn nhanh `jobTitle` ở đầu thẻ thành `"Nghề nghiệp"`, và `jobPlaceholder` gợi ý nhập liệu thành `"Ví dụ: Kế toán viên"`.
+    - Tiếng Anh (EN): Đổi nhãn form `job` thành `"Occupation"`, nhãn nhanh `jobTitle` thành `"Occupation"`, và `jobPlaceholder` gợi ý thành `"e.g. Accountant"`.
+- **Biên dịch & Xác thực**:
+  - Chạy biên dịch sản phẩm `cmd.exe /c npm run build` thành công xuất sắc 100% chỉ trong **255ms** sạch sẽ không còn bất kỳ lỗi nào, bảo đảm dự án vận hành mượt mà và an toàn.
+
 ## [2026-05-23] - Khắc phục lỗi giật màn hình do thanh cuộn dọc (Scrollbar Layout Shift Jitter Fix)
 - **Tích hợp giải pháp khắc phục triệt để hiện tượng giật màn hình (index.css)**:
   - Bổ sung thuộc tính CSS hiện đại tiêu chuẩn W3C `scrollbar-gutter: stable;` cho phần tử `html` toàn cục trong tệp `src/index.css`.

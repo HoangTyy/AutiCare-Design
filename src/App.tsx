@@ -17,6 +17,7 @@ import CategoriesSection from './components/homepage/CategoriesSection'
 import ReviewsSection from './components/homepage/ReviewsSection'
 import BlogsSection from './components/homepage/BlogsSection'
 import AboutSection from './components/homepage/AboutSection'
+import CentersSection from './components/homepage/CentersSection'
 import CtaSection from './components/homepage/CtaSection'
 import Footer from './components/homepage/Footer'
 import FloatingNav from './components/homepage/FloatingNav'
@@ -33,6 +34,7 @@ const translations = {
     reviews: "Đánh giá",
     blogs: "Tin tức",
     about: "Về chúng tôi",
+    centers: "Trung tâm",
     collections: "Liên hệ",
     dashboard: "Dashboard Admin",
     signOut: "Dang xuat",
@@ -81,6 +83,7 @@ const translations = {
     reviews: "Reviews",
     blogs: "News",
     about: "About us",
+    centers: "Centers",
     collections: "Contact",
     dashboard: "Admin Dashboard",
     signOut: "Sign out",
@@ -140,13 +143,13 @@ function App() {
 
   // Profile settings
   const [userProfile, setUserProfile] = useState<UserProfile>({
-    username: 'parent_minhanh',
-    email: 'phuhuynh.minhanh@gmail.com',
+    username: 'nguyenthia_02',
+    email: 'nguyenthia02@gmail.com',
     avatar: '🦖',
-    phonenumber: '0987654321',
-    full_name: 'Nguyễn Thị Minh Anh',
-    address: '456 Đường Hòa Bình, Phường 12, Quận Tân Bình, TP. Hồ Chí Minh',
-    job: 'Phụ huynh trẻ tự kỷ / Kế toán viên'
+    phonenumber: '0384.719.253',
+    full_name: 'Nguyễn Thị A',
+    address: '78/12 Đường Nguyễn Văn Cừ, Phường 2, Quận 5, TP. Hồ Chí Minh',
+    job: 'Kế toán'
   })
 
   // Navbar scroll visual shift
@@ -162,7 +165,7 @@ function App() {
   useEffect(() => {
     if (view !== 'landing') return
 
-    const sections = ['hero', 'category', 'reviews', 'blogs', 'about', 'cta', 'footer']
+    const sections = ['hero', 'category', 'reviews', 'blogs', 'about', 'centers', 'cta', 'footer']
     const observers = sections.map((id) => {
       const el = document.getElementById(id)
       if (!el) return null
@@ -303,6 +306,13 @@ function App() {
               {t.about}
             </a>
             <a 
+              href="#centers" 
+              className={activeSection === 'centers' ? 'active' : ''}
+              onClick={(e) => { e.preventDefault(); scrollToSection('centers'); }}
+            >
+              {t.centers}
+            </a>
+            <a 
               href="#cta" 
               className={activeSection === 'cta' ? 'active' : ''}
               onClick={(e) => { e.preventDefault(); scrollToSection('cta'); }}
@@ -409,6 +419,8 @@ function App() {
         <BlogsSection id="blogs" lang={lang} />
         
         <AboutSection id="about" lang={lang} />
+        
+        <CentersSection id="centers" lang={lang} />
         
         <CtaSection id="cta" t={t} />
 
