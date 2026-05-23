@@ -160,24 +160,26 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
           is_deleted: false,
           created_at: '2026-05-01 08:30:00',
           updated_at: '2026-05-01 08:30:00',
-          activities: [
-            {
-              activity_id: 1,
-              plan_phase_id: 1,
-              activity_name: 'Ghép tranh Lego tìm kiếm tương tác mắt',
-              description: 'Giáo viên cầm mảnh Lego đặt ngang tầm mắt để thu hút sự chú ý của trẻ, khi trẻ nhìn vào mắt giáo viên thì trao mảnh ghép.',
-              duration: '30 phút / buổi',
-              status: 'Active'
-            }
-          ],
+
           objectives: [
             {
               objective_id: 1,
               plan_phase_id: 1,
               objective_name: 'Duy trì giao tiếp mắt tối thiểu 3 giây',
-              target_score: 'Đạt 4/5 lần thử',
-              description: 'Khi có hiệu lệnh gọi tên từ giáo viên can thiệp.',
-              status: 'Active'
+              target_date: '2026-05-01 08:30:0',
+              status: 'Completed',
+              activities: [
+                {
+                  activity_id: 1,
+                  plan_phase_id: 1,
+                  activity_name: 'Ghép tranh Lego tìm kiếm tương tác mắt',
+                  description: 'Giáo viên cầm mảnh Lego đặt ngang tầm mắt để thu hút sự chú ý của trẻ, khi trẻ nhìn vào mắt giáo viên thì trao mảnh ghép.',
+                  duration: '30 phút / buổi',
+                  status: 'Active'
+                }
+              ],
+               created_at: '2026-05-01 08:35:00',
+              updated_at: '2026-05-01 08:35:00',
             }
           ]
         },
@@ -192,24 +194,25 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
           is_deleted: false,
           created_at: '2026-05-01 08:35:00',
           updated_at: '2026-05-01 08:35:00',
-          activities: [
-            {
-              activity_id: 2,
-              plan_phase_id: 2,
-              activity_name: 'Gọi tên con vật qua thẻ hình ảnh',
-              description: 'Sử dụng các thẻ tranh ảnh sắc nét để hướng dẫn trẻ phát âm các từ đơn.',
-              duration: '45 phút / buổi',
-              status: 'Active'
-            }
-          ],
           objectives: [
             {
               objective_id: 2,
               plan_phase_id: 2,
               objective_name: 'Phát âm chính xác 10 từ đơn cơ bản',
-              target_score: 'Đạt 80%',
-              description: 'Tự phát âm không cần nhắc mẫu.',
-              status: 'Active'
+              target_date: '2026-11-07',
+              status: 'Completed',
+              activities: [
+                {
+                  activity_id: 2,
+                  plan_phase_id: 2,
+                  activity_name: 'Gọi tên con vật qua thẻ hình ảnh',
+                  description: 'Sử dụng các thẻ tranh ảnh sắc nét để hướng dẫn trẻ phát âm các từ đơn.',
+                  duration: '45 phút / buổi',
+                  status: 'Active'
+                }
+              ],
+              created_at: '2026-05-01 08:35:00',
+              updated_at: '2026-05-01 08:35:00',
             }
           ]
         }
@@ -243,25 +246,27 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
           is_deleted: false,
           created_at: '2026-05-10 09:00:00',
           updated_at: '2026-05-10 09:00:00',
-          activities: [
-            {
-              activity_id: 3,
-              plan_phase_id: 3,
-              activity_name: 'Nghe nhạc êm dịu kết hợp chơi đất nặn',
-              description: 'Giúp trẻ làm quen với các tần số âm thanh khác nhau trong môi trường thư giãn.',
-              duration: '40 phút / buổi',
-              status: 'Active'
-            }
-          ],
+
           objectives: [
             {
               objective_id: 3,
               plan_phase_id: 3,
               objective_name: 'Chấp nhận đeo tai nghe chống ồn',
-              target_score: 'Nhẫn nại tối thiểu 10 phút',
-              description: 'Khi đi vào môi trường ồn ào.',
-              status: 'Active'
-            }
+              target_date: 'Nhẫn nại tối thiểu 10 phút',
+              status: 'In process',
+              created_at: '2026-05-01 08:35:00',
+              updated_at: '2026-05-01 08:35:00',
+              activities: [
+                {
+                  activity_id: 3,
+                  plan_phase_id: 3,
+                  activity_name: 'Nghe nhạc êm dịu kết hợp chơi đất nặn',
+                  description: 'Giúp trẻ làm quen với các tần số âm thanh khác nhau trong môi trường thư giãn.',
+                  duration: '40 phút / buổi',
+                  status: 'Active'
+                }
+              ],
+            },
           ]
         }
       ]
