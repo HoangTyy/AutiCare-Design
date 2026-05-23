@@ -6012,6 +6012,823 @@
   color: #7C3AED;
 }
 
+/* Appointments Filter Bar & Buttons Styles */
+.appointments-filter-bar {
+  display: flex;
+  gap: 0.95rem;
+  margin-bottom: 2rem;
+  background: #FFFDF5;
+  border: 3px solid #1E293B;
+  border-radius: 20px;
+  box-shadow: 4px 4px 0px #1E293B;
+  padding: 1rem 1.25rem;
+  box-sizing: border-box;
+}
+
+.appointment-filter-btn {
+  background: #FFFFFF;
+  border: 2.5px solid #1E293B;
+  border-radius: 999px;
+  padding: 0.7rem 1.35rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #1E293B;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 150ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 3px 3px 0px #1E293B;
+  outline: none;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.appointment-filter-btn:hover {
+  transform: translate(-2px, -2px) scale(1.03) rotate(0.5deg);
+  box-shadow: 5px 5px 0px #1E293B;
+  background: #F8FAFC;
+}
+
+.appointment-filter-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.appointment-filter-btn.active {
+  background: var(--primary, #8B5CF6) !important;
+  color: #FFFFFF !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+  transform: translate(-1px, -1px);
+}
+
+/* Appointment Meeting Type Badge */
+.appointment-meeting-type-badge {
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  padding: 0.2rem 0.65rem;
+  border-radius: 6px;
+  border: 1.5px solid #1E293B;
+  display: inline-flex;
+}
+
+.appointment-meeting-type-badge.online {
+  background: #EDE9FE !important;
+  color: #7C3AED !important;
+}
+
+.appointment-meeting-type-badge.offline {
+  background: #FEF3C7 !important;
+  color: #D97706 !important;
+}
+
+.appointment-online-location {
+  color: #7C3AED;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+}
+
+.appointment-meet-btn {
+  background: var(--primary, #8B5CF6) !important;
+  color: #FFFFFF !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.35rem;
+  text-decoration: none;
+  font-size: 0.85rem !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+  border-radius: 999px !important;
+  text-align: center;
+  box-sizing: border-box;
+  font-weight: 900 !important;
+}
+
+.appointment-meet-btn:hover {
+  background: #7C3AED !important;
+  transform: translate(-2px, -2px) scale(1.02) !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+}
+
+.appointment-meet-btn:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: none !important;
+}
+
+/* Appointment Empty State */
+.appointment-empty-state {
+  background: #FFFFFF;
+  border: 3px dashed #64748B;
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 1rem 0;
+  box-shadow: 6px 6px 0px #E2E8F0;
+}
+
+.appointment-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 0.85rem;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.appointment-empty-text {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #64748B;
+  margin: 0;
+}
+
+/* Appointment Details Modal Styles - Playful Memphis Ticket Design */
+.appointment-detail-modal-shell.appointment-ticket-card {
+  width: min(780px, calc(100% - 2rem)) !important;
+  border-radius: 28px !important;
+  box-shadow: 14px 14px 0px #1E293B !important;
+  background: #FFFDF5 !important; /* Warm paper kem background */
+  position: relative;
+  max-height: none !important; /* Ensure it expands without limits */
+  height: auto !important;
+  overflow-y: visible !important; /* Absolutely no scrollbar */
+  box-sizing: border-box;
+}
+
+/* Scalloped Ticket Punch Holes - đục lỗ khuyết lẹm vào vé */
+.ticket-punch-left {
+  position: absolute;
+  left: -15px;
+  top: 135px; /* aligned perfectly with dashed line */
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #0f172a; /* matches modal overlay color */
+  border: 3px solid #1E293B;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+.ticket-punch-right {
+  position: absolute;
+  right: -15px;
+  top: 135px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #0f172a; /* matches modal overlay color */
+  border: 3px solid #1E293B;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+/* Ticket Header */
+.appointment-ticket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 1.6rem 0.5rem 1.6rem;
+  border-bottom: none;
+  box-sizing: border-box;
+}
+
+.ticket-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.ticket-brand-logo {
+  font-family: 'Titan One', sans-serif;
+  font-size: 1.6rem;
+  color: var(--primary, #8B5CF6);
+  text-shadow: 2px 2px 0px #1E293B;
+}
+
+.ticket-brand-badge {
+  font-size: 0.65rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  background: #FBBF24; /* Warning Yellow */
+  color: #1E293B;
+  padding: 0.2rem 0.65rem;
+  border: 2px solid #1E293B;
+  border-radius: 6px;
+  box-shadow: 2px 2px 0px #1E293B;
+  letter-spacing: 0.5px;
+}
+
+.ticket-close-btn {
+  margin: 0 !important;
+  font-size: 1.8rem !important;
+  color: #1E293B !important;
+}
+
+.appointment-ticket-body {
+  padding: 1.15rem 1.6rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.1rem !important;
+  box-sizing: border-box;
+}
+
+/* Stub Zone */
+.appointment-ticket-stub {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  box-sizing: border-box;
+}
+
+.ticket-doctor-profile {
+  flex-grow: 1;
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.15rem !important;
+  padding: 0.85rem 1.15rem !important;
+  border-radius: 16px !important;
+  background: #FFFFFF !important; /* Milk white */
+  border: 2.5px solid #1E293B !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+  box-sizing: border-box !important;
+}
+
+.appointment-modal-avatar-bubble {
+  width: 46px !important;
+  height: 46px !important;
+  background: #EDE9FE !important; /* Pastel Violet */
+  border: 2px solid #1E293B !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1.35rem !important;
+  flex-shrink: 0 !important;
+  box-shadow: 2px 2px 0px #1E293B !important;
+}
+
+.appointment-modal-doctor-info-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.15rem !important;
+  text-align: left !important;
+}
+
+.appointment-modal-doctor-name {
+  margin: 0 !important;
+  font-size: 1.05rem !important;
+  font-weight: 900 !important;
+  color: #1E293B !important;
+  line-height: 1.25 !important;
+}
+
+.appointment-modal-doctor-role {
+  margin: 0 !important;
+  font-size: 0.72rem !important;
+  font-weight: 800 !important;
+  color: #64748B !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.3px !important;
+}
+
+.appointment-ticket-meta-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.ticket-id-badge {
+  font-size: 0.88rem !important;
+  padding: 0.35rem 0.85rem !important;
+  background: #F8FAFC !important;
+}
+
+/* Dashed tear line */
+.ticket-dashed-tear-line {
+  border-top: 3px dashed #1E293B;
+  height: 0;
+  width: 100%;
+  margin: 0.25rem 0;
+  box-sizing: border-box;
+}
+
+/* Ticket bento details grid */
+/* Ticket bento details grid */
+/* Ticket bento details grid */
+/* Layout ngang bọc thân vé chi tiết (Desktop Side-by-Side) */
+.ticket-horizontal-content-layout {
+  display: grid !important;
+  grid-template-columns: 1.25fr 1fr !important;
+  gap: 1.25rem !important;
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+.ticket-details-grid {
+  background: #FFFFFF !important;
+  border: 3px solid #1E293B !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important; /* 2 columns grid on desktop when horizontal */
+  gap: 0.85rem !important;
+  padding: 1.25rem !important;
+  border-radius: 20px !important;
+  box-sizing: border-box;
+}
+
+/* Individual info items inside ticket bento */
+.appointment-modal-info-item {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.35rem !important;
+  background: #F8FAFC !important;
+  border: 2px solid #1E293B !important;
+  border-radius: 12px !important;
+  padding: 0.75rem 0.95rem !important;
+  box-shadow: 2px 2px 0px #1E293B !important;
+  box-sizing: border-box;
+  text-align: left !important;
+  transition: transform 150ms ease, box-shadow 150ms ease !important;
+}
+
+.appointment-modal-info-item:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+}
+
+.appointment-modal-info-item.span-two {
+  grid-column: span 2 !important; /* Spans 2 columns */
+}
+
+.appointment-modal-info-item.full-width-info-row {
+  grid-column: span 2 !important; /* Override for span 2 columns */
+}
+
+.appointment-modal-info-label {
+  font-size: 0.72rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  color: #64748B !important;
+  letter-spacing: 0.3px !important;
+  display: block !important;
+  margin-bottom: 0.15rem !important;
+}
+
+.appointment-modal-info-value {
+  font-size: 0.88rem !important;
+  font-weight: 800 !important;
+  color: #1E293B !important;
+  display: block !important;
+  word-break: break-word !important;
+}
+
+/* Beautiful Framed Notes Box with Solid Slate Border and Sticker Header */
+.ticket-notes-box {
+  background: #FFFFFF !important;
+  border: 3px solid #1E293B !important; /* Thick Slate Border */
+  border-radius: 20px !important;
+  box-shadow: 6px 6px 0px #1E293B !important; /* Hard 3D Memphis Shadow */
+  padding: 0 !important; /* Reset padding to crop child background precisely */
+  overflow: hidden !important;
+  box-sizing: border-box;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.appointment-modal-notes-title {
+  background: #FEF08A !important; /* Yellow pastel sticker background */
+  color: #1E293B !important;
+  padding: 0.75rem 1.15rem !important;
+  font-size: 0.84rem !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border-bottom: 3px solid #1E293B !important; /* Separator block */
+  box-sizing: border-box;
+  text-align: left !important;
+}
+
+.appointment-modal-notes-text {
+  padding: 0.5rem 0 !important;
+  font-size: 0.84rem !important;
+  font-weight: 700 !important;
+  color: #334155 !important;
+  line-height: 1.5 !important;
+  box-sizing: border-box;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* List Item design inside notes */
+.notes-list-item {
+  display: flex !important;
+  gap: 0.85rem !important;
+  padding: 0.95rem 1.25rem !important;
+  border-bottom: 2px dashed #E2E8F0 !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+}
+
+.notes-list-item:last-child {
+  border-bottom: none !important;
+}
+
+.notes-list-emoji {
+  font-size: 1.25rem !important;
+  line-height: 1.2 !important;
+  flex-shrink: 0 !important;
+  margin-top: 0.1rem !important;
+}
+
+.notes-list-content {
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  color: #475569 !important;
+  line-height: 1.5 !important;
+}
+
+.notes-list-content strong {
+  color: #1E293B !important;
+  font-weight: 800 !important;
+  margin-right: 0.25rem !important;
+  display: inline-block !important;
+}
+
+/* ==========================================================================
+   Playful Geometric Reschedule Modal Styles
+   ========================================================================== */
+
+.reschedule-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.reschedule-modal-shell {
+  background: #FFFDF5 !important;
+  border: 3px solid #1E293B !important;
+  border-radius: 28px !important;
+  box-shadow: 12px 12px 0px #1E293B !important;
+  width: min(540px, calc(100% - 2rem)) !important;
+  max-height: min(700px, calc(100vh - 2rem)) !important;
+  overflow-y: auto !important;
+  box-sizing: border-box;
+  padding: 1.6rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.15rem !important;
+  animation: scaleBounce 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.reschedule-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reschedule-modal-title {
+  font-family: 'Titan One', sans-serif;
+  font-size: 1.35rem !important;
+  color: #1E293B !important;
+  margin: 0 !important;
+  text-shadow: 1.5px 1.5px 0px #FCD34D;
+}
+
+.reschedule-modal-body {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem !important;
+  box-sizing: border-box;
+}
+
+/* Original Schedule details */
+.reschedule-current-box {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.35rem !important;
+  background: #F8FAFC !important;
+  border: 2px dashed #94A3B8 !important;
+  border-radius: 14px !important;
+  padding: 0.75rem 1rem !important;
+  text-align: left !important;
+}
+
+.reschedule-current-label {
+  font-size: 0.74rem !important;
+  font-weight: 800 !important;
+  color: #64748B !important;
+  text-transform: uppercase !important;
+}
+
+.reschedule-current-value {
+  font-size: 0.92rem !important;
+  font-weight: 800 !important;
+  color: #1E293B !important;
+}
+
+.reschedule-section {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.65rem !important;
+  text-align: left !important;
+}
+
+.reschedule-section h4 {
+  margin: 0 !important;
+  font-size: 0.88rem !important;
+  font-weight: 900 !important;
+  color: #1E293B !important;
+}
+
+/* Date grid scroll layout */
+.reschedule-date-grid {
+  display: flex !important;
+  gap: 0.65rem !important;
+  overflow-x: auto !important;
+  padding-bottom: 0.45rem !important;
+  scrollbar-width: thin !important;
+}
+
+.reschedule-date-card {
+  flex-shrink: 0 !important;
+  width: 95px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 0.2rem !important;
+  background: #FFFFFF !important;
+  border: 2px solid #1E293B !important;
+  border-radius: 12px !important;
+  padding: 0.55rem 0.45rem !important;
+  box-shadow: 2.5px 2.5px 0px #1E293B !important;
+  cursor: pointer !important;
+  transition: all 150ms ease !important;
+  box-sizing: border-box;
+}
+
+.reschedule-date-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+}
+
+.reschedule-date-card.selected {
+  background: #EDE9FE !important; /* Soft Violet active */
+  border-color: #8B5CF6 !important;
+  box-shadow: 1.5px 1.5px 0px #8B5CF6 !important;
+  transform: translateY(1.5px) !important;
+}
+
+.reschedule-date-day {
+  font-size: 0.68rem !important;
+  font-weight: 900 !important;
+  color: #64748B !important;
+  text-transform: uppercase !important;
+}
+
+.reschedule-date-val {
+  font-size: 0.95rem !important;
+  font-weight: 900 !important;
+  color: #1E293B !important;
+}
+
+/* Time slot selection grid */
+.reschedule-time-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0.65rem !important;
+}
+
+.reschedule-time-slot-card {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.55rem !important;
+  background: #FFFFFF !important;
+  border: 2px solid #1E293B !important;
+  border-radius: 12px !important;
+  padding: 0.75rem 0.85rem !important;
+  box-shadow: 2.5px 2.5px 0px #1E293B !important;
+  cursor: pointer !important;
+  transition: all 150ms ease !important;
+  box-sizing: border-box;
+}
+
+.reschedule-time-slot-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+}
+
+.reschedule-time-slot-card.selected {
+  background: #FCE7F3 !important; /* Soft Pink active */
+  border-color: #F472B6 !important;
+  box-shadow: 1.5px 1.5px 0px #F472B6 !important;
+  transform: translateY(1.5px) !important;
+}
+
+.reschedule-time-icon {
+  font-size: 0.95rem !important;
+  flex-shrink: 0 !important;
+}
+
+.reschedule-time-text {
+  font-size: 0.84rem !important;
+  font-weight: 900 !important;
+  color: #1E293B !important;
+}
+
+/* Error Banner styling */
+.reschedule-error-banner {
+  background: #FEE2E2 !important; /* Rose background */
+  color: #E11D48 !important; /* Crimson color */
+  border: 2px solid #E11D48 !important;
+  border-radius: 12px !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 0.8rem !important;
+  font-weight: 800 !important;
+  text-align: left !important;
+  line-height: 1.4 !important;
+  animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+  40%, 60% { transform: translate3d(3px, 0, 0); }
+}
+
+.reschedule-modal-footer {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 0.85rem !important;
+  margin-top: 0.5rem !important;
+}
+
+.reschedule-cancel-btn {
+  background: #F1F5F9 !important;
+  color: #475569 !important;
+}
+
+.reschedule-confirm-btn {
+  background: #34D399 !important; /* Mint Green */
+  color: #1E293B !important;
+}
+
+.reschedule-confirm-btn.disabled-btn {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: 2px 2px 0px #1E293B !important;
+}
+
+/* Candy Button styling for Reschedule trigger on ticket */
+.ticket-reschedule-candy {
+  background: #FEF08A !important; /* Yellow candy */
+  color: #1E293B !important;
+}
+
+.ticket-reschedule-candy:hover {
+  background: #FDE047 !important;
+}
+
+/* Ticket horizontal content layout responsive behavior */
+@media (max-width: 768px) {
+  .ticket-horizontal-content-layout {
+    grid-template-columns: 1fr !important;
+    gap: 1.15rem !important;
+  }
+  
+  .reschedule-time-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Barcode CSS Zone */
+.appointment-ticket-barcode-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.35rem;
+  margin-bottom: 0.15rem;
+  gap: 0.25rem;
+  box-sizing: border-box;
+}
+
+.barcode-lines-container {
+  display: flex;
+  align-items: flex-start;
+  height: 38px;
+  gap: 2.5px;
+}
+
+.barcode-line-element {
+  background: #1E293B;
+  height: 100%;
+  display: inline-block;
+}
+
+.barcode-line-element.thin { width: 1.5px; }
+.barcode-line-element.medium { width: 3.5px; }
+.barcode-line-element.thick { width: 6px; }
+
+.barcode-numbers-label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #1E293B;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 0.1rem;
+}
+
+/* Actions Footer styling */
+.ticket-actions-footer {
+  border-top: 2.5px solid #1E293B !important;
+  background: #F8FAFC !important;
+  padding: 1.25rem 1.6rem 1.6rem 1.6rem !important;
+}
+
+.ticket-close-candy {
+  background: #FFFFFF !important;
+  color: #1E293B !important;
+}
+
+.ticket-meet-candy {
+  background: #34D399 !important; /* Beautiful Mint for confirmed meeting */
+  color: #1E293B !important;
+}
+
+@media (max-width: 768px) {
+  .ticket-details-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .appointment-modal-info-item.full-width-info-row {
+    grid-column: span 2 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .ticket-details-grid {
+    grid-template-columns: 1fr;
+  }
+  .appointment-modal-info-item.full-width-info-row {
+    grid-column: span 1;
+  }
+  .appointment-ticket-stub {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  .appointment-ticket-meta-right {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .ticket-punch-left, .ticket-punch-right {
+    display: none; /* Hide ticket cutouts on tiny screen to avoid overflows */
+  }
+}
+
+@media (max-width: 900px) {
+  .appointments-filter-bar {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 0.65rem;
+    padding: 0.75rem;
+    border-radius: 16px;
+    box-shadow: 3px 3px 0px #1E293B;
+  }
+  
+  .appointments-filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .appointment-filter-btn {
+    padding: 0.6rem 1.1rem;
+    font-size: 0.78rem;
+    box-shadow: 2px 2px 0px #1E293B;
+  }
+  
+  .appointment-filter-btn.active {
+    box-shadow: 3px 3px 0px #1E293B !important;
+  }
+}
+
 /* Sticker Grid Layouts */
 .invoice-sticker-grid,
 .appointment-sticker-grid,
@@ -6799,23 +7616,1260 @@
   white-space: nowrap !important;
 }
 
-/* Responsive adjustment for small mobile displays */
 @media (max-width: 768px) {
-  .profile-page-header .profile-header-container {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.85rem !important;
-    text-align: center !important;
-  }
-  
-  .profile-page-header .profile-header-left,
-  .profile-page-header .profile-header-right {
-    justify-content: center !important;
-  }
-  
   .profile-page-header .profile-back-btn {
     width: 220px !important;
   }
+}
+
+/* ==========================================================================
+   Staff Portal Design System - Playful Geometric Memphis Styling (2026-05-24)
+   ========================================================================== */
+
+/* 1. Header Role Switcher Button */
+.profile-role-switcher-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.15rem !important;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.8rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #1E293B !important;
+  background-color: #FCD34D !important; /* Pastel gold/amber */
+  border: 2px solid #1E293B !important;
+  border-radius: 999px !important; /* Pill-shape */
+  box-shadow: 3px 3px 0px #1E293B !important; /* Memphis hard shadow */
+  cursor: pointer;
+  white-space: nowrap !important;
+  transition: transform 120ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 120ms cubic-bezier(0.34, 1.56, 0.64, 1), background-color 120ms ease !important;
+}
+
+.profile-role-switcher-btn:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0px #1E293B !important;
+  background-color: #FBBF24 !important; /* Deep warm yellow */
+}
+
+.profile-role-switcher-btn:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 1px 1px 0px #1E293B !important;
+}
+
+/* Parent switch button variant inside Staff Portal */
+.parent-role-switcher-btn {
+  background-color: #F472B6 !important; /* Pink pastel */
+  color: #FFFFFF !important;
+}
+
+.parent-role-switcher-btn:hover {
+  background-color: #EC4899 !important; /* Deep hot pink */
+}
+
+/* 2. Status Badges & Colors for Staff Appointments */
+.status-reschedule-pending {
+  background-color: #FFF7ED !important; /* Warm paper orange */
+}
+
+.appointment-status-badge.badge-reschedule_pending {
+  background-color: #FFEDD5 !important; /* Light neon orange background */
+  color: #EA580C !important; /* Deep orange text */
+  border: 2px solid #1E293B !important;
+  box-shadow: 1.5px 1.5px 0px #1E293B !important;
+  font-weight: 800 !important;
+}
+
+.appointment-status-badge.badge-rejected {
+  background-color: #FEE2E2 !important; /* Red pastel */
+  color: #DC2626 !important; /* Red text */
+  border: 2px solid #1E293B !important;
+  box-shadow: 1.5px 1.5px 0px #1E293B !important;
+  font-weight: 800 !important;
+}
+
+/* 3. Card-Level Candy Buttons & Layout adjustments */
+.staff-apt-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.staff-card-actions-wrapper {
+  margin-top: auto; /* Push actions to bottom */
+  padding-top: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+}
+
+.staff-inline-candy-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.staff-inline-candy-buttons.column-flow {
+  grid-template-columns: 1fr;
+  gap: 0.55rem;
+}
+
+.staff-candy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 0.85rem !important;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.78rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  border: 2px solid #1E293B !important;
+  border-radius: 999px !important;
+  box-shadow: 3px 3px 0px #1E293B !important;
+  cursor: pointer;
+  white-space: nowrap !important;
+  transition: transform 120ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 120ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.staff-candy-btn:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0px #1E293B !important;
+}
+
+.staff-candy-btn:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 1px 1px 0px #1E293B !important;
+}
+
+/* Approve Button Color styles */
+.staff-candy-btn.approve-btn,
+.staff-modal-candy-btn.approve-btn {
+  background-color: #34D399 !important; /* Mint Green */
+  color: #1E293B !important;
+}
+.staff-candy-btn.approve-btn:hover,
+.staff-modal-candy-btn.approve-btn:hover {
+  background-color: #10B981 !important;
+}
+
+/* Reject Button Color styles */
+.staff-candy-btn.reject-btn,
+.staff-modal-candy-btn.reject-btn {
+  background-color: #F87171 !important; /* Coral Red */
+  color: #FFFFFF !important;
+}
+.staff-candy-btn.reject-btn:hover,
+.staff-modal-candy-btn.reject-btn:hover {
+  background-color: #EF4444 !important;
+}
+
+/* Reschedule Approve/Reject Buttons */
+.staff-candy-btn.approve-reschedule-btn,
+.staff-modal-candy-btn.approve-reschedule-btn {
+  background-color: #A78BFA !important; /* Pastel Violet */
+  color: #FFFFFF !important;
+}
+.staff-candy-btn.approve-reschedule-btn:hover,
+.staff-modal-candy-btn.approve-reschedule-btn:hover {
+  background-color: #8B5CF6 !important;
+}
+
+.staff-candy-btn.reject-reschedule-btn,
+.staff-modal-candy-btn.reject-reschedule-btn {
+  background-color: #E2E8F0 !important; /* Slate grey */
+  color: #1E293B !important;
+}
+.staff-candy-btn.reject-reschedule-btn:hover,
+.staff-modal-candy-btn.reject-reschedule-btn:hover {
+  background-color: #CBD5E1 !important;
+}
+
+/* Google Meet link buttons */
+.staff-candy-btn.meet-btn,
+.staff-modal-candy-btn.meet-btn {
+  background-color: #38BDF8 !important; /* Cyan online meet link */
+  color: #1E293B !important;
+  width: 100%;
+}
+.staff-candy-btn.meet-btn:hover,
+.staff-modal-candy-btn.meet-btn:hover {
+  background-color: #0EA5E9 !important;
+}
+
+.staff-view-detail-btn {
+  background-color: #FFFFFF !important;
+  color: #1E293B !important;
+  border: 2px solid #1E293B !important;
+  border-radius: 999px !important;
+  padding: 0.55rem 0.85rem !important;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.78rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 120ms ease;
+  box-shadow: 2px 2px 0px #1E293B !important;
+}
+
+.staff-view-detail-btn:hover {
+  background-color: #F8FAFC !important;
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 3px 3px 0px #1E293B !important;
+}
+
+/* 4. Rescheduling Proposal Box - Memphis dashed */
+.reschedule-proposal-box {
+  margin: 0.75rem 0;
+  padding: 0.75rem 0.95rem;
+  background-color: #FEF3C7 !important; /* Light amber background */
+  border: 2px dashed #1E293B !important;
+  border-radius: 12px !important;
+  box-shadow: 3px 3px 0px #1E293B !important;
+  box-sizing: border-box;
+}
+
+.reschedule-proposal-box.in-modal {
+  margin: 0 0 1.25rem 0;
+  box-shadow: 4px 4px 0px #1E293B !important;
+}
+
+.reschedule-proposal-header {
+  font-size: 0.78rem;
+  font-weight: 900;
+  color: #B45309;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.02em;
+}
+
+.reschedule-proposal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.proposal-label {
+  color: #475569;
+  margin-right: 0.35rem;
+}
+
+.proposal-val {
+  color: #1E293B;
+}
+
+.proposal-val.text-strikethrough {
+  text-decoration: line-through;
+}
+
+.proposal-val.text-neon-orange {
+  color: #EA580C;
+  font-weight: 900;
+}
+
+/* 5. Horizontal Ticket Layout for Staff modal */
+.horizontal-ticket-shell {
+  width: min(780px, calc(100% - 2rem)) !important;
+  max-height: none !important;
+  overflow-y: visible !important;
+  height: auto !important;
+  padding: 1.8rem 2rem !important;
+}
+
+.ticket-horizontal-content-layout {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.ticket-bento-info-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.ticket-clinical-notes-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ticket-doctor-stub-card {
+  background-color: #FFFFFF !important;
+  border: 3px solid #1E293B !important;
+  border-radius: 16px !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+  padding: 0.85rem 1.15rem;
+  box-sizing: border-box;
+}
+
+.ticket-doctor-stub-card .stub-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px dashed #CBD5E1;
+  padding-bottom: 0.45rem;
+  margin-bottom: 0.45rem;
+}
+
+.ticket-doctor-stub-card .stub-header h4 {
+  margin: 0;
+  font-size: 0.76rem;
+  font-weight: 900;
+  color: #8B5CF6;
+  text-transform: uppercase;
+}
+
+.ticket-doctor-stub-card .stub-sub-tag {
+  font-size: 0.65rem;
+  font-weight: 900;
+  background-color: #EDE9FE;
+  color: #8B5CF6;
+  padding: 1px 6px;
+  border: 1.5px solid #1E293B;
+  border-radius: 4px;
+}
+
+.ticket-doctor-stub-card .stub-body {
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.ticket-doctor-stub-card .stub-text {
+  margin: 0 0 0.2rem 0;
+  color: #64748B;
+}
+
+.ticket-doctor-stub-card .stub-expert-name {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #1E293B;
+}
+
+.ticket-doctor-stub-card .stub-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.72rem;
+}
+
+.ticket-doctor-stub-card .stub-code-label {
+  color: #64748B;
+}
+
+.ticket-doctor-stub-card .stub-code-val {
+  font-family: monospace;
+  font-weight: 900;
+  color: #1E293B;
+}
+
+/* 6. Dynamic actions bar inside Modal footer */
+.modal-dynamic-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.staff-modal-candy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.35rem !important;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.82rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  border: 3px solid #1E293B !important;
+  border-radius: 999px !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+  cursor: pointer;
+  white-space: nowrap !important;
+  transition: transform 120ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 120ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.staff-modal-candy-btn:hover {
+  transform: translate(-3px, -3px) !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+}
+
+.staff-modal-candy-btn:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 2px 2px 0px #1E293B !important;
+}
+
+/* 7. Weekly Timeline Calendar Tab styles */
+.weekly-columns-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+  width: 100%;
+}
+
+.weekly-day-column {
+  background-color: #FFFFFF;
+  border: 2.5px solid #1E293B;
+  border-radius: 16px;
+  box-shadow: 4px 4px 0px #1E293B;
+  display: flex;
+  flex-direction: column;
+  min-height: 520px;
+  overflow: hidden;
+}
+
+.weekly-day-header {
+  padding: 0.65rem 0.5rem;
+  border-bottom: 2.5px solid #1E293B;
+  text-align: center;
+  font-weight: 900;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+/* Day background colors */
+.weekly-day-header.day-color-0 { background-color: #EDE9FE; color: #6D28D9; } /* violet */
+.weekly-day-header.day-color-1 { background-color: #FCE7F3; color: #BE185D; } /* pink */
+.weekly-day-header.day-color-2 { background-color: #FEF3C7; color: #B45309; } /* amber */
+.weekly-day-header.day-color-3 { background-color: #E0F2FE; color: #0369A1; } /* blue */
+.weekly-day-header.day-color-4 { background-color: #D1FAE5; color: #047857; } /* green */
+.weekly-day-header.day-color-5 { background-color: #FFEDD5; color: #C2410C; } /* orange */
+.weekly-day-header.day-color-6 { background-color: #F1F5F9; color: #334155; } /* dark slate */
+
+.day-classes-count-badge {
+  font-size: 0.65rem;
+  font-weight: 900;
+  background-color: #FFFFFF;
+  color: #1E293B;
+  border: 1.5px solid #1E293B;
+  border-radius: 999px;
+  padding: 1px 6px;
+}
+
+.weekly-day-slots-list {
+  padding: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.weekly-day-empty-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  text-align: center;
+  color: #94A3B8;
+  flex: 1;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.empty-slot-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Schedule Class Sticker Card */
+.schedule-class-sticker {
+  position: relative;
+  background-color: #F8FAFC;
+  border: 2px solid #1E293B;
+  border-radius: 12px;
+  padding: 0.65rem 0.55rem;
+  box-shadow: 2px 2px 0px #1E293B;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  box-sizing: border-box;
+}
+
+.class-accent-strip {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 5px;
+  border-radius: 10px 10px 0 0;
+}
+
+.class-accent-strip.bg-color-violet { background-color: #8B5CF6; }
+.class-accent-strip.bg-color-pink { background-color: #F472B6; }
+.class-accent-strip.bg-color-amber { background-color: #FBBF24; }
+.class-accent-strip.bg-color-blue { background-color: #38BDF8; }
+
+.schedule-class-sticker.border-color-violet:hover { background-color: #FAF5FF; }
+.schedule-class-sticker.border-color-pink:hover { background-color: #FFF5F7; }
+.schedule-class-sticker.border-color-amber:hover { background-color: #FFFBEB; }
+.schedule-class-sticker.border-color-blue:hover { background-color: #F0F9FF; }
+
+.class-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.15rem;
+}
+
+.class-time {
+  font-size: 0.65rem;
+  font-weight: 900;
+  color: #1E293B;
+}
+
+.class-method-badge {
+  font-size: 0.58rem;
+  font-weight: 900;
+  border: 1px solid #1E293B;
+  border-radius: 4px;
+  padding: 0px 4px;
+}
+
+.class-method-badge.type-online {
+  background-color: #E0F2FE;
+  color: #0284C7;
+}
+
+.class-method-badge.type-offline {
+  background-color: #FEF3C7;
+  color: #D97706;
+}
+
+.class-child-name {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 900;
+  color: #1E293B;
+}
+
+.class-activity-badge {
+  font-size: 0.62rem;
+  font-weight: 900;
+  color: #475569;
+  background-color: #E2E8F0;
+  padding: 2px 6px;
+  border-radius: 6px;
+  width: max-content;
+  border: 1.5px solid #1E293B;
+}
+
+.class-room-info {
+  font-size: 0.65rem;
+  border-top: 1px dashed #E2E8F0;
+  padding-top: 0.25rem;
+}
+
+.class-room-info strong {
+  color: #64748B;
+}
+
+.class-room-info .room-val {
+  margin: 0;
+  color: #1E293B;
+  font-weight: 800;
+}
+
+/* Schedule Tab Header */
+.schedule-header-zone {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2.5px solid #1E293B;
+  padding-bottom: 1rem;
+}
+
+.schedule-tab-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #1E293B;
+}
+
+.schedule-tab-subtitle {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #64748B;
+}
+
+.schedule-sync-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.15rem !important;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.8rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  color: #1E293B !important;
+  background-color: #34D399 !important;
+  border: 2px solid #1E293B !important;
+  border-radius: 999px !important;
+  box-shadow: 3px 3px 0px #1E293B !important;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease !important;
+}
+
+.schedule-sync-btn:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0px #1E293B !important;
+}
+
+/* 8. Clinical Intervention Record Cards styling */
+.intervention-header-zone {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2.5px solid #1E293B;
+  padding-bottom: 1rem;
+}
+
+.intervention-tab-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #1E293B;
+}
+
+.intervention-tab-subtitle {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #64748B;
+}
+
+.intervention-create-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.15rem !important;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.8rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  color: #FFFFFF !important;
+  background-color: #8B5CF6 !important;
+  border: 2px solid #1E293B !important;
+  border-radius: 999px !important;
+  box-shadow: 3px 3px 0px #1E293B !important;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease !important;
+}
+
+.intervention-create-btn:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0px #1E293B !important;
+}
+
+.intervention-toolbar-board {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: #F8FAFC;
+  border: 2px solid #1E293B;
+  border-radius: 16px;
+  padding: 0.75rem 1.15rem;
+  margin-top: 1.15rem;
+  box-shadow: 4px 4px 0px #1E293B;
+}
+
+.intervention-search-input {
+  border: 2px solid #1E293B;
+  border-radius: 999px;
+  padding: 0.55rem 1.25rem;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  width: 280px;
+  box-sizing: border-box;
+}
+
+.status-filter-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.status-pill-btn {
+  border: 2px solid #1E293B;
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  background-color: #FFFFFF;
+  color: #1E293B;
+  cursor: pointer;
+  box-shadow: 2px 2px 0px #1E293B;
+  transition: all 120ms ease;
+}
+
+.status-pill-btn:hover,
+.status-pill-btn.active {
+  background-color: #EDE9FE;
+  color: #8B5CF6;
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px #1E293B;
+}
+
+.status-pill-btn.active {
+  background-color: #8B5CF6 !important;
+  color: #FFFFFF !important;
+}
+
+.intervention-records-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.record-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.record-card-top-accent {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 6px;
+  border-radius: 17px 17px 0 0;
+}
+
+.record-card-top-accent.level-accent-green { background-color: #10B981; }
+.record-card-top-accent.level-accent-amber { background-color: #F59E0B; }
+.record-card-top-accent.level-accent-red { background-color: #EF4444; }
+
+.record-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+}
+
+.record-id-tag {
+  font-family: monospace;
+  font-weight: 900;
+  color: #64748B;
+  font-size: 0.72rem;
+}
+
+.record-status-badge {
+  font-size: 0.68rem;
+  font-weight: 900;
+  border: 1.5px solid #1E293B;
+  border-radius: 6px;
+  padding: 1px 6px;
+  box-shadow: 1.5px 1.5px 0px #1E293B;
+}
+
+.record-status-badge.badge-active {
+  background-color: #ECFDF5;
+  color: #10B981;
+}
+
+.record-status-badge.badge-graduated {
+  background-color: #F5F3FF;
+  color: #8B5CF6;
+}
+
+.record-child-name {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #1E293B;
+}
+
+.record-general-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.record-general-info .span-2 {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.record-general-info strong {
+  color: #64748B;
+}
+
+.record-general-info span {
+  color: #1E293B;
+}
+
+.asd-level-tag {
+  font-size: 0.7rem;
+  font-weight: 900;
+  border: 1.5px solid #1E293B;
+  border-radius: 6px;
+  padding: 1px 8px;
+}
+
+.asd-level-tag.color-green { background-color: #D1FAE5; color: #065F46; }
+.asd-level-tag.color-amber { background-color: #FEF3C7; color: #92400E; }
+.asd-level-tag.color-red { background-color: #FEE2E2; color: #991B1B; }
+
+.record-progress-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  box-sizing: border-box;
+}
+
+.progress-labels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.progress-labels strong {
+  color: #64748B;
+}
+
+.progress-number {
+  font-weight: 900;
+  color: #1E293B;
+}
+
+.progress-bar-track-memphis {
+  height: 12px;
+  background-color: #F1F5F9;
+  border: 2px solid #1E293B;
+  border-radius: 999px;
+  box-shadow: 2px 2px 0px #1E293B;
+  overflow: hidden;
+}
+
+.progress-bar-fill-memphis {
+  height: 100%;
+  background-color: #8B5CF6; /* Violet progress */
+  border-radius: 999px;
+}
+
+.record-objectives-section {
+  font-size: 0.78rem;
+}
+
+.objectives-title {
+  margin: 0 0 0.35rem 0;
+  font-weight: 900;
+  color: #1E293B;
+  text-transform: uppercase;
+}
+
+.objectives-bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.objectives-bullet-list li {
+  font-weight: 800;
+  color: #334155;
+  line-height: 1.35;
+}
+
+.record-note-box {
+  background-color: #F8FAFC;
+  border: 2px solid #1E293B;
+  border-radius: 12px;
+  padding: 0.65rem 0.85rem;
+  box-sizing: border-box;
+}
+
+.note-box-title {
+  margin: 0 0 0.2rem 0;
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: #64748B;
+  text-transform: uppercase;
+}
+
+.note-box-content {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.record-action-btn {
+  margin-top: auto;
+  background-color: #FFFFFF !important;
+  color: #1E293B !important;
+  border: 2px solid #1E293B !important;
+  border-radius: 999px !important;
+  padding: 0.6rem 0.85rem !important;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 0.78rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 120ms ease;
+  box-shadow: 3px 3px 0px #1E293B !important;
+}
+
+.record-action-btn:hover {
+  background-color: #EDE9FE !important;
+  transform: translate(-1.5px, -1.5px) !important;
+  box-shadow: 4.5px 4.5px 0px #1E293B !important;
+}
+
+/* 9. Responsive layout for Staff Portal */
+@media (max-width: 1024px) {
+  .weekly-columns-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .weekly-day-column {
+    min-height: 480px;
+  }
+}
+
+@media (max-width: 900px) {
+  /* Sidebar co lại thành thanh ngang cuộn */
+  .staff-sidebar-tab-btn {
+    white-space: nowrap !important;
+  }
+  
+  .intervention-records-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .weekly-columns-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+  }
+  
+  .weekly-day-column {
+    min-height: auto;
+  }
+  
+  .weekly-day-slots-list {
+    min-height: 120px;
+  }
+  
+  .ticket-horizontal-content-layout {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  .intervention-toolbar-board {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .intervention-search-input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .weekly-day-column {
+    border-radius: 12px;
+  }
+  
+  .weekly-day-slots-list {
+    padding: 0.55rem;
+  }
+  
+  .schedule-sync-btn,
+  .intervention-create-btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.75rem !important;
+  }
+  
+  .intervention-header-zone,
+  .schedule-header-zone {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+    text-align: center;
+  }
+}
+
+/* ==========================================================================
+   Fix CSS Layout & Bento Grid for Staff Portal clinical ticket & card ngoài
+   ========================================================================== */
+
+/* Sửa lỗi card ngoài danh sách chật chội, dính chữ */
+.appointment-card-details {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.72rem !important; /* Dãn cách dòng cực kỳ thoáng đãng */
+  margin: 1.15rem 0 0.85rem 0 !important;
+}
+
+.detail-row {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important; /* Đẩy hai bên cân đối */
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-size: 0.8rem !important;
+  line-height: 1.45 !important;
+  gap: 0.75rem !important;
+}
+
+.detail-label {
+  font-weight: 800 !important;
+  color: #475569 !important; /* Màu xám Slate đậm */
+  white-space: nowrap !important;
+}
+
+.detail-value {
+  font-weight: 800 !important;
+  color: #1E293B !important; /* Đen Slate tương phản */
+  text-align: right !important;
+}
+
+/* Thang đo bento-item cho Modal Chuyên gia */
+.ticket-details-bento-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0.75rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.ticket-details-bento-grid .bento-info-item {
+  background-color: #FFFFFF !important; /* Nền trắng sữa tương phản cao */
+  border: 2px solid #1E293B !important; /* Viền Slate 2px */
+  border-radius: 14px !important; /* Bo tròn mượt */
+  padding: 0.65rem 0.85rem !important;
+  box-shadow: 3.5px 3.5px 0px #1E293B !important; /* Đổ bóng Memphis */
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.2rem !important;
+  box-sizing: border-box !important;
+  transition: transform 120ms ease, box-shadow 120ms ease !important;
+}
+
+.ticket-details-bento-grid .bento-info-item:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 5px 5px 0px #1E293B !important;
+}
+
+.ticket-details-bento-grid .bento-info-item.span-2 {
+  grid-column: span 2 !important;
+}
+
+.ticket-details-bento-grid .bento-label {
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-size: 0.68rem !important;
+  font-weight: 800 !important;
+  color: #64748B !important; /* Xám mát nhạt */
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
+}
+
+.ticket-details-bento-grid .bento-val {
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-size: 0.8rem !important;
+  font-weight: 900 !important;
+  color: #1E293B !important;
+  line-height: 1.35 !important;
+}
+
+/* Sửa lỗi trong suốt cho Modal Vé Hẹn Chuyên Gia */
+.horizontal-ticket-shell {
+  width: min(780px, calc(100% - 2rem)) !important;
+  max-height: none !important;
+  overflow-y: visible !important;
+  height: auto !important;
+  padding: 1.8rem 2rem !important;
+  background-color: #FFFDF5 !important; /* Nền giấy kem ấm áp */
+  border: 3px solid #1E293B !important; /* Viền đen Slate 3px dày dặn */
+  box-shadow: 12px 12px 0px #1E293B !important; /* Bóng đổ cứng 3D Memphis */
+  border-radius: 28px !important; /* Bo góc rộng rãi */
+  position: relative !important;
+  z-index: 100000 !important;
+  box-sizing: border-box !important;
+}
+
+/* Sửa lỗi card ngoài danh sách chật chội, dính chữ ở Staff Portal */
+.appointment-sticker-grid .staff-apt-card .appointment-card-details {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.8rem !important;
+  margin: 1.2rem 0 0.8rem 0 !important;
+}
+
+.appointment-sticker-grid .staff-apt-card .detail-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-size: 0.8rem !important;
+  gap: 0.75rem !important;
+}
+
+.appointment-sticker-grid .staff-apt-card .detail-label {
+  font-weight: 800 !important;
+  color: #475569 !important; /* Xám Slate đậm */
+  white-space: nowrap !important;
+  display: inline-block !important;
+}
+
+.appointment-sticker-grid .staff-apt-card .detail-value {
+  font-weight: 800 !important;
+  color: #1E293B !important; /* Đen Slate tương phản */
+  text-align: right !important;
+  display: inline-block !important;
+  word-break: break-word !important;
+}
+
+/* Hiển thị lỗ khuyết vé tròn lẹm sườn chân thực cho Chuyên gia */
+.horizontal-ticket-shell .ticket-punch-left,
+.horizontal-ticket-shell .ticket-punch-right {
+  position: absolute !important;
+  top: 145px !important; /* Căn chỉnh hoàn hảo với dashed tear line */
+  width: 30px !important;
+  height: 30px !important;
+  background-color: rgba(15, 23, 42, 0.65) !important; /* Trùng khớp với overlay mờ phía sau */
+  border: 3px solid #1E293B !important;
+  border-radius: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 100010 !important;
+}
+
+.horizontal-ticket-shell .ticket-punch-left {
+  left: -15px !important;
+}
+
+.horizontal-ticket-shell .ticket-punch-right {
+  right: -15px !important;
+}
+
+/* Định kiểu cho Bento Details Grid của Chuyên gia */
+.horizontal-ticket-shell .ticket-details-grid {
+  background: #FFFFFF !important;
+  border: 3px solid #1E293B !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0.85rem !important;
+  padding: 1.25rem !important;
+  border-radius: 20px !important;
+  box-sizing: border-box !important;
+}
+
+/* Các sticker bọc trắng sữa cho từng trường chi tiết của vé Chuyên gia */
+.horizontal-ticket-shell .appointment-modal-info-item {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.35rem !important;
+  background: #F8FAFC !important;
+  border: 2px solid #1E293B !important;
+  border-radius: 12px !important;
+  padding: 0.75rem 0.95rem !important;
+  box-shadow: 2px 2px 0px #1E293B !important;
+  box-sizing: border-box !important;
+  text-align: left !important;
+  transition: transform 150ms ease, box-shadow 150ms ease !important;
+}
+
+.horizontal-ticket-shell .appointment-modal-info-item:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+}
+
+.horizontal-ticket-shell .appointment-modal-info-item.span-two {
+  grid-column: span 2 !important;
+}
+
+.horizontal-ticket-shell .appointment-modal-info-label {
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-size: 0.72rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  color: #64748B !important;
+  letter-spacing: 0.3px !important;
+  display: block !important;
+  margin-bottom: 0.15rem !important;
+}
+
+.horizontal-ticket-shell .appointment-modal-info-value {
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-size: 0.88rem !important;
+  font-weight: 800 !important;
+  color: #1E293B !important;
+  display: block !important;
+  word-break: break-word !important;
+}
+
+/* Căn chỉnh Modal Footer Actions cho Chuyên gia */
+.horizontal-ticket-shell .ticket-actions-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 1.2rem 0 0 0 !important;
+  border-top: none !important;
+  gap: 1rem !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Sửa lỗi nút Đóng Cửa Sổ thô ở modal Chuyên gia */
+.horizontal-ticket-shell .ticket-close-candy {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.72rem 1.65rem !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-size: 0.82rem !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  color: #1E293B !important;
+  background-color: #FFFFFF !important;
+  border: 3px solid #1E293B !important;
+  border-radius: 999px !important; /* Pill-shape */
+  box-shadow: 4px 4px 0px #1E293B !important; /* Memphis hard shadow */
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  transition: transform 120ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 120ms cubic-bezier(0.34, 1.56, 0.64, 1), background-color 120ms ease !important;
+}
+
+.horizontal-ticket-shell .ticket-close-candy:hover {
+  background-color: #F1F5F9 !important;
+  transform: translate(-3px, -3px) !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+}
+
+.horizontal-ticket-shell .ticket-close-candy:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 2px 2px 0px #1E293B !important;
 }
 
 

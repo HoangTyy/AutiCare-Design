@@ -7,6 +7,7 @@ import ToolAssessmentPage from './components/assessment/ToolAssessmentPage'
 import AuthModal from './components/auth/AuthModal'
 import UserProfilePage from './components/profile/UserProfilePage'
 import type { UserProfile } from './components/profile/UserProfilePage'
+import StaffProfilePage from './components/profile/staff/StaffProfilePage'
 import ProfileModal from './components/homepage/ProfileModal'
 import ParentInvoicesModal from './components/homepage/ParentInvoicesModal'
 import ParentSupportTicketsModal from './components/homepage/ParentSupportTicketsModal'
@@ -27,7 +28,7 @@ import FloatingNav from './components/homepage/FloatingNav'
 import './App.css'
 
 type Language = 'vi' | 'en'
-type View = 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment' | 'profile' | 'centers'
+type View = 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment' | 'profile' | 'centers' | 'staff-profile'
 
 const translations = {
   vi: {
@@ -418,6 +419,18 @@ function App() {
           setUserProfile(updatedProfile);
           setCurrentUserName(updatedProfile.full_name);
         }}
+        onViewChange={(newView) => setView(newView)}
+      />
+    )
+  }
+
+  if (view === 'staff-profile') {
+    return (
+      <StaffProfilePage
+        lang={lang}
+        setLang={setLang}
+        onBack={() => setView('landing')}
+        onViewChange={(newView) => setView(newView)}
       />
     )
   }

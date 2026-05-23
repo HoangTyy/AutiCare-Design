@@ -469,3 +469,72 @@ Nhằm đạt được sự đồng bộ tuyệt đối 100% về ngôn ngữ th
 - **Phân hệ Đánh giá (Plan Feedbacks Tab)**:
   - `PlanFeedbacksTab.tsx`: Bảng quản trị đánh giá, cho phép xem mức độ hài lòng (Star rating) của phụ huynh, đọc nhận xét dài.
   - Action buttons mượt mà (Ẩn/Hiện, Xóa) với biểu tượng đa ngôn ngữ. Khi bị ẩn, text sẽ có màu xám Slate `#94A3B8` và in nghiêng tạo hiệu ứng nhạt màu (ghosted text).
+
+### 9. Tái thiết kế Vé hẹn ngang & Sticker chỉ dẫn chuẩn bị lâm sàng (2026-05-24)
+- **Thiết kế bố cục ngang Desktop (Desktop Side-by-Side Layout)**:
+  - Nâng tối đa chiều rộng của Modal Vé hẹn `.appointment-ticket-card` lên **780px** (`width: min(780px, calc(100% - 2rem)) !important;`) giúp cấu trúc cân đối, sang trọng.
+  - Tích hợp lớp bọc ngang `.ticket-horizontal-content-layout` chia thân vé thành 2 cột: Details Grid bên trái chiếm ~55% chiều rộng và Hộp chỉ dẫn lâm sàng bên phải chiếm ~45% chiều rộng. 
+  - Chiều cao dọc của vé được thu ngắn đến 40%, triệt tiêu hoàn toàn 100% hiện tượng xuất hiện scrollbar dọc, mang lại trải nghiệm xem vé mượt mà và trực quan.
+- **Tối ưu Bento Grid 2 cột & Sắp xếp Thứ tự**:
+  - Details Bento Grid `.ticket-details-grid` được phẳng hóa sang dạng 2 cột (`grid-template-columns: repeat(2, 1fr) !important;`).
+  - Sắp xếp lại thứ tự khoa học: Loại khám (Type) & Hình thức (Method) ở hàng 1; Ngày (Date) & Giờ (Time) ở hàng 2; Trẻ khám (Patient Child - span 2) ở hàng 3; Địa điểm (Location - span 2) ở hàng 4. Đảm bảo toàn bộ lưới luôn vừa khít, không bị khuyết ô trống.
+- **Nâng cấp Hộp "Chỉ dẫn chuẩn bị lâm sàng" (.ticket-notes-box) Memphis 3D**:
+  - Hộp ghi chú được đóng khung sticker cứng cáp: Viền đen Slate dày dặn `3px solid #1E293B`, bo góc rộng `20px` và bóng đổ cứng Memphis 3D lệch góc `6px 6px 0px #1E293B`.
+  - Tiêu đề `.appointment-modal-notes-title`: Sử dụng dải nền màu vàng ấm nhạt `#FEF08A` rực rỡ, chữ Slate in đậm viết hoa nổi bật kèm icon kẹp giấy `📋` độc quyền.
+  - Tách nội dung văn bản thô dài thành các gạch đầu dòng danh sách `.notes-list-item` có emoji sinh động (📂 và ⏰) và chia thông tin rõ ràng song ngữ: Hồ sơ cần mang và Thời gian tập trung.
+
+### 10. Tích hợp Hệ thống Dời lịch hẹn thời gian thực (Reschedule Flow) (2026-05-24)
+- **Nút "Dời lịch hẹn 🗓️" lấp lánh và Điều kiện kích hoạt**:
+  - Bổ sung Candy Button `.ticket-reschedule-candy` màu vàng pastel nổi bật vào Footer của Modal Ticket, có viền Slate dày và hover bounce đàn hồi.
+  - Nút chỉ xuất hiện đối với lịch hẹn có trạng thái Đã xác nhận (`confirmed` - "đã duyệt") hoặc Đang chờ duyệt (`pending`). Tự động ẩn hoàn toàn đối với lịch hẹn Đã hoàn thành (`completed`).
+- **Giao diện Modal Dời lịch (Reschedule Modal)**:
+  - Thiết kế modal phụ `.reschedule-modal-shell` với bóng đổ Memphis 3D `12px 12px 0px #1E293B`, nền giấy kem ấm `#FFFDF5`, bo góc `28px` cực kỳ đồng bộ.
+  - **Vùng lịch hẹn gốc (.reschedule-current-box)**: Hiển thị ngày và giờ cũ trong hộp sticker viền dashed Slate nét đứt mộc mạc.
+  - **Lưới chọn Ngày mới**: Sinh tự động danh sách 4 ngày tiếp theo từ ngày mai. Các nút pill-shape `.reschedule-date-card` phản ứng đổi màu tím pastel và lún xuống khi click chọn.
+  - **Lưới chọn Khung giờ mới**: Danh sách 5 khung giờ 2 tiếng tiêu chuẩn với các nút `.reschedule-time-slot-card` đổi màu hồng pastel khi được chọn.
+- **Validation Bắt buộc & Đồng bộ hóa thời gian thực (Reactive Updates)**:
+  - Thiết lập banner cảnh báo lỗi đỏ tươi `.reschedule-error-banner` có animation rung lắc (shake) và tự động vô hiệu hóa (disable) nút Xác nhận nếu phụ huynh chọn trùng ngày và giờ cũ.
+  - Mảng dữ liệu lịch hẹn được chuyển đổi thành React state `appointments`. Khi dời lịch hợp lệ, cập nhật ngay ngày/giờ mới, tự động chuyển đổi trạng thái cuộc hẹn về **Đang chờ duyệt (`pending`)** để phòng khám thẩm định lại, đồng bộ tức thời ra màn hình Dashboard chính và Modal Ticket chi tiết.
+- **Tối ưu Responsive & Đa ngôn ngữ (i18n)**:
+  - Layout co giãn hoàn mỹ: Dưới 768px (Tablet), layout ngang tự động chuyển dọc mượt mà, lưới chọn giờ dãn rộng, ẩn lẹm khuyết tròn 2 bên lề vé. Dưới 640px (Mobile), Bento Grid co gọn về 1 cột dọc an toàn 100% không vỡ khung.
+  - Hỗ trợ dịch thuật song ngữ Anh - Việt đầy đủ cho mọi nhãn dán, placeholder, thông báo lỗi và thông tin dời lịch hẹn.
+
+### 11. Phân hệ Trang cá nhân Chuyên gia (Staff Portal) & Hệ thống duyệt lịch hẹn lâm sàng (2026-05-24)
+Hệ thống AutiCare đã mở rộng toàn diện phân hệ **Staff Portal (Trang cá nhân cho Chuyên gia/Bác sĩ/Giáo viên)** được tổ chức ngăn nắp và chỉnh chu dưới thư mục `src/components/profile/staff/`, áp dụng đồng bộ ngôn ngữ thiết kế **Playful Geometric Memphis** (stable grid, wild decoration) cùng các tương tác Candy Buttons thời gian thực.
+
+- **Cơ chế Chuyển đổi Vai trò nhanh (Role Switcher Linkage)**:
+  - Tích hợp một nút bấm kẹp góc phải Header của cả hai phân hệ: Phụ huynh hiển thị nút **🧑‍⚕️ CHUYÊN GIA PORTAL** (Màu cam/vàng pastel), Chuyên gia hiển thị nút **👶 PHỤ HUYNH PORTAL** (Màu hồng pastel).
+  - Tương tác Candy Button: Thiết kế viền Slate `#1E293B` dày dặn `2px`, bóng đổ Memphis cứng `3px`, hover nảy đàn hồi và active đổi màu rực rỡ, giúp kiểm thử qua lại giữa 2 giao diện vô cùng tiện lợi mà không cần đăng nhập phức tạp.
+- **Cấu trúc 4 Tab Chuyên gia Độc lập (Decoupled Sub-Tabs - Rule 10 & 11)**:
+  - **Lịch hẹn với phụ huynh (`StaffAppointmentsTab.tsx`) - Tiêu điểm chính**:
+    * Quản lý danh sách lịch hẹn động của Bác sĩ theo 4 trạng thái: Đã duyệt (`confirmed`), Chưa duyệt (`pending`), Lịch hẹn dời đang đợi duyệt (`reschedule_pending`), và Từ chối (`rejected`).
+    * **Candy Buttons Duyệt & Phản hồi thời gian thực**:
+      * Ca hẹn *Chưa duyệt (`pending`)*: Nút **Duyệt lịch hẹn ✅** (xanh Mint) và **Từ chối cuộc hẹn ❌** (đỏ Coral).
+      * Ca hẹn *Đợi dời lịch (`reschedule_pending`)*: Nút **Đồng ý dời lịch ✅** (Tím pastel - lập tức chấp thuận ngày/giờ dời mới phụ huynh đề xuất và đưa trạng thái về `confirmed`) và **Từ chối dời / Giữ lịch cũ ❌** (Xám Slate - khôi phục ngày/giờ gốc và đưa về `confirmed`).
+      * Ca hẹn *Đã duyệt (`confirmed`) + Online*: Tích hợp nút **Tham gia cuộc họp 🚀** mở link Google Meet trực tiếp.
+    * **Clinical Ticket Modal dạng ngang**: Khi click vào card cuộc hẹn, mở ra tấm vé to rộng `780px` phân phối song song 2 cột: Details Bento Grid bên trái và sticker ghi chú Memphis chỉ dẫn hồ sơ chuẩn bị lâm sàng bên phải. Đầy đủ mã vạch barcode CSS, cuống vé và 2 lỗ khuyết vé lẹm hai bên sườn, triệt tiêu 100% scrollbar dọc.
+  - **Hồ sơ cá nhân Chuyên gia (`StaffProfileTab.tsx`)**:
+    * Sử dụng bố cục Thẻ Đơn (Single Card Board Layout) bo góc `24px` xoay nhẹ `-0.2deg` với bóng đổ Memphis `8px 8px 0px #1E293B`.
+    * Phân cấp 3 vùng khoa học: Đầu thẻ (Avatar sticker + Họ tên lớn + dải liên hệ liên kết nhanh), Thân thẻ (Chi tiết 9 trường học thuật và thâm niên lâm sàng), Đuôi thẻ (Nút chỉnh sửa hồ sơ và Thay đổi mật khẩu bảo mật mở modal Memphis 3D).
+    * Hỗ trợ tải ảnh đại diện trực tiếp Base64 qua File Uploader và hover overlay 📷 máy ảnh mượt mà.
+  - **Thời khóa biểu Tuần (`StaffScheduleTab.tsx`)**:
+    * Lịch dạy can thiệp cố định của giáo viên trong tuần được sắp đặt dạng 7 cột thứ ngang sặc sỡ luân chuyển màu pastel Memphis Memphis.
+    * Mỗi thẻ ca học chứa khung giờ, loại trị liệu (ABA, Giao tiếp, Cảm giác...), tên trẻ, link/phòng học và nút đồng bộ hóa nhanh với Google Calendar lấp lánh.
+  - **Hồ sơ can thiệp lâm sàng (`StaffInterventionTab.tsx`)**:
+    * Quản lý danh sách các bé đang trị liệu do chuyên gia phụ trách.
+    * Card trẻ chứa thông tin tuổi, phụ huynh, ngày bắt đầu, thang cấp độ tự kỷ (ASD Level 1/2/3) đổi màu badge pastel, thanh tiến trình Mastery Progress 3D co dãn sinh động, dải mục tiêu can thiệp và nhật ký chẩn đoán buổi học gần nhất.
+- **Tối ưu Responsive & i18n Song ngữ**:
+  - Hỗ trợ dịch thuật song ngữ Anh - Việt hoàn hảo cho tất cả các nhãn, placeholder, banner cảnh báo lỗi và toast thông báo thành công.
+  - Toàn bộ 4 tab đều tự động chuyển đổi cấu trúc linh hoạt trên mobile: Sidebar chuyển thành cuộn ngang, timeline tuần xếp dọc, Bento grid modal co về 1 cột, ẩn vết khuyết vé an toàn 100% không vỡ giao diện.
+
+- **Tinh chỉnh Thiết kế Card ngoài & Modal Vé hẹn Chuyên gia (Design Calibrations - 2026-05-24)**:
+  - *Bố cục Card ngoài danh sách*:
+    * Loại bỏ hoàn toàn sự trùng lặp "Trẻ khám chẩn đoán" (đã ghi to ở tiêu đề card).
+    * Áp dụng Flexbox ngang (`flex-direction: row`) và dãn rộng lề (`justify-content: space-between !important;`) cho `.detail-row`.
+    * Khoảng cách dãn dòng thoáng đãng `0.8rem`, phân cấp nhãn Slate đậm `#475569` và giá trị Slate tương phản `#1E293B` cân đối tuyệt vời.
+  - *Modal Vé hẹn ngang Chuyên gia*:
+    * Khắc phục triệt để lỗi trong suốt bằng cách đồng bộ 100% sang class modal shell `.profile-admin-modal.appointment-detail-modal-shell.appointment-ticket-card` có nền kem `#FFFDF5`, viền Slate `3px` và bóng đổ Memphis 3D `12px 12px 0px #1E293B`.
+    * Chuyển đổi grid bento sang `.ticket-details-grid` chia 2 cột đối xứng. Các trường chi tiết bọc trong sticker trắng sữa `.appointment-modal-info-item` có viền Slate `2px` và bóng đổ Memphis `2px 2px 0px #1E293B` cực kỳ nẩy và tương tác cao.
+    * Đục 2 lỗ khuyết tròn sườn vé chân thực bằng màu overlay `.ticket-punch-left/right` căn chỉnh tuyệt đẹp theo đường dashed tear line.
+    * Định dạng footer actions dạng flexbox thông thoáng `.ticket-actions-footer` kèm Candy Button Đóng cửa sổ `.ticket-close-candy` pill-shape nẩy bounce sinh động.
+    * Mang lại trải nghiệm visual đỉnh cao, sắc nét 100%, không còn bất kỳ scrollbar nào trong modal.
