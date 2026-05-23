@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export interface PhaseActivity {
+export interface ObjectiveActivity {
   activity_id: number;
   plan_phase_id: number;
   activity_name: string;
@@ -13,9 +13,12 @@ export interface PhaseObjective {
   objective_id: number;
   plan_phase_id: number;
   objective_name: string;
-  target_score: string;
-  description: string;
-  status: 'Active' | 'Inactive';
+  target_date: string;
+  activities?: ObjectiveActivity[];
+  status: 'Completed' | 'In process';
+  created_at: string;
+  updated_at: string;
+  deleted_at?: string;
 }
 
 export interface PlanPhase {
@@ -30,7 +33,6 @@ export interface PlanPhase {
   created_at: string;
   updated_at: string;
   deleted_at?: string;
-  activities: PhaseActivity[];
   objectives: PhaseObjective[];
 }
 
@@ -86,7 +88,7 @@ const translations = {
     active: "Hoạt động",
     inactive: "Tạm ngưng",
     noData: "Chưa có thông tin",
-    
+
     // Phase translation
     phasesTitle: "Quản lý các Giai đoạn kế hoạch (Plan Phases)",
     phaseList: "Danh sách Giai đoạn",
@@ -102,30 +104,30 @@ const translations = {
     backToPhases: "← Trở lại danh sách giai đoạn",
     deletedAt: "Ngày xóa",
     isDeleted: "Đã xóa",
-    
+
     // Sub tabs inside Phase Detail
     tabOverview: "Tổng quan giai đoạn",
     tabActivities: "Hoạt động can thiệp (Activities)",
     tabObjectives: "Mục tiêu hành vi (Objectives)",
-    
+
     // Modal Edit plan
     editPlanTitle: "Chỉnh sửa thông tin Kế hoạch",
     confirmDeletePlan: "Bạn có chắc chắn muốn xóa kế hoạch can thiệp này?",
     confirmDeletePlanSub: "Mọi dữ liệu về các giai đoạn, hoạt động liên quan sẽ bị xóa vĩnh viễn và không thể khôi phục.",
-    
+
     // Phase Modal
     createPhaseTitle: "Thêm giai đoạn mới",
     updatePhaseTitle: "Cập nhật Giai đoạn",
     confirmDeletePhase: "Bạn có chắc chắn muốn xóa giai đoạn này?",
     deleteSub: "Hành động này không thể hoàn tác và sẽ xóa vĩnh viễn mục này.",
-    
+
     // Buttons
     cancel: "Hủy bỏ",
     save: "Lưu thay đổi",
     create: "Thêm mới",
     success: "Thao tác thành công!",
     confirmDelete: "Xác nhận xóa",
-    
+
     // CRUD Activity
     actTitle: "Quản lý hoạt động can thiệp",
     addAct: "Thêm hoạt động",
@@ -136,7 +138,7 @@ const translations = {
     createActTitle: "Thêm hoạt động mới",
     editActTitle: "Cập nhật hoạt động",
     confirmDeleteAct: "Xóa hoạt động này?",
-    
+
     // CRUD Objective
     objTitle: "Quản lý mục tiêu hành vi",
     addObj: "Thêm mục tiêu",
@@ -172,7 +174,7 @@ const translations = {
     active: "Active",
     inactive: "Inactive",
     noData: "No data",
-    
+
     // Phase translation
     phasesTitle: "Manage plan phase",
     phaseList: "Phase List",
@@ -188,30 +190,30 @@ const translations = {
     backToPhases: "← Back to Phase List",
     deletedAt: "Deleted At",
     isDeleted: "Is Deleted",
-    
+
     // Sub tabs inside Phase Detail
     tabOverview: "Phase Overview",
     tabActivities: "Manage activity",
     tabObjectives: "Manage objective",
-    
+
     // Modal Edit plan
     editPlanTitle: "Edit Plan Information",
     confirmDeletePlan: "Are you sure you want to delete this intervention plan?",
     confirmDeletePlanSub: "All phases, activities, and objectives related to this plan will be permanently deleted.",
-    
+
     // Phase Modal
     createPhaseTitle: "Create Plan Phase",
     updatePhaseTitle: "Update Plan Phase",
     confirmDeletePhase: "Are you sure you want to delete this phase?",
     deleteSub: "This action cannot be undone and will permanently delete this item.",
-    
+
     // Buttons
     cancel: "Cancel",
     save: "Save Changes",
     create: "Create",
     success: "Operation successful!",
     confirmDelete: "Confirm Delete",
-    
+
     // CRUD Activity
     actTitle: "Manage activities",
     addAct: "Create Activity",
@@ -222,13 +224,12 @@ const translations = {
     createActTitle: "Create New Activity",
     editActTitle: "Update Activity",
     confirmDeleteAct: "Delete this activity?",
-    
+
     // CRUD Objective
     objTitle: "Manage objectives",
     addObj: "Create Objective",
     objName: "Objective Name",
-    objTarget: "Target Score",
-    objDesc: "Objective Description",
+    objTarget: "Target date",
     noObj: "No objectives found in this phase.",
     createObjTitle: "Create New Objective",
     editObjTitle: "Update Objective",
@@ -268,6 +269,16 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
   const [isPhaseModalOpen, setIsPhaseModalOpen] = useState(false);
   const [phaseModalMode, setPhaseModalMode] = useState<'create' | 'update' | 'delete'>('create');
   const [selectedPhaseForEdit, setSelectedPhaseForEdit] = useState<PlanPhase | null>(null);
+
+  const [expandedObjId, setExpandedObjId] = useState(null);
+
+  const toggleExpandRow = (objectiveId) => {
+    if (expandedObjId === objectiveId) {
+      setExpandedObjId(null); // Đóng lại nếu click lần 2
+    } else {
+      setExpandedObjId(objectiveId); // Mở dòng được chọn
+    }
+  };
 
   // Phase Form Fields
   const [phaseName, setPhaseName] = useState('');
@@ -345,7 +356,6 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
         is_deleted: false,
         created_at: nowStr,
         updated_at: nowStr,
-        activities: [],
         objectives: []
       };
       updatedPhases.push(newPhase);
@@ -364,7 +374,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
         }
         return p;
       });
-      
+
       // Update selected detail view if active
       if (selectedPhase && selectedPhase.plan_phase_id === selectedPhaseForEdit.plan_phase_id) {
         setSelectedPhase(prev => prev ? {
@@ -408,8 +418,8 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
     setSelectedObj(obj);
     if (obj) {
       setObjName(obj.objective_name);
-      setObjTarget(obj.target_score);
-      setObjDesc(obj.description);
+      setObjDesc(obj.status)
+      setObjTarget(obj.target_date)
     } else {
       setObjName('');
       setObjTarget('');
@@ -429,16 +439,19 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
         objective_id: newId,
         plan_phase_id: selectedPhase.plan_phase_id,
         objective_name: objName,
-        target_score: objTarget,
-        description: objDesc,
-        status: 'Active'
+        target_date: objTarget,
+        activities: selectedObj?.activities,
+        status: 'In process',
+        created_at: '2016-02-02',
+        updated_at: '2016-02-02',
       });
     } else if (objModalMode === 'update' && selectedObj) {
       updatedObjs = updatedObjs.map(o => o.objective_id === selectedObj.objective_id ? {
         ...o,
         objective_name: objName,
-        target_score: objTarget,
-        description: objDesc
+        target_date: objTarget,
+        status: objDesc,
+        updated_at: '2016-02-02',
       } : o);
     } else if (objModalMode === 'delete' && selectedObj) {
       updatedObjs = updatedObjs.filter(o => o.objective_id !== selectedObj.objective_id);
@@ -1373,13 +1386,13 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
           }
         }
       `}</style>
-      
+
       {/* HEADER ACTION */}
       <div className="detail-navigation">
         <button className="back-btn-v2" onClick={onBack}>
           {t.backBtn}
         </button>
-        
+
         {!selectedPhase && (
           <div className="detail-action-group">
             <button className="edit-detail-btn-v2" onClick={() => setIsEditPlanOpen(true)}>
@@ -1506,9 +1519,9 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                   </thead>
                   <tbody>
                     {plan.phases.filter(p => !p.is_deleted).map((p) => (
-                      <tr 
-                        key={p.plan_phase_id} 
-                        className="phase-row" 
+                      <tr
+                        key={p.plan_phase_id}
+                        className="phase-row"
                         onClick={() => setSelectedPhase(p)}
                       >
                         <td className="cell-first">
@@ -1533,7 +1546,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                             {p.status === 'Active' ? t.active : t.inactive}
                           </span>
                         </td>
-                        <td 
+                        <td
                           className="cell-actions"
                           onClick={(e) => e.stopPropagation()}
                         >
@@ -1659,41 +1672,115 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                     <p>{t.noObj}</p>
                   </div>
                 ) : (
-                  <div className="cards-grid">
-                    {selectedPhase.objectives.map(obj => (
-                      <div key={obj.objective_id} className="item-card-v2">
-                        <div>
-                          <div className="item-card-header">
-                            <h5 className="item-card-title">{obj.objective_name}</h5>
-                            <span className="item-card-tag duration">
-                              🎯 {obj.target_score}
-                            </span>
-                          </div>
-                          <p className="item-card-desc">{obj.description}</p>
-                        </div>
-                        {/* SVG Action Buttons for Objectives */}
-                        <div className="item-card-actions">
-                          <button 
-                            className="edit-btn-v2" 
-                            title={t.editPhase || 'Sửa'}
-                            onClick={() => openObjModal('update', obj)}
-                          >
-                            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                              <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-                            </svg>
-                          </button>
-                          <button 
-                            className="delete-btn-v2" 
-                            title={t.deletePhase || 'Xóa'}
-                            onClick={() => openObjModal('delete', obj)}
-                          >
-                            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                              <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                    ))}
+                  <div className="table-responsive-v2" style={{ overflowX: 'auto', background: '#fff', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+                    <table className="objectives-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                      <thead>
+                        <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '2px solid #E2E8F0' }}>
+                          <th style={{ padding: '1rem', width: '40px' }}></th>
+                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569' }}>{t.objName || 'Tên mục tiêu'}</th>
+                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569', width: '120px', textAlign: 'center' }}>{'Target'}</th>
+                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569', width: '120px', textAlign: 'center' }}>{'Status'}</th>
+                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569', width: '100px', textAlign: 'right' }}>{'Actions'}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {selectedPhase.objectives.map(obj => {
+                          const isExpanded = expandedObjId === obj.objective_id;
+                          // Giả định dữ liệu activities đi kèm trong object hoặc fallback mảng rỗng
+                          const activities = obj.activities || [];
+
+                          return (
+                            <React.Fragment key={obj.objective_id}>
+                              {/* Dòng chính chứa Objective */}
+                              <tr
+                                className={`obj-main-row ${isExpanded ? 'active' : ''}`}
+                                style={{ borderBottom: '1px solid #E2E8F0', cursor: 'pointer', transition: 'background 0.2s' }}
+                                onClick={() => toggleExpandRow(obj.objective_id)}
+                              >
+                                {/* Mũi tên chỉ trạng thái đóng/mở */}
+                                <td style={{ padding: '1rem', textAlign: 'center', color: '#64748B' }}>
+                                  <span style={{ display: 'inline-block', transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                                    ▶
+                                  </span>
+                                </td>
+                                <td style={{ padding: '1rem', fontWeight: '500', color: '#1E293B' }}>
+                                  {obj.objective_name}
+                                </td>
+                                <td style={{ padding: '1rem', textAlign: 'center' }}>
+                                  <span className="item-card-tag duration" style={{ display: 'inline-block', padding: '0.25rem 0.5rem', background: '#F1F5F9', borderRadius: '4px', fontSize: '0.85rem' }}>
+                                    {obj.target_date}
+                                  </span>
+                                </td>
+                                <td style={{ padding: '1rem', textAlign: 'center' }}>
+                                  <span className="item-card-tag duration" style={{ display: 'inline-block', padding: '0.25rem 0.5rem', background: '#F1F5F9', borderRadius: '4px', fontSize: '0.85rem' }}>
+                                    {obj.status}
+                                  </span>
+                                </td>
+                                {/* Cột Action chặn sụp đổ dòng khi click nút bấm (stopPropagation) */}
+                                <td style={{ padding: '1rem', textAlign: 'right' }} onClick={(e) => e.stopPropagation()}>
+                                  <div className="item-card-actions" style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                                    <button
+                                      className="edit-btn-v2"
+                                      title={t.editPhase || 'Sửa'}
+                                      onClick={() => openObjModal('update', obj)}
+                                    >
+                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                                      </svg>
+                                    </button>
+                                    <button
+                                      className="delete-btn-v2"
+                                      title={t.deletePhase || 'Xóa'}
+                                      onClick={() => openObjModal('delete', obj)}
+                                    >
+                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </td>
+                              </tr>
+
+                              {/* Dòng phụ hiển thị danh sách Activity (Chỉ render khi dòng này được mở) */}
+                              {isExpanded && (
+                                <tr style={{ backgroundColor: '#F8FAFC' }}>
+                                  <td colSpan={4} style={{ borderBottom: '1px solid #E2E8F0' }}>
+                                    <div className="activity-section-wrapper" style={{ animation: 'fadeIn 0.2s ease-out' }}>
+
+                                      {activities.length === 0 ? (
+                                        <p style={{ margin: 0, color: '#94A3B8', fontSize: '0.85rem', italic: 'true' }}>
+                                          {'No activity found.'}
+                                        </p>
+                                      ) : (
+                                        <table className="activity-sub-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem', backgroundColor: '#ffffff', borderRadius: '6px', overflow: 'hidden', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
+                                          <thead>
+                                            <tr style={{ backgroundColor: '#EDF2F7', borderBottom: '1px solid #CBD5E1', color: '#4A5568' }}>
+                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', width: '20%' }}>{'Frequency'}</th>
+                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', width: '40%' }}>{'Descriptions'}</th>
+                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', width: '20%' }}>{'Satus'}</th>
+                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', width: '40%' }}>{'Actions'}</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {activities.map((act, index) => (
+                                              <tr key={act.activity_id || index} style={{ borderBottom: '1px solid #E2E8F0', color: '#475569' }}>
+                                                <td style={{ padding: '0.6rem 0.8rem', fontWeight: '500' }}>{act.activity_name}</td>
+                                                <td style={{ padding: '0.6rem 0.8rem', whiteSpace: 'pre-wrap' }}>{act.description}</td>
+                                                <td style={{ padding: '0.6rem 0.8rem', whiteSpace: 'pre-wrap' }}>{act.status}</td>
+                                              </tr>
+                                            ))}
+                                          </tbody>
+                                        </table>
+                                      )}
+                                    </div>
+                                  </td>
+                                </tr>
+                              )}
+                            </React.Fragment>
+                          );
+                        })}
+                      </tbody>
+                    </table>
                   </div>
                 )}
               </div>
@@ -1857,7 +1944,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
 
       {/* CRUD ACTIVITY MODAL (Removed per user request) */}
 
-      {/* CRUD OBJECTIVE MODAL */}
+      {/* CUD OBJECTIVE MODAL */}
       {isObjModalOpen && (
         <div className="modal-overlay" onClick={() => setIsObjModalOpen(false)}>
           <div className="admin-modal animate-in" onClick={(e) => e.stopPropagation()}>
@@ -1888,8 +1975,16 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                       <input required type="text" placeholder="Ví dụ: 80%, 4/5 lần, Đạt" value={objTarget} onChange={e => setObjTarget(e.target.value)} spellCheck="false" />
                     </div>
                     <div className="form-group form-group-full">
-                      <label>{t.objDesc}</label>
-                      <textarea required rows={3} value={objDesc} onChange={e => setObjDesc(e.target.value)} spellCheck="false" />
+                      <label>Status</label>
+                      <select
+                        required
+                        value={objDesc}
+                        onChange={e => setObjDesc(e.target.value)}
+                        style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #CBD5E1' }}
+                      >
+                        <option value="In process">In process</option>
+                        <option value="Completed">Completed</option>
+                      </select>
                     </div>
                   </div>
                 )}
@@ -1906,7 +2001,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
             </form>
           </div>
         </div>
-      )}
+      ) }
 
     </div>
   );
