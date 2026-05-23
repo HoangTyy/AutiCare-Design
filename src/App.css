@@ -8872,4 +8872,248 @@
   box-shadow: 2px 2px 0px #1E293B !important;
 }
 
+/* ==========================================================================
+   AutiCare Staff Intervention Analytics & 3D Charts (Memphis Playful)
+   ========================================================================== */
+.staff-intervention-analytics-board {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  margin: 1.5rem 0 2.2rem 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Bento grid metrics */
+.staff-stats-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.bento-stat-sticker {
+  background: #FFFFFF;
+  border: 3px solid #1E293B;
+  border-radius: 20px;
+  padding: 1.2rem;
+  box-shadow: 5px 5px 0px #1E293B;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.bento-stat-sticker:hover {
+  transform: translate(-3px, -3px) rotate(0.5deg);
+  box-shadow: 8px 8px 0px #1E293B;
+}
+
+.bento-stat-icon-wrapper {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 2px solid #1E293B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 2px 2px 0px #1E293B;
+  flex-shrink: 0;
+}
+
+/* Backgrounds pastel */
+.bento-stat-icon-wrapper.bg-blue-light { background-color: #EDE9FE; }
+.bento-stat-icon-wrapper.bg-green-light { background-color: #D1FAE5; }
+.bento-stat-icon-wrapper.bg-amber-light { background-color: #FEF3C7; }
+.bento-stat-icon-wrapper.bg-purple-light { background-color: #FCE7F3; }
+
+.bento-stat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.bento-stat-label {
+  font-size: 0.72rem;
+  color: #64748B;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.bento-stat-value {
+  font-size: 1.35rem;
+  color: #1E293B;
+  font-weight: 900;
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+/* 3D Mastery Chart Card */
+.staff-mastery-chart-card {
+  background: #FFFFFF;
+  border: 3px solid #1E293B;
+  border-radius: 24px;
+  padding: 1.6rem;
+  box-shadow: 6px 6px 0px #1E293B;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.chart-card-title {
+  margin: 0;
+  color: #1E293B;
+  font-size: 1.15rem;
+  font-weight: 900;
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.chart-card-subtitle {
+  margin: 4px 0 1.6rem 0;
+  color: #64748B;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.chart-3d-bars-container {
+  height: 240px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 1rem;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.chart-grid-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-bottom: 2px dashed #E2E8F0;
+  height: 0;
+  z-index: 0;
+}
+
+.chart-grid-line.line-75 { top: 25%; }
+.chart-grid-line.line-50 { top: 50%; }
+.chart-grid-line.line-25 { top: 75%; }
+
+.chart-bars-flex {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  z-index: 1;
+  position: relative;
+}
+
+.chart-bar-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.chart-bar-3d-wrap-element {
+  width: 32px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(-12deg) rotateY(-15deg);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.chart-bar-3d-wrap-element:hover {
+  transform: rotateX(-12deg) rotateY(-15deg) scaleY(1.05);
+}
+
+.bar-face-front {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #1E293B;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+.bar-value-label {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: #1E293B;
+  white-space: nowrap;
+}
+
+.bar-face-depth {
+  position: absolute;
+  bottom: 0;
+  right: -8px;
+  width: 8px;
+  height: 100%;
+  border: 2px solid #1E293B;
+  border-left: none;
+  transform: skewY(45deg);
+  transform-origin: left bottom;
+  box-sizing: border-box;
+}
+
+.bar-child-name {
+  font-size: 0.78rem;
+  color: #1E293B;
+  font-weight: 900;
+  margin-top: 10px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.bar-child-id {
+  font-size: 0.62rem;
+  color: #64748B;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
+/* Responsive constraints */
+@media (max-width: 1024px) {
+  .staff-stats-bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .staff-stats-bento-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+  
+  .chart-3d-bars-container {
+    height: 200px;
+    padding: 0;
+  }
+
+  .chart-bar-3d-wrap-element {
+    width: 24px;
+  }
+
+  .bar-child-name {
+    font-size: 0.7rem;
+  }
+  
+  .bar-value-label {
+    font-size: 0.65rem;
+  }
+}
+
 

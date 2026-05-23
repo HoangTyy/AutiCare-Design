@@ -1,5 +1,18 @@
 # Project Logs
 
+## [2026-05-24] - Thiết kế 3 Phân hệ Thống kê Trực quan (Statistics Portal) & Khắc phục Lỗi Cú pháp Center Profile
+- **Thiết kế Thống kê cá nhân hóa cho Chuyên gia trong `StaffInterventionTab.tsx`**:
+  * **Lưới chỉ số Bento (Bento Indicator Board)**: Bổ sung 4 sticker card trắng sữa Memphis ở đầu trang trị liệu, tính toán động các chỉ số: Tổng hồ sơ, Đang trị liệu, Đã tốt nghiệp và Mastery rate trung bình.
+  * **Biểu đồ cột 3D Mastery Progress**: Xây dựng biểu đồ 3D bar chart Memphis bằng HTML & CSS transform (rotate/skewY) tuyệt đẹp, đo lường tiến trình hoàn thành mục tiêu của từng bé. Cột có màu sắc đặc trưng của cấp độ ASD (Mức 1 = Xanh lá, Mức 2 = Vàng cam, Mức 3 = Hồng đỏ) và hiệu ứng hover đàn hồi mượt mà.
+  * **Song ngữ & Responsive**: Tích hợp từ điển dịch thuật Việt - Anh (i18n) hoàn chỉnh cho tất cả nhãn chỉ số và responsive co giãn linh hoạt trên di động (chuyển grid bento sang 1 cột, co nhỏ 3D bars).
+- **Khắc phục lỗi cú pháp & biên dịch trong `CenterDetailView.tsx`**:
+  * *Phát hiện lỗi*: Một cặp thẻ đóng `</div>` và `)}` dư thừa ở dòng 804-805 làm lệch toàn bộ cấu trúc đóng ngoặc của component, gây lỗi cú pháp nghiêm trọng `TS1128` (Declaration or statement expected).
+  * *Cách khắc phục*: Loại bỏ triệt để 2 dòng dư thừa này, khôi phục cấu trúc tab `overview` chuẩn chỉnh.
+  * *Xử lý lỗi TS6133*: Loại bỏ biến `color` khai báo nhưng không sử dụng ở dòng 1065 của danh sách hiệu suất nhân sự, giúp khôi phục bản build sản phẩm siêu sạch.
+- **Bổ sung CSS Memphis cao cấp trong `App.css`**:
+  * Viết hơn 200 dòng CSS Memphis định kiểu cho `.staff-stats-bento-grid`, `.bento-stat-sticker` có viền Slate `3px` và bóng đổ cứng `5px`, `.staff-mastery-chart-card` bóng đổ 3D `6px`, các mặt 3D columns `.bar-face-front/depth` và hiệu ứng hover elastic.
+- **Biên dịch sản phẩm thành công 100%**: Chạy lệnh `cmd.exe /c npm run build` biên dịch sạch sẽ không còn bất kỳ cảnh báo hay lỗi TypeScript nào trong **291ms**!
+
 ## [2026-05-24] - Tinh chỉnh Bố cục Card Lịch hẹn Chuyên gia & Khắc phục Triệt để Lỗi CSS Modal Vé Hẹn
 - **Tinh chỉnh Card Lịch hẹn Chuyên gia ngoài danh sách (Sticker Card Layout Polish)**:
   - *Vấn đề*: Nhãn (label) và giá trị (value) của các trường chi tiết ngoài card danh sách Chuyên gia bị dính liền thô kệch vào nhau, không có khoảng trống ngăn cách và chen chúc sát lề trái, gây khó nhìn.

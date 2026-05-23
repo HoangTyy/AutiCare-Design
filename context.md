@@ -538,3 +538,31 @@ Hệ thống AutiCare đã mở rộng toàn diện phân hệ **Staff Portal (T
     * Đục 2 lỗ khuyết tròn sườn vé chân thực bằng màu overlay `.ticket-punch-left/right` căn chỉnh tuyệt đẹp theo đường dashed tear line.
     * Định dạng footer actions dạng flexbox thông thoáng `.ticket-actions-footer` kèm Candy Button Đóng cửa sổ `.ticket-close-candy` pill-shape nẩy bounce sinh động.
     * Mang lại trải nghiệm visual đỉnh cao, sắc nét 100%, không còn bất kỳ scrollbar nào trong modal.
+
+### 12. Phân hệ Thống kê Trực quan (Statistics Portal) & Cải tiến Profile Center (2026-05-24)
+Hệ thống AutiCare đã tích hợp hoàn hảo 3 phân hệ thống kê trực quan cao cấp, được thiết kế đồng bộ theo phong cách **Playful Geometric Memphis** (viền đen Slate `3px` dày dặn, bóng đổ 3D offset cứng, màu nền giấy kem ấm áp `#FFFDF5` và sticker cards màu sắc sinh động).
+
+- **Thống kê Giám đốc Trung tâm (Director Stats Tab - CenterDetailView.tsx)**:
+  * **Widget Role Simulator**: Widget giả lập vai trò kẹp nút pill-shape viền Slate nổi bật ở đầu trang giúp System Admin dễ dàng chuyển đổi vai trò.
+  * **Tab khóa phân quyền (Security Lock Gate)**:
+    * Nếu vai trò hiện tại là Admin, tab này hiển thị icon khóa `🔒` và render sticker card cảnh báo bảo mật lớn, có icon ổ khóa wobble animation động và chỉ dẫn chi tiết.
+    * Khi chuyển vai trò sang Giám đốc trung tâm, tab sẽ lập tức mở khóa.
+  * **Biểu đồ Cột Doanh thu 3D Memphis**:
+    * Sử dụng CSS 3D transform (`preserve-3d`, `rotateX`, `rotateY`, và `skewY`) để vẽ các cột doanh thu 6 tháng có chiều sâu trục X/Y chân thực tuyệt đẹp.
+    * Cột mang màu sắc pastel rực rỡ kèm nhãn giá trị in đậm phía trên và đường kẻ ngang đứt nét (grid lines).
+  * **Biểu đồ Sóng Học viên Lượn Sóng SVG**:
+    * Vẽ biểu đồ lượn sóng SVG (`path` lượn sóng `Q` / `T`) biểu thị xu hướng nhập học mới (Màu tím Violet) và tốt nghiệp trị liệu (Màu xanh Mint đứt nét) vô cùng trực quan.
+    * Tích hợp pulse dots nhấp nháy chuyển động vô hạn tại các điểm đỉnh cực của biểu đồ.
+  * **Bảng Xếp hạng Hiệu suất Chuyên gia**:
+    * Danh sách Chuyên gia được xếp hạng bằng các sticker card trắng sữa nổi, có avatar emoji, thanh tiến trình 3D Mastery Rate, điểm hài lòng của phụ huynh (Sao ⭐️) và số giờ can thiệp.
+
+- **Thống kê cá nhân hóa cho Chuyên gia (Expert Stats - StaffInterventionTab.tsx)**:
+  * **Lưới chỉ số Bento (Bento Indicator Board)**:
+    * Bổ sung 4 sticker card trắng sữa Memphis ở đầu trang trị liệu, tính toán động các chỉ số: Tổng hồ sơ can thiệp, Đang trị liệu, Đã tốt nghiệp trị liệu, và Tỷ lệ hoàn thành mục tiêu trung bình (Mastery Rate).
+  * **Biểu đồ Cột 3D Mastery Progress**:
+    * Xây dựng biểu đồ 3D bar chart Memphis tuyệt đẹp đo lường tiến độ của từng trẻ (Gia Bảo: 78%, Hoàng Hải: 52%, Minh Đăng: 35%, Khánh Ngọc: 95%).
+    * Mỗi cột mang màu sắc đặc trưng của cấp độ ASD (Mức 1 = Xanh lá, Mức 2 = Vàng cam, Mức 3 = Hồng đỏ) có mặt bên sườn đổ bóng chiều sâu 3D chân thực, hover nảy bounce đàn hồi.
+
+- **Tối ưu Responsive & i18n Song ngữ**:
+  * Hỗ trợ dịch thuật song ngữ Anh - Việt hoàn hảo cho tất cả các nhãn báo cáo, tiêu đề biểu đồ, tooltip và nhãn chỉ số.
+  * Toàn bộ các phân hệ thống kê đều tự động chuyển đổi cấu trúc linh hoạt trên mobile: Lưới bento chuyển thành 1 cột dọc, co nhỏ các cột 3D bar chart, ẩn chiều sâu 3D trên mobile nếu màn hình quá nhỏ để đảm bảo 100% không vỡ khung.

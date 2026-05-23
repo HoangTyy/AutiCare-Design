@@ -59,6 +59,7 @@ const translations = {
     tabCategories: "Danh mục Bài tập",
     tabRoles: "Vai trò cơ sở",
     tabStaffs: "Nhân sự cơ sở",
+    tabDirectorStats: "Báo cáo Giám đốc 📊",
     overviewTitle: "Tổng quan Trung tâm",
     centerId: "Mã trung tâm",
     lblCenterName: "Tên trung tâm",
@@ -98,7 +99,27 @@ const translations = {
     statsChartDesc: "Biểu đồ ghi nhận số giờ can thiệp của trẻ và phân bổ các danh mục tập luyện trực quan.",
     exampleChartBadge: "Biểu đồ ví dụ",
     chartInterventions: "Số giờ can thiệp tích lũy theo tháng",
-    chartCategories: "Tỷ lệ phân bổ bài tập kỹ năng"
+    chartCategories: "Tỷ lệ phân bổ bài tập kỹ năng",
+    directorStatsTitle: "Thống kê & Tài chính Cơ sở (Director Analytics)",
+    directorStatsDesc: "Báo cáo thống kê doanh thu, lưu lượng học viên, hiệu suất nhân sự chuyên biệt của cơ sở.",
+    roleSimulatorTitle: "Giả lập Vai trò (Role Switcher):",
+    roleAdmin: "System Admin 👑",
+    roleDirector: "Giám đốc trung tâm 🧑‍💼",
+    lockedTabWarning: "🔒 Báo cáo chuyên sâu chỉ dành riêng cho Giám đốc Trung tâm này!",
+    lockedTabHint: "Vui lòng sử dụng bộ giả lập vai trò phía trên để chuyển đổi sang Giám đốc trung tâm để mở khóa thông tin.",
+    lblRevenue: "Doanh thu tích lũy 6 tháng gần nhất",
+    lblStudentTraffic: "Biến động học viên (Lưu lượng)",
+    lblStaffPerformance: "Bảng xếp hạng hiệu suất Chuyên gia",
+    lblPerformanceScore: "Tỷ lệ đạt mục tiêu:",
+    lblSatisfaction: "Hài lòng phụ huynh:",
+    lblHoursCompleted: "Giờ can thiệp:",
+    lblTopExpert: "Hiệu suất hoạt động:",
+    lblActiveStudents: "Nhập học mới",
+    lblGraduatedStudents: "Tốt nghiệp trị liệu",
+    lblRevenueVND: "Triệu VND",
+    lblTotalRevenue: "Tổng doanh thu tích lũy",
+    lblActiveCases: "Tổng ca đang học",
+    lblAvgSatisfaction: "Hài lòng trung bình"
   },
   en: {
     back: "Back to centers",
@@ -107,6 +128,7 @@ const translations = {
     tabCategories: "Exercise Categories",
     tabRoles: "Center Roles",
     tabStaffs: "Center Staffs",
+    tabDirectorStats: "Director Stats 📊",
     overviewTitle: "Center Overview",
     centerId: "Center ID",
     lblCenterName: "Center Name",
@@ -146,7 +168,27 @@ const translations = {
     statsChartDesc: "Interactive summary charts representing cumulative intervention hours and category distribution.",
     exampleChartBadge: "Example Chart",
     chartInterventions: "Cumulative monthly intervention hours",
-    chartCategories: "Skill category distribution ratio"
+    chartCategories: "Skill category distribution ratio",
+    directorStatsTitle: "Center Statistics & Finance (Director Analytics)",
+    directorStatsDesc: "Specialized reports representing revenue, student enrollment, and staff performance.",
+    roleSimulatorTitle: "Role Simulator (Switcher):",
+    roleAdmin: "System Admin 👑",
+    roleDirector: "Center Director 🧑‍💼",
+    lockedTabWarning: "🔒 Deep analytical reports are exclusive to the Center Director!",
+    lockedTabHint: "Please use the role switcher widget above to switch to Center Director to unlock this board.",
+    lblRevenue: "Revenue Cumulative Analysis (6 months)",
+    lblStudentTraffic: "Student Enrollment Traffic",
+    lblStaffPerformance: "Staff Performance & Mastery Board",
+    lblPerformanceScore: "Mastery Rate:",
+    lblSatisfaction: "Parent Satisfaction:",
+    lblHoursCompleted: "Clinical Hours:",
+    lblTopExpert: "Operational Score:",
+    lblActiveStudents: "New Enrollments",
+    lblGraduatedStudents: "Graduates",
+    lblRevenueVND: "Million VND",
+    lblTotalRevenue: "Total Revenue",
+    lblActiveCases: "Active Therapy Cases",
+    lblAvgSatisfaction: "Average Satisfaction"
   }
 };
 
@@ -160,7 +202,8 @@ const CenterDetailView: React.FC<CenterDetailViewProps> = ({
   onDeleteCenter
 }) => {
   const t = translations[lang];
-  const [activeSubTab, setActiveSubTab] = useState<'overview' | 'levels' | 'categories' | 'roles' | 'staffs'>('overview');
+  const [activeSubTab, setActiveSubTab] = useState<'overview' | 'levels' | 'categories' | 'roles' | 'staffs' | 'director_stats'>('overview');
+  const [userRole, setUserRole] = useState<'admin' | 'director'>('admin');
 
   // Edit center modal states
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -286,6 +329,78 @@ const CenterDetailView: React.FC<CenterDetailViewProps> = ({
         </div>
       </div>
 
+      {/* Role Simulator Widget: Memphis Playful 3D dashboard */}
+      <div 
+        className="role-simulator-widget"
+        style={{
+          background: '#FFFBEB',
+          border: '3px dashed #F59E0B',
+          borderRadius: '16px',
+          padding: '0.85rem 1.25rem',
+          marginBottom: '2rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '1rem',
+          boxShadow: '4px 4px 0px #1E293B',
+          boxSizing: 'border-box'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ fontSize: '1.25rem' }}>🧑‍💻</span>
+          <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#B45309', textTransform: 'uppercase', fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+            {t.roleSimulatorTitle}
+          </span>
+        </div>
+        <div style={{ display: 'flex', gap: '0.65rem' }}>
+          <button
+            type="button"
+            className={`simulator-role-btn ${userRole === 'admin' ? 'active' : ''}`}
+            onClick={() => {
+              setUserRole('admin');
+              if (activeSubTab === 'director_stats') {
+                setActiveSubTab('overview');
+              }
+            }}
+            style={{
+              padding: '6px 14px',
+              borderRadius: '999px',
+              border: '2px solid #1E293B',
+              fontSize: '0.78rem',
+              fontWeight: 800,
+              cursor: 'pointer',
+              background: userRole === 'admin' ? '#FBBF24' : '#FFFFFF',
+              boxShadow: userRole === 'admin' ? '2px 2px 0px #1E293B' : '1px 1px 0px #1E293B',
+              transform: userRole === 'admin' ? 'translateY(1px)' : 'none',
+              transition: 'all 100ms ease'
+            }}
+          >
+            {t.roleAdmin}
+          </button>
+          <button
+            type="button"
+            className={`simulator-role-btn ${userRole === 'director' ? 'active' : ''}`}
+            onClick={() => setUserRole('director')}
+            style={{
+              padding: '6px 14px',
+              borderRadius: '999px',
+              border: '2px solid #1E293B',
+              fontSize: '0.78rem',
+              fontWeight: 800,
+              cursor: 'pointer',
+              background: userRole === 'director' ? '#8B5CF6' : '#FFFFFF',
+              color: userRole === 'director' ? '#FFFFFF' : '#1E293B',
+              boxShadow: userRole === 'director' ? '2px 2px 0px #1E293B' : '1px 1px 0px #1E293B',
+              transform: userRole === 'director' ? 'translateY(1px)' : 'none',
+              transition: 'all 100ms ease'
+            }}
+          >
+            {t.roleDirector}
+          </button>
+        </div>
+      </div>
+
       {/* Sub-tab navigation */}
       <div
         className="sub-tab-navigation"
@@ -301,6 +416,7 @@ const CenterDetailView: React.FC<CenterDetailViewProps> = ({
       >
         {[
           { id: 'overview', icon: 'ℹ️', label: t.tabOverview },
+          { id: 'director_stats', icon: userRole === 'director' ? '📊' : '🔒', label: t.tabDirectorStats },
           { id: 'levels', icon: '🧩', label: t.tabLevels },
           { id: 'categories', icon: '📂', label: t.tabCategories },
           { id: 'roles', icon: '🛡️', label: t.tabRoles },
@@ -512,7 +628,6 @@ const CenterDetailView: React.FC<CenterDetailViewProps> = ({
                   <span style={{ fontSize: '1.2rem', color: 'white', fontWeight: 800 }}>{center.roles?.length || 0}</span>
                 </div>
               </div>
-
               {/* Bento stats grid inside dark card */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 <div style={{ background: 'rgba(255, 255, 255, 0.04)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '12px', padding: '1rem' }}>
@@ -526,162 +641,527 @@ const CenterDetailView: React.FC<CenterDetailViewProps> = ({
               </div>
             </div>
           </div>
+        </div>
+      )}
 
-          {/* Statistical Analysis Section */}
-          <div
-            className="statistical-analysis-section glass"
-            style={{
-              background: 'white',
-              border: '1px solid #E2E8F0',
-              borderRadius: '20px',
-              padding: '2rem',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.02)'
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-              <div>
-                <h3 style={{ margin: 0, color: '#0F172A', fontSize: '1.25rem', fontWeight: 800 }}>
-                  📊 {t.statsChartTitle}
-                </h3>
-                <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.85rem' }}>{t.statsChartDesc}</p>
-              </div>
-
-              {/* Pulsing Example Badge */}
-              <span
-                style={{
-                  background: 'rgba(13, 148, 136, 0.1)',
-                  border: '1px solid rgba(13, 148, 136, 0.3)',
-                  color: 'var(--primary)',
-                  fontSize: '0.75rem',
-                  fontWeight: 800,
-                  padding: '6px 12px',
-                  borderRadius: '20px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  boxShadow: '0 0 12px rgba(13, 148, 136, 0.15)',
-                  animation: 'pulseGlow 2s infinite ease-in-out'
+      {/* Render Director Stats Tab */}
+      {activeSubTab === 'director_stats' && (
+        <div className="director-stats-sub-tab" style={{ animation: 'fadeIn 0.3s ease-out' }}>
+          {userRole !== 'director' ? (
+            /* LOCKED STATE WARNING CARD */
+            <div 
+              className="profile-sticker-card locked-warning-card"
+              style={{
+                background: '#FFFFFF',
+                border: '3px solid #1E293B',
+                borderRadius: '24px',
+                padding: '3rem 2rem',
+                textAlign: 'center',
+                boxShadow: '10px 10px 0px #1E293B',
+                maxWidth: '640px',
+                margin: '2rem auto',
+                boxSizing: 'border-box'
+              }}
+            >
+              <div 
+                className="locked-wobble-icon" 
+                style={{ 
+                  fontSize: '4.2rem', 
+                  marginBottom: '1.25rem',
+                  display: 'inline-block',
+                  animation: 'wobble 2s infinite ease-in-out'
                 }}
               >
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary)' }}></span>
-                {t.exampleChartBadge}
-              </span>
+                🔒
+              </div>
+              <h3 style={{ margin: '0 0 0.85rem 0', color: '#EF4444', fontSize: '1.45rem', fontWeight: 900, fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+                {t.lockedTabWarning}
+              </h3>
+              <p style={{ margin: 0, color: '#475569', fontSize: '0.92rem', fontWeight: 800, lineHeight: 1.6 }}>
+                {t.lockedTabHint}
+              </p>
             </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2rem' }}>
-              {/* Chart 1: Column Bar Chart */}
-              <div style={{ border: '1px solid #F1F5F9', borderRadius: '16px', padding: '1.5rem', background: '#F8FAFC' }}>
-                <h4 style={{ margin: '0 0 1.5rem 0', color: '#1E293B', fontSize: '0.95rem', fontWeight: 700 }}>
-                  📈 {t.chartInterventions}
-                </h4>
-                
-                <div style={{ height: '220px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '0 10px', position: 'relative' }}>
-                  {/* Grid lines */}
-                  <div style={{ position: 'absolute', left: 0, right: 0, top: '25%', borderBottom: '1px dashed #E2E8F0', height: 0 }}></div>
-                  <div style={{ position: 'absolute', left: 0, right: 0, top: '50%', borderBottom: '1px dashed #E2E8F0', height: 0 }}></div>
-                  <div style={{ position: 'absolute', left: 0, right: 0, top: '75%', borderBottom: '1px dashed #E2E8F0', height: 0 }}></div>
-
-                  {[
-                    { month: 'T1', hours: 120, pct: '50%' },
-                    { month: 'T2', hours: 150, pct: '62%' },
-                    { month: 'T3', hours: 185, pct: '77%' },
-                    { month: 'T4', hours: 160, pct: '66%' },
-                    { month: 'T5', hours: 210, pct: '88%' },
-                    { month: 'T6', hours: 240, pct: '100%' }
-                  ].map((bar, idx) => (
-                    <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, zIndex: 1 }}>
-                      <div
-                        style={{
-                          width: '28px',
-                          height: 0,
-                          background: 'linear-gradient(to top, var(--primary) 0%, #2DD4BF 100%)',
-                          borderRadius: '6px 6px 0 0',
-                          boxShadow: '0 4px 10px rgba(13, 148, 136, 0.2)',
-                          transition: 'height 1s ease-out',
-                          animation: `growUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards ${idx * 0.1}s`,
-                          position: 'relative'
-                        }}
-                        className="chart-bar"
-                        data-value={`${bar.hours}h`}
-                      >
-                        {/* Hover Tooltip */}
-                        <span className="bar-tooltip">{bar.hours}h</span>
-                      </div>
-                      <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, marginTop: '8px' }}>{bar.month}</span>
-                    </div>
-                  ))}
-                </div>
+          ) : (
+            /* DIRECTOR DETAILED STATISTICS DASHBOARD */
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              
+              {/* Sticker Heading */}
+              <div 
+                className="director-stats-hero-banner"
+                style={{
+                  background: '#FFFFFF',
+                  border: '3px solid #1E293B',
+                  borderRadius: '20px',
+                  padding: '1.5rem 1.8rem',
+                  boxShadow: '6px 6px 0px #1E293B',
+                  boxSizing: 'border-box'
+                }}
+              >
+                <h3 style={{ margin: 0, color: '#1E293B', fontSize: '1.4rem', fontWeight: 900 }}>
+                  📊 {t.directorStatsTitle}
+                </h3>
+                <p style={{ margin: '6px 0 0 0', color: '#64748B', fontSize: '0.88rem', fontWeight: 700 }}>
+                  {t.directorStatsDesc}
+                </p>
               </div>
 
-              {/* Chart 2: SVG Area Wave Path Chart */}
-              <div style={{ border: '1px solid #F1F5F9', borderRadius: '16px', padding: '1.5rem', background: '#F8FAFC' }}>
-                <h4 style={{ margin: '0 0 1.5rem 0', color: '#1E293B', fontSize: '0.95rem', fontWeight: 700 }}>
-                  🧬 {t.chartCategories}
-                </h4>
+              {/* Bento Row 1: Revenue 3D Chart + Student Enrollment waves */}
+              <div 
+                className="director-charts-grid"
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+                  gap: '1.8rem'
+                }}
+              >
+                {/* 1. Doanh thu tích lũy 6 tháng */}
+                <div 
+                  className="director-chart-card"
+                  style={{
+                    background: '#FFFFFF',
+                    border: '3px solid #1E293B',
+                    borderRadius: '20px',
+                    padding: '1.5rem',
+                    boxShadow: '6px 6px 0px #1E293B',
+                    boxSizing: 'border-box'
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+                    <h4 style={{ margin: 0, color: '#1E293B', fontSize: '0.95rem', fontWeight: 900 }}>
+                      💰 {t.lblRevenue}
+                    </h4>
+                    <span className="revenue-avg-badge" style={{ background: '#EDE9FE', color: '#8B5CF6', border: '1.5px solid #1E293B', borderRadius: '6px', fontSize: '0.68rem', fontWeight: 800, padding: '2px 8px', boxShadow: '2px 2px 0px #1E293B' }}>
+                      +18.5% Q/Q
+                    </span>
+                  </div>
 
-                <div style={{ height: '220px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <svg viewBox="0 0 400 200" style={{ width: '100%', height: '100%' }}>
-                    <defs>
-                      <linearGradient id="waveGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.4" />
-                        <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.0" />
-                      </linearGradient>
-                    </defs>
+                  {/* 3D Memphis column bars */}
+                  <div style={{ height: '220px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '0 10px', position: 'relative' }}>
+                    <div style={{ position: 'absolute', left: 0, right: 0, top: '25%', borderBottom: '2px dashed #E2E8F0', height: 0 }}></div>
+                    <div style={{ position: 'absolute', left: 0, right: 0, top: '50%', borderBottom: '2px dashed #E2E8F0', height: 0 }}></div>
+                    <div style={{ position: 'absolute', left: 0, right: 0, top: '75%', borderBottom: '2px dashed #E2E8F0', height: 0 }}></div>
 
-                    {/* Guidelines */}
-                    <line x1="0" y1="50" x2="400" y2="50" stroke="#E2E8F0" strokeDasharray="4 4" />
-                    <line x1="0" y1="100" x2="400" y2="100" stroke="#E2E8F0" strokeDasharray="4 4" />
-                    <line x1="0" y1="150" x2="400" y2="150" stroke="#E2E8F0" strokeDasharray="4 4" />
-
-                    {/* Area wave path */}
-                    <path
-                      d="M0 200 L0 120 Q50 60 100 130 T200 80 T300 110 T400 40 L400 200 Z"
-                      fill="url(#waveGrad)"
-                    />
-
-                    {/* Stroke line path */}
-                    <path
-                      d="M0 120 Q50 60 100 130 T200 80 T300 110 T400 40"
-                      fill="none"
-                      stroke="var(--primary)"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                    />
-
-                    {/* Target baseline path */}
-                    <path
-                      d="M0 150 Q70 140 150 110 T300 70 T400 30"
-                      fill="none"
-                      stroke="#94A3B8"
-                      strokeWidth="2"
-                      strokeDasharray="5 5"
-                    />
-
-                    {/* Pulse dots at peaks */}
-                    <circle cx="200" cy="80" r="5" fill="var(--primary)" />
-                    <circle cx="200" cy="80" r="10" fill="none" stroke="var(--primary)" strokeWidth="1.5" opacity="0.5">
-                      <animate attributeName="r" values="5;14" dur="2s" repeatCount="indefinite" />
-                      <animate attributeName="opacity" values="0.8;0" dur="2s" repeatCount="indefinite" />
-                    </circle>
-
-                    <circle cx="400" cy="40" r="5" fill="var(--primary)" />
-                  </svg>
+                    {[
+                      { month: 'T1', val: 180, fill: '#8B5CF6', depth: '#6D28D9' },
+                      { month: 'T2', val: 210, fill: '#EC4899', depth: '#BE185D' },
+                      { month: 'T3', val: 260, fill: '#34D399', depth: '#059669' },
+                      { month: 'T4', val: 230, fill: '#FBBF24', depth: '#D97706' },
+                      { month: 'T5', val: 280, fill: '#60A5FA', depth: '#2563EB' },
+                      { month: 'T6', val: 290, fill: '#8B5CF6', depth: '#6D28D9' }
+                    ].map((bar, idx) => {
+                      const h = `${(bar.val / 320) * 100}%`;
+                      return (
+                        <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, zIndex: 1 }}>
+                          <div
+                            className="chart-bar-3d-wrap"
+                            style={{
+                              width: '26px',
+                              height: h,
+                              position: 'relative',
+                              transformStyle: 'preserve-3d',
+                              transform: 'rotateX(-12deg) rotateY(-15deg)',
+                              transition: 'all 0.3s ease'
+                            }}
+                          >
+                            {/* Front face */}
+                            <div 
+                              style={{ 
+                                position: 'absolute', 
+                                bottom: 0, 
+                                left: 0, 
+                                width: '100%', 
+                                height: '100%', 
+                                background: bar.fill, 
+                                border: '2px solid #1E293B',
+                                borderBottom: 'none',
+                                borderRadius: '4px 4px 0 0',
+                                boxSizing: 'border-box'
+                              }}
+                            >
+                              <span style={{ position: 'absolute', top: '-20px', left: '50%', transform: 'translateX(-50%)', fontSize: '0.65rem', fontWeight: 900, color: '#1E293B' }}>
+                                {bar.val}
+                              </span>
+                            </div>
+                            {/* Right side depth face */}
+                            <div 
+                              style={{ 
+                                position: 'absolute', 
+                                bottom: 0, 
+                                right: '-8px', 
+                                width: '8px', 
+                                height: '100%', 
+                                background: bar.depth, 
+                                border: '2px solid #1E293B',
+                                borderLeft: 'none',
+                                transform: 'skewY(45deg)',
+                                transformOrigin: 'left bottom',
+                                boxSizing: 'border-box'
+                              }}
+                            ></div>
+                          </div>
+                          <span style={{ fontSize: '0.75rem', color: '#475569', fontWeight: 900, marginTop: '8px' }}>{bar.month}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
                   
-                  {/* Legend */}
-                  <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '10px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <span style={{ width: '12px', height: '3px', background: 'var(--primary)', borderRadius: '2px' }}></span>
-                      <span style={{ fontSize: '0.75rem', color: '#475569', fontWeight: 600 }}>Actual Intervention</span>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <span style={{ width: '12px', height: '3px', background: '#94A3B8', borderStyle: 'dashed', borderRadius: '2px' }}></span>
-                      <span style={{ fontSize: '0.75rem', color: '#475569', fontWeight: 600 }}>Standard Target</span>
+                  {/* Legend text */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1.25rem', borderTop: '2px dashed #E2E8F0', paddingTop: '0.85rem' }}>
+                    <span style={{ fontSize: '0.76rem', color: '#64748B', fontWeight: 700 }}>{t.lblTotalRevenue}:</span>
+                    <span style={{ fontSize: '0.95rem', color: '#1E293B', fontWeight: 900 }}>1.450 {t.lblRevenueVND}</span>
+                  </div>
+                </div>
+
+                {/* 2. Biến động học viên */}
+                <div 
+                  className="director-chart-card"
+                  style={{
+                    background: '#FFFFFF',
+                    border: '3px solid #1E293B',
+                    borderRadius: '20px',
+                    padding: '1.5rem',
+                    boxShadow: '6px 6px 0px #1E293B',
+                    boxSizing: 'border-box'
+                  }}
+                >
+                  <h4 style={{ margin: '0 0 1.5rem 0', color: '#1E293B', fontSize: '0.95rem', fontWeight: 900 }}>
+                    📈 {t.lblStudentTraffic}
+                  </h4>
+
+                  <div style={{ height: '220px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <svg viewBox="0 0 400 200" style={{ width: '100%', height: '100%' }}>
+                      <defs>
+                        <linearGradient id="waveActive" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.3" />
+                          <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.0" />
+                        </linearGradient>
+                      </defs>
+                      <line x1="0" y1="50" x2="400" y2="50" stroke="#E2E8F0" strokeWidth="1.5" strokeDasharray="4 4" />
+                      <line x1="0" y1="100" x2="400" y2="100" stroke="#E2E8F0" strokeWidth="1.5" strokeDasharray="4 4" />
+                      <line x1="0" y1="150" x2="400" y2="150" stroke="#E2E8F0" strokeWidth="1.5" strokeDasharray="4 4" />
+
+                      {/* Area wave */}
+                      <path d="M0 200 L0 140 Q60 80 120 150 T240 100 T360 60 L400 60 L400 200 Z" fill="url(#waveActive)" />
+
+                      {/* Line active students */}
+                      <path d="M0 140 Q60 80 120 150 T240 100 T360 60 L400 60" fill="none" stroke="#8B5CF6" strokeWidth="3" strokeLinecap="round" />
+
+                      {/* Line graduated students dashed */}
+                      <path d="M0 180 Q80 170 160 140 T320 90 L400 80" fill="none" stroke="#34D399" strokeWidth="2.5" strokeDasharray="6 6" strokeLinecap="round" />
+
+                      {/* Peak dots */}
+                      <circle cx="240" cy="100" r="5" fill="#8B5CF6" stroke="#1E293B" strokeWidth="2" />
+                      <circle cx="320" cy="90" r="5" fill="#34D399" stroke="#1E293B" strokeWidth="2" />
+                    </svg>
+
+                    {/* Legend keys */}
+                    <div style={{ display: 'flex', justifyContent: 'center', gap: '1.25rem', marginTop: '10px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span style={{ width: '12px', height: '3px', background: '#8B5CF6', borderRadius: '2px' }}></span>
+                        <span style={{ fontSize: '0.72rem', color: '#475569', fontWeight: 800 }}>{t.lblActiveStudents}</span>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span style={{ width: '12px', height: '3px', background: '#34D399', borderStyle: 'dashed', borderRadius: '2px' }}></span>
+                        <span style={{ fontSize: '0.72rem', color: '#475569', fontWeight: 800 }}>{t.lblGraduatedStudents}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+
+              {/* Bento Row 2: Bảng xếp hạng Hiệu suất Nhân sự */}
+              <div 
+                className="director-staff-performance-container"
+                style={{
+                  background: '#FFFFFF',
+                  border: '3px solid #1E293B',
+                  borderRadius: '20px',
+                  padding: '1.5rem 1.8rem',
+                  boxShadow: '6px 6px 0px #1E293B',
+                  boxSizing: 'border-box'
+                }}
+              >
+                <h4 style={{ margin: '0 0 1.25rem 0', color: '#1E293B', fontSize: '0.98rem', fontWeight: 900 }}>
+                  👥 {t.lblStaffPerformance}
+                </h4>
+
+                <div 
+                  className="staff-performance-list"
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1rem'
+                  }}
+                >
+                  {(center.staffs && center.staffs.length > 0 ? center.staffs : [
+                    { id: 'S-DIR', name: 'Dr. Nguyễn Văn A', roleId: 'R-DIR', status: 'Active' },
+                    { id: 'S-TCH', name: 'Cô Lê Thị B', roleId: 'R-TCH', status: 'Active' }
+                  ]).map((st, idx) => {
+                    // Trích xuất vai trò
+                    const r = center.roles?.find(role => role.id === st.roleId);
+                    const roleName = r ? (lang === 'vi' ? r.nameVi : r.nameEn) : 'Staff Member';
+                    
+                    // Giả lập điểm số cho từng nhân sự
+                    const mastery = idx === 0 ? 94 : idx === 1 ? 88 : 85;
+                    const sat = idx === 0 ? 98 : idx === 1 ? 95 : 92;
+                    const hrs = idx === 0 ? 320 : idx === 1 ? 280 : 240;
+
+                    return (
+                      <div 
+                        key={st.id}
+                        className="performance-item-row"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          background: '#F8FAFC',
+                          border: '2px solid #1E293B',
+                          borderRadius: '16px',
+                          padding: '1rem 1.25rem',
+                          boxShadow: '3px 3px 0px #1E293B',
+                          flexWrap: 'wrap',
+                          gap: '1.25rem',
+                          boxSizing: 'border-box'
+                        }}
+                      >
+                        {/* Profile Info Left */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', minWidth: '220px' }}>
+                          <div 
+                            style={{ 
+                              width: '42px', 
+                              height: '42px', 
+                              borderRadius: '50%', 
+                              background: idx === 0 ? '#EDE9FE' : idx === 1 ? '#D1FAE5' : '#FEF3C7',
+                              border: '2px solid #1E293B',
+                              boxShadow: '1.5px 1.5px 0px #1E293B',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '1.15rem'
+                            }}
+                          >
+                            👤
+                          </div>
+                          <div>
+                            <h5 style={{ margin: 0, color: '#1E293B', fontSize: '0.88rem', fontWeight: 900 }}>
+                              {st.name}
+                            </h5>
+                            <span style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 800, textTransform: 'uppercase' }}>
+                              {roleName}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Middle Mastery bar 3D */}
+                        <div style={{ flexGrow: 1, minWidth: '180px', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', fontWeight: 800, color: '#475569' }}>
+                            <span>{t.lblPerformanceScore}</span>
+                            <span>{mastery}%</span>
+                          </div>
+                          <div 
+                            style={{ 
+                              height: '14px', 
+                              background: '#E2E8F0', 
+                              border: '2px solid #1E293B', 
+                              borderRadius: '999px',
+                              overflow: 'hidden',
+                              boxSizing: 'border-box'
+                            }}
+                          >
+                            <div 
+                              style={{ 
+                                height: '100%', 
+                                width: `${mastery}%`,
+                                background: idx === 0 ? 'linear-gradient(to right, #8B5CF6, #EC4899)' : idx === 1 ? 'linear-gradient(to right, #10B981, #34D399)' : 'linear-gradient(to right, #F59E0B, #FBBF24)',
+                                transition: 'width 1s ease-out'
+                              }}
+                            ></div>
+                          </div>
+                        </div>
+
+                        {/* Extra indicators Right */}
+                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                          <div style={{ textAlign: 'center' }}>
+                            <span style={{ display: 'block', fontSize: '0.65rem', color: '#64748B', fontWeight: 800, textTransform: 'uppercase' }}>
+                              {t.lblSatisfaction}
+                            </span>
+                            <span className="satisfaction-badge" style={{ background: '#FEF3C7', color: '#D97706', border: '1.5px solid #1E293B', borderRadius: '4px', fontSize: '0.72rem', fontWeight: 900, padding: '1px 6px', display: 'inline-block', marginTop: '2px' }}>
+                              ⭐️ {sat}%
+                            </span>
+                          </div>
+                          
+                          <div style={{ textAlign: 'center' }}>
+                            <span style={{ display: 'block', fontSize: '0.65rem', color: '#64748B', fontWeight: 800, textTransform: 'uppercase' }}>
+                              {t.lblHoursCompleted}
+                            </span>
+                            <span style={{ fontSize: '0.85rem', color: '#1E293B', fontWeight: 900 }}>
+                              {hrs}h
+                            </span>
+                          </div>
+
+                          {idx === 0 && (
+                            <span className="best-staff-badge" style={{ background: '#FEF08A', border: '2px solid #1E293B', borderRadius: '6px', fontSize: '0.68rem', fontWeight: 900, color: '#B45309', padding: '3px 8px', boxShadow: '2px 2px 0px #1E293B', textTransform: 'uppercase', letterSpacing: '0.3px' }}>
+                              🏆 Best
+                            </span>
+                          )}
+                        </div>
+
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Statistical Analysis Section */}
+              <div
+                className="statistical-analysis-section"
+                style={{
+                  background: '#FFFFFF',
+                  border: '3px solid #1E293B',
+                  borderRadius: '20px',
+                  padding: '1.5rem 1.8rem',
+                  boxShadow: '6px 6px 0px #1E293B',
+                  boxSizing: 'border-box',
+                  width: '100%',
+                  marginTop: '1.8rem'
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  <div>
+                    <h3 style={{ margin: 0, color: '#1E293B', fontSize: '1.15rem', fontWeight: 900 }}>
+                      📊 {t.statsChartTitle}
+                    </h3>
+                    <p style={{ margin: '4px 0 0 0', color: '#64748B', fontSize: '0.8rem', fontWeight: 700 }}>
+                      {t.statsChartDesc}
+                    </p>
+                  </div>
+                </div>
+
+                <div 
+                  className="director-charts-grid"
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+                    gap: '1.8rem'
+                  }}
+                >
+                  {/* Chart 1: Column Bar Chart */}
+                  <div style={{ border: '2.5px solid #1E293B', borderRadius: '16px', padding: '1.5rem', background: '#F8FAFC', boxShadow: '3px 3px 0px #1E293B' }}>
+                    <h4 style={{ margin: '0 0 1.5rem 0', color: '#1E293B', fontSize: '0.95rem', fontWeight: 900 }}>
+                      📈 {t.chartInterventions}
+                    </h4>
+                    
+                    <div style={{ height: '220px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '0 10px', position: 'relative' }}>
+                      {/* Grid lines */}
+                      <div style={{ position: 'absolute', left: 0, right: 0, top: '25%', borderBottom: '2px dashed #E2E8F0', height: 0 }}></div>
+                      <div style={{ position: 'absolute', left: 0, right: 0, top: '50%', borderBottom: '2px dashed #E2E8F0', height: 0 }}></div>
+                      <div style={{ position: 'absolute', left: 0, right: 0, top: '75%', borderBottom: '2px dashed #E2E8F0', height: 0 }}></div>
+
+                      {[
+                        { month: 'T1', hours: 120 },
+                        { month: 'T2', hours: 150 },
+                        { month: 'T3', hours: 185 },
+                        { month: 'T4', hours: 160 },
+                        { month: 'T5', hours: 210 },
+                        { month: 'T6', hours: 240 }
+                      ].map((bar, idx) => {
+                        const h = `${(bar.hours / 260) * 100}%`;
+                        return (
+                          <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, zIndex: 1 }}>
+                            <div
+                              style={{
+                                width: '24px',
+                                height: h,
+                                background: 'linear-gradient(to top, var(--primary) 0%, #2DD4BF 100%)',
+                                border: '2px solid #1E293B',
+                                borderRadius: '4px 4px 0 0',
+                                boxShadow: '2px 2px 0px #1E293B',
+                                position: 'relative'
+                              }}
+                            >
+                              <span style={{ position: 'absolute', top: '-20px', left: '50%', transform: 'translateX(-50%)', fontSize: '0.65rem', fontWeight: 900, color: '#1E293B', whiteSpace: 'nowrap' }}>
+                                {bar.hours}h
+                              </span>
+                            </div>
+                            <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 900, marginTop: '8px' }}>{bar.month}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+ 
+                  {/* Chart 2: SVG Area Wave Path Chart */}
+                  <div style={{ border: '2.5px solid #1E293B', borderRadius: '16px', padding: '1.5rem', background: '#F8FAFC', boxShadow: '3px 3px 0px #1E293B' }}>
+                    <h4 style={{ margin: '0 0 1.5rem 0', color: '#1E293B', fontSize: '0.95rem', fontWeight: 900 }}>
+                      🧬 {t.chartCategories}
+                    </h4>
+ 
+                    <div style={{ height: '220px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                      <svg viewBox="0 0 400 200" style={{ width: '100%', height: '100%' }}>
+                        <defs>
+                          <linearGradient id="waveGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.4" />
+                            <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.0" />
+                          </linearGradient>
+                        </defs>
+ 
+                        {/* Guidelines */}
+                        <line x1="0" y1="50" x2="400" y2="50" stroke="#E2E8F0" strokeWidth="1.5" strokeDasharray="4 4" />
+                        <line x1="0" y1="100" x2="400" y2="100" stroke="#E2E8F0" strokeWidth="1.5" strokeDasharray="4 4" />
+                        <line x1="0" y1="150" x2="400" y2="150" stroke="#E2E8F0" strokeWidth="1.5" strokeDasharray="4 4" />
+ 
+                        {/* Area wave path */}
+                        <path
+                          d="M0 200 L0 120 Q50 60 100 130 T200 80 T300 110 T400 40 L400 200 Z"
+                          fill="url(#waveGrad)"
+                        />
+ 
+                        {/* Stroke line path */}
+                        <path
+                          d="M0 120 Q50 60 100 130 T200 80 T300 110 T400 40"
+                          fill="none"
+                          stroke="var(--primary)"
+                          strokeWidth="3.5"
+                          strokeLinecap="round"
+                        />
+ 
+                        {/* Target baseline path */}
+                        <path
+                          d="M0 150 Q70 140 150 110 T300 70 T400 30"
+                          fill="none"
+                          stroke="#94A3B8"
+                          strokeWidth="2"
+                          strokeDasharray="5 5"
+                        />
+ 
+                        {/* Pulse dots at peaks */}
+                        <circle cx="200" cy="80" r="5" fill="var(--primary)" stroke="#1E293B" strokeWidth="2" />
+                        <circle cx="200" cy="80" r="10" fill="none" stroke="var(--primary)" strokeWidth="1.5" opacity="0.5">
+                          <animate attributeName="r" values="5;14" dur="2s" repeatCount="indefinite" />
+                          <animate attributeName="opacity" values="0.8;0" dur="2s" repeatCount="indefinite" />
+                        </circle>
+ 
+                        <circle cx="400" cy="40" r="5" fill="var(--primary)" stroke="#1E293B" strokeWidth="2" />
+                      </svg>
+                      
+                      {/* Legend */}
+                      <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '10px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <span style={{ width: '12px', height: '3px', background: 'var(--primary)', borderRadius: '2px' }}></span>
+                          <span style={{ fontSize: '0.75rem', color: '#475569', fontWeight: 800 }}>Actual</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <span style={{ width: '12px', height: '3px', background: '#94A3B8', borderStyle: 'dashed', borderRadius: '2px' }}></span>
+                          <span style={{ fontSize: '0.75rem', color: '#475569', fontWeight: 800 }}>Target</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
-          </div>
+          )}
         </div>
       )}
 

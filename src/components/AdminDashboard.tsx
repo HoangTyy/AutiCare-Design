@@ -17,8 +17,9 @@ import PlansTab from './dashboard/PlansTab';
 import PlanDetailView from './dashboard/PlanDetailView';
 import type { Plan } from './dashboard/PlanDetailView';
 import ExercisesTab from './dashboard/ExercisesTab';
+import OverviewTab from './dashboard/OverviewTab';
 
-type Tab = 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks';
+type Tab = 'overview' | 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks';
 
 interface AdminDashboardProps {
   lang: 'vi' | 'en';
@@ -44,8 +45,8 @@ interface MenuGroup {
 }
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, onDesignCode, centers, setCenters }) => {
-  const [activeTab, setActiveTab] = useState<Tab>('centers');
-  const [expandedGroups, setExpandedGroups] = useState<string[]>(['system', 'training', 'content']);
+  const [activeTab, setActiveTab] = useState<Tab>('overview');
+  const [expandedGroups, setExpandedGroups] = useState<string[]>(['dashboard', 'system', 'training', 'content']);
   const [selectedCenterForDetail, setSelectedCenterForDetail] = useState<Center | null>(null);
   const [selectedPlanForDetail, setSelectedPlanForDetail] = useState<Plan | null>(null);
 
@@ -193,6 +194,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
 
   const menuGroups: MenuGroup[] = [
     {
+      id: 'dashboard',
+      labelVi: 'Bảng điều khiển',
+      labelEn: 'Dashboard',
+      icon: '📊',
+      items: [
+        { id: 'overview', labelVi: 'Tổng quan hệ thống', labelEn: 'System Overview' }
+      ]
+    },
+    {
       id: 'system',
       labelVi: 'Hệ thống',
       labelEn: 'System',
@@ -296,6 +306,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
 
   const renderActiveTab = () => {
     switch (activeTab) {
+      case 'overview':
+        return <OverviewTab lang={lang} centers={centers} />;
       case 'centers':
         if (selectedCenterForDetail) {
           return (

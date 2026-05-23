@@ -39,7 +39,13 @@ const translations = {
     toastCreateSuccess: "✨ Đã tạo hồ sơ can thiệp mới lâm sàng thành công!",
     lblDetailBtn: "Xem bệnh án chi tiết",
     emptyStateTitle: "Không tìm thấy hồ sơ can thiệp phù hợp",
-    emptyStateSub: "Vui lòng điều chỉnh bộ lọc hoặc từ khóa tìm kiếm để kiểm tra lại."
+    emptyStateSub: "Vui lòng điều chỉnh bộ lọc hoặc từ khóa tìm kiếm để kiểm tra lại.",
+    statTotalRecords: "Tổng hồ sơ can thiệp",
+    statActiveRecords: "Đang trị liệu 🩺",
+    statGraduatedRecords: "Đã tốt nghiệp 🎓",
+    statAvgMastery: "Mastery trung bình ✨",
+    expertStatsTitle: "Báo Cáo Tiến Độ Trị Liệu Tổng Hợp 📊",
+    expertStatsSubtitle: "Tỷ lệ hoàn thành mục tiêu can thiệp (Mastery Progress) của từng trẻ đang phụ trách"
   },
   en: {
     title: "Clinical Intervention Records",
@@ -65,7 +71,13 @@ const translations = {
     toastCreateSuccess: "✨ New clinical intervention record created successfully!",
     lblDetailBtn: "View Detailed Medical Record",
     emptyStateTitle: "No clinical intervention records found",
-    emptyStateSub: "Please adjust your search keyword or filters and try again."
+    emptyStateSub: "Please adjust your search keyword or filters and try again.",
+    statTotalRecords: "Total Intervention Records",
+    statActiveRecords: "Active Therapy 🩺",
+    statGraduatedRecords: "Graduated 🎓",
+    statAvgMastery: "Avg Mastery Rate ✨",
+    expertStatsTitle: "Intervention Performance Analytics 📊",
+    expertStatsSubtitle: "Objective mastery progress of children currently under your charge"
   }
 };
 
@@ -184,6 +196,84 @@ const StaffInterventionTab: React.FC<{ lang: 'vi' | 'en' }> = ({ lang }) => {
         >
           {t.btnCreate}
         </button>
+      </div>
+
+      {/* Bento Board & 3D Chart Section */}
+      <div className="staff-intervention-analytics-board">
+        {/* Bento Grid Indicators */}
+        <div className="staff-stats-bento-grid">
+          <div className="bento-stat-sticker">
+            <div className="bento-stat-icon-wrapper bg-blue-light">📂</div>
+            <div className="bento-stat-info">
+              <span className="bento-stat-label">{t.statTotalRecords}</span>
+              <span className="bento-stat-value">{records.length}</span>
+            </div>
+          </div>
+          
+          <div className="bento-stat-sticker">
+            <div className="bento-stat-icon-wrapper bg-green-light">🩺</div>
+            <div className="bento-stat-info">
+              <span className="bento-stat-label">{t.statActiveRecords}</span>
+              <span className="bento-stat-value">{records.filter(r => r.status === 'active').length}</span>
+            </div>
+          </div>
+
+          <div className="bento-stat-sticker">
+            <div className="bento-stat-icon-wrapper bg-amber-light">🎓</div>
+            <div className="bento-stat-info">
+              <span className="bento-stat-label">{t.statGraduatedRecords}</span>
+              <span className="bento-stat-value">{records.filter(r => r.status === 'graduated').length}</span>
+            </div>
+          </div>
+
+          <div className="bento-stat-sticker">
+            <div className="bento-stat-icon-wrapper bg-purple-light">✨</div>
+            <div className="bento-stat-info">
+              <span className="bento-stat-label">{t.statAvgMastery}</span>
+              <span className="bento-stat-value">
+                {records.length > 0 
+                  ? Math.round(records.reduce((acc, r) => acc + r.progress, 0) / records.length) 
+                  : 0}%
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* 3D Mastery Progress Chart */}
+        <div className="staff-mastery-chart-card">
+          <h4 className="chart-card-title">📊 {t.expertStatsTitle}</h4>
+          <p className="chart-card-subtitle">{t.expertStatsSubtitle}</p>
+          
+          <div className="chart-3d-bars-container">
+            <div className="chart-grid-line line-75"></div>
+            <div className="chart-grid-line line-50"></div>
+            <div className="chart-grid-line line-25"></div>
+            
+            <div className="chart-bars-flex">
+              {records.map((rec) => {
+                const barVal = rec.progress;
+                const barFill = rec.levelColor === 'green' ? '#34D399' : rec.levelColor === 'amber' ? '#FBBF24' : '#F472B6';
+                const barDepth = rec.levelColor === 'green' ? '#059669' : rec.levelColor === 'amber' ? '#D97706' : '#BE185D';
+                
+                return (
+                  <div key={rec.id} className="chart-bar-column">
+                    <div className="chart-bar-3d-wrap-element" style={{ height: `${barVal}%` }}>
+                      {/* Front face */}
+                      <div className="bar-face-front" style={{ backgroundColor: barFill }}>
+                        <span className="bar-value-label">{barVal}%</span>
+                      </div>
+                      {/* Depth face */}
+                      <div className="bar-face-depth" style={{ backgroundColor: barDepth }}></div>
+                    </div>
+                    
+                    <span className="bar-child-name">👶 {rec.childName}</span>
+                    <span className="bar-child-id">{rec.id}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Toolbar Board: Search and Filter */}
