@@ -1,5 +1,51 @@
 # Project Logs
 
+## [2026-05-23] - Tinh chỉnh Chiều Rộng Cố Định Cho Nút Back To Home Chống Giật Header Song Ngữ
+- **Khắc phục hoàn toàn lỗi co giãn nút Back to Home (`.profile-back-btn`)**:
+  - Chuyển cấu hình `min-width: 190px !important;` thành chiều rộng cố định tuyệt đối `width: 220px !important;` cho cả màn hình máy tính và thiết bị di động.
+  - Tích hợp `white-space: nowrap !important;` để ngăn chặn hoàn toàn việc ngắt dòng văn bản chữ tiếng Việt in hoa `"QUAY LẠI TRANG CHỦ"`.
+  - Khắc phục triệt để lỗi khi đổi sang tiếng Việt, text `"QUAY LẠI TRANG CHỦ"` (dài ~205px) vượt quá `min-width: 190px`, tự động làm phình nút và đẩy lệch toàn bộ cấu trúc Grid đối xứng của Header. Với kích thước cố định `220px`, nút Back to Home luôn đứng im 100% không bao giờ thay đổi kích thước, mang lại sự ổn định tuyệt đối cho toàn bộ cụm điều hướng và ngôn ngữ (VN/EN) trên Header.
+
+## [2026-05-23] - Chuyển đổi "Hệ Thống Trung Tâm" từ Popup Modal sang Trang độc lập (All Centers Page) & Sửa lỗi TypeScript
+- **Khắc phục lỗi giật màn hình Header khi chuyển đổi ngôn ngữ (VN/EN Header Stability)**:
+  - Phát hiện lỗi giật màn hình (Layout Shift) khi bấm nút VN/EN đổi ngôn ngữ làm chữ nút Back to Home co giãn đột ngột, đẩy toàn bộ tiêu đề ở giữa và các nút bên cạnh lệch vị trí.
+  - Cấu hình lại `.profile-header-container` sử dụng **bố cục Grid đối xứng 3 cột (`grid-template-columns: 1.2fr auto 1.2fr !important;`)** độc lập. Giúp định vị logo bên trái, tiêu đề chính giữa, và cụm nút bên phải một cách đối xứng tuyệt đối. Tiêu đề ở giữa luôn đứng im cân đối ở tâm màn hình không bao giờ bị đẩy lệch lề.
+  - Cố định chiều rộng tối thiểu cho nút Back to Home `.profile-back-btn` (`min-width: 190px !important;`) và căn giữa chữ để text thay đổi từ "Quay lại trang chủ" (VI) sang "Back to Home" (EN) mượt mà, không làm thay đổi chiều rộng của nút.
+- **Đột phá thiết kế: Khắc phục lỗi nhạt màu card (High Contrast & Playful Memphis Card Style)**:
+  - Khắc phục triệt để lỗi thẻ `.center-card` bị tịt màu/chìm lỉm trên nền kem ấm `#FFFDF5` của trang do màu nền `--neo-paper` trùng với màu nền và bóng đổ `--neo-shadow-md` bị nhạt màu xám mờ `#E2E8F0`.
+  - Override màu nền của các card trung tâm thành màu trắng tinh khiết `#FFFFFF !important` tạo độ tương phản 100%.
+  - Tích hợp viền Slate dày dặn `3px solid #1E293B !important` và bóng đổ cứng Slate đậm `6px 6px 0px #1E293B !important` tạo hiệu ứng 3D nhấc nổi sắc nét.
+  - Bổ sung hiệu ứng hover đàn hồi mượt mà (`transform: translate(-4px, -6px) rotate(-0.5deg) !important` và tăng bóng đổ lên `10px 10px 0px #1E293B !important`).
+  - Thiết kế lại các icon `.center-card-icon` phía trên dạng sticker tròn viền đen Slate với nền pastel luân phiên (Violet, Pink, Yellow) nổi bật.
+  - Phẳng hóa và bổ sung viền đen Slate cho các nhãn tỉnh thành `.center-card-province` với nền màu vàng ấm `#FBBF24` rực rỡ, cùng mã ID `.center-card-id` viền Slate gọn gàng.
+  - Giúp các card trung tâm có vẻ ngoài vô cùng cao cấp, bắt mắt, "Wow" ngay từ cái nhìn đầu tiên và ăn khớp hoàn chỉnh với tinh thần Memphis Playful Geometric.
+- **Đồng bộ hóa dữ liệu thời gian thực cho mạng lưới trung tâm**:
+  - Phát hiện lỗi mất các card trung tâm mới tạo do lưu trữ state cục bộ rời rạc trong `AdminDashboard`.
+  - Di chuyển (Lift-up) thành công toàn bộ state `centers` (bao gồm mảng dữ liệu mặc định 9 trung tâm can thiệp sớm trên 7 tỉnh thành) từ cục bộ `AdminDashboard.tsx` lên component cha cao nhất `App.tsx`.
+  - Cấu hình truyền props `centers` (và `setCenters` cho Admin) xuống cho `<AdminDashboard>`, `<CentersSection>` và `<AllCentersPage>`.
+  - Loại bỏ hoàn toàn các biến dữ liệu tĩnh `allCentersData` khai báo cứng cục bộ tại `CentersSection.tsx` và `AllCentersPage.tsx` để đọc dữ liệu hoàn toàn động từ props.
+  - Cập nhật interface `Center` và `CenterInfo` hỗ trợ đầy đủ các thuộc tính tùy chọn (`province`, `address`, `phone_number`, `email`) cùng cơ chế fallback rendering an toàn.
+  - Giúp đồng bộ hóa tuyệt đối dữ liệu trung tâm trên toàn bộ ứng dụng SPA. Khi quản trị viên tạo trung tâm mới hoặc xóa trung tâm trong Admin Dashboard, các thay đổi sẽ lập tức hiển thị đồng bộ ngoài Homepage và All Centers Page thời gian thực, sửa triệt để lỗi mất card trung tâm mới tạo.
+- **Tạo mới component Trang danh sách trung tâm**: `src/components/homepage/AllCentersPage.tsx`
+  - Thiết kế trang độc lập đầy đủ (Full Page View) với cấu trúc header cố định có logo, tiêu đề trang và bộ dịch ngôn ngữ.
+  - Tích hợp dữ liệu giả lập 9 trung tâm can thiệp sớm trên 7 tỉnh thành.
+  - Xây dựng thanh Toolbar tìm kiếm (Search) theo từ khóa và bộ lọc Tỉnh thành (Region Filter) theo phong cách Playful Geometric cao cấp.
+  - Grid hiển thị 3 cột trên desktop, 2 cột trên tablet, 1 cột trên mobile. Các card sticker kế thừa thiết kế Neo-brutalism đồng bộ.
+- **Tái cấu trúc component Homepage (`src/components/homepage/CentersSection.tsx`)**:
+  - Loại bỏ hoàn toàn code hiển thị modal cục bộ cồng kềnh.
+  - Chuyển giao sự kiện bấm nút "Xem thêm trung tâm +6 trung tâm khác" thông qua callback prop `onViewMoreCenters` lên component cha.
+- **Đồng bộ hóa Route/State tại component chính (`src/App.tsx`)**:
+  - Đăng ký view mới `'centers'` vào tập hợp quản lý View của SPA.
+  - Tích hợp rẽ nhánh render trang `AllCentersPage` song ngữ hoàn chỉnh.
+  - Kết nối prop `onViewMoreCenters` từ `CentersSection` để chuyển hướng view mượt mà.
+- **Bổ sung CSS mới (`src/App.css`)**:
+  - Thêm hơn 150 dòng CSS định kiểu Playful Geometric cho `AllCentersPage` (hero zone, toolbar board, grid layout, responsive breakpoints 1024px và 768px).
+- **Khắc phục triệt để 4 lỗi compile TypeScript trong `PlanDetailView.tsx`**:
+  - Khai báo kiểu dữ liệu tường minh `objectiveId: number` cho tham số của hàm `toggleExpandRow`.
+  - Khai báo kiểu `useState<number | null>(null)` cho biến state `expandedObjId` để tránh lỗi suy luận kiểu dữ liệu.
+  - Ép kiểu tường minh `status: objDesc as 'Completed' | 'In process'` khi lưu thông tin mục tiêu (Objective) để tương thích với kiểu dữ liệu của Schema.
+  - Thay đổi thuộc tính lỗi `italic: 'true'` thành `fontStyle: 'italic'` hợp lệ trong React style object cho thẻ `<p>` thông báo không tìm thấy activity.
+
 ## [2026-05-23] - Nâng cấp Centers Section: Xem thêm Trung tâm + Tìm kiếm + Lọc Tỉnh thành
 - **Mở rộng dữ liệu**: Từ 2 center lên **9 center** mock data trải dài 7 tỉnh thành (TP.HCM, Hà Nội, Đà Nẵng, Hải Phòng, Cần Thơ, Khánh Hòa, Bình Dương). Mỗi center có thêm trường `province`.
 - **Preview 3 card**: Homepage chỉ hiển thị 3 center đầu tiên dạng grid 3 cột.

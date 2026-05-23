@@ -34,6 +34,7 @@ export interface Center {
   address?: string;
   phone_number?: string;
   email?: string;
+  province?: string;
   levels: ExerciseLevel[];
   categories: ExerciseCategory[];
   roles?: CenterRole[];

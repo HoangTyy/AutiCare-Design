@@ -10,6 +10,8 @@ import type { UserProfile } from './components/profile/UserProfilePage'
 import ProfileModal from './components/homepage/ProfileModal'
 import ParentInvoicesModal from './components/homepage/ParentInvoicesModal'
 import ParentSupportTicketsModal from './components/homepage/ParentSupportTicketsModal'
+import AllCentersPage from './components/homepage/AllCentersPage'
+import type { Center } from './components/dashboard/CenterDetailView'
 
 // Modular Landing Sections
 import HeroSection from './components/homepage/HeroSection'
@@ -25,7 +27,7 @@ import FloatingNav from './components/homepage/FloatingNav'
 import './App.css'
 
 type Language = 'vi' | 'en'
-type View = 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment' | 'profile'
+type View = 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment' | 'profile' | 'centers'
 
 const translations = {
   vi: {
@@ -141,6 +143,189 @@ function App() {
   const [showSupportTickets, setShowSupportTickets] = useState(false)
   const [justBooked, setJustBooked] = useState(false)
 
+  // Core Mock Database State for Centers, their respective Levels, and Categories
+  const [centers, setCenters] = useState<Center[]>([
+    {
+      id: 'AC-001',
+      name: 'AutiCare Central Saigon',
+      date: '2026-01-10',
+      status: 'Active',
+      address: '123 Nguyễn Thị Minh Khai, Quận 1, TP. Hồ Chí Minh',
+      phone_number: '+84 28 3930 1234',
+      email: 'saigon.central@auticare.edu.vn',
+      province: 'TP. Hồ Chí Minh',
+      levels: [
+        { id: '1', name: 'Dễ - Saigon', score: '1', desc: 'Mức độ dành cho các bài tập dễ tại Saigon' },
+        { id: '2', name: 'Bình Thường - Saigon', score: '2', desc: 'Mức độ dành cho các bài tập bình thường tại Saigon' },
+        { id: '3', name: 'Khó - Saigon', score: '3', desc: 'Mức độ bài tập khó phát triển kỹ năng cao tại Saigon' },
+      ],
+      categories: [
+        { id: '1', name: 'Giáo dục thể chất - Saigon', date: '05/10/2026', isParent: true },
+        { id: '2', name: 'Vận động thô - Saigon', date: '05/12/2026', isSub: true },
+        { id: '3', name: 'Vận động tinh - Saigon', date: '05/13/2026', isSub: true },
+      ],
+      roles: [
+        { id: 'R-DIR', nameVi: 'Giám đốc Trung tâm', nameEn: 'Center Director', permissions: ['manage_center', 'manage_staffs', 'manage_roles', 'view_analytics', 'manage_levels', 'manage_categories', 'manage_exercises', 'manage_blogs'], status: 'Active', priority: 1, isDefault: true },
+        { id: 'R-DOC', nameVi: 'Bác sĩ chuyên khoa', nameEn: 'Clinical Doctor', permissions: ['view_analytics', 'manage_exercises', 'manage_levels'], status: 'Active', priority: 2, isDefault: true },
+        { id: 'R-TCH', nameVi: 'Giáo viên can thiệp', nameEn: 'Intervention Teacher', permissions: ['manage_exercises', 'view_analytics'], status: 'Active', priority: 3, isDefault: true },
+        { id: 'R-THR', nameVi: 'Trị liệu viên cao cấp', nameEn: 'Senior Therapist', permissions: ['manage_exercises'], status: 'Active', priority: 4, isDefault: false },
+      ],
+      staffs: [
+        { id: 'S-001', name: 'Dr. Nguyễn Văn A', roleId: 'R-DIR', email: 'nguyenvana.saigon@auticare.edu.vn', phone: '0901234567', joinedDate: '2026-01-10', status: 'Active' },
+        { id: 'S-002', name: 'Cô Lê Thị B', roleId: 'R-TCH', email: 'lethib.saigon@auticare.edu.vn', phone: '0907654321', joinedDate: '2026-01-12', status: 'Active' },
+        { id: 'S-003', name: 'Thầy Phạm Văn C', roleId: 'R-THR', email: 'phamvanc.saigon@auticare.edu.vn', phone: '0903334445', joinedDate: '2026-02-01', status: 'Active' },
+      ]
+    },
+    {
+      id: 'AC-002',
+      name: 'AutiCare Hanoi North',
+      date: '2026-02-15',
+      status: 'Active',
+      address: '456 Hoàng Hoa Thám, Quận Tây Hồ, Hà Nội',
+      phone_number: '+84 24 3762 5678',
+      email: 'hanoi.north@auticare.edu.vn',
+      province: 'Hà Nội',
+      levels: [
+        { id: '1', name: 'Cơ bản - Hanoi', score: '1', desc: 'Mức độ làm quen ban đầu tại cơ sở Hanoi' },
+        { id: '2', name: 'Nâng cao - Hanoi', score: '4', desc: 'Cấp độ nâng cao chuyên sâu tại cơ sở Hanoi' },
+      ],
+      categories: [
+        { id: '1', name: 'Phát triển ngôn ngữ - Hanoi', date: '05/10/2026', isParent: true },
+        { id: '2', name: 'Giao tiếp xã hội - Hanoi', date: '05/12/2026', isSub: true },
+      ],
+      roles: [
+        { id: 'R-DIR', nameVi: 'Giám đốc Trung tâm', nameEn: 'Center Director', permissions: ['manage_center', 'manage_staffs', 'manage_roles', 'view_analytics', 'manage_levels', 'manage_categories', 'manage_exercises', 'manage_blogs'], status: 'Active', priority: 1, isDefault: true },
+        { id: 'R-DOC', nameVi: 'Bác sĩ chuyên khoa', nameEn: 'Clinical Doctor', permissions: ['view_analytics', 'manage_exercises', 'manage_levels'], status: 'Active', priority: 2, isDefault: true },
+        { id: 'R-TCH', nameVi: 'Giáo viên can thiệp', nameEn: 'Intervention Teacher', permissions: ['manage_exercises', 'view_analytics'], status: 'Active', priority: 3, isDefault: true },
+      ],
+      staffs: [
+        { id: 'H-001', name: 'Dr. Trần Thu Hằng', roleId: 'R-DIR', email: 'tranthuhang.hn@auticare.edu.vn', phone: '0912345678', joinedDate: '2026-02-15', status: 'Active' },
+        { id: 'H-002', name: 'Cô Hoàng Mai Anh', roleId: 'R-TCH', email: 'maianh.hn@auticare.edu.vn', phone: '0918765432', joinedDate: '2026-02-20', status: 'Active' },
+      ]
+    },
+    {
+      id: 'AC-003',
+      name: 'AutiCare Da Nang Beach',
+      date: '2026-03-20',
+      status: 'Active',
+      address: '789 Võ Nguyên Giáp, Quận Sơn Trà, Đà Nẵng',
+      phone_number: '+84 23 6384 9012',
+      email: 'danang.beach@auticare.edu.vn',
+      province: 'Đà Nẵng',
+      levels: [
+        { id: '1', name: 'Nhập môn - Da Nang', score: '1', desc: 'Mức nhập môn làm quen cho trẻ tại Da Nang' }
+      ],
+      categories: [
+        { id: '1', name: 'Kỹ năng sống - Da Nang', date: '05/10/2026', isParent: true },
+        { id: '2', name: 'Tự phục vụ - Da Nang', date: '05/12/2026', isSub: true }
+      ],
+      roles: [
+        { id: 'R-DIR', nameVi: 'Giám đốc Trung tâm', nameEn: 'Center Director', permissions: ['manage_center', 'manage_staffs', 'manage_roles', 'view_analytics', 'manage_levels', 'manage_categories', 'manage_exercises', 'manage_blogs'], status: 'Active', priority: 1, isDefault: true },
+        { id: 'R-DOC', nameVi: 'Bác sĩ chuyên khoa', nameEn: 'Clinical Doctor', permissions: ['view_analytics', 'manage_exercises', 'manage_levels'], status: 'Active', priority: 2, isDefault: true },
+        { id: 'R-TCH', nameVi: 'Giáo viên can thiệp', nameEn: 'Intervention Teacher', permissions: ['manage_exercises', 'view_analytics'], status: 'Active', priority: 3, isDefault: true },
+      ],
+      staffs: [
+        { id: 'D-001', name: 'Thầy Lê Anh Tuấn', roleId: 'R-DIR', email: 'anhtuan.dn@auticare.edu.vn', phone: '0987654321', joinedDate: '2026-03-20', status: 'Active' }
+      ]
+    },
+    {
+      id: 'AC-004',
+      name: 'AutiCare Thủ Đức Innovation',
+      date: '2026-04-05',
+      status: 'Active',
+      address: '55 Đường Võ Văn Ngân, TP. Thủ Đức, TP. Hồ Chí Minh',
+      phone_number: '+84 28 3720 4455',
+      email: 'thuduc.innovation@auticare.edu.vn',
+      province: 'TP. Hồ Chí Minh',
+      levels: [],
+      categories: [],
+      roles: [
+        { id: 'R-DIR', nameVi: 'Giám đốc Trung tâm', nameEn: 'Center Director', permissions: ['manage_center', 'manage_staffs', 'manage_roles', 'view_analytics', 'manage_levels', 'manage_categories', 'manage_exercises', 'manage_blogs'], status: 'Active', priority: 1, isDefault: true }
+      ],
+      staffs: []
+    },
+    {
+      id: 'AC-005',
+      name: 'AutiCare Cầu Giấy',
+      date: '2026-04-12',
+      status: 'Active',
+      address: '12 Trần Thái Tông, Quận Cầu Giấy, Hà Nội',
+      phone_number: '+84 24 3795 6688',
+      email: 'caugiay@auticare.edu.vn',
+      province: 'Hà Nội',
+      levels: [],
+      categories: [],
+      roles: [
+        { id: 'R-DIR', nameVi: 'Giám đốc Trung tâm', nameEn: 'Center Director', permissions: ['manage_center', 'manage_staffs', 'manage_roles', 'view_analytics', 'manage_levels', 'manage_categories', 'manage_exercises', 'manage_blogs'], status: 'Active', priority: 1, isDefault: true }
+      ],
+      staffs: []
+    },
+    {
+      id: 'AC-006',
+      name: 'AutiCare Hải Phòng Harbor',
+      date: '2026-04-18',
+      status: 'Active',
+      address: '278 Lạch Tray, Quận Ngô Quyền, Hải Phòng',
+      phone_number: '+84 22 5383 7799',
+      email: 'haiphong.harbor@auticare.edu.vn',
+      province: 'Hải Phòng',
+      levels: [],
+      categories: [],
+      roles: [
+        { id: 'R-DIR', nameVi: 'Giám đốc Trung tâm', nameEn: 'Center Director', permissions: ['manage_center', 'manage_staffs', 'manage_roles', 'view_analytics', 'manage_levels', 'manage_categories', 'manage_exercises', 'manage_blogs'], status: 'Active', priority: 1, isDefault: true }
+      ],
+      staffs: []
+    },
+    {
+      id: 'AC-007',
+      name: 'AutiCare Cần Thơ Delta',
+      date: '2026-04-22',
+      status: 'Active',
+      address: '90 Đường 3/2, Quận Ninh Kiều, Cần Thơ',
+      phone_number: '+84 29 2381 2233',
+      email: 'cantho.delta@auticare.edu.vn',
+      province: 'Cần Thơ',
+      levels: [],
+      categories: [],
+      roles: [
+        { id: 'R-DIR', nameVi: 'Giám đốc Trung tâm', nameEn: 'Center Director', permissions: ['manage_center', 'manage_staffs', 'manage_roles', 'view_analytics', 'manage_levels', 'manage_categories', 'manage_exercises', 'manage_blogs'], status: 'Active', priority: 1, isDefault: true }
+      ],
+      staffs: []
+    },
+    {
+      id: 'AC-008',
+      name: 'AutiCare Nha Trang Coastal',
+      date: '2026-04-28',
+      status: 'Inactive',
+      address: '44 Trần Phú, Phường Lộc Thọ, Nha Trang, Khánh Hòa',
+      phone_number: '+84 25 8352 1100',
+      email: 'nhatrang.coastal@auticare.edu.vn',
+      province: 'Khánh Hòa',
+      levels: [],
+      categories: [],
+      roles: [
+        { id: 'R-DIR', nameVi: 'Giám đốc Trung tâm', nameEn: 'Center Director', permissions: ['manage_center', 'manage_staffs', 'manage_roles', 'view_analytics', 'manage_levels', 'manage_categories', 'manage_exercises', 'manage_blogs'], status: 'Active', priority: 1, isDefault: true }
+      ],
+      staffs: []
+    },
+    {
+      id: 'AC-009',
+      name: 'AutiCare Bình Dương Smart',
+      date: '2026-05-02',
+      status: 'Active',
+      address: '15 Đại lộ Bình Dương, TX. Thuận An, Bình Dương',
+      phone_number: '+84 27 4382 9900',
+      email: 'binhduong.smart@auticare.edu.vn',
+      province: 'Bình Dương',
+      levels: [],
+      categories: [],
+      roles: [
+        { id: 'R-DIR', nameVi: 'Giám đốc Trung tâm', nameEn: 'Center Director', permissions: ['manage_center', 'manage_staffs', 'manage_roles', 'view_analytics', 'manage_levels', 'manage_categories', 'manage_exercises', 'manage_blogs'], status: 'Active', priority: 1, isDefault: true }
+      ],
+      staffs: []
+    }
+  ]);
+
   // Profile settings
   const [userProfile, setUserProfile] = useState<UserProfile>({
     username: 'nguyenthia_02',
@@ -237,6 +422,17 @@ function App() {
     )
   }
 
+  if (view === 'centers') {
+    return (
+      <AllCentersPage
+        lang={lang}
+        setLang={setLang}
+        centers={centers}
+        onBack={() => setView('landing')}
+      />
+    )
+  }
+
   if (view === 'assessment') {
     return (
       <div className="assessment-theme-root assessment-view-wrapper" key="assessment-view">
@@ -256,6 +452,8 @@ function App() {
          <AdminDashboard 
            lang={lang} 
            setLang={setLang} 
+           centers={centers}
+           setCenters={setCenters}
            onBack={() => setView('landing')}
            onDesignCode={() => setView('designAdmin')}
          />
@@ -420,7 +618,7 @@ function App() {
         
         <AboutSection id="about" lang={lang} />
         
-        <CentersSection id="centers" lang={lang} />
+        <CentersSection id="centers" lang={lang} centers={centers} onViewMoreCenters={() => setView('centers')} />
         
         <CtaSection id="cta" t={t} />
 
