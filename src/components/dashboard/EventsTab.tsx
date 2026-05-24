@@ -625,7 +625,7 @@ interface UpdateEventModalProps {
 
 export const UpdateEventModal: React.FC<UpdateEventModalProps> = ({ isOpen, closeModal, handleUpdate, selectedObj, t }) => {
   const [locationType, setLocationType] = useState<'Online' | 'Onsite' | 'Hybrid'>('Onsite');
-  
+
   // Khai báo state cho danh sách nhân viên được chọn và Host
   const [selectedStaffIds, setSelectedStaffIds] = useState<number[]>([]);
   const [hostStaffId, setHostStaffId] = useState<number | null>(null);
@@ -634,7 +634,7 @@ export const UpdateEventModal: React.FC<UpdateEventModalProps> = ({ isOpen, clos
   useEffect(() => {
     if (selectedObj) {
       setLocationType(selectedObj.location_type || 'Onsite');
-      
+
       // Xử lý nạp danh sách nhân viên cũ đã được gán vào sự kiện
       if (selectedObj.staff && selectedObj.staff.length > 0) {
         const staffIds = selectedObj.staff.map((s: any) => s.event_staff_id || s.id);
@@ -653,30 +653,30 @@ export const UpdateEventModal: React.FC<UpdateEventModalProps> = ({ isOpen, clos
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    
+
     // Gộp dữ liệu từ Date và Time Range thành chuỗi "time" duy nhất hoặc cấu trúc mong muốn
     const eventDate = formData.get('event_date') as string;
     const eventTimeRange = formData.get('event_time_range') as string;
     const combinedTime = `${eventDate} ${eventTimeRange}`;
 
     const staffPayload: EventStaff[] = selectedStaffIds.map(id => {
-    // Tìm thông tin gốc của nhân viên từ danh sách mockStaff
-    const originalStaff = mockStaff.find(s => s.id === id);
-    
-    return {
-      event_staff_id: originalStaff?.id || id, // hoặc sinh mã ngẫu nhiên nếu là nhân viên mới thêm
-      staff_id: id,
-      staff_name: originalStaff?.name || originalStaff?.name || 'Unknown',
-      is_host: id === hostStaffId,
-      assigned_at: new Date().toISOString()
-    };
-  });
-    
+      // Tìm thông tin gốc của nhân viên từ danh sách mockStaff
+      const originalStaff = mockStaff.find(s => s.id === id);
+
+      return {
+        event_staff_id: originalStaff?.id || id, // hoặc sinh mã ngẫu nhiên nếu là nhân viên mới thêm
+        staff_id: id,
+        staff_name: originalStaff?.name || originalStaff?.name || 'Unknown',
+        is_host: id === hostStaffId,
+        assigned_at: new Date().toISOString()
+      };
+    });
+
     handleUpdate({
       ...selectedObj, // Giữ lại các id hoặc thuộc tính ẩn khác của Object cũ
       title: formData.get('title') as string,
       description: formData.get('description') as string,
-      time: combinedTime, 
+      time: combinedTime,
       location_type: locationType,
       room_name: locationType !== 'Online' ? (formData.get('room_name') as string) : null,
       url: locationType !== 'Onsite' ? (formData.get('url') as string) : null,
@@ -705,7 +705,7 @@ export const UpdateEventModal: React.FC<UpdateEventModalProps> = ({ isOpen, clos
         {/* Body Form */}
         <div className="modal-body overflow-y-auto p-4 min-h-0 flex-1">
           <form onSubmit={onSubmit} className="flex flex-col gap-4">
-            
+
             {/* Event Title */}
             <div className="form-group">
               <label style={{ color: '#1e293b', fontWeight: 600 }}>{t.formTitle} *</label>
@@ -777,9 +777,8 @@ export const UpdateEventModal: React.FC<UpdateEventModalProps> = ({ isOpen, clos
                       key={item.key}
                       type="button"
                       onClick={() => setLocationType(item.key as any)}
-                      className={`view-btn-v2 cursor-pointer transition-all duration-200 ${
-                        active ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm' : 'bg-white'
-                      }`}
+                      className={`view-btn-v2 cursor-pointer transition-all duration-200 ${active ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm' : 'bg-white'
+                        }`}
                       style={{
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -934,9 +933,9 @@ export const UpdateEventModal: React.FC<UpdateEventModalProps> = ({ isOpen, clos
               <button type="button" className="btn-secondary px-4 py-2 border rounded-md text-sm" onClick={closeModal}>
                 {t.cancel}
               </button>
-              <button 
-                type="submit" 
-                className="btn-primary px-4 py-2 text-white rounded-md text-sm font-medium" 
+              <button
+                type="submit"
+                className="btn-primary px-4 py-2 text-white rounded-md text-sm font-medium"
                 style={{ backgroundColor: '#059669', borderColor: '#059669' }}
               >
                 {'Update'}
@@ -1163,7 +1162,7 @@ export const ReadEventModal: React.FC<ReadEventModalProps> = ({ isOpen, closeMod
 
 
 // --- MAIN EVENT TAB COMPONENT ---
-const EventTab: React.FC<EventTabProps> = ({ lang }) => {
+const EventsTab: React.FC<EventTabProps> = ({ lang }) => {
   const t = translations[lang];
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -1172,14 +1171,14 @@ const EventTab: React.FC<EventTabProps> = ({ lang }) => {
   const [filterStatus, setFilterStatus] = useState<string>('All');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-const [modalMode, setModalMode] = useState<'create' | 'delete' | 'read' | 'update'>('create');
+  const [modalMode, setModalMode] = useState<'create' | 'delete' | 'read' | 'update'>('create');
 
-const handleUpdate = (updatedData: Partial<EventItem>) => {
-  setEvents(events.map(ev => 
-    ev.event_id === selectedObj?.event_id ? { ...ev, ...updatedData } : ev
-  ));
-  closeModal();
-};
+  const handleUpdate = (updatedData: Partial<EventItem>) => {
+    setEvents(events.map(ev =>
+      ev.event_id === selectedObj?.event_id ? { ...ev, ...updatedData } : ev
+    ));
+    closeModal();
+  };
   const [selectedObj, setSelectedObj] = useState<EventItem | null>(null);
 
   // Initial event setups in compliant structures!
@@ -1422,12 +1421,14 @@ const handleUpdate = (updatedData: Partial<EventItem>) => {
                             <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
                           </svg>
                         </button>
-<button 
-  className="edit-btn-v2 cursor-pointer" 
-  onClick={() => openModal('update', obj)}
->
-  Edit
-</button>
+                        <button
+                          className="edit-btn-v2 cursor-pointer"
+                          onClick={() => openModal('update', obj)}
+                        >
+                          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                          </svg>
+                        </button>
                         <button className="delete-btn-v2 cursor-pointer text-red-600 hover:bg-red-50" title={t.deleteTitle} onClick={() => openModal('delete', obj)}>
                           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                             <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
@@ -1476,14 +1477,14 @@ const handleUpdate = (updatedData: Partial<EventItem>) => {
       />
 
       <UpdateEventModal
-  isOpen={isModalOpen && modalMode === 'update'}
-  closeModal={closeModal}
-  handleUpdate={handleUpdate}
-  selectedObj={selectedObj}
-  t={t}
-/>
+        isOpen={isModalOpen && modalMode === 'update'}
+        closeModal={closeModal}
+        handleUpdate={handleUpdate}
+        selectedObj={selectedObj}
+        t={t}
+      />
     </div>
   );
 };
 
-export default EventTab;
+export default EventsTab;
