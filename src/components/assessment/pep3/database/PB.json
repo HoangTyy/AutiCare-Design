@@ -1,0 +1,312 @@
+[
+  {
+    "id": 1,
+    "name": {
+      "vi": "Mức độ bùng nổ cơn giận khi cản",
+      "en": "Observe temper tantrum severity"
+    },
+    "materials": {
+      "vi": "Tình huống cất dọn đồ chơi yêu thích",
+      "en": "Situational cleanup of high-interest toys"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu tình huống cất dọn đồ chơi yêu thích trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ chấp nhận dọn dẹp không gào khóc.",
+      "en": "Place the situational cleanup of high-interest toys in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they accept cleanup without aggressive tantrums."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử chấp nhận dọn dẹp không gào khóc không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng chấp nhận dọn dẹp không gào khóc nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện chấp nhận dọn dẹp không gào khóc thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to accept cleanup without aggressive tantrums, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to accept cleanup without aggressive tantrums with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to accept cleanup without aggressive tantrums with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu tình huống cất dọn đồ chơi yêu thích tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi chấp nhận dọn dẹp không gào khóc.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard situational cleanup of high-interest toys, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively accept cleanup without aggressive tantrums."
+    }
+  },
+  {
+    "id": 2,
+    "name": {
+      "vi": "Hành vi rập khuôn vẫy tay trước mặt (Phần 2)",
+      "en": "Observe hand flapping stereotypy (Part 2)"
+    },
+    "materials": {
+      "vi": "Không có vật liệu dạng cải tiến số 2",
+      "en": "No materials required (modified set #2)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu không có vật liệu dạng cải tiến số 2 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ ngưng vẫy lắc tay khi được hướng dẫn.",
+      "en": "Place the no materials required (modified set #2) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they stop flapping hands when redirected."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử ngưng vẫy lắc tay khi được hướng dẫn không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng ngưng vẫy lắc tay khi được hướng dẫn nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện ngưng vẫy lắc tay khi được hướng dẫn thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to stop flapping hands when redirected, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to stop flapping hands when redirected with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to stop flapping hands when redirected with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu không có vật liệu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi ngưng vẫy lắc tay khi được hướng dẫn.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard no materials required, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively stop flapping hands when redirected."
+    }
+  },
+  {
+    "id": 3,
+    "name": {
+      "vi": "Mức độ bùng nổ cơn giận khi cản (Phần 3)",
+      "en": "Observe temper tantrum severity (Part 3)"
+    },
+    "materials": {
+      "vi": "Tình huống cất dọn đồ chơi yêu thích dạng cải tiến số 3",
+      "en": "Situational cleanup of high-interest toys (modified set #3)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu tình huống cất dọn đồ chơi yêu thích dạng cải tiến số 3 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ chấp nhận dọn dẹp không gào khóc.",
+      "en": "Place the situational cleanup of high-interest toys (modified set #3) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they accept cleanup without aggressive tantrums."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử chấp nhận dọn dẹp không gào khóc không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng chấp nhận dọn dẹp không gào khóc nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện chấp nhận dọn dẹp không gào khóc thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to accept cleanup without aggressive tantrums, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to accept cleanup without aggressive tantrums with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to accept cleanup without aggressive tantrums with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu tình huống cất dọn đồ chơi yêu thích tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi chấp nhận dọn dẹp không gào khóc.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard situational cleanup of high-interest toys, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively accept cleanup without aggressive tantrums."
+    }
+  },
+  {
+    "id": 4,
+    "name": {
+      "vi": "Hành vi rập khuôn vẫy tay trước mặt (Phần 4)",
+      "en": "Observe hand flapping stereotypy (Part 4)"
+    },
+    "materials": {
+      "vi": "Không có vật liệu dạng cải tiến số 4",
+      "en": "No materials required (modified set #4)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu không có vật liệu dạng cải tiến số 4 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ ngưng vẫy lắc tay khi được hướng dẫn.",
+      "en": "Place the no materials required (modified set #4) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they stop flapping hands when redirected."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử ngưng vẫy lắc tay khi được hướng dẫn không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng ngưng vẫy lắc tay khi được hướng dẫn nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện ngưng vẫy lắc tay khi được hướng dẫn thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to stop flapping hands when redirected, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to stop flapping hands when redirected with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to stop flapping hands when redirected with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu không có vật liệu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi ngưng vẫy lắc tay khi được hướng dẫn.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard no materials required, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively stop flapping hands when redirected."
+    }
+  },
+  {
+    "id": 5,
+    "name": {
+      "vi": "Mức độ bùng nổ cơn giận khi cản (Phần 5)",
+      "en": "Observe temper tantrum severity (Part 5)"
+    },
+    "materials": {
+      "vi": "Tình huống cất dọn đồ chơi yêu thích dạng cải tiến số 5",
+      "en": "Situational cleanup of high-interest toys (modified set #5)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu tình huống cất dọn đồ chơi yêu thích dạng cải tiến số 5 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ chấp nhận dọn dẹp không gào khóc.",
+      "en": "Place the situational cleanup of high-interest toys (modified set #5) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they accept cleanup without aggressive tantrums."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử chấp nhận dọn dẹp không gào khóc không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng chấp nhận dọn dẹp không gào khóc nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện chấp nhận dọn dẹp không gào khóc thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to accept cleanup without aggressive tantrums, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to accept cleanup without aggressive tantrums with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to accept cleanup without aggressive tantrums with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu tình huống cất dọn đồ chơi yêu thích tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi chấp nhận dọn dẹp không gào khóc.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard situational cleanup of high-interest toys, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively accept cleanup without aggressive tantrums."
+    }
+  },
+  {
+    "id": 6,
+    "name": {
+      "vi": "Hành vi rập khuôn vẫy tay trước mặt (Phần 6)",
+      "en": "Observe hand flapping stereotypy (Part 6)"
+    },
+    "materials": {
+      "vi": "Không có vật liệu dạng cải tiến số 6",
+      "en": "No materials required (modified set #6)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu không có vật liệu dạng cải tiến số 6 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ ngưng vẫy lắc tay khi được hướng dẫn.",
+      "en": "Place the no materials required (modified set #6) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they stop flapping hands when redirected."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử ngưng vẫy lắc tay khi được hướng dẫn không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng ngưng vẫy lắc tay khi được hướng dẫn nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện ngưng vẫy lắc tay khi được hướng dẫn thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to stop flapping hands when redirected, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to stop flapping hands when redirected with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to stop flapping hands when redirected with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu không có vật liệu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi ngưng vẫy lắc tay khi được hướng dẫn.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard no materials required, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively stop flapping hands when redirected."
+    }
+  },
+  {
+    "id": 7,
+    "name": {
+      "vi": "Mức độ bùng nổ cơn giận khi cản (Phần 7)",
+      "en": "Observe temper tantrum severity (Part 7)"
+    },
+    "materials": {
+      "vi": "Tình huống cất dọn đồ chơi yêu thích dạng cải tiến số 7",
+      "en": "Situational cleanup of high-interest toys (modified set #7)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu tình huống cất dọn đồ chơi yêu thích dạng cải tiến số 7 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ chấp nhận dọn dẹp không gào khóc.",
+      "en": "Place the situational cleanup of high-interest toys (modified set #7) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they accept cleanup without aggressive tantrums."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử chấp nhận dọn dẹp không gào khóc không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng chấp nhận dọn dẹp không gào khóc nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện chấp nhận dọn dẹp không gào khóc thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to accept cleanup without aggressive tantrums, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to accept cleanup without aggressive tantrums with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to accept cleanup without aggressive tantrums with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu tình huống cất dọn đồ chơi yêu thích tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi chấp nhận dọn dẹp không gào khóc.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard situational cleanup of high-interest toys, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively accept cleanup without aggressive tantrums."
+    }
+  },
+  {
+    "id": 8,
+    "name": {
+      "vi": "Hành vi rập khuôn vẫy tay trước mặt (Phần 8)",
+      "en": "Observe hand flapping stereotypy (Part 8)"
+    },
+    "materials": {
+      "vi": "Không có vật liệu dạng cải tiến số 8",
+      "en": "No materials required (modified set #8)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu không có vật liệu dạng cải tiến số 8 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ ngưng vẫy lắc tay khi được hướng dẫn.",
+      "en": "Place the no materials required (modified set #8) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they stop flapping hands when redirected."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử ngưng vẫy lắc tay khi được hướng dẫn không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng ngưng vẫy lắc tay khi được hướng dẫn nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện ngưng vẫy lắc tay khi được hướng dẫn thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to stop flapping hands when redirected, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to stop flapping hands when redirected with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to stop flapping hands when redirected with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu không có vật liệu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi ngưng vẫy lắc tay khi được hướng dẫn.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard no materials required, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively stop flapping hands when redirected."
+    }
+  },
+  {
+    "id": 9,
+    "name": {
+      "vi": "Mức độ bùng nổ cơn giận khi cản (Phần 9)",
+      "en": "Observe temper tantrum severity (Part 9)"
+    },
+    "materials": {
+      "vi": "Tình huống cất dọn đồ chơi yêu thích dạng cải tiến số 9",
+      "en": "Situational cleanup of high-interest toys (modified set #9)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu tình huống cất dọn đồ chơi yêu thích dạng cải tiến số 9 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ chấp nhận dọn dẹp không gào khóc.",
+      "en": "Place the situational cleanup of high-interest toys (modified set #9) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they accept cleanup without aggressive tantrums."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử chấp nhận dọn dẹp không gào khóc không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng chấp nhận dọn dẹp không gào khóc nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện chấp nhận dọn dẹp không gào khóc thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to accept cleanup without aggressive tantrums, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to accept cleanup without aggressive tantrums with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to accept cleanup without aggressive tantrums with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu tình huống cất dọn đồ chơi yêu thích tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi chấp nhận dọn dẹp không gào khóc.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard situational cleanup of high-interest toys, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively accept cleanup without aggressive tantrums."
+    }
+  },
+  {
+    "id": 10,
+    "name": {
+      "vi": "Hành vi rập khuôn vẫy tay trước mặt (Phần 10)",
+      "en": "Observe hand flapping stereotypy (Part 10)"
+    },
+    "materials": {
+      "vi": "Không có vật liệu dạng cải tiến số 10",
+      "en": "No materials required (modified set #10)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu không có vật liệu dạng cải tiến số 10 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ ngưng vẫy lắc tay khi được hướng dẫn.",
+      "en": "Place the no materials required (modified set #10) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they stop flapping hands when redirected."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử ngưng vẫy lắc tay khi được hướng dẫn không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng ngưng vẫy lắc tay khi được hướng dẫn nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện ngưng vẫy lắc tay khi được hướng dẫn thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to stop flapping hands when redirected, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to stop flapping hands when redirected with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to stop flapping hands when redirected with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu không có vật liệu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi ngưng vẫy lắc tay khi được hướng dẫn.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard no materials required, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively stop flapping hands when redirected."
+    }
+  }
+]

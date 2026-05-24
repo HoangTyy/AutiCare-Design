@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import './ToolAssessmentPage.css';
+import PEP3SelectChild from './pep3/PEP3SelectChild';
+import PEP3Guide from './pep3/PEP3Guide';
+import PEP3TestRunner from './pep3/PEP3TestRunner';
+import PEP3Report from './pep3/PEP3Report';
+import PEP3ItemBrowser from './pep3/PEP3ItemBrowser';
 
 type Language = 'vi' | 'en';
 
@@ -39,6 +44,11 @@ const ToolAssessmentPage: React.FC<ToolAssessmentPageProps> = ({ lang, setLang, 
   const [selectedGroupId, setSelectedGroupId] = useState<string>('group_1');
   const [selectedTool, setSelectedTool] = useState<TestTool | null>(null);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+
+  // PEP-3 assessment flow states
+  const [pep3Step, setPep3Step] = useState<'none' | 'select_child' | 'guide' | 'testing' | 'report' | 'item_browser'>('none');
+  const [selectedChild, setSelectedChild] = useState<any | null>(null);
+  const [pep3Scores, setPep3Scores] = useState<Record<string, number>>({});
 
   const showToast = (message: string, type: 'teal' | 'orange' = 'teal') => {
     const id = Date.now();
@@ -516,17 +526,26 @@ const ToolAssessmentPage: React.FC<ToolAssessmentPageProps> = ({ lang, setLang, 
   };
 
   return (
-    <div className="assessment-layout-wrapper">
+    <div className="assessment-layout-wrapper assessment-theme-root">
       {/* Floating Decoration Shapes (Playful Geometric) */}
       <div className="assessment-deco assessment-deco-circle-1" />
       <div className="assessment-deco assessment-deco-circle-2" />
       <div className="assessment-deco assessment-deco-triangle" />
       <div className="assessment-deco assessment-deco-square" />
+      
       {/* 1. Page Header */}
       <header className="assessment-header">
         <div className="container">
           <div className="header-left">
-            <button className="btn-back" onClick={onBack}>
+            <button className="btn-back" onClick={() => {
+              if (pep3Step === 'item_browser') {
+                setPep3Step('guide');
+              } else if (pep3Step !== 'none') {
+                setPep3Step('none');
+              } else {
+                onBack();
+              }
+            }}>
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
               {t.navBack}
             </button>
@@ -544,80 +563,142 @@ const ToolAssessmentPage: React.FC<ToolAssessmentPageProps> = ({ lang, setLang, 
         </div>
       </header>
 
-      {/* 2. Main Page Layout (Two Columns) */}
-      <main className="assessment-layout">
-        {/* Left Column: Category Tabs */}
-        <aside className="group-sidebar">
-          <span className="sidebar-title">{t.groupsTitle}</span>
-          {testGroups.map((group) => (
-            <button
-              key={group.id}
-              className={`group-card group-${groupIndexMap[group.id]} ${selectedGroupId === group.id ? 'active' : ''}`}
-              onClick={() => setSelectedGroupId(group.id)}
-            >
-              <div className="group-icon">{group.icon}</div>
-              <div className="group-info">
-                <h3>{group.title[lang]}</h3>
-                <p>{group.description[lang]}</p>
-              </div>
-            </button>
-          ))}
-        </aside>
+      {/* 2. PEP-3 Flow Rendering */}
+      {pep3Step === 'select_child' && (
+        <PEP3SelectChild 
+          lang={lang} 
+          onSelect={(child) => {
+            setSelectedChild(child);
+            setPep3Step('guide');
+          }} 
+          onBack={() => setPep3Step('none')} 
+        />
+      )}
 
-        {/* Right Column: Tools Grid */}
-        <section className="tools-workspace">
-          <div className="workspace-header">
-            <h1>{selectedGroup.title[lang]}</h1>
-            <p>{selectedGroup.description[lang]}</p>
-          </div>
+      {pep3Step === 'guide' && (
+        <PEP3Guide 
+          lang={lang} 
+          childName={selectedChild?.name || ''} 
+          onStart={() => setPep3Step('testing')} 
+          onBack={() => setPep3Step('select_child')} 
+          onOpenBrowser={() => setPep3Step('item_browser')}
+        />
+      )}
 
-          <div className="tools-grid">
-            {selectedGroup.tools.map((tool) => (
-              <div 
-                key={tool.id} 
-                className={`tool-card ${tool.status === 'available' ? 'available' : ''}`}
+      {pep3Step === 'item_browser' && (
+        <PEP3ItemBrowser
+          lang={lang}
+          childName={selectedChild?.name || ''}
+          onBack={() => setPep3Step('guide')}
+        />
+      )}
+
+      {pep3Step === 'testing' && (
+        <PEP3TestRunner 
+          lang={lang} 
+          childName={selectedChild?.name || ''} 
+          onComplete={(scores) => {
+            setPep3Scores(scores);
+            setPep3Step('report');
+          }} 
+          onBack={() => {
+            if (window.confirm(lang === 'vi' ? 'Bạn có chắc chắn muốn thoát? Kết quả bài test hiện tại sẽ bị hủy.' : 'Are you sure you want to exit? Progress will be lost.')) {
+              setPep3Step('none');
+            }
+          }} 
+        />
+      )}
+
+      {pep3Step === 'report' && (
+        <PEP3Report 
+          lang={lang} 
+          childName={selectedChild?.name || ''} 
+          childAge={selectedChild?.age || 3} 
+          scores={pep3Scores} 
+          onReset={() => setPep3Step('select_child')} 
+          onSave={() => {
+            showToast(lang === 'vi' ? '✨ Đã lưu kết quả đánh giá PEP-3 vào Hồ sơ của trẻ thành công!' : '✨ Successfully saved PEP-3 assessment results to the child profile!', 'teal');
+            setPep3Step('none');
+          }} 
+        />
+      )}
+
+      {/* 3. Main Page Layout (Two Columns) - Only visible when pep3Step is 'none' */}
+      {pep3Step === 'none' && (
+        <main className="assessment-layout">
+          {/* Left Column: Category Tabs */}
+          <aside className="group-sidebar">
+            <span className="sidebar-title">{t.groupsTitle}</span>
+            {testGroups.map((group) => (
+              <button
+                key={group.id}
+                className={`group-card group-${groupIndexMap[group.id]} ${selectedGroupId === group.id ? 'active' : ''}`}
+                onClick={() => setSelectedGroupId(group.id)}
               >
-                <div className="badge-container">
-                  {tool.status === 'available' ? (
-                    <span className="status-badge available">
-                      <span className="pulse-dot" />
-                      {t.availableBadge}
-                    </span>
-                  ) : (
-                    <span className="status-badge coming-soon">
-                      {t.comingSoonBadge}
-                    </span>
-                  )}
+                <div className="group-icon">{group.icon}</div>
+                <div className="group-info">
+                  <h3>{group.title[lang]}</h3>
+                  <p>{group.description[lang]}</p>
                 </div>
-
-                <div className="tool-meta">
-                  <h2>{tool.name}</h2>
-                  <h4>{tool.fullName[lang]}</h4>
-                </div>
-
-                <p className="tool-desc">{tool.description[lang]}</p>
-
-                <div className="card-footer">
-                  <div className="tool-age">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    <span>{tool.ageRange[lang]}</span>
-                  </div>
-                  <button 
-                    className={`btn-card-action ${tool.status === 'available' ? 'btn-start' : ''}`}
-                    onClick={() => setSelectedTool(tool)}
-                  >
-                    {tool.status === 'available' ? t.btnStart : t.btnLearnMore}
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </button>
-                </div>
-              </div>
+              </button>
             ))}
-          </div>
-        </section>
-      </main>
+          </aside>
 
-      {/* 3. Detail Popup Modal */}
-      {selectedTool && (
+          {/* Right Column: Tools Grid */}
+          <section className="tools-workspace">
+            <div className="workspace-header">
+              <h1>{selectedGroup.title[lang]}</h1>
+              <p>{selectedGroup.description[lang]}</p>
+            </div>
+
+            <div className="tools-grid">
+              {selectedGroup.tools.map((tool) => (
+                <div 
+                  key={tool.id} 
+                  className={`tool-card ${tool.status === 'available' ? 'available' : ''}`}
+                >
+                  <div className="badge-container">
+                    {tool.status === 'available' ? (
+                      <span className="status-badge available">
+                        <span className="pulse-dot" />
+                        {t.availableBadge}
+                      </span>
+                    ) : (
+                      <span className="status-badge coming-soon">
+                        {t.comingSoonBadge}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="tool-meta">
+                    <h2>{tool.name}</h2>
+                    <h4>{tool.fullName[lang]}</h4>
+                  </div>
+
+                  <p className="tool-desc">{tool.description[lang]}</p>
+
+                  <div className="card-footer">
+                    <div className="tool-age">
+                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                      <span>{tool.ageRange[lang]}</span>
+                    </div>
+                    <button 
+                      className={`btn-card-action ${tool.status === 'available' ? 'btn-start' : ''}`}
+                      onClick={() => setSelectedTool(tool)}
+                    >
+                      {tool.status === 'available' ? t.btnStart : t.btnLearnMore}
+                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </main>
+      )}
+
+      {/* 4. Detail Popup Modal - Only visible when selectedTool exists and pep3Step is 'none' */}
+      {selectedTool && pep3Step === 'none' && (
         <div className="modal-overlay" onClick={() => setSelectedTool(null)}>
           <div
             className={`modal-content-wrapper ${selectedTool.status === 'available' ? 'modal-available' : 'modal-coming-soon'}`}
@@ -680,7 +761,11 @@ const ToolAssessmentPage: React.FC<ToolAssessmentPageProps> = ({ lang, setLang, 
                   <button 
                     className="btn-modal btn-primary"
                     onClick={() => {
-                      showToast(t.toastAvailable, 'teal');
+                      if (selectedTool.id === 'tool_pep3') {
+                        setPep3Step('select_child');
+                      } else {
+                        showToast(t.toastAvailable, 'teal');
+                      }
                       setSelectedTool(null);
                     }}
                   >

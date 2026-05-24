@@ -3,11 +3,11 @@ import ThemeCustomizer from './components/ThemeCustomizer'
 import AdminDashboard from './components/AdminDashboard'
 import DesignCodeHomepage from './components/DesignCodeHomepage'
 import DesignCodeAdmin from './components/DesignCodeAdmin'
-import ToolAssessmentPage from './components/assessment/ToolAssessmentPage'
 import AuthModal from './components/auth/AuthModal'
 import UserProfilePage from './components/profile/UserProfilePage'
 import type { UserProfile } from './components/profile/UserProfilePage'
 import StaffProfilePage from './components/profile/staff/StaffProfilePage'
+import StaffDashboard from './components/profile/staff/StaffDashboard'
 import ProfileModal from './components/homepage/ProfileModal'
 import ParentInvoicesModal from './components/homepage/ParentInvoicesModal'
 import ParentSupportTicketsModal from './components/homepage/ParentSupportTicketsModal'
@@ -28,7 +28,7 @@ import FloatingNav from './components/homepage/FloatingNav'
 import './App.css'
 
 type Language = 'vi' | 'en'
-type View = 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment' | 'profile' | 'centers' | 'staff-profile'
+type View = 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment' | 'profile' | 'centers' | 'staff-profile' | 'staff-dashboard'
 
 const translations = {
   vi: {
@@ -143,6 +143,7 @@ function App() {
   const [showParentInvoices, setShowParentInvoices] = useState(false)
   const [showSupportTickets, setShowSupportTickets] = useState(false)
   const [justBooked, setJustBooked] = useState(false)
+  const [showUnderDev, setShowUnderDev] = useState(false)
 
   // Core Mock Database State for Centers, their respective Levels, and Categories
   const [centers, setCenters] = useState<Center[]>([
@@ -435,6 +436,17 @@ function App() {
     )
   }
 
+  if (view === 'staff-dashboard') {
+    return (
+      <StaffDashboard
+        lang={lang}
+        setLang={setLang}
+        onBack={() => setView('landing')}
+        onViewChange={(newView) => setView(newView)}
+      />
+    )
+  }
+
   if (view === 'centers') {
     return (
       <AllCentersPage
@@ -446,18 +458,7 @@ function App() {
     )
   }
 
-  if (view === 'assessment') {
-    return (
-      <div className="assessment-theme-root assessment-view-wrapper" key="assessment-view">
-         <ToolAssessmentPage 
-           lang={lang} 
-           setLang={setLang} 
-           onBack={() => setView('landing')}
-         />
-         <ThemeCustomizer view={view} />
-      </div>
-    )
-  }
+
 
   if (view === 'admin') {
     return (
@@ -567,7 +568,11 @@ function App() {
                   </div>
                 )}
               </div>
-              <button className="icon-btn" title={t.dashboard} onClick={() => setView('admin')}>
+              <button 
+                className="icon-btn" 
+                title={currentUserName === 'TS. BS. Nguyễn Minh Anh' ? (lang === 'vi' ? 'Không gian làm việc' : 'Workspace') : t.dashboard} 
+                onClick={() => setView(currentUserName === 'TS. BS. Nguyễn Minh Anh' ? 'staff-dashboard' : 'admin')}
+              >
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
                   <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
                 </svg>
@@ -614,7 +619,7 @@ function App() {
           id="hero" 
           t={t} 
           lang={lang} 
-          onStartAssessment={() => setView('assessment')} 
+          onStartAssessment={() => setShowUnderDev(true)} 
           onInvoiceGenerated={() => {
             setJustBooked(true);
             setTimeout(() => {
@@ -664,6 +669,28 @@ function App() {
         onClose={() => setShowSupportTickets(false)}
         lang={lang}
       />
+      {showUnderDev && (
+        <div className="experts-popup-overlay" onClick={() => setShowUnderDev(false)}>
+          <div className="profile-admin-modal appointment-ticket-card" onClick={(e) => e.stopPropagation()} style={{ width: 'min(480px, calc(100% - 2rem))', padding: '2rem', textAlign: 'center', background: '#FFFDF5', border: '3px solid #1E293B', borderRadius: '24px', boxShadow: '8px 8px 0px #1E293B', position: 'relative', zIndex: 9999 }}>
+            <span style={{ fontSize: '3.5rem' }}>🚀</span>
+            <h3 style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '1.8rem', margin: '1.2rem 0 0.6rem 0', color: '#1E293B' }}>
+              {lang === 'vi' ? 'Tính Năng Đang Phát Triển!' : 'Feature Under Development!'}
+            </h3>
+            <p style={{ fontFamily: 'Be Vietnam Pro, sans-serif', fontSize: '0.95rem', color: '#475569', lineHeight: '1.6', marginBottom: '1.8rem' }}>
+              {lang === 'vi' 
+                ? 'Hệ thống tự đánh giá PEP-3 dành cho Phụ huynh tại nhà đang được hoàn thiện. Vui lòng liên hệ Chuyên gia của trung tâm để thực hiện đánh giá lâm sàng trực tiếp cho bé!' 
+                : 'The PEP-3 self-assessment portal for Parents is under active development. Please contact our center specialists to conduct a direct clinical evaluation for your child!'}
+            </p>
+            <button 
+              className="ticket-close-candy" 
+              onClick={() => setShowUnderDev(false)}
+              style={{ margin: '0 auto', display: 'block', float: 'none', background: '#8B5CF6', color: 'white', border: '2.5px solid #1E293B', padding: '0.6rem 2rem', borderRadius: '999px', fontWeight: 800, fontSize: '0.95rem', boxShadow: '3px 3px 0px #1E293B', cursor: 'pointer' }}
+            >
+              {lang === 'vi' ? 'Đã hiểu và Đóng 🤝' : 'Got it & Close 🤝'}
+            </button>
+          </div>
+        </div>
+      )}
       <ThemeCustomizer view={view} onDesignCode={() => setView('designHomepage')} />
     </div>
   )

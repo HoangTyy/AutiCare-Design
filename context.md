@@ -34,16 +34,25 @@
         - `OverviewTab.tsx`: [NEW] Bảng điều khiển Tổng quan độc lập dành riêng cho System Admin, cung cấp cái nhìn toàn diện về hoạt động hệ thống thông qua Bento Stats Grid, biểu đồ doanh thu 3D Memphis và phân bổ kỹ năng.
 3. **Smart Design Lab**: Context-aware customizer with granular contrast control and descriptive component labels for precise theming.
 4. **Design Code Documentation**: 2 interactive dark-themed pages documenting every UI component, token, animation, and layout pattern. Accessed via `</>` buttons from Homepage and Admin.
-5. **Tool Assessment Page (Trang Đánh giá Công cụ)**: Giao diện đánh giá độc lập áp dụng **Playful Geometric Design System** theo phong cách "Medical Playful" — cấu trúc nội dung nghiêm túc, decoration xung quanh sống động và có cá tính. Design tokens: nền `#FFFDF5` warm cream với polka-dot pattern overlay (28px grid), hard shadow system (`--shadow-sm/md/lg`: offset chunky `N px N px 0px #1E293B`, không blur). Font toàn trang: `Be Vietnam Pro` (Rule 9). Mỗi trong 4 nhóm công cụ lâm sàng có màu định danh riêng: Nhóm 1 Chẩn đoán chuyên sâu = Amber `#FBBF24`, Nhóm 2 Sàng lọc nhanh = Pink `#F472B6`, Nhóm 3 Hành vi thích ứng = Violet `#8B5CF6`, Nhóm 4 Tâm vận động = Blue `#60A5FA`. Group Cards active hiển thị hard shadow màu nhóm + wiggle icon animation. Tool Cards dạng Sticker Card (`border: 2px solid #1E293B`, shadow offset). Buttons kiểu Candy (violet pill, chunky border, hard shadow, bounce hover translate). Modal dạng Pop Dialog (`box-shadow: 12px 12px 0 #1E293B`, dot-pattern header band, entrance scale bounce). Toasts pop bounce. 4 floating decoration shapes (circles/triangle/square) animated nhẹ nhàng ở góc trang, ẩn trên mobile. Design Lab hỗ trợ 10 biến màu (6 base + 4 màu nhóm) real-time qua `.assessment-theme-root`. Accessibility: `prefers-reduced-motion` compliant.
+5. **Tool Assessment Page (Trang Đánh giá Công cụ)**: Giao diện đánh giá lâm sàng được tích hợp trực tiếp làm một phân hệ tab nghiệp vụ bên trong Specialist Portal (Hồ sơ Chuyên gia), loại bỏ hoàn toàn view độc lập ở Homepage nhằm tăng cường tính bảo mật và đúng luồng nghiệp vụ lâm sàng. Trang áp dụng **Playful Geometric Design System** theo phong cách "Medical Playful" — cấu trúc nội dung nghiêm túc, decoration xung quanh sống động và có cá tính. Design tokens: nền `#FFFDF5` warm cream với polka-dot pattern overlay (28px grid), hard shadow system (`--shadow-sm/md/lg`: offset chunky `N px N px 0px #1E293B`, không blur). Font toàn trang: `Be Vietnam Pro` (Rule 9). Mỗi trong 4 nhóm công cụ lâm sàng có màu định danh riêng: Nhóm 1 Chẩn đoán chuyên sâu = Amber `#FBBF24`, Nhóm 2 Sàng lọc nhanh = Pink `#F472B6`, Nhóm 3 Hành vi thích ứng = Violet `#8B5CF6`, Nhóm 4 Tâm vận động = Blue `#60A5FA`. Group Cards active hiển thị hard shadow màu nhóm + wiggle icon animation. Tool Cards dạng Sticker Card (`border: 2px solid #1E293B`, shadow offset). Buttons kiểu Candy (violet pill, chunky border, hard shadow, bounce hover translate). Modal dạng Pop Dialog (`box-shadow: 12px 12px 0 #1E293B`, dot-pattern header band, entrance scale bounce). Toasts pop bounce. 4 floating decoration shapes (circles/triangle/square) animated nhẹ nhàng ở góc trang, ẩn trên mobile. Design Lab hỗ trợ 10 biến màu (6 base + 4 màu nhóm) real-time qua `.assessment-theme-root`. Tích hợp trực tiếp bảng điều khiển Design Lab (`ThemeCustomizer`) tại chỗ để hỗ trợ tối đa Luật số 5 (đang ở tab Đánh giá thì chỉnh được màu của trang Đánh giá). Accessibility: `prefers-reduced-motion` compliant.
+    - **Cơ sở dữ liệu PEP-3 Lâm sàng Phân rã Độc lập (Decoupled PEP-3 Database)**: Thay vì lưu trữ tập trung trong 1 file JSON khổng lồ dễ gây sai sót, dữ liệu bài tập PEP-3 được tách biệt hoàn hảo thành **13 file JSON độc lập** tương ứng với 13 tiểu test lâm sàng (CVP, EL, RL, FM, GM, VMI, AE, SR, CMB, CVB, PB, PSC, AB) lưu trữ tại thư mục [database/](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/src/components/assessment/pep3/database/). Mỗi file JSON đã được số hóa và điền trọn vẹn đầy đủ toàn bộ **210 bài tập lâm sàng thực tế** (bao gồm 172 bài đánh giá trẻ trực tiếp và 38 bài đánh giá của người chăm sóc). Mỗi bài tập có cấu trúc chi tiết: tên bài test tương ứng theo phần, vật liệu cụ thể, cách làm chuẩn y khoa, bảng chấm điểm 3 mức (0đ, 1đ, 2đ) cá nhân hóa khớp theo động từ và dụng cụ của từng bài, cùng cẩm nang gợi ý thích ứng tự kỷ (Clinical Adaptation Guides) song ngữ Anh-Việt hoàn chỉnh. Mọi file được gộp tự động tại [index.ts](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/src/components/assessment/pep3/database/index.ts) ở runtime, tự động gán global ID tăng dần, map mã code và tên tiểu test động, giúp phụ huynh và chuyên gia dễ dàng tra cứu và tùy biến vật liệu lâm sàng riêng cho từng bé mà không sợ lệch ID hay sai mã.
+    - **Trình duyệt & Tùy biến Bài tập (`PEP3ItemBrowser.tsx`)**: Cho phép chuyên gia và phụ huynh duyệt, tìm kiếm theo từ khóa hoặc chuẩn vật liệu, và lọc theo 13 tiểu test song ngữ. Tích hợp tính năng **Tùy biến vật liệu thực tế của riêng bé (Clinical Material Adaptation notes)** thời gian thực, cho phép ghi nhận và chỉnh sửa vật liệu thay thế cụ thể (nhạy cảm giác quan hoặc sở thích) giúp trẻ tự kỷ hợp tác tối đa. Giao diện thiết kế sticker card Memphis nhấc nổi, có sticker trạng thái "✨ Đã tùy biến" sinh động.
 6. **All Centers Page (Trang hệ thống trung tâm đầy đủ - AllCentersPage.tsx)**: Trang danh sách trung tâm độc lập (Full Page View) thay thế hoàn toàn cho modal cũ khi người dùng click vào nút "Xem thêm trung tâm +6 trung tâm khác" ở trang Homepage.
    - Áp dụng **Playful Geometric Design System**: nền giấy kem ấm áp `#FFFDF5`, header cố định (`position: sticky; top: 0; z-index: 100;`) màu trắng tinh khiết, viền Slate `#1E293B` dày dặn `3px`.
    - Khu vực Hero giới thiệu (`.all-centers-hero-zone`) được đóng khung bo góc `24px` với viền Slate và bóng đổ Memphis, cùng vệt màu gradient đầu trang rực rỡ và tiêu đề lớn có bóng đổ Accent Coral/Pink.
    - Thanh Toolbar tìm kiếm và lọc (`.all-centers-toolbar-board`): bọc trong khung viền Slate bo góc `20px` với bóng đổ Memphis cứng, tích hợp ô tìm kiếm tự động xóa nhanh và bộ chọn select lọc tỉnh thành.
    - Grid hiển thị toàn bộ 9 trung tâm dạng sticker card `.center-card` kế thừa 100% các CSS đặc trưng (accent bar, pulse status animation, responsive 3 cột trên desktop, 2 cột trên tablet, 1 cột trên mobile).
-7. **Specialist Portal (Trang Cá Nhân Chuyên Gia - StaffProfilePage.tsx)**:
-   - Cổng làm việc và quản trị dành cho Chuyên gia/Bác sĩ/Giáo viên can thiệp sớm bao gồm 5 phân hệ tab: Hồ sơ cá nhân, Lịch hẹn với phụ huynh, Thời khóa biểu tuần, Hồ sơ can thiệp lâm sàng, và **Phân tích Thống kê**.
-   - **StaffStatsTab.tsx (📊 Phân Tích Thống Kê)**: Hiển thị báo cáo cá nhân hóa trực quan theo phong cách Playful Geometric Memphis, bao gồm Bento Stats Grid (Hồ sơ phụ trách, Giờ trị liệu, Tỷ lệ hài lòng, Số học viên tốt nghiệp), biểu đồ cột 3D Mastery Progress (đo lường tỷ lệ hoàn thành mục tiêu can thiệp lâm sàng của trẻ), biểu đồ đường lượn sóng SVG Skill categories wave, và Danh sách gạch đầu dòng mục tiêu trị liệu tiêu điểm trong tuần.
-   - **StaffInterventionTab.tsx (📂 Hồ Sơ Can Thiệp)**: Phân hệ quản lý toàn bộ hồ sơ trị liệu của trẻ đang phụ trách, tích hợp thanh tìm kiếm nhanh, bộ lọc trạng thái và danh sách sticker card chi tiết, đã được tinh chỉnh dọn dẹp sạch sẽ trùng lặp visual biểu đồ để tăng tính tập trung hóa.
+7. **Specialist Personal Profile (Trang Cá Nhân Chuyên Gia - StaffProfilePage.tsx)**:
+   - Hồ sơ cá nhân của Chuyên gia sở hữu bố cục màu kem ấm áp, viền Slate dày và thiết kế Memphis đồng bộ **y hệt như Phụ huynh** (`UserProfilePage.tsx`).
+   - Bao gồm các tab cá nhân tiện ích: "👤 Hồ Sơ Cá Nhân" (sử dụng `StaffProfileTab.tsx` riêng để điền thông tin học vị, chuyên khoa, bio lâm sàng), "🧾 Hóa Đơn & Thanh Toán", "💬 Hỗ Trợ Kỹ Thuật", "📅 Lịch Hẹn Đã Đặt", "⏱️ Thời Khóa Biểu Tuần", "👶 Hồ Sơ Con Em".
+   - Tích hợp nút `🩺 KHÔNG GIAN LÀM VIỆC` nổi bật trên Header để bác sĩ Minh Anh dễ dàng chuyển sang các tab nghiệp vụ lâm sàng chuyên sâu.
+8. **Specialist Workspace (Không Gian Làm Việc Chuyên Gia - StaffDashboard.tsx - MỚI)**:
+   - Bảng điều khiển nghiệp vụ lâm sàng tối sang trọng với giao diện và cấu trúc Midnight Indigo **y hệt Dashboard Admin** (`AdminDashboard.tsx`), giữ nguyên style của thanh Sidebar trái và Topbar Header.
+   - Sidebar được phân cấp khoa học thành 3 nhóm nghiệp vụ:
+     - **Báo cáo & Phân tích**: tab `stats` Phân tích Thống kê (render `StaffStatsTab.tsx` có biểu đồ 3D Memphis Mastery Progress và sóng giờ can thiệp SVG).
+     - **Quản lý Lịch hẹn**: tab `appointments` Lịch hẹn với phụ huynh (render `StaffAppointmentsTab.tsx`), tab `schedule` Thời khóa biểu tuần (`StaffScheduleTab.tsx`).
+     - **Nghiệp vụ Lâm sàng**: tab `intervention` Hồ sơ can thiệp (`StaffInterventionTab.tsx`), tab `assessment` Đánh giá Lâm sàng PEP-3 (`ToolAssessmentPage.tsx`) có Design Lab `ThemeCustomizer` tích hợp tại chỗ (thỏa mãn Luật số 5).
+   - Sidebar footer tích hợp avatar và thông tin Bác sĩ chuyên khoa click chuyển nhanh về trang Cá nhân màu kem.
 
 ## Current State
 - [x] Tinh chỉnh thiết kế thống kê chuyên khoa (`StaffStatsTab.tsx`) hiển thị biểu đồ Mastery Progress 3D Memphis và SVG phân bổ giờ can thiệp của trẻ đang phụ trách, tích hợp trơn tru dưới tab "📊 Phân Tích Thống Kê" trong Specialist Portal.
@@ -573,3 +582,45 @@ Hệ thống AutiCare đã tích hợp hoàn hảo 3 phân hệ thống kê tr�
 - **Tối ưu Responsive & i18n Song ngữ**:
   * Hỗ trợ dịch thuật song ngữ Anh - Việt hoàn hảo cho tất cả các nhãn báo cáo, tiêu đề biểu đồ, tooltip và nhãn chỉ số.
   * Toàn bộ các phân hệ thống kê đều tự động chuyển đổi cấu trúc linh hoạt trên mobile: Lưới bento chuyển thành 1 cột dọc, co nhỏ các cột 3D bar chart, ẩn chiều sâu 3D trên mobile nếu màn hình quá nhỏ để đảm bảo 100% không vỡ khung.
+
+- **Thiết kế Quy trình Đánh giá PEP-3 Chuẩn Lâm Sàng (PEP-3 Clinical Assessment System)**:
+  * **Kiến trúc Modular Phân Rã (Rule 10 & 11)**:
+    * Quy trình đánh giá được chia thành 4 component độc lập đặt tại `src/components/assessment/pep3/` gồm: `PEP3SelectChild.tsx` (Chọn trẻ), `PEP3Guide.tsx` (Cẩm nang hướng dẫn), `PEP3TestRunner.tsx` (Trắc nghiệm mẫu), `PEP3Report.tsx` (Báo cáo bách phân vị lâm sàng).
+    * Giúp quản lý mã nguồn tinh gọn, chuyên biệt và dễ bảo trì.
+  * **Luồng Trải nghiệm 4 Bước Toàn Diện**:
+    1. **Chọn trẻ**: Phụ huynh chọn một trong các hồ sơ trẻ giả lập (Gia Bảo, Minh Anh, Tuệ Lâm). Mỗi trẻ hiển thị dạng sticker card có viền nổi, màu sắc định danh pastel riêng biệt, avatar emoji chuyển đổi giới tính (👦/👧), cùng thẻ ghi chú lần đánh giá gần nhất.
+    2. **Cẩm nang Bento 13 Tiểu test**:
+       * Thể hiện sơ đồ Bento Grid cực kỳ chi tiết bao gồm đầy đủ **13 tiểu test lâm sàng chuẩn y khoa**:
+         - *Phát triển*: CVP (Nhận thức có lời/trước lời - 34 bài), EL (Ngôn ngữ diễn đạt - 25 bài), RL (Tiếp thu ngôn ngữ - 19 bài), FM (Vận động tinh - 20 bài), GM (Vận động thô - 15 bài), VMI (Liên kết tay - mắt - 10 bài).
+         - *Hành vi kém thích ứng*: AE (Diễn đạt cảm xúc - 11 bài), SR (Tương tác xã hội - 12 bài), CMB (Hành vi vận động đặc trưng - 15 bài), CVB (Hành vi lời nói đặc trưng - 11 bài).
+         - *Người chăm sóc*: PB (Các vấn đề về hành vi - 10 bài), PSC (Tính tự lập/Tự chăm sóc - 13 bài), AB (Hành vi thích ứng - 15 bài).
+       * Tích hợp bảng giải thích cơ chế chấm điểm 3 mức lâm sàng rõ ràng: Đạt (P - 2 điểm), Đang phát triển (E - 1 điểm), Không đạt (F - 0 điểm).
+    3. **Trắc nghiệm làm mẫu PEP-3**:
+       * 10 câu hỏi trắc nghiệm trực quan được thiết kế trong thẻ sticker card trắng sữa, có dải tiêu đề hiển thị tên và mã viết tắt của tiểu test hiện tại.
+       * 3 nút Candy Button chấm điểm pill-shape tròn mập mạp có emoji sinh động (🟢/🟡/🔴), phản hồi active lún xuống sắc nét.
+       * Thanh tiến trình động hiển thị tỷ lệ % hoàn thành có màu sắc co giãn mịn màng.
+    4. **Báo cáo Kết quả (PEP-3 Profile Report)**:
+       * **Tấm vé Memphis (Clinical Ticket) độc quyền**: Hiển thị tổng điểm thô và bách phân vị của trẻ trên một tấm vé Memphis cao cấp, có đục lỗ khuyết 2 bên sườn sành điệu, nét đứt dashed, và mã vạch barcode CSS tự tính toán.
+       * **Xếp hạng thiếu hụt (Bảng 1 Percentile Ranges)**: Phân cấp mức độ tự động dựa trên bách phân vị thực tế của trẻ: Bình thường (>89 - Xanh lá), Thiếu hụt nhẹ (75-89 - Vàng), Thiếu hụt trung bình (25-74 - Cam), Thiếu hụt nặng (<25 - Đỏ).
+       * **Biểu đồ cột SVG lộng lẫy**: Biểu diễn trực quan tỷ lệ % đạt được của 13 tiểu test trên trục Y. Tích hợp tương tác hover thời gian thực: khi di chuột vào từng cột, cột đó tự động phình to và hiển thị tooltip thông tin chi tiết (Tên đầy đủ của tiểu test, điểm đạt được trên thang điểm tối đa, và bách phân vị tương đối).
+       * **Khuyến nghị Can thiệp**: Danh sách các gạch đầu dòng khuyến nghị lâm sàng chi tiết được điều chỉnh động theo mức độ bách phân vị, giúp định hướng IEP tốt nhất cho cha mẹ.
+  * **Tùy biến Design Lab & Responsive**:
+    * Toàn bộ hệ thống PEP-3 được bao bọc trong `.assessment-theme-root` kế thừa 100% các biến màu động của Design Lab.
+    * Responsive tối ưu trên mọi màn hình: Bento grid 1 cột trên mobile, timeline xếp gọn, biểu đồ SVG tự co giãn viewBox linh hoạt và vé Memphis tự phẳng hóa viền sườn ở di động dưới 640px không tràn màn hình.
+
+  * **Trình duyệt & Tùy biến 172 Bài tập PEP-3 Lâm sàng (PEP-3 Clinical Item Browser & Customizer)**:
+    * **Kiến trúc file**: Tách biệt hoàn hảo trong component [PEP3ItemBrowser.tsx](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/src/components/assessment/pep3/PEP3ItemBrowser.tsx) độc lập.
+    * **Thanh công cụ Memphis cao cấp**:
+      * Tích hợp ô tìm kiếm nhanh tự động xóa theo từ khóa (tên bài tập, vật liệu, cách làm).
+      * Bộ lọc dropdown pill-shape lọc nhanh bài tập theo từng tiểu test trong 13 tiểu test.
+      * Checkbox lọc nhanh sticker hiển thị "Chỉ hiển thị bài tập đã tùy biến cho trẻ".
+    * **Lưới bài tập Sticker Cards Grid**:
+      * Hiển thị danh sách bài tập dưới dạng các card sticker trắng sữa bo góc 16px, viền Slate 2px và shadow Memphis cứng.
+      * Mỗi card hiển thị đầy đủ: Mã bài tập (Item #), Vùng phát triển, Vật liệu tiêu chuẩn (📦), Cách thực hiện tiêu chuẩn (🎯), và Cách tính điểm (📊).
+    * **Hệ thống Ghi chú Tùy biến Vật liệu Lâm sàng (Clinical Material Adaptation notes)**:
+      * **Gợi ý thích ứng y khoa tiêu chuẩn**: Mỗi bài tập được đính kèm hộp ghi chú thích ứng nét đứt dashed màu mint tươi tắn, hướng dẫn chuyên gia đổi vật liệu mềm/silicon/mô hình hoạt hoạt tương thích giác quan để kích thích tính hợp tác ở trẻ tự kỷ.
+      * **Tùy biến động cho riêng trẻ thời gian thực**:
+        * Bấm nút **Customize for Child**, mở form soạn thảo ghi chú vật liệu thay thế cụ thể dành riêng cho trẻ đó (ví dụ: *Gia Bảo nhạy cảm tiếng gỗ gõ -> đổi sang khối nhựa mềm hoạt họa...*).
+        * Sau khi lưu, ghi chú của bé lập tức được ghim nổi bật lên đầu card dưới dạng sticker màu vàng rực rỡ có viền Slate cực bắt mắt: *✨ Đã tùy biến cho bé Gia Bảo*.
+
+

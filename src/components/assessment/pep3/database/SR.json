@@ -1,0 +1,312 @@
+[
+  {
+    "id": 1,
+    "name": {
+      "vi": "Phản ứng gọi tên quay đầu lại",
+      "en": "Turn head when name called"
+    },
+    "materials": {
+      "vi": "Chuông lắc nhỏ phát âm thanh dịu nhẹ",
+      "en": "Small soft-sound shaking bell"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu chuông lắc nhỏ phát âm thanh dịu nhẹ trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ quay đầu lại tương tác thính giác.",
+      "en": "Place the small soft-sound shaking bell in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they turn head to establish eye contact."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử quay đầu lại tương tác thính giác không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng quay đầu lại tương tác thính giác nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện quay đầu lại tương tác thính giác thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to turn head to establish eye contact, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to turn head to establish eye contact with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to turn head to establish eye contact with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu chuông lắc nhỏ phát âm thanh dịu nhẹ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi quay đầu lại tương tác thính giác.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard small soft-sound shaking bell, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively turn head to establish eye contact."
+    }
+  },
+  {
+    "id": 2,
+    "name": {
+      "vi": "Thiết lập giao tiếp mắt tương tác (Phần 2)",
+      "en": "Maintain interactive eye contact (Part 2)"
+    },
+    "materials": {
+      "vi": "Đồ chơi phát sáng bóng quay led dịu dạng cải tiến số 2",
+      "en": "Soft led glowing spinner toy (modified set #2)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu đồ chơi phát sáng bóng quay led dịu dạng cải tiến số 2 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ nhìn tập trung mắt vào cô dạy.",
+      "en": "Place the soft led glowing spinner toy (modified set #2) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they maintain direct visual contact."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử nhìn tập trung mắt vào cô dạy không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng nhìn tập trung mắt vào cô dạy nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện nhìn tập trung mắt vào cô dạy thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to maintain direct visual contact, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to maintain direct visual contact with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to maintain direct visual contact with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu đồ chơi phát sáng bóng quay led dịu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi nhìn tập trung mắt vào cô dạy.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard soft led glowing spinner toy, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively maintain direct visual contact."
+    }
+  },
+  {
+    "id": 3,
+    "name": {
+      "vi": "Chuyền bóng qua lại hai người (Phần 3)",
+      "en": "Roll ball back and forth (Part 3)"
+    },
+    "materials": {
+      "vi": "Quả bóng cao su mềm cỡ vừa dạng cải tiến số 3",
+      "en": "Medium soft rubber play ball (modified set #3)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu quả bóng cao su mềm cỡ vừa dạng cải tiến số 3 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ lăn bóng ngược trả lại cho cô.",
+      "en": "Place the medium soft rubber play ball (modified set #3) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they roll the ball back to the therapist."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử lăn bóng ngược trả lại cho cô không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng lăn bóng ngược trả lại cho cô nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện lăn bóng ngược trả lại cho cô thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to roll the ball back to the therapist, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to roll the ball back to the therapist with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to roll the ball back to the therapist with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu quả bóng cao su mềm cỡ vừa tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi lăn bóng ngược trả lại cho cô.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard medium soft rubber play ball, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively roll the ball back to the therapist."
+    }
+  },
+  {
+    "id": 4,
+    "name": {
+      "vi": "Phản ứng gọi tên quay đầu lại (Phần 4)",
+      "en": "Turn head when name called (Part 4)"
+    },
+    "materials": {
+      "vi": "Chuông lắc nhỏ phát âm thanh dịu nhẹ dạng cải tiến số 4",
+      "en": "Small soft-sound shaking bell (modified set #4)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu chuông lắc nhỏ phát âm thanh dịu nhẹ dạng cải tiến số 4 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ quay đầu lại tương tác thính giác.",
+      "en": "Place the small soft-sound shaking bell (modified set #4) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they turn head to establish eye contact."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử quay đầu lại tương tác thính giác không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng quay đầu lại tương tác thính giác nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện quay đầu lại tương tác thính giác thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to turn head to establish eye contact, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to turn head to establish eye contact with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to turn head to establish eye contact with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu chuông lắc nhỏ phát âm thanh dịu nhẹ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi quay đầu lại tương tác thính giác.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard small soft-sound shaking bell, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively turn head to establish eye contact."
+    }
+  },
+  {
+    "id": 5,
+    "name": {
+      "vi": "Thiết lập giao tiếp mắt tương tác (Phần 5)",
+      "en": "Maintain interactive eye contact (Part 5)"
+    },
+    "materials": {
+      "vi": "Đồ chơi phát sáng bóng quay led dịu dạng cải tiến số 5",
+      "en": "Soft led glowing spinner toy (modified set #5)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu đồ chơi phát sáng bóng quay led dịu dạng cải tiến số 5 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ nhìn tập trung mắt vào cô dạy.",
+      "en": "Place the soft led glowing spinner toy (modified set #5) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they maintain direct visual contact."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử nhìn tập trung mắt vào cô dạy không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng nhìn tập trung mắt vào cô dạy nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện nhìn tập trung mắt vào cô dạy thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to maintain direct visual contact, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to maintain direct visual contact with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to maintain direct visual contact with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu đồ chơi phát sáng bóng quay led dịu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi nhìn tập trung mắt vào cô dạy.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard soft led glowing spinner toy, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively maintain direct visual contact."
+    }
+  },
+  {
+    "id": 6,
+    "name": {
+      "vi": "Chuyền bóng qua lại hai người (Phần 6)",
+      "en": "Roll ball back and forth (Part 6)"
+    },
+    "materials": {
+      "vi": "Quả bóng cao su mềm cỡ vừa dạng cải tiến số 6",
+      "en": "Medium soft rubber play ball (modified set #6)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu quả bóng cao su mềm cỡ vừa dạng cải tiến số 6 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ lăn bóng ngược trả lại cho cô.",
+      "en": "Place the medium soft rubber play ball (modified set #6) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they roll the ball back to the therapist."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử lăn bóng ngược trả lại cho cô không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng lăn bóng ngược trả lại cho cô nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện lăn bóng ngược trả lại cho cô thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to roll the ball back to the therapist, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to roll the ball back to the therapist with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to roll the ball back to the therapist with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu quả bóng cao su mềm cỡ vừa tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi lăn bóng ngược trả lại cho cô.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard medium soft rubber play ball, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively roll the ball back to the therapist."
+    }
+  },
+  {
+    "id": 7,
+    "name": {
+      "vi": "Phản ứng gọi tên quay đầu lại (Phần 7)",
+      "en": "Turn head when name called (Part 7)"
+    },
+    "materials": {
+      "vi": "Chuông lắc nhỏ phát âm thanh dịu nhẹ dạng cải tiến số 7",
+      "en": "Small soft-sound shaking bell (modified set #7)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu chuông lắc nhỏ phát âm thanh dịu nhẹ dạng cải tiến số 7 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ quay đầu lại tương tác thính giác.",
+      "en": "Place the small soft-sound shaking bell (modified set #7) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they turn head to establish eye contact."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử quay đầu lại tương tác thính giác không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng quay đầu lại tương tác thính giác nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện quay đầu lại tương tác thính giác thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to turn head to establish eye contact, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to turn head to establish eye contact with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to turn head to establish eye contact with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu chuông lắc nhỏ phát âm thanh dịu nhẹ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi quay đầu lại tương tác thính giác.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard small soft-sound shaking bell, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively turn head to establish eye contact."
+    }
+  },
+  {
+    "id": 8,
+    "name": {
+      "vi": "Thiết lập giao tiếp mắt tương tác (Phần 8)",
+      "en": "Maintain interactive eye contact (Part 8)"
+    },
+    "materials": {
+      "vi": "Đồ chơi phát sáng bóng quay led dịu dạng cải tiến số 8",
+      "en": "Soft led glowing spinner toy (modified set #8)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu đồ chơi phát sáng bóng quay led dịu dạng cải tiến số 8 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ nhìn tập trung mắt vào cô dạy.",
+      "en": "Place the soft led glowing spinner toy (modified set #8) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they maintain direct visual contact."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử nhìn tập trung mắt vào cô dạy không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng nhìn tập trung mắt vào cô dạy nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện nhìn tập trung mắt vào cô dạy thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to maintain direct visual contact, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to maintain direct visual contact with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to maintain direct visual contact with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu đồ chơi phát sáng bóng quay led dịu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi nhìn tập trung mắt vào cô dạy.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard soft led glowing spinner toy, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively maintain direct visual contact."
+    }
+  },
+  {
+    "id": 9,
+    "name": {
+      "vi": "Chuyền bóng qua lại hai người (Phần 9)",
+      "en": "Roll ball back and forth (Part 9)"
+    },
+    "materials": {
+      "vi": "Quả bóng cao su mềm cỡ vừa dạng cải tiến số 9",
+      "en": "Medium soft rubber play ball (modified set #9)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu quả bóng cao su mềm cỡ vừa dạng cải tiến số 9 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ lăn bóng ngược trả lại cho cô.",
+      "en": "Place the medium soft rubber play ball (modified set #9) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they roll the ball back to the therapist."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử lăn bóng ngược trả lại cho cô không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng lăn bóng ngược trả lại cho cô nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện lăn bóng ngược trả lại cho cô thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to roll the ball back to the therapist, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to roll the ball back to the therapist with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to roll the ball back to the therapist with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu quả bóng cao su mềm cỡ vừa tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi lăn bóng ngược trả lại cho cô.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard medium soft rubber play ball, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively roll the ball back to the therapist."
+    }
+  },
+  {
+    "id": 10,
+    "name": {
+      "vi": "Phản ứng gọi tên quay đầu lại (Phần 10)",
+      "en": "Turn head when name called (Part 10)"
+    },
+    "materials": {
+      "vi": "Chuông lắc nhỏ phát âm thanh dịu nhẹ dạng cải tiến số 10",
+      "en": "Small soft-sound shaking bell (modified set #10)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu chuông lắc nhỏ phát âm thanh dịu nhẹ dạng cải tiến số 10 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ quay đầu lại tương tác thính giác.",
+      "en": "Place the small soft-sound shaking bell (modified set #10) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they turn head to establish eye contact."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử quay đầu lại tương tác thính giác không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng quay đầu lại tương tác thính giác nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện quay đầu lại tương tác thính giác thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to turn head to establish eye contact, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to turn head to establish eye contact with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to turn head to establish eye contact with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu chuông lắc nhỏ phát âm thanh dịu nhẹ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi quay đầu lại tương tác thính giác.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard small soft-sound shaking bell, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively turn head to establish eye contact."
+    }
+  }
+]

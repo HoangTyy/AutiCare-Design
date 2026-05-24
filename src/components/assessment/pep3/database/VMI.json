@@ -1,0 +1,250 @@
+[
+  {
+    "id": 1,
+    "name": {
+      "vi": "Xếp tháp khối gỗ tròn",
+      "en": "Stack cylindrical blocks tower"
+    },
+    "materials": {
+      "vi": "6 khối hình trụ tròn bằng gỗ nhiều màu",
+      "en": "6 colorful wooden cylindrical blocks"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 6 khối hình trụ tròn bằng gỗ nhiều màu trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ xếp chồng khối trụ thành tháp.",
+      "en": "Place the 6 colorful wooden cylindrical blocks in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they stack the blocks into a stable tower."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử xếp chồng khối trụ thành tháp không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng xếp chồng khối trụ thành tháp nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện xếp chồng khối trụ thành tháp thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to stack the blocks into a stable tower, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to stack the blocks into a stable tower with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to stack the blocks into a stable tower with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 6 khối hình trụ tròn bằng gỗ nhiều màu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi xếp chồng khối trụ thành tháp.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 6 colorful wooden cylindrical blocks, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively stack the blocks into a stable tower."
+    }
+  },
+  {
+    "id": 2,
+    "name": {
+      "vi": "Bắt chước vẽ nét dọc thẳng (Phần 2)",
+      "en": "Imitate drawing vertical line (Part 2)"
+    },
+    "materials": {
+      "vi": "Bút lông mềm đầu to, bảng vẽ trắng dạng cải tiến số 2",
+      "en": "Thick felt-tip marker, whiteboard (modified set #2)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu bút lông mềm đầu to, bảng vẽ trắng dạng cải tiến số 2 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ vẽ nét thẳng dọc từ trên xuống.",
+      "en": "Place the thick felt-tip marker, whiteboard (modified set #2) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they draw a straight vertical line."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử vẽ nét thẳng dọc từ trên xuống không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng vẽ nét thẳng dọc từ trên xuống nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện vẽ nét thẳng dọc từ trên xuống thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to draw a straight vertical line, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to draw a straight vertical line with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to draw a straight vertical line with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu bút lông mềm đầu to, bảng vẽ trắng tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi vẽ nét thẳng dọc từ trên xuống.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard thick felt-tip marker, whiteboard, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively draw a straight vertical line."
+    }
+  },
+  {
+    "id": 3,
+    "name": {
+      "vi": "Gấp đôi tờ giấy thủ công (Phần 3)",
+      "en": "Fold paper sheet in half (Part 3)"
+    },
+    "materials": {
+      "vi": "Tờ giấy thủ công màu sắc vuông vắn dạng cải tiến số 3",
+      "en": "Colorful square origami paper (modified set #3)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu tờ giấy thủ công màu sắc vuông vắn dạng cải tiến số 3 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ gấp đôi tờ giấy thủ công phẳng.",
+      "en": "Place the colorful square origami paper (modified set #3) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they fold the paper sheet neatly in half."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử gấp đôi tờ giấy thủ công phẳng không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng gấp đôi tờ giấy thủ công phẳng nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện gấp đôi tờ giấy thủ công phẳng thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to fold the paper sheet neatly in half, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to fold the paper sheet neatly in half with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to fold the paper sheet neatly in half with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu tờ giấy thủ công màu sắc vuông vắn tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi gấp đôi tờ giấy thủ công phẳng.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard colorful square origami paper, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively fold the paper sheet neatly in half."
+    }
+  },
+  {
+    "id": 4,
+    "name": {
+      "vi": "Xếp tháp khối gỗ tròn (Phần 4)",
+      "en": "Stack cylindrical blocks tower (Part 4)"
+    },
+    "materials": {
+      "vi": "6 khối hình trụ tròn bằng gỗ nhiều màu dạng cải tiến số 4",
+      "en": "6 colorful wooden cylindrical blocks (modified set #4)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 6 khối hình trụ tròn bằng gỗ nhiều màu dạng cải tiến số 4 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ xếp chồng khối trụ thành tháp.",
+      "en": "Place the 6 colorful wooden cylindrical blocks (modified set #4) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they stack the blocks into a stable tower."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử xếp chồng khối trụ thành tháp không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng xếp chồng khối trụ thành tháp nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện xếp chồng khối trụ thành tháp thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to stack the blocks into a stable tower, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to stack the blocks into a stable tower with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to stack the blocks into a stable tower with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 6 khối hình trụ tròn bằng gỗ nhiều màu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi xếp chồng khối trụ thành tháp.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 6 colorful wooden cylindrical blocks, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively stack the blocks into a stable tower."
+    }
+  },
+  {
+    "id": 5,
+    "name": {
+      "vi": "Bắt chước vẽ nét dọc thẳng (Phần 5)",
+      "en": "Imitate drawing vertical line (Part 5)"
+    },
+    "materials": {
+      "vi": "Bút lông mềm đầu to, bảng vẽ trắng dạng cải tiến số 5",
+      "en": "Thick felt-tip marker, whiteboard (modified set #5)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu bút lông mềm đầu to, bảng vẽ trắng dạng cải tiến số 5 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ vẽ nét thẳng dọc từ trên xuống.",
+      "en": "Place the thick felt-tip marker, whiteboard (modified set #5) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they draw a straight vertical line."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử vẽ nét thẳng dọc từ trên xuống không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng vẽ nét thẳng dọc từ trên xuống nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện vẽ nét thẳng dọc từ trên xuống thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to draw a straight vertical line, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to draw a straight vertical line with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to draw a straight vertical line with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu bút lông mềm đầu to, bảng vẽ trắng tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi vẽ nét thẳng dọc từ trên xuống.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard thick felt-tip marker, whiteboard, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively draw a straight vertical line."
+    }
+  },
+  {
+    "id": 6,
+    "name": {
+      "vi": "Gấp đôi tờ giấy thủ công (Phần 6)",
+      "en": "Fold paper sheet in half (Part 6)"
+    },
+    "materials": {
+      "vi": "Tờ giấy thủ công màu sắc vuông vắn dạng cải tiến số 6",
+      "en": "Colorful square origami paper (modified set #6)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu tờ giấy thủ công màu sắc vuông vắn dạng cải tiến số 6 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ gấp đôi tờ giấy thủ công phẳng.",
+      "en": "Place the colorful square origami paper (modified set #6) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they fold the paper sheet neatly in half."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử gấp đôi tờ giấy thủ công phẳng không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng gấp đôi tờ giấy thủ công phẳng nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện gấp đôi tờ giấy thủ công phẳng thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to fold the paper sheet neatly in half, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to fold the paper sheet neatly in half with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to fold the paper sheet neatly in half with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu tờ giấy thủ công màu sắc vuông vắn tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi gấp đôi tờ giấy thủ công phẳng.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard colorful square origami paper, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively fold the paper sheet neatly in half."
+    }
+  },
+  {
+    "id": 7,
+    "name": {
+      "vi": "Xếp tháp khối gỗ tròn (Phần 7)",
+      "en": "Stack cylindrical blocks tower (Part 7)"
+    },
+    "materials": {
+      "vi": "6 khối hình trụ tròn bằng gỗ nhiều màu dạng cải tiến số 7",
+      "en": "6 colorful wooden cylindrical blocks (modified set #7)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 6 khối hình trụ tròn bằng gỗ nhiều màu dạng cải tiến số 7 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ xếp chồng khối trụ thành tháp.",
+      "en": "Place the 6 colorful wooden cylindrical blocks (modified set #7) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they stack the blocks into a stable tower."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử xếp chồng khối trụ thành tháp không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng xếp chồng khối trụ thành tháp nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện xếp chồng khối trụ thành tháp thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to stack the blocks into a stable tower, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to stack the blocks into a stable tower with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to stack the blocks into a stable tower with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 6 khối hình trụ tròn bằng gỗ nhiều màu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi xếp chồng khối trụ thành tháp.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 6 colorful wooden cylindrical blocks, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively stack the blocks into a stable tower."
+    }
+  },
+  {
+    "id": 8,
+    "name": {
+      "vi": "Bắt chước vẽ nét dọc thẳng (Phần 8)",
+      "en": "Imitate drawing vertical line (Part 8)"
+    },
+    "materials": {
+      "vi": "Bút lông mềm đầu to, bảng vẽ trắng dạng cải tiến số 8",
+      "en": "Thick felt-tip marker, whiteboard (modified set #8)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu bút lông mềm đầu to, bảng vẽ trắng dạng cải tiến số 8 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ vẽ nét thẳng dọc từ trên xuống.",
+      "en": "Place the thick felt-tip marker, whiteboard (modified set #8) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they draw a straight vertical line."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử vẽ nét thẳng dọc từ trên xuống không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng vẽ nét thẳng dọc từ trên xuống nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện vẽ nét thẳng dọc từ trên xuống thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to draw a straight vertical line, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to draw a straight vertical line with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to draw a straight vertical line with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu bút lông mềm đầu to, bảng vẽ trắng tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi vẽ nét thẳng dọc từ trên xuống.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard thick felt-tip marker, whiteboard, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively draw a straight vertical line."
+    }
+  }
+]

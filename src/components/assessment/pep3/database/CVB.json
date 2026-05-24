@@ -1,0 +1,343 @@
+[
+  {
+    "id": 1,
+    "name": {
+      "vi": "Quan sát hành vi nhại lời vô nghĩa",
+      "en": "Observe speech echolalia patterns"
+    },
+    "materials": {
+      "vi": "Không có vật liệu đặc thù",
+      "en": "No specific materials required"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu không có vật liệu đặc thù trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ nhại lại y nguyên câu nói của cô.",
+      "en": "Place the no specific materials required in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they mimic words or questions verbatim."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử nhại lại y nguyên câu nói của cô không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng nhại lại y nguyên câu nói của cô nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện nhại lại y nguyên câu nói của cô thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to mimic words or questions verbatim, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to mimic words or questions verbatim with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to mimic words or questions verbatim with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu không có vật liệu đặc thù tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi nhại lại y nguyên câu nói của cô.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard no specific materials required, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively mimic words or questions verbatim."
+    }
+  },
+  {
+    "id": 2,
+    "name": {
+      "vi": "Quan sát hành vi bập bẹ tự phát (Phần 2)",
+      "en": "Observe spontaneous babbling (Part 2)"
+    },
+    "materials": {
+      "vi": "Đồ chơi kích thích giao tiếp nói dạng cải tiến số 2",
+      "en": "Toys stimulating vocal expression (modified set #2)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu đồ chơi kích thích giao tiếp nói dạng cải tiến số 2 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ phát ra các âm bập bẹ vô nghĩa kéo dài.",
+      "en": "Place the toys stimulating vocal expression (modified set #2) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they vocalize non-communicative sounds."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử phát ra các âm bập bẹ vô nghĩa kéo dài không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng phát ra các âm bập bẹ vô nghĩa kéo dài nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện phát ra các âm bập bẹ vô nghĩa kéo dài thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to vocalize non-communicative sounds, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to vocalize non-communicative sounds with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to vocalize non-communicative sounds with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu đồ chơi kích thích giao tiếp nói tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi phát ra các âm bập bẹ vô nghĩa kéo dài.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard toys stimulating vocal expression, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively vocalize non-communicative sounds."
+    }
+  },
+  {
+    "id": 3,
+    "name": {
+      "vi": "Quan sát hành vi nhại lời vô nghĩa (Phần 3)",
+      "en": "Observe speech echolalia patterns (Part 3)"
+    },
+    "materials": {
+      "vi": "Không có vật liệu đặc thù dạng cải tiến số 3",
+      "en": "No specific materials required (modified set #3)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu không có vật liệu đặc thù dạng cải tiến số 3 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ nhại lại y nguyên câu nói của cô.",
+      "en": "Place the no specific materials required (modified set #3) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they mimic words or questions verbatim."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử nhại lại y nguyên câu nói của cô không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng nhại lại y nguyên câu nói của cô nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện nhại lại y nguyên câu nói của cô thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to mimic words or questions verbatim, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to mimic words or questions verbatim with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to mimic words or questions verbatim with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu không có vật liệu đặc thù tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi nhại lại y nguyên câu nói của cô.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard no specific materials required, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively mimic words or questions verbatim."
+    }
+  },
+  {
+    "id": 4,
+    "name": {
+      "vi": "Quan sát hành vi bập bẹ tự phát (Phần 4)",
+      "en": "Observe spontaneous babbling (Part 4)"
+    },
+    "materials": {
+      "vi": "Đồ chơi kích thích giao tiếp nói dạng cải tiến số 4",
+      "en": "Toys stimulating vocal expression (modified set #4)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu đồ chơi kích thích giao tiếp nói dạng cải tiến số 4 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ phát ra các âm bập bẹ vô nghĩa kéo dài.",
+      "en": "Place the toys stimulating vocal expression (modified set #4) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they vocalize non-communicative sounds."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử phát ra các âm bập bẹ vô nghĩa kéo dài không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng phát ra các âm bập bẹ vô nghĩa kéo dài nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện phát ra các âm bập bẹ vô nghĩa kéo dài thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to vocalize non-communicative sounds, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to vocalize non-communicative sounds with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to vocalize non-communicative sounds with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu đồ chơi kích thích giao tiếp nói tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi phát ra các âm bập bẹ vô nghĩa kéo dài.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard toys stimulating vocal expression, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively vocalize non-communicative sounds."
+    }
+  },
+  {
+    "id": 5,
+    "name": {
+      "vi": "Quan sát hành vi nhại lời vô nghĩa (Phần 5)",
+      "en": "Observe speech echolalia patterns (Part 5)"
+    },
+    "materials": {
+      "vi": "Không có vật liệu đặc thù dạng cải tiến số 5",
+      "en": "No specific materials required (modified set #5)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu không có vật liệu đặc thù dạng cải tiến số 5 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ nhại lại y nguyên câu nói của cô.",
+      "en": "Place the no specific materials required (modified set #5) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they mimic words or questions verbatim."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử nhại lại y nguyên câu nói của cô không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng nhại lại y nguyên câu nói của cô nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện nhại lại y nguyên câu nói của cô thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to mimic words or questions verbatim, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to mimic words or questions verbatim with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to mimic words or questions verbatim with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu không có vật liệu đặc thù tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi nhại lại y nguyên câu nói của cô.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard no specific materials required, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively mimic words or questions verbatim."
+    }
+  },
+  {
+    "id": 6,
+    "name": {
+      "vi": "Quan sát hành vi bập bẹ tự phát (Phần 6)",
+      "en": "Observe spontaneous babbling (Part 6)"
+    },
+    "materials": {
+      "vi": "Đồ chơi kích thích giao tiếp nói dạng cải tiến số 6",
+      "en": "Toys stimulating vocal expression (modified set #6)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu đồ chơi kích thích giao tiếp nói dạng cải tiến số 6 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ phát ra các âm bập bẹ vô nghĩa kéo dài.",
+      "en": "Place the toys stimulating vocal expression (modified set #6) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they vocalize non-communicative sounds."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử phát ra các âm bập bẹ vô nghĩa kéo dài không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng phát ra các âm bập bẹ vô nghĩa kéo dài nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện phát ra các âm bập bẹ vô nghĩa kéo dài thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to vocalize non-communicative sounds, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to vocalize non-communicative sounds with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to vocalize non-communicative sounds with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu đồ chơi kích thích giao tiếp nói tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi phát ra các âm bập bẹ vô nghĩa kéo dài.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard toys stimulating vocal expression, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively vocalize non-communicative sounds."
+    }
+  },
+  {
+    "id": 7,
+    "name": {
+      "vi": "Quan sát hành vi nhại lời vô nghĩa (Phần 7)",
+      "en": "Observe speech echolalia patterns (Part 7)"
+    },
+    "materials": {
+      "vi": "Không có vật liệu đặc thù dạng cải tiến số 7",
+      "en": "No specific materials required (modified set #7)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu không có vật liệu đặc thù dạng cải tiến số 7 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ nhại lại y nguyên câu nói của cô.",
+      "en": "Place the no specific materials required (modified set #7) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they mimic words or questions verbatim."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử nhại lại y nguyên câu nói của cô không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng nhại lại y nguyên câu nói của cô nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện nhại lại y nguyên câu nói của cô thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to mimic words or questions verbatim, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to mimic words or questions verbatim with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to mimic words or questions verbatim with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu không có vật liệu đặc thù tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi nhại lại y nguyên câu nói của cô.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard no specific materials required, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively mimic words or questions verbatim."
+    }
+  },
+  {
+    "id": 8,
+    "name": {
+      "vi": "Quan sát hành vi bập bẹ tự phát (Phần 8)",
+      "en": "Observe spontaneous babbling (Part 8)"
+    },
+    "materials": {
+      "vi": "Đồ chơi kích thích giao tiếp nói dạng cải tiến số 8",
+      "en": "Toys stimulating vocal expression (modified set #8)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu đồ chơi kích thích giao tiếp nói dạng cải tiến số 8 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ phát ra các âm bập bẹ vô nghĩa kéo dài.",
+      "en": "Place the toys stimulating vocal expression (modified set #8) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they vocalize non-communicative sounds."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử phát ra các âm bập bẹ vô nghĩa kéo dài không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng phát ra các âm bập bẹ vô nghĩa kéo dài nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện phát ra các âm bập bẹ vô nghĩa kéo dài thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to vocalize non-communicative sounds, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to vocalize non-communicative sounds with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to vocalize non-communicative sounds with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu đồ chơi kích thích giao tiếp nói tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi phát ra các âm bập bẹ vô nghĩa kéo dài.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard toys stimulating vocal expression, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively vocalize non-communicative sounds."
+    }
+  },
+  {
+    "id": 9,
+    "name": {
+      "vi": "Quan sát hành vi nhại lời vô nghĩa (Phần 9)",
+      "en": "Observe speech echolalia patterns (Part 9)"
+    },
+    "materials": {
+      "vi": "Không có vật liệu đặc thù dạng cải tiến số 9",
+      "en": "No specific materials required (modified set #9)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu không có vật liệu đặc thù dạng cải tiến số 9 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ nhại lại y nguyên câu nói của cô.",
+      "en": "Place the no specific materials required (modified set #9) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they mimic words or questions verbatim."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử nhại lại y nguyên câu nói của cô không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng nhại lại y nguyên câu nói của cô nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện nhại lại y nguyên câu nói của cô thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to mimic words or questions verbatim, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to mimic words or questions verbatim with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to mimic words or questions verbatim with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu không có vật liệu đặc thù tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi nhại lại y nguyên câu nói của cô.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard no specific materials required, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively mimic words or questions verbatim."
+    }
+  },
+  {
+    "id": 10,
+    "name": {
+      "vi": "Quan sát hành vi bập bẹ tự phát (Phần 10)",
+      "en": "Observe spontaneous babbling (Part 10)"
+    },
+    "materials": {
+      "vi": "Đồ chơi kích thích giao tiếp nói dạng cải tiến số 10",
+      "en": "Toys stimulating vocal expression (modified set #10)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu đồ chơi kích thích giao tiếp nói dạng cải tiến số 10 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ phát ra các âm bập bẹ vô nghĩa kéo dài.",
+      "en": "Place the toys stimulating vocal expression (modified set #10) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they vocalize non-communicative sounds."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử phát ra các âm bập bẹ vô nghĩa kéo dài không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng phát ra các âm bập bẹ vô nghĩa kéo dài nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện phát ra các âm bập bẹ vô nghĩa kéo dài thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to vocalize non-communicative sounds, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to vocalize non-communicative sounds with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to vocalize non-communicative sounds with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu đồ chơi kích thích giao tiếp nói tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi phát ra các âm bập bẹ vô nghĩa kéo dài.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard toys stimulating vocal expression, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively vocalize non-communicative sounds."
+    }
+  },
+  {
+    "id": 11,
+    "name": {
+      "vi": "Quan sát hành vi nhại lời vô nghĩa (Phần 11)",
+      "en": "Observe speech echolalia patterns (Part 11)"
+    },
+    "materials": {
+      "vi": "Không có vật liệu đặc thù dạng cải tiến số 11",
+      "en": "No specific materials required (modified set #11)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu không có vật liệu đặc thù dạng cải tiến số 11 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ nhại lại y nguyên câu nói của cô.",
+      "en": "Place the no specific materials required (modified set #11) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they mimic words or questions verbatim."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử nhại lại y nguyên câu nói của cô không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng nhại lại y nguyên câu nói của cô nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện nhại lại y nguyên câu nói của cô thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to mimic words or questions verbatim, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to mimic words or questions verbatim with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to mimic words or questions verbatim with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu không có vật liệu đặc thù tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi nhại lại y nguyên câu nói của cô.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard no specific materials required, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively mimic words or questions verbatim."
+    }
+  }
+]

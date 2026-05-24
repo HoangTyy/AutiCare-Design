@@ -1,0 +1,436 @@
+[
+  {
+    "id": 1,
+    "name": {
+      "vi": "Chỉ bộ phận cơ thể búp bê",
+      "en": "Point to doll body parts"
+    },
+    "materials": {
+      "vi": "Búp bê em bé cỡ lớn bằng nhựa dẻo",
+      "en": "Large vinyl baby doll"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu búp bê em bé cỡ lớn bằng nhựa dẻo trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ chỉ đúng bộ phận của búp bê.",
+      "en": "Place the large vinyl baby doll in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they point to the doll's body parts."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử chỉ đúng bộ phận của búp bê không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng chỉ đúng bộ phận của búp bê nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện chỉ đúng bộ phận của búp bê thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to point to the doll's body parts, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to point to the doll's body parts with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to point to the doll's body parts with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu búp bê em bé cỡ lớn bằng nhựa dẻo tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi chỉ đúng bộ phận của búp bê.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard large vinyl baby doll, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively point to the doll's body parts."
+    }
+  },
+  {
+    "id": 2,
+    "name": {
+      "vi": "Thực hiện chỉ dẫn 1 bước (Phần 2)",
+      "en": "Follow 1-step verbal command (Part 2)"
+    },
+    "materials": {
+      "vi": "Quả bóng nhựa mềm, giỏ đựng đồ dạng cải tiến số 2",
+      "en": "Soft plastic ball, toy box (modified set #2)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu quả bóng nhựa mềm, giỏ đựng đồ dạng cải tiến số 2 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ cất bóng vào giỏ theo lệnh.",
+      "en": "Place the soft plastic ball, toy box (modified set #2) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they put the ball in the box on command."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử cất bóng vào giỏ theo lệnh không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng cất bóng vào giỏ theo lệnh nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện cất bóng vào giỏ theo lệnh thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to put the ball in the box on command, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to put the ball in the box on command with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to put the ball in the box on command with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu quả bóng nhựa mềm, giỏ đựng đồ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi cất bóng vào giỏ theo lệnh.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard soft plastic ball, toy box, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively put the ball in the box on command."
+    }
+  },
+  {
+    "id": 3,
+    "name": {
+      "vi": "Tìm đồ vật theo yêu cầu (Phần 3)",
+      "en": "Fetch requested item (Part 3)"
+    },
+    "materials": {
+      "vi": "Thìa nhựa, cốc nhựa, bút chì trên bàn dạng cải tiến số 3",
+      "en": "Plastic spoon, cup, pencil on table (modified set #3)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu thìa nhựa, cốc nhựa, bút chì trên bàn dạng cải tiến số 3 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ lấy đúng đồ vật cô yêu cầu.",
+      "en": "Place the plastic spoon, cup, pencil on table (modified set #3) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they fetch the exact item requested."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử lấy đúng đồ vật cô yêu cầu không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng lấy đúng đồ vật cô yêu cầu nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện lấy đúng đồ vật cô yêu cầu thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to fetch the exact item requested, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to fetch the exact item requested with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to fetch the exact item requested with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu thìa nhựa, cốc nhựa, bút chì trên bàn tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi lấy đúng đồ vật cô yêu cầu.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard plastic spoon, cup, pencil on table, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively fetch the exact item requested."
+    }
+  },
+  {
+    "id": 4,
+    "name": {
+      "vi": "Phân biệt giống và khác nhau (Phần 4)",
+      "en": "Differentiate same vs different (Part 4)"
+    },
+    "materials": {
+      "vi": "2 bút chì màu đỏ, 1 bút chì xanh lá dạng cải tiến số 4",
+      "en": "2 red pencils, 1 green pencil (modified set #4)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 2 bút chì màu đỏ, 1 bút chì xanh lá dạng cải tiến số 4 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ chỉ ra bút có màu khác biệt.",
+      "en": "Place the 2 red pencils, 1 green pencil (modified set #4) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they identify the pencil with the different color."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử chỉ ra bút có màu khác biệt không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng chỉ ra bút có màu khác biệt nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện chỉ ra bút có màu khác biệt thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to identify the pencil with the different color, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to identify the pencil with the different color with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to identify the pencil with the different color with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 2 bút chì màu đỏ, 1 bút chì xanh lá tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi chỉ ra bút có màu khác biệt.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 2 red pencils, 1 green pencil, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively identify the pencil with the different color."
+    }
+  },
+  {
+    "id": 5,
+    "name": {
+      "vi": "Chỉ bộ phận cơ thể búp bê (Phần 5)",
+      "en": "Point to doll body parts (Part 5)"
+    },
+    "materials": {
+      "vi": "Búp bê em bé cỡ lớn bằng nhựa dẻo dạng cải tiến số 5",
+      "en": "Large vinyl baby doll (modified set #5)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu búp bê em bé cỡ lớn bằng nhựa dẻo dạng cải tiến số 5 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ chỉ đúng bộ phận của búp bê.",
+      "en": "Place the large vinyl baby doll (modified set #5) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they point to the doll's body parts."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử chỉ đúng bộ phận của búp bê không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng chỉ đúng bộ phận của búp bê nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện chỉ đúng bộ phận của búp bê thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to point to the doll's body parts, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to point to the doll's body parts with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to point to the doll's body parts with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu búp bê em bé cỡ lớn bằng nhựa dẻo tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi chỉ đúng bộ phận của búp bê.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard large vinyl baby doll, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively point to the doll's body parts."
+    }
+  },
+  {
+    "id": 6,
+    "name": {
+      "vi": "Thực hiện chỉ dẫn 1 bước (Phần 6)",
+      "en": "Follow 1-step verbal command (Part 6)"
+    },
+    "materials": {
+      "vi": "Quả bóng nhựa mềm, giỏ đựng đồ dạng cải tiến số 6",
+      "en": "Soft plastic ball, toy box (modified set #6)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu quả bóng nhựa mềm, giỏ đựng đồ dạng cải tiến số 6 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ cất bóng vào giỏ theo lệnh.",
+      "en": "Place the soft plastic ball, toy box (modified set #6) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they put the ball in the box on command."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử cất bóng vào giỏ theo lệnh không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng cất bóng vào giỏ theo lệnh nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện cất bóng vào giỏ theo lệnh thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to put the ball in the box on command, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to put the ball in the box on command with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to put the ball in the box on command with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu quả bóng nhựa mềm, giỏ đựng đồ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi cất bóng vào giỏ theo lệnh.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard soft plastic ball, toy box, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively put the ball in the box on command."
+    }
+  },
+  {
+    "id": 7,
+    "name": {
+      "vi": "Tìm đồ vật theo yêu cầu (Phần 7)",
+      "en": "Fetch requested item (Part 7)"
+    },
+    "materials": {
+      "vi": "Thìa nhựa, cốc nhựa, bút chì trên bàn dạng cải tiến số 7",
+      "en": "Plastic spoon, cup, pencil on table (modified set #7)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu thìa nhựa, cốc nhựa, bút chì trên bàn dạng cải tiến số 7 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ lấy đúng đồ vật cô yêu cầu.",
+      "en": "Place the plastic spoon, cup, pencil on table (modified set #7) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they fetch the exact item requested."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử lấy đúng đồ vật cô yêu cầu không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng lấy đúng đồ vật cô yêu cầu nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện lấy đúng đồ vật cô yêu cầu thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to fetch the exact item requested, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to fetch the exact item requested with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to fetch the exact item requested with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu thìa nhựa, cốc nhựa, bút chì trên bàn tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi lấy đúng đồ vật cô yêu cầu.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard plastic spoon, cup, pencil on table, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively fetch the exact item requested."
+    }
+  },
+  {
+    "id": 8,
+    "name": {
+      "vi": "Phân biệt giống và khác nhau (Phần 8)",
+      "en": "Differentiate same vs different (Part 8)"
+    },
+    "materials": {
+      "vi": "2 bút chì màu đỏ, 1 bút chì xanh lá dạng cải tiến số 8",
+      "en": "2 red pencils, 1 green pencil (modified set #8)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 2 bút chì màu đỏ, 1 bút chì xanh lá dạng cải tiến số 8 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ chỉ ra bút có màu khác biệt.",
+      "en": "Place the 2 red pencils, 1 green pencil (modified set #8) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they identify the pencil with the different color."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử chỉ ra bút có màu khác biệt không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng chỉ ra bút có màu khác biệt nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện chỉ ra bút có màu khác biệt thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to identify the pencil with the different color, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to identify the pencil with the different color with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to identify the pencil with the different color with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 2 bút chì màu đỏ, 1 bút chì xanh lá tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi chỉ ra bút có màu khác biệt.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 2 red pencils, 1 green pencil, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively identify the pencil with the different color."
+    }
+  },
+  {
+    "id": 9,
+    "name": {
+      "vi": "Chỉ bộ phận cơ thể búp bê (Phần 9)",
+      "en": "Point to doll body parts (Part 9)"
+    },
+    "materials": {
+      "vi": "Búp bê em bé cỡ lớn bằng nhựa dẻo dạng cải tiến số 9",
+      "en": "Large vinyl baby doll (modified set #9)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu búp bê em bé cỡ lớn bằng nhựa dẻo dạng cải tiến số 9 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ chỉ đúng bộ phận của búp bê.",
+      "en": "Place the large vinyl baby doll (modified set #9) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they point to the doll's body parts."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử chỉ đúng bộ phận của búp bê không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng chỉ đúng bộ phận của búp bê nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện chỉ đúng bộ phận của búp bê thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to point to the doll's body parts, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to point to the doll's body parts with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to point to the doll's body parts with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu búp bê em bé cỡ lớn bằng nhựa dẻo tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi chỉ đúng bộ phận của búp bê.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard large vinyl baby doll, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively point to the doll's body parts."
+    }
+  },
+  {
+    "id": 10,
+    "name": {
+      "vi": "Thực hiện chỉ dẫn 1 bước (Phần 10)",
+      "en": "Follow 1-step verbal command (Part 10)"
+    },
+    "materials": {
+      "vi": "Quả bóng nhựa mềm, giỏ đựng đồ dạng cải tiến số 10",
+      "en": "Soft plastic ball, toy box (modified set #10)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu quả bóng nhựa mềm, giỏ đựng đồ dạng cải tiến số 10 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ cất bóng vào giỏ theo lệnh.",
+      "en": "Place the soft plastic ball, toy box (modified set #10) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they put the ball in the box on command."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử cất bóng vào giỏ theo lệnh không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng cất bóng vào giỏ theo lệnh nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện cất bóng vào giỏ theo lệnh thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to put the ball in the box on command, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to put the ball in the box on command with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to put the ball in the box on command with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu quả bóng nhựa mềm, giỏ đựng đồ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi cất bóng vào giỏ theo lệnh.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard soft plastic ball, toy box, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively put the ball in the box on command."
+    }
+  },
+  {
+    "id": 11,
+    "name": {
+      "vi": "Tìm đồ vật theo yêu cầu (Phần 11)",
+      "en": "Fetch requested item (Part 11)"
+    },
+    "materials": {
+      "vi": "Thìa nhựa, cốc nhựa, bút chì trên bàn dạng cải tiến số 11",
+      "en": "Plastic spoon, cup, pencil on table (modified set #11)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu thìa nhựa, cốc nhựa, bút chì trên bàn dạng cải tiến số 11 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ lấy đúng đồ vật cô yêu cầu.",
+      "en": "Place the plastic spoon, cup, pencil on table (modified set #11) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they fetch the exact item requested."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử lấy đúng đồ vật cô yêu cầu không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng lấy đúng đồ vật cô yêu cầu nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện lấy đúng đồ vật cô yêu cầu thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to fetch the exact item requested, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to fetch the exact item requested with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to fetch the exact item requested with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu thìa nhựa, cốc nhựa, bút chì trên bàn tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi lấy đúng đồ vật cô yêu cầu.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard plastic spoon, cup, pencil on table, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively fetch the exact item requested."
+    }
+  },
+  {
+    "id": 12,
+    "name": {
+      "vi": "Phân biệt giống và khác nhau (Phần 12)",
+      "en": "Differentiate same vs different (Part 12)"
+    },
+    "materials": {
+      "vi": "2 bút chì màu đỏ, 1 bút chì xanh lá dạng cải tiến số 12",
+      "en": "2 red pencils, 1 green pencil (modified set #12)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 2 bút chì màu đỏ, 1 bút chì xanh lá dạng cải tiến số 12 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ chỉ ra bút có màu khác biệt.",
+      "en": "Place the 2 red pencils, 1 green pencil (modified set #12) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they identify the pencil with the different color."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử chỉ ra bút có màu khác biệt không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng chỉ ra bút có màu khác biệt nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện chỉ ra bút có màu khác biệt thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to identify the pencil with the different color, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to identify the pencil with the different color with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to identify the pencil with the different color with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 2 bút chì màu đỏ, 1 bút chì xanh lá tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi chỉ ra bút có màu khác biệt.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 2 red pencils, 1 green pencil, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively identify the pencil with the different color."
+    }
+  },
+  {
+    "id": 13,
+    "name": {
+      "vi": "Chỉ bộ phận cơ thể búp bê (Phần 13)",
+      "en": "Point to doll body parts (Part 13)"
+    },
+    "materials": {
+      "vi": "Búp bê em bé cỡ lớn bằng nhựa dẻo dạng cải tiến số 13",
+      "en": "Large vinyl baby doll (modified set #13)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu búp bê em bé cỡ lớn bằng nhựa dẻo dạng cải tiến số 13 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ chỉ đúng bộ phận của búp bê.",
+      "en": "Place the large vinyl baby doll (modified set #13) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they point to the doll's body parts."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử chỉ đúng bộ phận của búp bê không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng chỉ đúng bộ phận của búp bê nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện chỉ đúng bộ phận của búp bê thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to point to the doll's body parts, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to point to the doll's body parts with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to point to the doll's body parts with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu búp bê em bé cỡ lớn bằng nhựa dẻo tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi chỉ đúng bộ phận của búp bê.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard large vinyl baby doll, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively point to the doll's body parts."
+    }
+  },
+  {
+    "id": 14,
+    "name": {
+      "vi": "Thực hiện chỉ dẫn 1 bước (Phần 14)",
+      "en": "Follow 1-step verbal command (Part 14)"
+    },
+    "materials": {
+      "vi": "Quả bóng nhựa mềm, giỏ đựng đồ dạng cải tiến số 14",
+      "en": "Soft plastic ball, toy box (modified set #14)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu quả bóng nhựa mềm, giỏ đựng đồ dạng cải tiến số 14 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ cất bóng vào giỏ theo lệnh.",
+      "en": "Place the soft plastic ball, toy box (modified set #14) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they put the ball in the box on command."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử cất bóng vào giỏ theo lệnh không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng cất bóng vào giỏ theo lệnh nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện cất bóng vào giỏ theo lệnh thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to put the ball in the box on command, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to put the ball in the box on command with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to put the ball in the box on command with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu quả bóng nhựa mềm, giỏ đựng đồ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi cất bóng vào giỏ theo lệnh.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard soft plastic ball, toy box, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively put the ball in the box on command."
+    }
+  }
+]

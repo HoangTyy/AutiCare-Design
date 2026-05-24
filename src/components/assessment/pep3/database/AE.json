@@ -1,0 +1,250 @@
+[
+  {
+    "id": 1,
+    "name": {
+      "vi": "Thể hiện vui mừng khi khen ngợi",
+      "en": "Express joy upon praise"
+    },
+    "materials": {
+      "vi": "Lời khen kèm vỗ tay của trị liệu viên",
+      "en": "Praise and clapping from therapist"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu lời khen kèm vỗ tay của trị liệu viên trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ cười vỗ tay hoặc high-five hưởng ứng.",
+      "en": "Place the praise and clapping from therapist in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they laugh, clap, or high-five in response."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử cười vỗ tay hoặc high-five hưởng ứng không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng cười vỗ tay hoặc high-five hưởng ứng nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện cười vỗ tay hoặc high-five hưởng ứng thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to laugh, clap, or high-five in response, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to laugh, clap, or high-five in response with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to laugh, clap, or high-five in response with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu lời khen kèm vỗ tay của trị liệu viên tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi cười vỗ tay hoặc high-five hưởng ứng.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard praise and clapping from therapist, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively laugh, clap, or high-five in response."
+    }
+  },
+  {
+    "id": 2,
+    "name": {
+      "vi": "Biểu lộ cảm xúc nét mặt phù hợp (Phần 2)",
+      "en": "Show appropriate facial feedback (Part 2)"
+    },
+    "materials": {
+      "vi": "Gương nhỏ phản chiếu viền nhựa an toàn dạng cải tiến số 2",
+      "en": "Small child-safe mirror (modified set #2)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu gương nhỏ phản chiếu viền nhựa an toàn dạng cải tiến số 2 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ bắt chước mếu khóc hoặc cười to.",
+      "en": "Place the small child-safe mirror (modified set #2) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they mimic happy or sad facial expressions."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử bắt chước mếu khóc hoặc cười to không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng bắt chước mếu khóc hoặc cười to nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện bắt chước mếu khóc hoặc cười to thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to mimic happy or sad facial expressions, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to mimic happy or sad facial expressions with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to mimic happy or sad facial expressions with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu gương nhỏ phản chiếu viền nhựa an toàn tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi bắt chước mếu khóc hoặc cười to.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard small child-safe mirror, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively mimic happy or sad facial expressions."
+    }
+  },
+  {
+    "id": 3,
+    "name": {
+      "vi": "Thể hiện vui mừng khi khen ngợi (Phần 3)",
+      "en": "Express joy upon praise (Part 3)"
+    },
+    "materials": {
+      "vi": "Lời khen kèm vỗ tay của trị liệu viên dạng cải tiến số 3",
+      "en": "Praise and clapping from therapist (modified set #3)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu lời khen kèm vỗ tay của trị liệu viên dạng cải tiến số 3 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ cười vỗ tay hoặc high-five hưởng ứng.",
+      "en": "Place the praise and clapping from therapist (modified set #3) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they laugh, clap, or high-five in response."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử cười vỗ tay hoặc high-five hưởng ứng không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng cười vỗ tay hoặc high-five hưởng ứng nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện cười vỗ tay hoặc high-five hưởng ứng thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to laugh, clap, or high-five in response, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to laugh, clap, or high-five in response with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to laugh, clap, or high-five in response with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu lời khen kèm vỗ tay của trị liệu viên tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi cười vỗ tay hoặc high-five hưởng ứng.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard praise and clapping from therapist, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively laugh, clap, or high-five in response."
+    }
+  },
+  {
+    "id": 4,
+    "name": {
+      "vi": "Biểu lộ cảm xúc nét mặt phù hợp (Phần 4)",
+      "en": "Show appropriate facial feedback (Part 4)"
+    },
+    "materials": {
+      "vi": "Gương nhỏ phản chiếu viền nhựa an toàn dạng cải tiến số 4",
+      "en": "Small child-safe mirror (modified set #4)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu gương nhỏ phản chiếu viền nhựa an toàn dạng cải tiến số 4 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ bắt chước mếu khóc hoặc cười to.",
+      "en": "Place the small child-safe mirror (modified set #4) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they mimic happy or sad facial expressions."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử bắt chước mếu khóc hoặc cười to không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng bắt chước mếu khóc hoặc cười to nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện bắt chước mếu khóc hoặc cười to thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to mimic happy or sad facial expressions, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to mimic happy or sad facial expressions with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to mimic happy or sad facial expressions with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu gương nhỏ phản chiếu viền nhựa an toàn tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi bắt chước mếu khóc hoặc cười to.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard small child-safe mirror, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively mimic happy or sad facial expressions."
+    }
+  },
+  {
+    "id": 5,
+    "name": {
+      "vi": "Thể hiện vui mừng khi khen ngợi (Phần 5)",
+      "en": "Express joy upon praise (Part 5)"
+    },
+    "materials": {
+      "vi": "Lời khen kèm vỗ tay của trị liệu viên dạng cải tiến số 5",
+      "en": "Praise and clapping from therapist (modified set #5)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu lời khen kèm vỗ tay của trị liệu viên dạng cải tiến số 5 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ cười vỗ tay hoặc high-five hưởng ứng.",
+      "en": "Place the praise and clapping from therapist (modified set #5) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they laugh, clap, or high-five in response."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử cười vỗ tay hoặc high-five hưởng ứng không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng cười vỗ tay hoặc high-five hưởng ứng nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện cười vỗ tay hoặc high-five hưởng ứng thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to laugh, clap, or high-five in response, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to laugh, clap, or high-five in response with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to laugh, clap, or high-five in response with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu lời khen kèm vỗ tay của trị liệu viên tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi cười vỗ tay hoặc high-five hưởng ứng.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard praise and clapping from therapist, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively laugh, clap, or high-five in response."
+    }
+  },
+  {
+    "id": 6,
+    "name": {
+      "vi": "Biểu lộ cảm xúc nét mặt phù hợp (Phần 6)",
+      "en": "Show appropriate facial feedback (Part 6)"
+    },
+    "materials": {
+      "vi": "Gương nhỏ phản chiếu viền nhựa an toàn dạng cải tiến số 6",
+      "en": "Small child-safe mirror (modified set #6)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu gương nhỏ phản chiếu viền nhựa an toàn dạng cải tiến số 6 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ bắt chước mếu khóc hoặc cười to.",
+      "en": "Place the small child-safe mirror (modified set #6) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they mimic happy or sad facial expressions."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử bắt chước mếu khóc hoặc cười to không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng bắt chước mếu khóc hoặc cười to nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện bắt chước mếu khóc hoặc cười to thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to mimic happy or sad facial expressions, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to mimic happy or sad facial expressions with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to mimic happy or sad facial expressions with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu gương nhỏ phản chiếu viền nhựa an toàn tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi bắt chước mếu khóc hoặc cười to.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard small child-safe mirror, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively mimic happy or sad facial expressions."
+    }
+  },
+  {
+    "id": 7,
+    "name": {
+      "vi": "Thể hiện vui mừng khi khen ngợi (Phần 7)",
+      "en": "Express joy upon praise (Part 7)"
+    },
+    "materials": {
+      "vi": "Lời khen kèm vỗ tay của trị liệu viên dạng cải tiến số 7",
+      "en": "Praise and clapping from therapist (modified set #7)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu lời khen kèm vỗ tay của trị liệu viên dạng cải tiến số 7 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ cười vỗ tay hoặc high-five hưởng ứng.",
+      "en": "Place the praise and clapping from therapist (modified set #7) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they laugh, clap, or high-five in response."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử cười vỗ tay hoặc high-five hưởng ứng không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng cười vỗ tay hoặc high-five hưởng ứng nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện cười vỗ tay hoặc high-five hưởng ứng thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to laugh, clap, or high-five in response, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to laugh, clap, or high-five in response with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to laugh, clap, or high-five in response with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu lời khen kèm vỗ tay của trị liệu viên tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi cười vỗ tay hoặc high-five hưởng ứng.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard praise and clapping from therapist, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively laugh, clap, or high-five in response."
+    }
+  },
+  {
+    "id": 8,
+    "name": {
+      "vi": "Biểu lộ cảm xúc nét mặt phù hợp (Phần 8)",
+      "en": "Show appropriate facial feedback (Part 8)"
+    },
+    "materials": {
+      "vi": "Gương nhỏ phản chiếu viền nhựa an toàn dạng cải tiến số 8",
+      "en": "Small child-safe mirror (modified set #8)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu gương nhỏ phản chiếu viền nhựa an toàn dạng cải tiến số 8 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ bắt chước mếu khóc hoặc cười to.",
+      "en": "Place the small child-safe mirror (modified set #8) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they mimic happy or sad facial expressions."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử bắt chước mếu khóc hoặc cười to không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng bắt chước mếu khóc hoặc cười to nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện bắt chước mếu khóc hoặc cười to thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to mimic happy or sad facial expressions, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to mimic happy or sad facial expressions with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to mimic happy or sad facial expressions with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu gương nhỏ phản chiếu viền nhựa an toàn tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi bắt chước mếu khóc hoặc cười to.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard small child-safe mirror, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively mimic happy or sad facial expressions."
+    }
+  }
+]

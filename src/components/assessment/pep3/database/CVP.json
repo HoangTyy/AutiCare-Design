@@ -1,0 +1,746 @@
+[
+  {
+    "id": 1,
+    "name": {
+      "vi": "Tìm đồ chơi dưới cốc",
+      "en": "Find object under cup"
+    },
+    "materials": {
+      "vi": "Cốc nhựa, ô tô đồ chơi nhỏ",
+      "en": "Plastic cup, small toy car"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu cốc nhựa, ô tô đồ chơi nhỏ trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ lật cốc tìm đồ chơi.",
+      "en": "Place the plastic cup, small toy car in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they lift the cup to find the toy."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử lật cốc tìm đồ chơi không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng lật cốc tìm đồ chơi nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện lật cốc tìm đồ chơi thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to lift the cup to find the toy, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to lift the cup to find the toy with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to lift the cup to find the toy with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu cốc nhựa, ô tô đồ chơi nhỏ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi lật cốc tìm đồ chơi.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard plastic cup, small toy car, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively lift the cup to find the toy."
+    }
+  },
+  {
+    "id": 2,
+    "name": {
+      "vi": "Sắp xếp khối gỗ theo hình dạng (Phần 2)",
+      "en": "Sort wooden blocks by shape (Part 2)"
+    },
+    "materials": {
+      "vi": "Hộp thả hình học, 3 khối cơ bản dạng cải tiến số 2",
+      "en": "Shape sorter, 3 basic blocks (modified set #2)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu hộp thả hình học, 3 khối cơ bản dạng cải tiến số 2 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ thả khối gỗ vào đúng lỗ.",
+      "en": "Place the shape sorter, 3 basic blocks (modified set #2) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they drop the block into the correct slot."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử thả khối gỗ vào đúng lỗ không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng thả khối gỗ vào đúng lỗ nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện thả khối gỗ vào đúng lỗ thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to drop the block into the correct slot, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to drop the block into the correct slot with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to drop the block into the correct slot with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu hộp thả hình học, 3 khối cơ bản tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi thả khối gỗ vào đúng lỗ.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard shape sorter, 3 basic blocks, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively drop the block into the correct slot."
+    }
+  },
+  {
+    "id": 3,
+    "name": {
+      "vi": "Nhận biết kích thước vòng tròn (Phần 3)",
+      "en": "Identify ring sizes (Part 3)"
+    },
+    "materials": {
+      "vi": "3 vòng tròn nhựa lớn/vừa/nhỏ dạng cải tiến số 3",
+      "en": "3 plastic rings of large/medium/small sizes (modified set #3)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 3 vòng tròn nhựa lớn/vừa/nhỏ dạng cải tiến số 3 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ xếp chồng vòng tròn theo kích cỡ.",
+      "en": "Place the 3 plastic rings of large/medium/small sizes (modified set #3) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they stack rings according to size."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử xếp chồng vòng tròn theo kích cỡ không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng xếp chồng vòng tròn theo kích cỡ nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện xếp chồng vòng tròn theo kích cỡ thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to stack rings according to size, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to stack rings according to size with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to stack rings according to size with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 3 vòng tròn nhựa lớn/vừa/nhỏ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi xếp chồng vòng tròn theo kích cỡ.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 3 plastic rings of large/medium/small sizes, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively stack rings according to size."
+    }
+  },
+  {
+    "id": 4,
+    "name": {
+      "vi": "Tìm mảnh ghép tranh khuyết (Phần 4)",
+      "en": "Complete simple puzzle (Part 4)"
+    },
+    "materials": {
+      "vi": "Tranh ghép gỗ 3 mảnh hình con vật dạng cải tiến số 4",
+      "en": "3-piece wooden animal inset puzzle (modified set #4)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu tranh ghép gỗ 3 mảnh hình con vật dạng cải tiến số 4 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ lắp mảnh ghép vào đúng vị trí.",
+      "en": "Place the 3-piece wooden animal inset puzzle (modified set #4) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they fit the puzzle piece into the correct slot."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử lắp mảnh ghép vào đúng vị trí không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng lắp mảnh ghép vào đúng vị trí nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện lắp mảnh ghép vào đúng vị trí thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to fit the puzzle piece into the correct slot, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to fit the puzzle piece into the correct slot with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to fit the puzzle piece into the correct slot with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu tranh ghép gỗ 3 mảnh hình con vật tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi lắp mảnh ghép vào đúng vị trí.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 3-piece wooden animal inset puzzle, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively fit the puzzle piece into the correct slot."
+    }
+  },
+  {
+    "id": 5,
+    "name": {
+      "vi": "Ghép cặp cúc áo màu sắc (Phần 5)",
+      "en": "Match identical buttons (Part 5)"
+    },
+    "materials": {
+      "vi": "4 cặp cúc áo lớn màu sắc nổi bật dạng cải tiến số 5",
+      "en": "4 pairs of large bright buttons (modified set #5)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 4 cặp cúc áo lớn màu sắc nổi bật dạng cải tiến số 5 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ ghép đôi các cúc áo đồng màu.",
+      "en": "Place the 4 pairs of large bright buttons (modified set #5) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they match the buttons of the same color."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử ghép đôi các cúc áo đồng màu không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng ghép đôi các cúc áo đồng màu nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện ghép đôi các cúc áo đồng màu thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to match the buttons of the same color, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to match the buttons of the same color with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to match the buttons of the same color with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 4 cặp cúc áo lớn màu sắc nổi bật tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi ghép đôi các cúc áo đồng màu.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 4 pairs of large bright buttons, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively match the buttons of the same color."
+    }
+  },
+  {
+    "id": 6,
+    "name": {
+      "vi": "Đếm số lượng quả bóng (Phần 6)",
+      "en": "Count toy balls (Part 6)"
+    },
+    "materials": {
+      "vi": "5 quả bóng nhựa nhỏ nhiều màu dạng cải tiến số 6",
+      "en": "5 small colorful plastic balls (modified set #6)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 5 quả bóng nhựa nhỏ nhiều màu dạng cải tiến số 6 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ đếm to số lượng quả bóng.",
+      "en": "Place the 5 small colorful plastic balls (modified set #6) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they count out loud the number of balls."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử đếm to số lượng quả bóng không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng đếm to số lượng quả bóng nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện đếm to số lượng quả bóng thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to count out loud the number of balls, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to count out loud the number of balls with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to count out loud the number of balls with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 5 quả bóng nhựa nhỏ nhiều màu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi đếm to số lượng quả bóng.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 5 small colorful plastic balls, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively count out loud the number of balls."
+    }
+  },
+  {
+    "id": 7,
+    "name": {
+      "vi": "Phân loại màu sắc khối nhựa (Phần 7)",
+      "en": "Color sort plastic blocks (Part 7)"
+    },
+    "materials": {
+      "vi": "8 khối nhựa gồm 2 màu đỏ và xanh dạng cải tiến số 7",
+      "en": "8 plastic blocks in red and blue (modified set #7)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 8 khối nhựa gồm 2 màu đỏ và xanh dạng cải tiến số 7 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ phân loại các khối màu riêng biệt.",
+      "en": "Place the 8 plastic blocks in red and blue (modified set #7) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they sort the blocks into separate colors."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử phân loại các khối màu riêng biệt không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng phân loại các khối màu riêng biệt nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện phân loại các khối màu riêng biệt thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to sort the blocks into separate colors, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to sort the blocks into separate colors with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to sort the blocks into separate colors with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 8 khối nhựa gồm 2 màu đỏ và xanh tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi phân loại các khối màu riêng biệt.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 8 plastic blocks in red and blue, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively sort the blocks into separate colors."
+    }
+  },
+  {
+    "id": 8,
+    "name": {
+      "vi": "Xếp chuỗi hạt theo mẫu màu (Phần 8)",
+      "en": "Pattern match colored beads (Part 8)"
+    },
+    "materials": {
+      "vi": "Hạt gỗ màu sắc, dây xỏ mềm dạng cải tiến số 8",
+      "en": "Colorful wooden beads, soft lace thread (modified set #8)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu hạt gỗ màu sắc, dây xỏ mềm dạng cải tiến số 8 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ xỏ chuỗi hạt theo đúng thứ tự mẫu.",
+      "en": "Place the colorful wooden beads, soft lace thread (modified set #8) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they thread the beads in the correct pattern."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử xỏ chuỗi hạt theo đúng thứ tự mẫu không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng xỏ chuỗi hạt theo đúng thứ tự mẫu nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện xỏ chuỗi hạt theo đúng thứ tự mẫu thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to thread the beads in the correct pattern, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to thread the beads in the correct pattern with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to thread the beads in the correct pattern with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu hạt gỗ màu sắc, dây xỏ mềm tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi xỏ chuỗi hạt theo đúng thứ tự mẫu.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard colorful wooden beads, soft lace thread, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively thread the beads in the correct pattern."
+    }
+  },
+  {
+    "id": 9,
+    "name": {
+      "vi": "Tìm đồ chơi dưới cốc (Phần 9)",
+      "en": "Find object under cup (Part 9)"
+    },
+    "materials": {
+      "vi": "Cốc nhựa, ô tô đồ chơi nhỏ dạng cải tiến số 9",
+      "en": "Plastic cup, small toy car (modified set #9)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu cốc nhựa, ô tô đồ chơi nhỏ dạng cải tiến số 9 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ lật cốc tìm đồ chơi.",
+      "en": "Place the plastic cup, small toy car (modified set #9) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they lift the cup to find the toy."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử lật cốc tìm đồ chơi không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng lật cốc tìm đồ chơi nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện lật cốc tìm đồ chơi thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to lift the cup to find the toy, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to lift the cup to find the toy with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to lift the cup to find the toy with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu cốc nhựa, ô tô đồ chơi nhỏ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi lật cốc tìm đồ chơi.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard plastic cup, small toy car, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively lift the cup to find the toy."
+    }
+  },
+  {
+    "id": 10,
+    "name": {
+      "vi": "Sắp xếp khối gỗ theo hình dạng (Phần 10)",
+      "en": "Sort wooden blocks by shape (Part 10)"
+    },
+    "materials": {
+      "vi": "Hộp thả hình học, 3 khối cơ bản dạng cải tiến số 10",
+      "en": "Shape sorter, 3 basic blocks (modified set #10)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu hộp thả hình học, 3 khối cơ bản dạng cải tiến số 10 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ thả khối gỗ vào đúng lỗ.",
+      "en": "Place the shape sorter, 3 basic blocks (modified set #10) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they drop the block into the correct slot."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử thả khối gỗ vào đúng lỗ không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng thả khối gỗ vào đúng lỗ nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện thả khối gỗ vào đúng lỗ thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to drop the block into the correct slot, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to drop the block into the correct slot with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to drop the block into the correct slot with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu hộp thả hình học, 3 khối cơ bản tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi thả khối gỗ vào đúng lỗ.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard shape sorter, 3 basic blocks, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively drop the block into the correct slot."
+    }
+  },
+  {
+    "id": 11,
+    "name": {
+      "vi": "Nhận biết kích thước vòng tròn (Phần 11)",
+      "en": "Identify ring sizes (Part 11)"
+    },
+    "materials": {
+      "vi": "3 vòng tròn nhựa lớn/vừa/nhỏ dạng cải tiến số 11",
+      "en": "3 plastic rings of large/medium/small sizes (modified set #11)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 3 vòng tròn nhựa lớn/vừa/nhỏ dạng cải tiến số 11 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ xếp chồng vòng tròn theo kích cỡ.",
+      "en": "Place the 3 plastic rings of large/medium/small sizes (modified set #11) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they stack rings according to size."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử xếp chồng vòng tròn theo kích cỡ không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng xếp chồng vòng tròn theo kích cỡ nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện xếp chồng vòng tròn theo kích cỡ thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to stack rings according to size, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to stack rings according to size with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to stack rings according to size with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 3 vòng tròn nhựa lớn/vừa/nhỏ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi xếp chồng vòng tròn theo kích cỡ.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 3 plastic rings of large/medium/small sizes, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively stack rings according to size."
+    }
+  },
+  {
+    "id": 12,
+    "name": {
+      "vi": "Tìm mảnh ghép tranh khuyết (Phần 12)",
+      "en": "Complete simple puzzle (Part 12)"
+    },
+    "materials": {
+      "vi": "Tranh ghép gỗ 3 mảnh hình con vật dạng cải tiến số 12",
+      "en": "3-piece wooden animal inset puzzle (modified set #12)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu tranh ghép gỗ 3 mảnh hình con vật dạng cải tiến số 12 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ lắp mảnh ghép vào đúng vị trí.",
+      "en": "Place the 3-piece wooden animal inset puzzle (modified set #12) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they fit the puzzle piece into the correct slot."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử lắp mảnh ghép vào đúng vị trí không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng lắp mảnh ghép vào đúng vị trí nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện lắp mảnh ghép vào đúng vị trí thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to fit the puzzle piece into the correct slot, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to fit the puzzle piece into the correct slot with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to fit the puzzle piece into the correct slot with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu tranh ghép gỗ 3 mảnh hình con vật tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi lắp mảnh ghép vào đúng vị trí.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 3-piece wooden animal inset puzzle, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively fit the puzzle piece into the correct slot."
+    }
+  },
+  {
+    "id": 13,
+    "name": {
+      "vi": "Ghép cặp cúc áo màu sắc (Phần 13)",
+      "en": "Match identical buttons (Part 13)"
+    },
+    "materials": {
+      "vi": "4 cặp cúc áo lớn màu sắc nổi bật dạng cải tiến số 13",
+      "en": "4 pairs of large bright buttons (modified set #13)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 4 cặp cúc áo lớn màu sắc nổi bật dạng cải tiến số 13 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ ghép đôi các cúc áo đồng màu.",
+      "en": "Place the 4 pairs of large bright buttons (modified set #13) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they match the buttons of the same color."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử ghép đôi các cúc áo đồng màu không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng ghép đôi các cúc áo đồng màu nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện ghép đôi các cúc áo đồng màu thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to match the buttons of the same color, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to match the buttons of the same color with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to match the buttons of the same color with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 4 cặp cúc áo lớn màu sắc nổi bật tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi ghép đôi các cúc áo đồng màu.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 4 pairs of large bright buttons, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively match the buttons of the same color."
+    }
+  },
+  {
+    "id": 14,
+    "name": {
+      "vi": "Đếm số lượng quả bóng (Phần 14)",
+      "en": "Count toy balls (Part 14)"
+    },
+    "materials": {
+      "vi": "5 quả bóng nhựa nhỏ nhiều màu dạng cải tiến số 14",
+      "en": "5 small colorful plastic balls (modified set #14)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 5 quả bóng nhựa nhỏ nhiều màu dạng cải tiến số 14 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ đếm to số lượng quả bóng.",
+      "en": "Place the 5 small colorful plastic balls (modified set #14) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they count out loud the number of balls."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử đếm to số lượng quả bóng không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng đếm to số lượng quả bóng nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện đếm to số lượng quả bóng thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to count out loud the number of balls, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to count out loud the number of balls with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to count out loud the number of balls with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 5 quả bóng nhựa nhỏ nhiều màu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi đếm to số lượng quả bóng.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 5 small colorful plastic balls, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively count out loud the number of balls."
+    }
+  },
+  {
+    "id": 15,
+    "name": {
+      "vi": "Phân loại màu sắc khối nhựa (Phần 15)",
+      "en": "Color sort plastic blocks (Part 15)"
+    },
+    "materials": {
+      "vi": "8 khối nhựa gồm 2 màu đỏ và xanh dạng cải tiến số 15",
+      "en": "8 plastic blocks in red and blue (modified set #15)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 8 khối nhựa gồm 2 màu đỏ và xanh dạng cải tiến số 15 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ phân loại các khối màu riêng biệt.",
+      "en": "Place the 8 plastic blocks in red and blue (modified set #15) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they sort the blocks into separate colors."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử phân loại các khối màu riêng biệt không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng phân loại các khối màu riêng biệt nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện phân loại các khối màu riêng biệt thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to sort the blocks into separate colors, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to sort the blocks into separate colors with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to sort the blocks into separate colors with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 8 khối nhựa gồm 2 màu đỏ và xanh tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi phân loại các khối màu riêng biệt.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 8 plastic blocks in red and blue, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively sort the blocks into separate colors."
+    }
+  },
+  {
+    "id": 16,
+    "name": {
+      "vi": "Xếp chuỗi hạt theo mẫu màu (Phần 16)",
+      "en": "Pattern match colored beads (Part 16)"
+    },
+    "materials": {
+      "vi": "Hạt gỗ màu sắc, dây xỏ mềm dạng cải tiến số 16",
+      "en": "Colorful wooden beads, soft lace thread (modified set #16)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu hạt gỗ màu sắc, dây xỏ mềm dạng cải tiến số 16 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ xỏ chuỗi hạt theo đúng thứ tự mẫu.",
+      "en": "Place the colorful wooden beads, soft lace thread (modified set #16) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they thread the beads in the correct pattern."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử xỏ chuỗi hạt theo đúng thứ tự mẫu không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng xỏ chuỗi hạt theo đúng thứ tự mẫu nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện xỏ chuỗi hạt theo đúng thứ tự mẫu thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to thread the beads in the correct pattern, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to thread the beads in the correct pattern with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to thread the beads in the correct pattern with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu hạt gỗ màu sắc, dây xỏ mềm tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi xỏ chuỗi hạt theo đúng thứ tự mẫu.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard colorful wooden beads, soft lace thread, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively thread the beads in the correct pattern."
+    }
+  },
+  {
+    "id": 17,
+    "name": {
+      "vi": "Tìm đồ chơi dưới cốc (Phần 17)",
+      "en": "Find object under cup (Part 17)"
+    },
+    "materials": {
+      "vi": "Cốc nhựa, ô tô đồ chơi nhỏ dạng cải tiến số 17",
+      "en": "Plastic cup, small toy car (modified set #17)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu cốc nhựa, ô tô đồ chơi nhỏ dạng cải tiến số 17 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ lật cốc tìm đồ chơi.",
+      "en": "Place the plastic cup, small toy car (modified set #17) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they lift the cup to find the toy."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử lật cốc tìm đồ chơi không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng lật cốc tìm đồ chơi nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện lật cốc tìm đồ chơi thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to lift the cup to find the toy, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to lift the cup to find the toy with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to lift the cup to find the toy with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu cốc nhựa, ô tô đồ chơi nhỏ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi lật cốc tìm đồ chơi.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard plastic cup, small toy car, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively lift the cup to find the toy."
+    }
+  },
+  {
+    "id": 18,
+    "name": {
+      "vi": "Sắp xếp khối gỗ theo hình dạng (Phần 18)",
+      "en": "Sort wooden blocks by shape (Part 18)"
+    },
+    "materials": {
+      "vi": "Hộp thả hình học, 3 khối cơ bản dạng cải tiến số 18",
+      "en": "Shape sorter, 3 basic blocks (modified set #18)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu hộp thả hình học, 3 khối cơ bản dạng cải tiến số 18 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ thả khối gỗ vào đúng lỗ.",
+      "en": "Place the shape sorter, 3 basic blocks (modified set #18) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they drop the block into the correct slot."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử thả khối gỗ vào đúng lỗ không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng thả khối gỗ vào đúng lỗ nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện thả khối gỗ vào đúng lỗ thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to drop the block into the correct slot, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to drop the block into the correct slot with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to drop the block into the correct slot with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu hộp thả hình học, 3 khối cơ bản tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi thả khối gỗ vào đúng lỗ.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard shape sorter, 3 basic blocks, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively drop the block into the correct slot."
+    }
+  },
+  {
+    "id": 19,
+    "name": {
+      "vi": "Nhận biết kích thước vòng tròn (Phần 19)",
+      "en": "Identify ring sizes (Part 19)"
+    },
+    "materials": {
+      "vi": "3 vòng tròn nhựa lớn/vừa/nhỏ dạng cải tiến số 19",
+      "en": "3 plastic rings of large/medium/small sizes (modified set #19)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 3 vòng tròn nhựa lớn/vừa/nhỏ dạng cải tiến số 19 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ xếp chồng vòng tròn theo kích cỡ.",
+      "en": "Place the 3 plastic rings of large/medium/small sizes (modified set #19) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they stack rings according to size."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử xếp chồng vòng tròn theo kích cỡ không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng xếp chồng vòng tròn theo kích cỡ nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện xếp chồng vòng tròn theo kích cỡ thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to stack rings according to size, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to stack rings according to size with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to stack rings according to size with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 3 vòng tròn nhựa lớn/vừa/nhỏ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi xếp chồng vòng tròn theo kích cỡ.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 3 plastic rings of large/medium/small sizes, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively stack rings according to size."
+    }
+  },
+  {
+    "id": 20,
+    "name": {
+      "vi": "Tìm mảnh ghép tranh khuyết (Phần 20)",
+      "en": "Complete simple puzzle (Part 20)"
+    },
+    "materials": {
+      "vi": "Tranh ghép gỗ 3 mảnh hình con vật dạng cải tiến số 20",
+      "en": "3-piece wooden animal inset puzzle (modified set #20)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu tranh ghép gỗ 3 mảnh hình con vật dạng cải tiến số 20 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ lắp mảnh ghép vào đúng vị trí.",
+      "en": "Place the 3-piece wooden animal inset puzzle (modified set #20) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they fit the puzzle piece into the correct slot."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử lắp mảnh ghép vào đúng vị trí không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng lắp mảnh ghép vào đúng vị trí nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện lắp mảnh ghép vào đúng vị trí thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to fit the puzzle piece into the correct slot, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to fit the puzzle piece into the correct slot with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to fit the puzzle piece into the correct slot with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu tranh ghép gỗ 3 mảnh hình con vật tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi lắp mảnh ghép vào đúng vị trí.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 3-piece wooden animal inset puzzle, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively fit the puzzle piece into the correct slot."
+    }
+  },
+  {
+    "id": 21,
+    "name": {
+      "vi": "Ghép cặp cúc áo màu sắc (Phần 21)",
+      "en": "Match identical buttons (Part 21)"
+    },
+    "materials": {
+      "vi": "4 cặp cúc áo lớn màu sắc nổi bật dạng cải tiến số 21",
+      "en": "4 pairs of large bright buttons (modified set #21)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 4 cặp cúc áo lớn màu sắc nổi bật dạng cải tiến số 21 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ ghép đôi các cúc áo đồng màu.",
+      "en": "Place the 4 pairs of large bright buttons (modified set #21) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they match the buttons of the same color."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử ghép đôi các cúc áo đồng màu không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng ghép đôi các cúc áo đồng màu nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện ghép đôi các cúc áo đồng màu thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to match the buttons of the same color, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to match the buttons of the same color with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to match the buttons of the same color with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 4 cặp cúc áo lớn màu sắc nổi bật tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi ghép đôi các cúc áo đồng màu.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 4 pairs of large bright buttons, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively match the buttons of the same color."
+    }
+  },
+  {
+    "id": 22,
+    "name": {
+      "vi": "Đếm số lượng quả bóng (Phần 22)",
+      "en": "Count toy balls (Part 22)"
+    },
+    "materials": {
+      "vi": "5 quả bóng nhựa nhỏ nhiều màu dạng cải tiến số 22",
+      "en": "5 small colorful plastic balls (modified set #22)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 5 quả bóng nhựa nhỏ nhiều màu dạng cải tiến số 22 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ đếm to số lượng quả bóng.",
+      "en": "Place the 5 small colorful plastic balls (modified set #22) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they count out loud the number of balls."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử đếm to số lượng quả bóng không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng đếm to số lượng quả bóng nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện đếm to số lượng quả bóng thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to count out loud the number of balls, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to count out loud the number of balls with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to count out loud the number of balls with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 5 quả bóng nhựa nhỏ nhiều màu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi đếm to số lượng quả bóng.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 5 small colorful plastic balls, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively count out loud the number of balls."
+    }
+  },
+  {
+    "id": 23,
+    "name": {
+      "vi": "Phân loại màu sắc khối nhựa (Phần 23)",
+      "en": "Color sort plastic blocks (Part 23)"
+    },
+    "materials": {
+      "vi": "8 khối nhựa gồm 2 màu đỏ và xanh dạng cải tiến số 23",
+      "en": "8 plastic blocks in red and blue (modified set #23)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu 8 khối nhựa gồm 2 màu đỏ và xanh dạng cải tiến số 23 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ phân loại các khối màu riêng biệt.",
+      "en": "Place the 8 plastic blocks in red and blue (modified set #23) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they sort the blocks into separate colors."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử phân loại các khối màu riêng biệt không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng phân loại các khối màu riêng biệt nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện phân loại các khối màu riêng biệt thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to sort the blocks into separate colors, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to sort the blocks into separate colors with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to sort the blocks into separate colors with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu 8 khối nhựa gồm 2 màu đỏ và xanh tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi phân loại các khối màu riêng biệt.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard 8 plastic blocks in red and blue, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively sort the blocks into separate colors."
+    }
+  },
+  {
+    "id": 24,
+    "name": {
+      "vi": "Xếp chuỗi hạt theo mẫu màu (Phần 24)",
+      "en": "Pattern match colored beads (Part 24)"
+    },
+    "materials": {
+      "vi": "Hạt gỗ màu sắc, dây xỏ mềm dạng cải tiến số 24",
+      "en": "Colorful wooden beads, soft lace thread (modified set #24)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu hạt gỗ màu sắc, dây xỏ mềm dạng cải tiến số 24 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ xỏ chuỗi hạt theo đúng thứ tự mẫu.",
+      "en": "Place the colorful wooden beads, soft lace thread (modified set #24) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they thread the beads in the correct pattern."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử xỏ chuỗi hạt theo đúng thứ tự mẫu không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng xỏ chuỗi hạt theo đúng thứ tự mẫu nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện xỏ chuỗi hạt theo đúng thứ tự mẫu thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to thread the beads in the correct pattern, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to thread the beads in the correct pattern with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to thread the beads in the correct pattern with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu hạt gỗ màu sắc, dây xỏ mềm tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi xỏ chuỗi hạt theo đúng thứ tự mẫu.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard colorful wooden beads, soft lace thread, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively thread the beads in the correct pattern."
+    }
+  }
+]

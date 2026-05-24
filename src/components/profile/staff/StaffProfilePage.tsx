@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import StaffProfileTab from './tabs/StaffProfileTab';
-import StaffAppointmentsTab from './tabs/StaffAppointmentsTab';
-import StaffScheduleTab from './tabs/StaffScheduleTab';
-import StaffInterventionTab from './tabs/StaffInterventionTab';
-import StaffStatsTab from './tabs/StaffStatsTab';
+import InvoicesTab from '../tabs/InvoicesTab';
+import SupportTicketsTab from '../tabs/SupportTicketsTab';
+import BookedAppointmentsTab from '../tabs/BookedAppointmentsTab';
+import ScheduleTab from '../tabs/ScheduleTab';
+import ChildrenTab from '../tabs/ChildrenTab';
 
 interface StaffProfilePageProps {
   lang: 'vi' | 'en';
   setLang: (lang: 'vi' | 'en') => void;
   onBack: () => void;
-  onViewChange: (newView: 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment' | 'profile' | 'centers' | 'staff-profile') => void;
+  onViewChange: (newView: 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment' | 'profile' | 'centers' | 'staff-profile' | 'staff-dashboard') => void;
 }
 
 const translations = {
@@ -17,25 +18,27 @@ const translations = {
     title: "Trang Cá Nhân Chuyên Gia",
     backToHome: "Quay lại trang chủ",
     tabUserProfile: "👤 Hồ Sơ Cá Nhân",
-    tabAppointments: "📅 Lịch Hẹn Với Phụ Huynh",
+    tabInvoices: "🧾 Hóa Đơn & Thanh Toán",
+    tabSupportTickets: "💬 Hỗ Trợ Kỹ Thuật",
+    tabBookedAppointments: "📅 Lịch Hẹn Đã Đặt",
     tabSchedule: "⏱️ Thời Khóa Biểu Tuần",
-    tabIntervention: "📂 Hồ Sơ Can Thiệp",
-    tabAnalyzeStats: "📊 Phân Tích Thống Kê",
-    roleSwitcher: "👶 PHỤ HUYNH PORTAL"
+    tabChildren: "👶 Hồ Sơ Con Em",
+    roleSwitcher: "🩺 KHÔNG GIAN LÀM VIỆC"
   },
   en: {
-    title: "Specialist Portal Dashboard",
+    title: "Specialist Personal Profile",
     backToHome: "Back to Home",
     tabUserProfile: "👤 Personal Profile",
-    tabAppointments: "📅 Appointments with Parents",
+    tabInvoices: "🧾 Invoices & Receipts",
+    tabSupportTickets: "💬 Support Ticket List",
+    tabBookedAppointments: "📅 Booked Appointments",
     tabSchedule: "⏱️ Weekly Schedule",
-    tabIntervention: "📂 Intervention Records",
-    tabAnalyzeStats: "📊 Analyze Statistics",
-    roleSwitcher: "👶 PARENT PORTAL"
+    tabChildren: "👶 Children Profiles",
+    roleSwitcher: "🩺 WORKSPACE"
   }
 };
 
-type TabType = 'profile' | 'appointments' | 'schedule' | 'intervention' | 'stats';
+type TabType = 'profile' | 'invoices' | 'tickets' | 'appointments' | 'schedule' | 'children';
 
 export interface StaffProfile {
   username: string;
@@ -43,11 +46,11 @@ export interface StaffProfile {
   avatar: string;
   phonenumber: string;
   full_name: string;
-  title: string; // Học vị/chức danh
-  specialty: string; // Chuyên khoa
-  experience: string; // Kinh nghiệm
-  bio: string; // Giới thiệu ngắn
-  workplace: string; // Nơi làm việc (Cơ sở AutiCare)
+  title: string; 
+  specialty: string; 
+  experience: string; 
+  bio: string; 
+  workplace: string; 
 }
 
 const StaffProfilePage: React.FC<StaffProfilePageProps> = ({
@@ -57,10 +60,8 @@ const StaffProfilePage: React.FC<StaffProfilePageProps> = ({
   onViewChange
 }) => {
   const t = translations[lang];
-  // Khởi tạo state cho tab động, mặc định tập trung vào 'appointments' theo yêu cầu của user
-  const [activeTab, setActiveTab] = useState<TabType>('appointments');
+  const [activeTab, setActiveTab] = useState<TabType>('profile');
 
-  // Reactive State cho profile chuyên gia để đồng bộ
   const [staffProfile, setStaffProfile] = useState<StaffProfile>({
     username: 'dr_minhanh_clinical',
     email: 'minhanh.nguyen@auticare.edu.vn',
@@ -80,7 +81,18 @@ const StaffProfilePage: React.FC<StaffProfilePageProps> = ({
 
   const renderActiveTabContent = () => {
     switch (activeTab) {
+      case 'invoices':
+        return <InvoicesTab lang={lang} />;
+      case 'tickets':
+        return <SupportTicketsTab lang={lang} />;
+      case 'appointments':
+        return <BookedAppointmentsTab lang={lang} />;
+      case 'schedule':
+        return <ScheduleTab lang={lang} />;
+      case 'children':
+        return <ChildrenTab lang={lang} />;
       case 'profile':
+      default:
         return (
           <StaffProfileTab 
             lang={lang} 
@@ -88,28 +100,20 @@ const StaffProfilePage: React.FC<StaffProfilePageProps> = ({
             onSave={handleProfileSave} 
           />
         );
-      case 'schedule':
-        return <StaffScheduleTab lang={lang} />;
-      case 'intervention':
-        return <StaffInterventionTab lang={lang} />;
-      case 'stats':
-        return <StaffStatsTab lang={lang} />;
-      case 'appointments':
-      default:
-        return <StaffAppointmentsTab lang={lang} />;
     }
   };
 
   const tabsConfig = [
-    { id: 'appointments' as TabType, label: t.tabAppointments },
-    { id: 'stats' as TabType, label: t.tabAnalyzeStats },
     { id: 'profile' as TabType, label: t.tabUserProfile },
+    { id: 'invoices' as TabType, label: t.tabInvoices },
+    { id: 'tickets' as TabType, label: t.tabSupportTickets },
+    { id: 'appointments' as TabType, label: t.tabBookedAppointments },
     { id: 'schedule' as TabType, label: t.tabSchedule },
-    { id: 'intervention' as TabType, label: t.tabIntervention }
+    { id: 'children' as TabType, label: t.tabChildren }
   ];
 
   return (
-    <div className="profile-page-wrapper staff-portal-theme">
+    <div className="profile-page-wrapper">
       {/* 1. Page Header */}
       <header className="profile-page-header">
         <div className="profile-header-container">
@@ -120,13 +124,23 @@ const StaffProfilePage: React.FC<StaffProfilePageProps> = ({
           <h1 className="profile-page-title">{t.title}</h1>
           
           <div className="profile-header-right">
-            {/* Candy Button chuyển vai trò nhanh về Phụ huynh */}
+            {/* Candy Buttons chuyển đổi vai trò */}
+            <button 
+              className="profile-role-switcher-btn"
+              onClick={() => onViewChange('staff-dashboard')}
+              title={lang === 'vi' ? "Vào Không gian làm việc chuyên khoa" : "Enter Specialist Workspace"}
+              style={{ background: '#0D9488', color: 'white', marginRight: '8px' }}
+            >
+              {t.roleSwitcher}
+            </button>
+
             <button 
               className="profile-role-switcher-btn parent-role-switcher-btn"
               onClick={() => onViewChange('profile')}
               title={lang === 'vi' ? "Chuyển sang trang Phụ huynh" : "Switch to Parent Portal"}
+              style={{ marginRight: '8px' }}
             >
-              {t.roleSwitcher}
+              {lang === 'vi' ? "👶 PHỤ HUYNH PORTAL" : "👶 PARENT PORTAL"}
             </button>
 
             <div className="profile-lang-switch">
@@ -162,7 +176,7 @@ const StaffProfilePage: React.FC<StaffProfilePageProps> = ({
                 <button
                   key={tab.id}
                   type="button"
-                  className={`profile-sidebar-tab-btn staff-sidebar-tab-btn ${activeTab === tab.id ? 'active' : ''}`}
+                  className={`profile-sidebar-tab-btn ${activeTab === tab.id ? 'active' : ''}`}
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();

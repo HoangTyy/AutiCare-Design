@@ -1,0 +1,560 @@
+[
+  {
+    "id": 1,
+    "name": {
+      "vi": "Gọi tên tranh ảnh con vật",
+      "en": "Label animal flashcards"
+    },
+    "materials": {
+      "vi": "Thẻ tranh con chó, con mèo, con gà",
+      "en": "Flashcards of dog, cat, chicken"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu thẻ tranh con chó, con mèo, con gà trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ gọi tên chính xác con vật trong tranh.",
+      "en": "Place the flashcards of dog, cat, chicken in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they label the animal on the card correctly."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử gọi tên chính xác con vật trong tranh không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng gọi tên chính xác con vật trong tranh nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện gọi tên chính xác con vật trong tranh thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to label the animal on the card correctly, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to label the animal on the card correctly with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to label the animal on the card correctly with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu thẻ tranh con chó, con mèo, con gà tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi gọi tên chính xác con vật trong tranh.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard flashcards of dog, cat, chicken, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively label the animal on the card correctly."
+    }
+  },
+  {
+    "id": 2,
+    "name": {
+      "vi": "Phát âm mô phỏng tiếng kêu (Phần 2)",
+      "en": "Imitate animal sounds (Part 2)"
+    },
+    "materials": {
+      "vi": "Mô hình chú chó nhỏ bằng gỗ dạng cải tiến số 2",
+      "en": "Small wooden dog figure (modified set #2)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu mô hình chú chó nhỏ bằng gỗ dạng cải tiến số 2 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ sủa gâu gâu bắt chước tiếng chó sủa.",
+      "en": "Place the small wooden dog figure (modified set #2) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they imitate the sound of the animal."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử sủa gâu gâu bắt chước tiếng chó sủa không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng sủa gâu gâu bắt chước tiếng chó sủa nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện sủa gâu gâu bắt chước tiếng chó sủa thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to imitate the sound of the animal, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to imitate the sound of the animal with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to imitate the sound of the animal with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu mô hình chú chó nhỏ bằng gỗ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi sủa gâu gâu bắt chước tiếng chó sủa.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard small wooden dog figure, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively imitate the sound of the animal."
+    }
+  },
+  {
+    "id": 3,
+    "name": {
+      "vi": "Mô tả hành động trong tranh (Phần 3)",
+      "en": "Describe action pictures (Part 3)"
+    },
+    "materials": {
+      "vi": "Tranh vẽ bé đang xúc ăn, bé đang ngủ dạng cải tiến số 3",
+      "en": "Pictures showing eating, sleeping (modified set #3)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu tranh vẽ bé đang xúc ăn, bé đang ngủ dạng cải tiến số 3 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ mô tả hành động của bé trong tranh.",
+      "en": "Place the pictures showing eating, sleeping (modified set #3) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they describe the child's action in the picture."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử mô tả hành động của bé trong tranh không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng mô tả hành động của bé trong tranh nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện mô tả hành động của bé trong tranh thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to describe the child's action in the picture, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to describe the child's action in the picture with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to describe the child's action in the picture with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu tranh vẽ bé đang xúc ăn, bé đang ngủ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi mô tả hành động của bé trong tranh.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard pictures showing eating, sleeping, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively describe the child's action in the picture."
+    }
+  },
+  {
+    "id": 4,
+    "name": {
+      "vi": "Tự gọi tên vật dụng cá nhân (Phần 4)",
+      "en": "Name personal items (Part 4)"
+    },
+    "materials": {
+      "vi": "Ca uống nước nhựa, lược chải đầu dạng cải tiến số 4",
+      "en": "Plastic drinking cup, hair comb (modified set #4)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu ca uống nước nhựa, lược chải đầu dạng cải tiến số 4 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ gọi tên các vật dụng cá nhân.",
+      "en": "Place the plastic drinking cup, hair comb (modified set #4) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they name the personal items correctly."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử gọi tên các vật dụng cá nhân không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng gọi tên các vật dụng cá nhân nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện gọi tên các vật dụng cá nhân thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to name the personal items correctly, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to name the personal items correctly with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to name the personal items correctly with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu ca uống nước nhựa, lược chải đầu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi gọi tên các vật dụng cá nhân.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard plastic drinking cup, hair comb, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively name the personal items correctly."
+    }
+  },
+  {
+    "id": 5,
+    "name": {
+      "vi": "Hát theo nhạc điệu đơn giản (Phần 5)",
+      "en": "Hum simple melody (Part 5)"
+    },
+    "materials": {
+      "vi": "Loa phát nhạc thiếu nhi vui nhộn dạng cải tiến số 5",
+      "en": "Speaker playing cheerful kid songs (modified set #5)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu loa phát nhạc thiếu nhi vui nhộn dạng cải tiến số 5 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ hát theo hoặc ngâm nga nhạc điệu.",
+      "en": "Place the speaker playing cheerful kid songs (modified set #5) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they hum or sing along to the melody."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử hát theo hoặc ngâm nga nhạc điệu không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng hát theo hoặc ngâm nga nhạc điệu nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện hát theo hoặc ngâm nga nhạc điệu thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to hum or sing along to the melody, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to hum or sing along to the melody with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to hum or sing along to the melody with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu loa phát nhạc thiếu nhi vui nhộn tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi hát theo hoặc ngâm nga nhạc điệu.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard speaker playing cheerful kid songs, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively hum or sing along to the melody."
+    }
+  },
+  {
+    "id": 6,
+    "name": {
+      "vi": "Gọi tên tranh ảnh con vật (Phần 6)",
+      "en": "Label animal flashcards (Part 6)"
+    },
+    "materials": {
+      "vi": "Thẻ tranh con chó, con mèo, con gà dạng cải tiến số 6",
+      "en": "Flashcards of dog, cat, chicken (modified set #6)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu thẻ tranh con chó, con mèo, con gà dạng cải tiến số 6 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ gọi tên chính xác con vật trong tranh.",
+      "en": "Place the flashcards of dog, cat, chicken (modified set #6) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they label the animal on the card correctly."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử gọi tên chính xác con vật trong tranh không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng gọi tên chính xác con vật trong tranh nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện gọi tên chính xác con vật trong tranh thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to label the animal on the card correctly, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to label the animal on the card correctly with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to label the animal on the card correctly with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu thẻ tranh con chó, con mèo, con gà tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi gọi tên chính xác con vật trong tranh.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard flashcards of dog, cat, chicken, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively label the animal on the card correctly."
+    }
+  },
+  {
+    "id": 7,
+    "name": {
+      "vi": "Phát âm mô phỏng tiếng kêu (Phần 7)",
+      "en": "Imitate animal sounds (Part 7)"
+    },
+    "materials": {
+      "vi": "Mô hình chú chó nhỏ bằng gỗ dạng cải tiến số 7",
+      "en": "Small wooden dog figure (modified set #7)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu mô hình chú chó nhỏ bằng gỗ dạng cải tiến số 7 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ sủa gâu gâu bắt chước tiếng chó sủa.",
+      "en": "Place the small wooden dog figure (modified set #7) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they imitate the sound of the animal."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử sủa gâu gâu bắt chước tiếng chó sủa không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng sủa gâu gâu bắt chước tiếng chó sủa nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện sủa gâu gâu bắt chước tiếng chó sủa thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to imitate the sound of the animal, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to imitate the sound of the animal with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to imitate the sound of the animal with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu mô hình chú chó nhỏ bằng gỗ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi sủa gâu gâu bắt chước tiếng chó sủa.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard small wooden dog figure, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively imitate the sound of the animal."
+    }
+  },
+  {
+    "id": 8,
+    "name": {
+      "vi": "Mô tả hành động trong tranh (Phần 8)",
+      "en": "Describe action pictures (Part 8)"
+    },
+    "materials": {
+      "vi": "Tranh vẽ bé đang xúc ăn, bé đang ngủ dạng cải tiến số 8",
+      "en": "Pictures showing eating, sleeping (modified set #8)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu tranh vẽ bé đang xúc ăn, bé đang ngủ dạng cải tiến số 8 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ mô tả hành động của bé trong tranh.",
+      "en": "Place the pictures showing eating, sleeping (modified set #8) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they describe the child's action in the picture."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử mô tả hành động của bé trong tranh không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng mô tả hành động của bé trong tranh nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện mô tả hành động của bé trong tranh thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to describe the child's action in the picture, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to describe the child's action in the picture with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to describe the child's action in the picture with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu tranh vẽ bé đang xúc ăn, bé đang ngủ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi mô tả hành động của bé trong tranh.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard pictures showing eating, sleeping, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively describe the child's action in the picture."
+    }
+  },
+  {
+    "id": 9,
+    "name": {
+      "vi": "Tự gọi tên vật dụng cá nhân (Phần 9)",
+      "en": "Name personal items (Part 9)"
+    },
+    "materials": {
+      "vi": "Ca uống nước nhựa, lược chải đầu dạng cải tiến số 9",
+      "en": "Plastic drinking cup, hair comb (modified set #9)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu ca uống nước nhựa, lược chải đầu dạng cải tiến số 9 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ gọi tên các vật dụng cá nhân.",
+      "en": "Place the plastic drinking cup, hair comb (modified set #9) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they name the personal items correctly."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử gọi tên các vật dụng cá nhân không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng gọi tên các vật dụng cá nhân nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện gọi tên các vật dụng cá nhân thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to name the personal items correctly, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to name the personal items correctly with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to name the personal items correctly with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu ca uống nước nhựa, lược chải đầu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi gọi tên các vật dụng cá nhân.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard plastic drinking cup, hair comb, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively name the personal items correctly."
+    }
+  },
+  {
+    "id": 10,
+    "name": {
+      "vi": "Hát theo nhạc điệu đơn giản (Phần 10)",
+      "en": "Hum simple melody (Part 10)"
+    },
+    "materials": {
+      "vi": "Loa phát nhạc thiếu nhi vui nhộn dạng cải tiến số 10",
+      "en": "Speaker playing cheerful kid songs (modified set #10)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu loa phát nhạc thiếu nhi vui nhộn dạng cải tiến số 10 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ hát theo hoặc ngâm nga nhạc điệu.",
+      "en": "Place the speaker playing cheerful kid songs (modified set #10) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they hum or sing along to the melody."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử hát theo hoặc ngâm nga nhạc điệu không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng hát theo hoặc ngâm nga nhạc điệu nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện hát theo hoặc ngâm nga nhạc điệu thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to hum or sing along to the melody, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to hum or sing along to the melody with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to hum or sing along to the melody with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu loa phát nhạc thiếu nhi vui nhộn tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi hát theo hoặc ngâm nga nhạc điệu.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard speaker playing cheerful kid songs, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively hum or sing along to the melody."
+    }
+  },
+  {
+    "id": 11,
+    "name": {
+      "vi": "Gọi tên tranh ảnh con vật (Phần 11)",
+      "en": "Label animal flashcards (Part 11)"
+    },
+    "materials": {
+      "vi": "Thẻ tranh con chó, con mèo, con gà dạng cải tiến số 11",
+      "en": "Flashcards of dog, cat, chicken (modified set #11)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu thẻ tranh con chó, con mèo, con gà dạng cải tiến số 11 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ gọi tên chính xác con vật trong tranh.",
+      "en": "Place the flashcards of dog, cat, chicken (modified set #11) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they label the animal on the card correctly."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử gọi tên chính xác con vật trong tranh không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng gọi tên chính xác con vật trong tranh nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện gọi tên chính xác con vật trong tranh thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to label the animal on the card correctly, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to label the animal on the card correctly with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to label the animal on the card correctly with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu thẻ tranh con chó, con mèo, con gà tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi gọi tên chính xác con vật trong tranh.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard flashcards of dog, cat, chicken, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively label the animal on the card correctly."
+    }
+  },
+  {
+    "id": 12,
+    "name": {
+      "vi": "Phát âm mô phỏng tiếng kêu (Phần 12)",
+      "en": "Imitate animal sounds (Part 12)"
+    },
+    "materials": {
+      "vi": "Mô hình chú chó nhỏ bằng gỗ dạng cải tiến số 12",
+      "en": "Small wooden dog figure (modified set #12)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu mô hình chú chó nhỏ bằng gỗ dạng cải tiến số 12 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ sủa gâu gâu bắt chước tiếng chó sủa.",
+      "en": "Place the small wooden dog figure (modified set #12) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they imitate the sound of the animal."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử sủa gâu gâu bắt chước tiếng chó sủa không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng sủa gâu gâu bắt chước tiếng chó sủa nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện sủa gâu gâu bắt chước tiếng chó sủa thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to imitate the sound of the animal, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to imitate the sound of the animal with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to imitate the sound of the animal with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu mô hình chú chó nhỏ bằng gỗ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi sủa gâu gâu bắt chước tiếng chó sủa.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard small wooden dog figure, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively imitate the sound of the animal."
+    }
+  },
+  {
+    "id": 13,
+    "name": {
+      "vi": "Mô tả hành động trong tranh (Phần 13)",
+      "en": "Describe action pictures (Part 13)"
+    },
+    "materials": {
+      "vi": "Tranh vẽ bé đang xúc ăn, bé đang ngủ dạng cải tiến số 13",
+      "en": "Pictures showing eating, sleeping (modified set #13)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu tranh vẽ bé đang xúc ăn, bé đang ngủ dạng cải tiến số 13 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ mô tả hành động của bé trong tranh.",
+      "en": "Place the pictures showing eating, sleeping (modified set #13) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they describe the child's action in the picture."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử mô tả hành động của bé trong tranh không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng mô tả hành động của bé trong tranh nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện mô tả hành động của bé trong tranh thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to describe the child's action in the picture, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to describe the child's action in the picture with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to describe the child's action in the picture with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu tranh vẽ bé đang xúc ăn, bé đang ngủ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi mô tả hành động của bé trong tranh.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard pictures showing eating, sleeping, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively describe the child's action in the picture."
+    }
+  },
+  {
+    "id": 14,
+    "name": {
+      "vi": "Tự gọi tên vật dụng cá nhân (Phần 14)",
+      "en": "Name personal items (Part 14)"
+    },
+    "materials": {
+      "vi": "Ca uống nước nhựa, lược chải đầu dạng cải tiến số 14",
+      "en": "Plastic drinking cup, hair comb (modified set #14)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu ca uống nước nhựa, lược chải đầu dạng cải tiến số 14 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ gọi tên các vật dụng cá nhân.",
+      "en": "Place the plastic drinking cup, hair comb (modified set #14) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they name the personal items correctly."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử gọi tên các vật dụng cá nhân không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng gọi tên các vật dụng cá nhân nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện gọi tên các vật dụng cá nhân thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to name the personal items correctly, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to name the personal items correctly with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to name the personal items correctly with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu ca uống nước nhựa, lược chải đầu tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi gọi tên các vật dụng cá nhân.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard plastic drinking cup, hair comb, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively name the personal items correctly."
+    }
+  },
+  {
+    "id": 15,
+    "name": {
+      "vi": "Hát theo nhạc điệu đơn giản (Phần 15)",
+      "en": "Hum simple melody (Part 15)"
+    },
+    "materials": {
+      "vi": "Loa phát nhạc thiếu nhi vui nhộn dạng cải tiến số 15",
+      "en": "Speaker playing cheerful kid songs (modified set #15)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu loa phát nhạc thiếu nhi vui nhộn dạng cải tiến số 15 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ hát theo hoặc ngâm nga nhạc điệu.",
+      "en": "Place the speaker playing cheerful kid songs (modified set #15) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they hum or sing along to the melody."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử hát theo hoặc ngâm nga nhạc điệu không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng hát theo hoặc ngâm nga nhạc điệu nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện hát theo hoặc ngâm nga nhạc điệu thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to hum or sing along to the melody, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to hum or sing along to the melody with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to hum or sing along to the melody with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu loa phát nhạc thiếu nhi vui nhộn tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi hát theo hoặc ngâm nga nhạc điệu.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard speaker playing cheerful kid songs, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively hum or sing along to the melody."
+    }
+  },
+  {
+    "id": 16,
+    "name": {
+      "vi": "Gọi tên tranh ảnh con vật (Phần 16)",
+      "en": "Label animal flashcards (Part 16)"
+    },
+    "materials": {
+      "vi": "Thẻ tranh con chó, con mèo, con gà dạng cải tiến số 16",
+      "en": "Flashcards of dog, cat, chicken (modified set #16)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu thẻ tranh con chó, con mèo, con gà dạng cải tiến số 16 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ gọi tên chính xác con vật trong tranh.",
+      "en": "Place the flashcards of dog, cat, chicken (modified set #16) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they label the animal on the card correctly."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử gọi tên chính xác con vật trong tranh không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng gọi tên chính xác con vật trong tranh nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện gọi tên chính xác con vật trong tranh thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to label the animal on the card correctly, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to label the animal on the card correctly with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to label the animal on the card correctly with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu thẻ tranh con chó, con mèo, con gà tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi gọi tên chính xác con vật trong tranh.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard flashcards of dog, cat, chicken, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively label the animal on the card correctly."
+    }
+  },
+  {
+    "id": 17,
+    "name": {
+      "vi": "Phát âm mô phỏng tiếng kêu (Phần 17)",
+      "en": "Imitate animal sounds (Part 17)"
+    },
+    "materials": {
+      "vi": "Mô hình chú chó nhỏ bằng gỗ dạng cải tiến số 17",
+      "en": "Small wooden dog figure (modified set #17)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu mô hình chú chó nhỏ bằng gỗ dạng cải tiến số 17 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ sủa gâu gâu bắt chước tiếng chó sủa.",
+      "en": "Place the small wooden dog figure (modified set #17) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they imitate the sound of the animal."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử sủa gâu gâu bắt chước tiếng chó sủa không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng sủa gâu gâu bắt chước tiếng chó sủa nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện sủa gâu gâu bắt chước tiếng chó sủa thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to imitate the sound of the animal, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to imitate the sound of the animal with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to imitate the sound of the animal with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu mô hình chú chó nhỏ bằng gỗ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi sủa gâu gâu bắt chước tiếng chó sủa.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard small wooden dog figure, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively imitate the sound of the animal."
+    }
+  },
+  {
+    "id": 18,
+    "name": {
+      "vi": "Mô tả hành động trong tranh (Phần 18)",
+      "en": "Describe action pictures (Part 18)"
+    },
+    "materials": {
+      "vi": "Tranh vẽ bé đang xúc ăn, bé đang ngủ dạng cải tiến số 18",
+      "en": "Pictures showing eating, sleeping (modified set #18)"
+    },
+    "administration": {
+      "vi": "Đặt vật liệu tranh vẽ bé đang xúc ăn, bé đang ngủ dạng cải tiến số 18 trước mặt trẻ, dùng cử chỉ điệu bộ rõ ràng làm mẫu và hướng dẫn trẻ: \"Con làm giống cô nhé!\" để quan sát hành vi năng lực khi trẻ mô tả hành động của bé trong tranh.",
+      "en": "Place the pictures showing eating, sleeping (modified set #18) in front of the child, clearly demonstrate and instruct: \"Do it like me!\" to observe capacity milestones as they describe the child's action in the picture."
+    },
+    "scoring": {
+      "vi": {
+        "0": "0 điểm: Trẻ không hợp tác, thử mô tả hành động của bé trong tranh không thành công và không biết được những vận động cần thiết hay không cố gắng làm ngay khi xem làm mẫu.",
+        "1": "1 điểm: Trẻ cố gắng mô tả hành động của bé trong tranh nhưng chưa thành công trọn vẹn, cần hỗ trợ nhắc nhở hoặc trợ giúp cầm hờ tay từ chuyên gia.",
+        "2": "2 điểm: Trẻ tự tin và thực hiện mô tả hành động của bé trong tranh thành công trọn vẹn, trơn tru một cách độc lập không cần hỗ trợ."
+      },
+      "en": {
+        "0": "0 points: Child fails to cooperate, is unsuccessful in attempting to describe the child's action in the picture, or makes no attempt even after demonstration.",
+        "1": "1 point: Child attempts to describe the child's action in the picture with effort but is not fully successful, requiring minor prompts or hand-over-hand assistance.",
+        "2": "2 points: Child successfully, smoothly, and independently completes the task to describe the child's action in the picture with no assistance."
+      }
+    },
+    "adaptationGuide": {
+      "vi": "💡 Gợi ý thích ứng tự kỷ: Đối với trẻ nhạy cảm giác quan hoặc từ chối vật liệu tranh vẽ bé đang xúc ăn, bé đang ngủ tiêu chuẩn, hãy thay thế bằng đồ chơi nhựa dẻo hoạt họa màu sắc nổi bật hoặc silicon mềm. Luôn sử dụng hình ảnh chỉ dẫn (Visual Schedule) để trẻ dễ hợp tác hơn khi mô tả hành động của bé trong tranh.",
+      "en": "💡 Autistic Adaptation: For children with sensory hypersensitivities refusing standard pictures showing eating, sleeping, swap with soft silicone or colorful plastic toys. Always leverage visual schedules to help the child cooperatively describe the child's action in the picture."
+    }
+  }
+]
