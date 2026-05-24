@@ -960,10 +960,6 @@ interface ReadEventModalProps {
 export const ReadEventModal: React.FC<ReadEventModalProps> = ({ isOpen, closeModal, selectedObj, t }) => {
   if (!isOpen) return null;
 
-  // Find primary teacher if any
-  const hostStaff = selectedObj?.staff.find(s => s.is_host);
-  const secondaryStaff = selectedObj?.staff.filter(s => !s.is_host) || [];
-
   return (
     <div className="modal-overlay">
       <div className="admin-modal animate-in" style={{ ...modalTextStyle, maxWidth: '600px', width: '90%' }}>

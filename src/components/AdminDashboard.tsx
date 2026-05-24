@@ -18,7 +18,7 @@ import type { Plan } from './dashboard/PlanDetailView';
 import ExercisesTab from './dashboard/ExercisesTab';
 import OverviewTab from './dashboard/OverviewTab';
 
-type Tab = 'overview' | 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks';
+type Tab = 'overview' | 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks' | 'events';
 
 interface AdminDashboardProps {
   lang: 'vi' | 'en';
