@@ -22,6 +22,7 @@ interface UserProfilePageProps {
   profile: UserProfile;
   onBack: () => void;
   onSave: (updatedProfile: UserProfile) => void;
+  onViewChange: (newView: 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment' | 'profile' | 'centers' | 'staff-profile') => void;
 }
 
 const translations = {
@@ -54,7 +55,8 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({
   setLang,
   profile,
   onBack,
-  onSave
+  onSave,
+  onViewChange
 }) => {
   const t = translations[lang];
   const [activeTab, setActiveTab] = useState<TabType>('profile');
@@ -103,6 +105,15 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({
           <h1 className="profile-page-title">{t.title}</h1>
           
           <div className="profile-header-right">
+            {/* Candy Button chuyển vai trò nhanh */}
+            <button 
+              className="profile-role-switcher-btn"
+              onClick={() => onViewChange('staff-profile')}
+              title={lang === 'vi' ? "Chuyển sang trang Chuyên gia" : "Switch to Staff Portal"}
+            >
+              🧑‍⚕️ {lang === 'vi' ? "CHUYÊN GIA PORTAL" : "STAFF PORTAL"}
+            </button>
+
             <div className="profile-lang-switch">
               <button 
                 className={`profile-lang-btn ${lang === 'vi' ? 'active' : ''}`} 

@@ -31,11 +31,23 @@
         - `StaffsTab.tsx`: Manages staff roster with reactive search and CRUD.
         - `ObjectivesTab.tsx`: Manages behavioral training objectives.
         - `BlogsTab.tsx`: Manages communications blog articles.
+        - `OverviewTab.tsx`: [NEW] Bảng điều khiển Tổng quan độc lập dành riêng cho System Admin, cung cấp cái nhìn toàn diện về hoạt động hệ thống thông qua Bento Stats Grid, biểu đồ doanh thu 3D Memphis và phân bổ kỹ năng.
 3. **Smart Design Lab**: Context-aware customizer with granular contrast control and descriptive component labels for precise theming.
 4. **Design Code Documentation**: 2 interactive dark-themed pages documenting every UI component, token, animation, and layout pattern. Accessed via `</>` buttons from Homepage and Admin.
 5. **Tool Assessment Page (Trang Đánh giá Công cụ)**: Giao diện đánh giá độc lập áp dụng **Playful Geometric Design System** theo phong cách "Medical Playful" — cấu trúc nội dung nghiêm túc, decoration xung quanh sống động và có cá tính. Design tokens: nền `#FFFDF5` warm cream với polka-dot pattern overlay (28px grid), hard shadow system (`--shadow-sm/md/lg`: offset chunky `N px N px 0px #1E293B`, không blur). Font toàn trang: `Be Vietnam Pro` (Rule 9). Mỗi trong 4 nhóm công cụ lâm sàng có màu định danh riêng: Nhóm 1 Chẩn đoán chuyên sâu = Amber `#FBBF24`, Nhóm 2 Sàng lọc nhanh = Pink `#F472B6`, Nhóm 3 Hành vi thích ứng = Violet `#8B5CF6`, Nhóm 4 Tâm vận động = Blue `#60A5FA`. Group Cards active hiển thị hard shadow màu nhóm + wiggle icon animation. Tool Cards dạng Sticker Card (`border: 2px solid #1E293B`, shadow offset). Buttons kiểu Candy (violet pill, chunky border, hard shadow, bounce hover translate). Modal dạng Pop Dialog (`box-shadow: 12px 12px 0 #1E293B`, dot-pattern header band, entrance scale bounce). Toasts pop bounce. 4 floating decoration shapes (circles/triangle/square) animated nhẹ nhàng ở góc trang, ẩn trên mobile. Design Lab hỗ trợ 10 biến màu (6 base + 4 màu nhóm) real-time qua `.assessment-theme-root`. Accessibility: `prefers-reduced-motion` compliant.
+6. **All Centers Page (Trang hệ thống trung tâm đầy đủ - AllCentersPage.tsx)**: Trang danh sách trung tâm độc lập (Full Page View) thay thế hoàn toàn cho modal cũ khi người dùng click vào nút "Xem thêm trung tâm +6 trung tâm khác" ở trang Homepage.
+   - Áp dụng **Playful Geometric Design System**: nền giấy kem ấm áp `#FFFDF5`, header cố định (`position: sticky; top: 0; z-index: 100;`) màu trắng tinh khiết, viền Slate `#1E293B` dày dặn `3px`.
+   - Khu vực Hero giới thiệu (`.all-centers-hero-zone`) được đóng khung bo góc `24px` với viền Slate và bóng đổ Memphis, cùng vệt màu gradient đầu trang rực rỡ và tiêu đề lớn có bóng đổ Accent Coral/Pink.
+   - Thanh Toolbar tìm kiếm và lọc (`.all-centers-toolbar-board`): bọc trong khung viền Slate bo góc `20px` với bóng đổ Memphis cứng, tích hợp ô tìm kiếm tự động xóa nhanh và bộ chọn select lọc tỉnh thành.
+   - Grid hiển thị toàn bộ 9 trung tâm dạng sticker card `.center-card` kế thừa 100% các CSS đặc trưng (accent bar, pulse status animation, responsive 3 cột trên desktop, 2 cột trên tablet, 1 cột trên mobile).
+7. **Specialist Portal (Trang Cá Nhân Chuyên Gia - StaffProfilePage.tsx)**:
+   - Cổng làm việc và quản trị dành cho Chuyên gia/Bác sĩ/Giáo viên can thiệp sớm bao gồm 5 phân hệ tab: Hồ sơ cá nhân, Lịch hẹn với phụ huynh, Thời khóa biểu tuần, Hồ sơ can thiệp lâm sàng, và **Phân tích Thống kê**.
+   - **StaffStatsTab.tsx (📊 Phân Tích Thống Kê)**: Hiển thị báo cáo cá nhân hóa trực quan theo phong cách Playful Geometric Memphis, bao gồm Bento Stats Grid (Hồ sơ phụ trách, Giờ trị liệu, Tỷ lệ hài lòng, Số học viên tốt nghiệp), biểu đồ cột 3D Mastery Progress (đo lường tỷ lệ hoàn thành mục tiêu can thiệp lâm sàng của trẻ), biểu đồ đường lượn sóng SVG Skill categories wave, và Danh sách gạch đầu dòng mục tiêu trị liệu tiêu điểm trong tuần.
+   - **StaffInterventionTab.tsx (📂 Hồ Sơ Can Thiệp)**: Phân hệ quản lý toàn bộ hồ sơ trị liệu của trẻ đang phụ trách, tích hợp thanh tìm kiếm nhanh, bộ lọc trạng thái và danh sách sticker card chi tiết, đã được tinh chỉnh dọn dẹp sạch sẽ trùng lặp visual biểu đồ để tăng tính tập trung hóa.
 
 ## Current State
+- [x] Tinh chỉnh thiết kế thống kê chuyên khoa (`StaffStatsTab.tsx`) hiển thị biểu đồ Mastery Progress 3D Memphis và SVG phân bổ giờ can thiệp của trẻ đang phụ trách, tích hợp trơn tru dưới tab "📊 Phân Tích Thống Kê" trong Specialist Portal.
+- [x] Tinh chỉnh dọn dẹp tab Hồ sơ Can thiệp (`StaffInterventionTab.tsx`), loại bỏ khối thống kê trùng lặp để giao diện tập trung 100% vào danh sách hồ sơ điều trị.
 - [x] Reorganized Exercise Levels & Exercise Categories to belong to individual Centers instead of being global.
 - [x] Restructured dashboard code by breaking it down into 7 decoupled files (Rule 10).
 - [x] Created `CenterDetailView.tsx` with deep inner navigation for specific center settings.
@@ -77,7 +89,7 @@
 - [x] Dọn dẹp hoàn toàn các tệp và thư mục sàng lọc cũ (`src/components/screening/`) và xác thực Vite production build thành công 100% không cảnh báo.
 - [x] Nâng cấp tương tác duyệt danh sách trung tâm (`CentersTab.tsx`): Cho phép người dùng click trực tiếp vào bất kỳ vị trí nào trên hàng dữ liệu trung tâm (`<tr>`) để điều hướng trực tiếp sang trang Chi tiết trung tâm (`CenterDetailView`). Cấu hình thuộc tính `cursor: pointer` tạo bàn tay chỉ hướng trực quan khi rê chuột, cùng cơ chế `e.stopPropagation()` ở nút biểu tượng con mắt cũ để tránh đúp sự kiện click chuột.
 - [x] Khắc phục triệt để lỗi giật màn hình (layout shift) khi chuyển đổi các tab có nội dung dài/ngắn trong Parent Portal Dashboard: Áp dụng thuộc tính CSS hiện đại `scrollbar-gutter: stable;` cho phần tử `html` toàn cục trong `index.css` để luôn dành sẵn khoảng trống cho scrollbar ở lề bên phải, loại bỏ hoàn toàn 100% hiện tượng xê dịch container căn giữa đột ngột khi thanh cuộn dọc xuất hiện hay biến mất.
-- [x] Phát triển Trang Hồ sơ Cá nhân (`UserProfilePage.tsx`) độc lập tại Trang chủ Homepage: View chuyển đổi chuyên biệt thay thế hoàn toàn cho popup modal cũ, quản lý và cấu hình 7 thuộc tính yêu cầu (`username`, `email`, `avatar`, `phonenumber`, `full_name`, `address`, `job`) theo phong cách Playful Geometric cao cấp. **Đặc biệt, tích hợp bộ dữ liệu mẫu giả lập ("fake fake") hoạt hình, vui tươi và tràn đầy năng lượng tích cực (me_dino_sieuquay, Mẹ Bé Khủng Long Dino, Chuyên gia dẹp loạn Khủng long con, Phường Hạnh Phúc, Quận Vui Vẻ...)** để tăng tính tương thích và mượt mà với thương hiệu AutiCare. **Đồng thời tích hợp bố cục Thẻ đơn (Single Card Board Layout) cực kỳ tối giản, phẳng phiu và hiện đại, gộp thẻ sticker avatar và biểu mẫu chi tiết thành 1 thẻ duy nhất** có viền Slate dày `3px` và bóng đổ cứng Memphis `8px 8px 0px #1E293B` xoay nhẹ `-0.2deg`. **Page Header độc lập được cố định chặt chẽ trên đầu khung nhìn khi cuộn chuột (position: sticky; top: 0; z-index: 100;)**, tích hợp logo sticker xoay nhẹ, bộ ngôn ngữ VN/EN, và nút quay lại trang chủ pill-shape. **Thẻ đơn được thiết kế phân cấp khoa học**:
+- [x] Phát triển Trang Hồ sơ Cá nhân (`UserProfilePage.tsx`) độc lập tại Trang chủ Homepage: View chuyển đổi chuyên biệt thay thế hoàn toàn cho popup modal cũ, quản lý và cấu hình 7 thuộc tính yêu cầu (`username`, `email`, `avatar`, `phonenumber`, `full_name`, `address`, `job`) theo phong cách Playful Geometric cao cấp. **Đặc biệt, tích hợp bộ dữ liệu mẫu giả lập ("fake fake") hoạt hình, vui tươi và tràn đầy năng lượng tích cực (me_dino_sieuquay, Mẹ Bé Khủng Long Dino, Chuyên gia dẹp loạn Khủng long con, Phường Hạnh Phúc, Quận Vui Vẻ...)** để tăng tính tương thích và mượt mà với thương hiệu AutiCare. **Đồng thời tích hợp bố cục Thẻ đơn (Single Card Board Layout) cực kỳ tối giản, phẳng phiu và hiện đại, gộp thẻ sticker avatar và biểu mẫu chi tiết thành 1 thẻ duy nhất** có viền Slate dày `3px` và bóng đổ cứng Memphis `8px 8px 0px #1E293B` xoay nhẹ `-0.2deg`. **Page Header độc lập được cố định chặt chẽ trên đầu khung nhìn khi cuộn chuột (position: sticky; top: 0; z-index: 100;)**, tích hợp logo sticker xoay nhẹ, bộ ngôn ngữ VN/EN, và nút quay lại trang chủ pill-shape. **Header sử dụng cấu trúc Grid đối xứng 3 cột (`grid-template-columns: 1.2fr auto 1.2fr`) tuyệt đối để giữ tiêu đề trung tâm luôn cân đối hoàn hảo. Đồng thời nút Back to Home `.profile-back-btn` được cố định chiều rộng tuyệt đối `width: 220px !important;` kèm `white-space: nowrap !important;` nhằm triệt tiêu hoàn toàn 100% hiện tượng co giãn nút gây xê dịch hay giật cục cụm điều hướng khi chuyển đổi ngôn ngữ Việt - Anh (VN/EN).** **Thẻ đơn được thiết kế phân cấp khoa học**:
   - **Phần Đầu Thẻ (Profile Header Zone)**: Bố cục Flexbox ngang trên Desktop chứa Avatar tương tác 120px (có hover camera uploader và file input ẩn) xếp cạnh Họ tên lớn, Username (@parent_minhanh) và dải quick info liên hệ nhanh (Nghề nghiệp, Email, Điện thoại) trên nền Slate có icon emoji sinh động.
   - **Đường Phân Cách**: Bổ sung nét dashed Memphis đứt quãng `.profile-dashed-separator` tinh tế tạo điểm nhấn nghệ thuật.
   - **Phần Thân Thẻ (Detailed Fields Grid)**: Lưới 2 cột hiển thị đầy đủ 6 trường thông tin chi tiết (ở chế độ Xem tĩnh là các static block nhẹ nhàng nền Slate cực nhẹ `#F8FAFC`, bo tròn `12px`, ở chế độ Chỉnh sửa là các input/textarea nhập liệu động).
@@ -86,6 +98,8 @@
   - **Tối ưu responsive hoàn hảo**: Khi co nhỏ màn hình di động (< 768px), phần đầu thẻ tự động chuyển sang dạng cột đứng (flex-direction: column), căn giữa toàn bộ avatar và chữ vô cùng cân đối, trơn tru.
 - [x] Tích hợp tính năng Tải ảnh đại diện trực tiếp từ thiết bị khi nhấp chọn Avatar tròn ở phần đầu thẻ: sử dụng `FileReader` chuyển đổi ảnh thành chuỗi Base64 thời gian thực, có hiệu ứng lớp phủ hover mờ Playful `.profile-avatar-hover-overlay` chứa icon máy ảnh 📷 mượt mà và nhãn chỉ dẫn `.profile-avatar-hint` tự động đổi màu pastel sinh động.
 - [x] Ngăn chặn triệt để hành vi Submit Form mặc định ngoài ý muốn khi nhấn nút **Edit Profile**, **Change Password**, **Cancel** bằng cách gọi `e.preventDefault()` và `e.stopPropagation()` trong sự kiện click, mang lại độ tin cậy tuyệt đối 100%.
+- [x] Triển khai thành công đồng bộ hóa dữ liệu thời gian thực cho mạng lưới trung tâm can thiệp: Chuyển đổi (Lift-up) state `centers` từ component cục bộ `AdminDashboard.tsx` lên component gốc của SPA `App.tsx`. Dữ liệu trung tâm ở Homepage (`CentersSection`) và trang danh sách (`AllCentersPage`) hiện đọc trực tiếp từ props động thay vì mock-data tĩnh. Bất cứ hành động thêm mới (Create), cập nhật (Update) hay xóa (Delete) trung tâm trong Admin Dashboard đều lập tức đồng bộ hóa 100% thời gian thực ra màn hình trang chủ và All Centers Page, giải quyết triệt để lỗi mất card trung tâm mới tạo.
+- [x] Khắc phục triệt để các lỗi compile TypeScript trong `PlanDetailView.tsx` và `App.tsx` (như typing cho `useState`, implicit parameter types, enum casting cho `status`, và inline styling `fontStyle`), khôi phục thành công 100% bản build production siêu sạch.
 
 
 ## Homepage Design Context Update - Neo-Brutalism AutiCare Palette (2026-05-21)
@@ -462,3 +476,100 @@ Nhằm đạt được sự đồng bộ tuyệt đối 100% về ngôn ngữ th
 - **Phân hệ Đánh giá (Plan Feedbacks Tab)**:
   - `PlanFeedbacksTab.tsx`: Bảng quản trị đánh giá, cho phép xem mức độ hài lòng (Star rating) của phụ huynh, đọc nhận xét dài.
   - Action buttons mượt mà (Ẩn/Hiện, Xóa) với biểu tượng đa ngôn ngữ. Khi bị ẩn, text sẽ có màu xám Slate `#94A3B8` và in nghiêng tạo hiệu ứng nhạt màu (ghosted text).
+
+### 9. Tái thiết kế Vé hẹn ngang & Sticker chỉ dẫn chuẩn bị lâm sàng (2026-05-24)
+- **Thiết kế bố cục ngang Desktop (Desktop Side-by-Side Layout)**:
+  - Nâng tối đa chiều rộng của Modal Vé hẹn `.appointment-ticket-card` lên **780px** (`width: min(780px, calc(100% - 2rem)) !important;`) giúp cấu trúc cân đối, sang trọng.
+  - Tích hợp lớp bọc ngang `.ticket-horizontal-content-layout` chia thân vé thành 2 cột: Details Grid bên trái chiếm ~55% chiều rộng và Hộp chỉ dẫn lâm sàng bên phải chiếm ~45% chiều rộng. 
+  - Chiều cao dọc của vé được thu ngắn đến 40%, triệt tiêu hoàn toàn 100% hiện tượng xuất hiện scrollbar dọc, mang lại trải nghiệm xem vé mượt mà và trực quan.
+- **Tối ưu Bento Grid 2 cột & Sắp xếp Thứ tự**:
+  - Details Bento Grid `.ticket-details-grid` được phẳng hóa sang dạng 2 cột (`grid-template-columns: repeat(2, 1fr) !important;`).
+  - Sắp xếp lại thứ tự khoa học: Loại khám (Type) & Hình thức (Method) ở hàng 1; Ngày (Date) & Giờ (Time) ở hàng 2; Trẻ khám (Patient Child - span 2) ở hàng 3; Địa điểm (Location - span 2) ở hàng 4. Đảm bảo toàn bộ lưới luôn vừa khít, không bị khuyết ô trống.
+- **Nâng cấp Hộp "Chỉ dẫn chuẩn bị lâm sàng" (.ticket-notes-box) Memphis 3D**:
+  - Hộp ghi chú được đóng khung sticker cứng cáp: Viền đen Slate dày dặn `3px solid #1E293B`, bo góc rộng `20px` và bóng đổ cứng Memphis 3D lệch góc `6px 6px 0px #1E293B`.
+  - Tiêu đề `.appointment-modal-notes-title`: Sử dụng dải nền màu vàng ấm nhạt `#FEF08A` rực rỡ, chữ Slate in đậm viết hoa nổi bật kèm icon kẹp giấy `📋` độc quyền.
+  - Tách nội dung văn bản thô dài thành các gạch đầu dòng danh sách `.notes-list-item` có emoji sinh động (📂 và ⏰) và chia thông tin rõ ràng song ngữ: Hồ sơ cần mang và Thời gian tập trung.
+
+### 10. Tích hợp Hệ thống Dời lịch hẹn thời gian thực (Reschedule Flow) (2026-05-24)
+- **Nút "Dời lịch hẹn 🗓️" lấp lánh và Điều kiện kích hoạt**:
+  - Bổ sung Candy Button `.ticket-reschedule-candy` màu vàng pastel nổi bật vào Footer của Modal Ticket, có viền Slate dày và hover bounce đàn hồi.
+  - Nút chỉ xuất hiện đối với lịch hẹn có trạng thái Đã xác nhận (`confirmed` - "đã duyệt") hoặc Đang chờ duyệt (`pending`). Tự động ẩn hoàn toàn đối với lịch hẹn Đã hoàn thành (`completed`).
+- **Giao diện Modal Dời lịch (Reschedule Modal)**:
+  - Thiết kế modal phụ `.reschedule-modal-shell` với bóng đổ Memphis 3D `12px 12px 0px #1E293B`, nền giấy kem ấm `#FFFDF5`, bo góc `28px` cực kỳ đồng bộ.
+  - **Vùng lịch hẹn gốc (.reschedule-current-box)**: Hiển thị ngày và giờ cũ trong hộp sticker viền dashed Slate nét đứt mộc mạc.
+  - **Lưới chọn Ngày mới**: Sinh tự động danh sách 4 ngày tiếp theo từ ngày mai. Các nút pill-shape `.reschedule-date-card` phản ứng đổi màu tím pastel và lún xuống khi click chọn.
+  - **Lưới chọn Khung giờ mới**: Danh sách 5 khung giờ 2 tiếng tiêu chuẩn với các nút `.reschedule-time-slot-card` đổi màu hồng pastel khi được chọn.
+- **Validation Bắt buộc & Đồng bộ hóa thời gian thực (Reactive Updates)**:
+  - Thiết lập banner cảnh báo lỗi đỏ tươi `.reschedule-error-banner` có animation rung lắc (shake) và tự động vô hiệu hóa (disable) nút Xác nhận nếu phụ huynh chọn trùng ngày và giờ cũ.
+  - Mảng dữ liệu lịch hẹn được chuyển đổi thành React state `appointments`. Khi dời lịch hợp lệ, cập nhật ngay ngày/giờ mới, tự động chuyển đổi trạng thái cuộc hẹn về **Đang chờ duyệt (`pending`)** để phòng khám thẩm định lại, đồng bộ tức thời ra màn hình Dashboard chính và Modal Ticket chi tiết.
+- **Tối ưu Responsive & Đa ngôn ngữ (i18n)**:
+  - Layout co giãn hoàn mỹ: Dưới 768px (Tablet), layout ngang tự động chuyển dọc mượt mà, lưới chọn giờ dãn rộng, ẩn lẹm khuyết tròn 2 bên lề vé. Dưới 640px (Mobile), Bento Grid co gọn về 1 cột dọc an toàn 100% không vỡ khung.
+  - Hỗ trợ dịch thuật song ngữ Anh - Việt đầy đủ cho mọi nhãn dán, placeholder, thông báo lỗi và thông tin dời lịch hẹn.
+
+### 11. Phân hệ Trang cá nhân Chuyên gia (Staff Portal) & Hệ thống duyệt lịch hẹn lâm sàng (2026-05-24)
+Hệ thống AutiCare đã mở rộng toàn diện phân hệ **Staff Portal (Trang cá nhân cho Chuyên gia/Bác sĩ/Giáo viên)** được tổ chức ngăn nắp và chỉnh chu dưới thư mục `src/components/profile/staff/`, áp dụng đồng bộ ngôn ngữ thiết kế **Playful Geometric Memphis** (stable grid, wild decoration) cùng các tương tác Candy Buttons thời gian thực.
+
+- **Cơ chế Chuyển đổi Vai trò nhanh (Role Switcher Linkage)**:
+  - Tích hợp một nút bấm kẹp góc phải Header của cả hai phân hệ: Phụ huynh hiển thị nút **🧑‍⚕️ CHUYÊN GIA PORTAL** (Màu cam/vàng pastel), Chuyên gia hiển thị nút **👶 PHỤ HUYNH PORTAL** (Màu hồng pastel).
+  - Tương tác Candy Button: Thiết kế viền Slate `#1E293B` dày dặn `2px`, bóng đổ Memphis cứng `3px`, hover nảy đàn hồi và active đổi màu rực rỡ, giúp kiểm thử qua lại giữa 2 giao diện vô cùng tiện lợi mà không cần đăng nhập phức tạp.
+- **Cấu trúc 4 Tab Chuyên gia Độc lập (Decoupled Sub-Tabs - Rule 10 & 11)**:
+  - **Lịch hẹn với phụ huynh (`StaffAppointmentsTab.tsx`) - Tiêu điểm chính**:
+    * Quản lý danh sách lịch hẹn động của Bác sĩ theo 4 trạng thái: Đã duyệt (`confirmed`), Chưa duyệt (`pending`), Lịch hẹn dời đang đợi duyệt (`reschedule_pending`), và Từ chối (`rejected`).
+    * **Candy Buttons Duyệt & Phản hồi thời gian thực**:
+      * Ca hẹn *Chưa duyệt (`pending`)*: Nút **Duyệt lịch hẹn ✅** (xanh Mint) và **Từ chối cuộc hẹn ❌** (đỏ Coral).
+      * Ca hẹn *Đợi dời lịch (`reschedule_pending`)*: Nút **Đồng ý dời lịch ✅** (Tím pastel - lập tức chấp thuận ngày/giờ dời mới phụ huynh đề xuất và đưa trạng thái về `confirmed`) và **Từ chối dời / Giữ lịch cũ ❌** (Xám Slate - khôi phục ngày/giờ gốc và đưa về `confirmed`).
+      * Ca hẹn *Đã duyệt (`confirmed`) + Online*: Tích hợp nút **Tham gia cuộc họp 🚀** mở link Google Meet trực tiếp.
+    * **Clinical Ticket Modal dạng ngang**: Khi click vào card cuộc hẹn, mở ra tấm vé to rộng `780px` phân phối song song 2 cột: Details Bento Grid bên trái và sticker ghi chú Memphis chỉ dẫn hồ sơ chuẩn bị lâm sàng bên phải. Đầy đủ mã vạch barcode CSS, cuống vé và 2 lỗ khuyết vé lẹm hai bên sườn, triệt tiêu 100% scrollbar dọc.
+  - **Hồ sơ cá nhân Chuyên gia (`StaffProfileTab.tsx`)**:
+    * Sử dụng bố cục Thẻ Đơn (Single Card Board Layout) bo góc `24px` xoay nhẹ `-0.2deg` với bóng đổ Memphis `8px 8px 0px #1E293B`.
+    * Phân cấp 3 vùng khoa học: Đầu thẻ (Avatar sticker + Họ tên lớn + dải liên hệ liên kết nhanh), Thân thẻ (Chi tiết 9 trường học thuật và thâm niên lâm sàng), Đuôi thẻ (Nút chỉnh sửa hồ sơ và Thay đổi mật khẩu bảo mật mở modal Memphis 3D).
+    * Hỗ trợ tải ảnh đại diện trực tiếp Base64 qua File Uploader và hover overlay 📷 máy ảnh mượt mà.
+  - **Thời khóa biểu Tuần (`StaffScheduleTab.tsx`)**:
+    * Lịch dạy can thiệp cố định của giáo viên trong tuần được sắp đặt dạng 7 cột thứ ngang sặc sỡ luân chuyển màu pastel Memphis Memphis.
+    * Mỗi thẻ ca học chứa khung giờ, loại trị liệu (ABA, Giao tiếp, Cảm giác...), tên trẻ, link/phòng học và nút đồng bộ hóa nhanh với Google Calendar lấp lánh.
+  - **Hồ sơ can thiệp lâm sàng (`StaffInterventionTab.tsx`)**:
+    * Quản lý danh sách các bé đang trị liệu do chuyên gia phụ trách.
+    * Card trẻ chứa thông tin tuổi, phụ huynh, ngày bắt đầu, thang cấp độ tự kỷ (ASD Level 1/2/3) đổi màu badge pastel, thanh tiến trình Mastery Progress 3D co dãn sinh động, dải mục tiêu can thiệp và nhật ký chẩn đoán buổi học gần nhất.
+- **Tối ưu Responsive & i18n Song ngữ**:
+  - Hỗ trợ dịch thuật song ngữ Anh - Việt hoàn hảo cho tất cả các nhãn, placeholder, banner cảnh báo lỗi và toast thông báo thành công.
+  - Toàn bộ 4 tab đều tự động chuyển đổi cấu trúc linh hoạt trên mobile: Sidebar chuyển thành cuộn ngang, timeline tuần xếp dọc, Bento grid modal co về 1 cột, ẩn vết khuyết vé an toàn 100% không vỡ giao diện.
+
+- **Tinh chỉnh Thiết kế Card ngoài & Modal Vé hẹn Chuyên gia (Design Calibrations - 2026-05-24)**:
+  - *Bố cục Card ngoài danh sách*:
+    * Loại bỏ hoàn toàn sự trùng lặp "Trẻ khám chẩn đoán" (đã ghi to ở tiêu đề card).
+    * Áp dụng Flexbox ngang (`flex-direction: row`) và dãn rộng lề (`justify-content: space-between !important;`) cho `.detail-row`.
+    * Khoảng cách dãn dòng thoáng đãng `0.8rem`, phân cấp nhãn Slate đậm `#475569` và giá trị Slate tương phản `#1E293B` cân đối tuyệt vời.
+  - *Modal Vé hẹn ngang Chuyên gia*:
+    * Khắc phục triệt để lỗi trong suốt bằng cách đồng bộ 100% sang class modal shell `.profile-admin-modal.appointment-detail-modal-shell.appointment-ticket-card` có nền kem `#FFFDF5`, viền Slate `3px` và bóng đổ Memphis 3D `12px 12px 0px #1E293B`.
+    * Chuyển đổi grid bento sang `.ticket-details-grid` chia 2 cột đối xứng. Các trường chi tiết bọc trong sticker trắng sữa `.appointment-modal-info-item` có viền Slate `2px` và bóng đổ Memphis `2px 2px 0px #1E293B` cực kỳ nẩy và tương tác cao.
+    * Đục 2 lỗ khuyết tròn sườn vé chân thực bằng màu overlay `.ticket-punch-left/right` căn chỉnh tuyệt đẹp theo đường dashed tear line.
+    * Định dạng footer actions dạng flexbox thông thoáng `.ticket-actions-footer` kèm Candy Button Đóng cửa sổ `.ticket-close-candy` pill-shape nẩy bounce sinh động.
+    * Mang lại trải nghiệm visual đỉnh cao, sắc nét 100%, không còn bất kỳ scrollbar nào trong modal.
+
+### 12. Phân hệ Thống kê Trực quan (Statistics Portal) & Cải tiến Profile Center (2026-05-24)
+Hệ thống AutiCare đã tích hợp hoàn hảo 3 phân hệ thống kê trực quan cao cấp, được thiết kế đồng bộ theo phong cách **Playful Geometric Memphis** (viền đen Slate `3px` dày dặn, bóng đổ 3D offset cứng, màu nền giấy kem ấm áp `#FFFDF5` và sticker cards màu sắc sinh động).
+
+- **Thống kê Giám đốc Trung tâm (Director Stats Tab - CenterDetailView.tsx)**:
+  * **Widget Role Simulator**: Widget giả lập vai trò kẹp nút pill-shape viền Slate nổi bật ở đầu trang giúp System Admin dễ dàng chuyển đổi vai trò.
+  * **Tab khóa phân quyền (Security Lock Gate)**:
+    * Nếu vai trò hiện tại là Admin, tab này hiển thị icon khóa `🔒` và render sticker card cảnh báo bảo mật lớn, có icon ổ khóa wobble animation động và chỉ dẫn chi tiết.
+    * Khi chuyển vai trò sang Giám đốc trung tâm, tab sẽ lập tức mở khóa.
+  * **Biểu đồ Cột Doanh thu 3D Memphis**:
+    * Sử dụng CSS 3D transform (`preserve-3d`, `rotateX`, `rotateY`, và `skewY`) để vẽ các cột doanh thu 6 tháng có chiều sâu trục X/Y chân thực tuyệt đẹp.
+    * Cột mang màu sắc pastel rực rỡ kèm nhãn giá trị in đậm phía trên và đường kẻ ngang đứt nét (grid lines).
+  * **Biểu đồ Sóng Học viên Lượn Sóng SVG**:
+    * Vẽ biểu đồ lượn sóng SVG (`path` lượn sóng `Q` / `T`) biểu thị xu hướng nhập học mới (Màu tím Violet) và tốt nghiệp trị liệu (Màu xanh Mint đứt nét) vô cùng trực quan.
+    * Tích hợp pulse dots nhấp nháy chuyển động vô hạn tại các điểm đỉnh cực của biểu đồ.
+  * **Bảng Xếp hạng Hiệu suất Chuyên gia**:
+    * Danh sách Chuyên gia được xếp hạng bằng các sticker card trắng sữa nổi, có avatar emoji, thanh tiến trình 3D Mastery Rate, điểm hài lòng của phụ huynh (Sao ⭐️) và số giờ can thiệp.
+
+- **Thống kê cá nhân hóa cho Chuyên gia (Expert Stats - StaffInterventionTab.tsx)**:
+  * **Lưới chỉ số Bento (Bento Indicator Board)**:
+    * Bổ sung 4 sticker card trắng sữa Memphis ở đầu trang trị liệu, tính toán động các chỉ số: Tổng hồ sơ can thiệp, Đang trị liệu, Đã tốt nghiệp trị liệu, và Tỷ lệ hoàn thành mục tiêu trung bình (Mastery Rate).
+  * **Biểu đồ Cột 3D Mastery Progress**:
+    * Xây dựng biểu đồ 3D bar chart Memphis tuyệt đẹp đo lường tiến độ của từng trẻ (Gia Bảo: 78%, Hoàng Hải: 52%, Minh Đăng: 35%, Khánh Ngọc: 95%).
+    * Mỗi cột mang màu sắc đặc trưng của cấp độ ASD (Mức 1 = Xanh lá, Mức 2 = Vàng cam, Mức 3 = Hồng đỏ) có mặt bên sườn đổ bóng chiều sâu 3D chân thực, hover nảy bounce đàn hồi.
+
+- **Tối ưu Responsive & i18n Song ngữ**:
+  * Hỗ trợ dịch thuật song ngữ Anh - Việt hoàn hảo cho tất cả các nhãn báo cáo, tiêu đề biểu đồ, tooltip và nhãn chỉ số.
+  * Toàn bộ các phân hệ thống kê đều tự động chuyển đổi cấu trúc linh hoạt trên mobile: Lưới bento chuyển thành 1 cột dọc, co nhỏ các cột 3D bar chart, ẩn chiều sâu 3D trên mobile nếu màn hình quá nhỏ để đảm bảo 100% không vỡ khung.

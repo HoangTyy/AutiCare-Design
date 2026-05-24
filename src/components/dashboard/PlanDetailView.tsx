@@ -270,9 +270,9 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
   const [phaseModalMode, setPhaseModalMode] = useState<'create' | 'update' | 'delete'>('create');
   const [selectedPhaseForEdit, setSelectedPhaseForEdit] = useState<PlanPhase | null>(null);
 
-  const [expandedObjId, setExpandedObjId] = useState(null);
+  const [expandedObjId, setExpandedObjId] = useState<number | null>(null);
 
-  const toggleExpandRow = (objectiveId) => {
+  const toggleExpandRow = (objectiveId: number) => {
     if (expandedObjId === objectiveId) {
       setExpandedObjId(null); // Đóng lại nếu click lần 2
     } else {
@@ -450,7 +450,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
         ...o,
         objective_name: objName,
         target_date: objTarget,
-        status: objDesc,
+        status: objDesc as 'Completed' | 'In process',
         updated_at: '2016-02-02',
       } : o);
     } else if (objModalMode === 'delete' && selectedObj) {
