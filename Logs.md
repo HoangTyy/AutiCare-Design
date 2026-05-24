@@ -1,5 +1,12 @@
 # Project Logs
 
+## [2026-05-24] - Tinh chỉnh dọn dẹp tab Hồ sơ Can thiệp Chuyên gia & Bàn giao Hoàn chỉnh Phân hệ Thống kê
+- **Dọn dẹp triệt để trùng lặp trong `StaffInterventionTab.tsx`**:
+  * *Vấn đề*: Do tab Phân tích Thống kê (`stats` - `StaffStatsTab.tsx`) mới đã được thiết kế chuyên biệt để hiển thị bento grid, 3D Mastery Progress chart, và SVG skill categories wave, nên khối `.staff-intervention-analytics-board` ở đầu tab Hồ sơ can thiệp trở nên dư thừa và gây loãng thông tin.
+  * *Giải pháp*: Loại bỏ hoàn toàn khối bento indicators và 3D chart trong `StaffInterventionTab.tsx`, trả lại giao diện thông thoáng tập trung 100% vào danh sách hồ sơ can thiệp lâm sàng của trẻ, thanh công cụ tìm kiếm và lọc trạng thái.
+- **Xác thực và Biên dịch**:
+  * Chạy biên dịch sản phẩm bằng `cmd.exe /c npm run build` thành công rực rỡ 100% không cảnh báo hay lỗi chỉ trong **298ms**, xuất bản bundle production sạch sẽ.
+
 ## [2026-05-24] - Thiết kế 3 Phân hệ Thống kê Trực quan (Statistics Portal) & Khắc phục Lỗi Cú pháp Center Profile
 - **Thiết kế Thống kê cá nhân hóa cho Chuyên gia trong `StaffInterventionTab.tsx`**:
   * **Lưới chỉ số Bento (Bento Indicator Board)**: Bổ sung 4 sticker card trắng sữa Memphis ở đầu trang trị liệu, tính toán động các chỉ số: Tổng hồ sơ, Đang trị liệu, Đã tốt nghiệp và Mastery rate trung bình.

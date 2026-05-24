@@ -3,6 +3,7 @@ import StaffProfileTab from './tabs/StaffProfileTab';
 import StaffAppointmentsTab from './tabs/StaffAppointmentsTab';
 import StaffScheduleTab from './tabs/StaffScheduleTab';
 import StaffInterventionTab from './tabs/StaffInterventionTab';
+import StaffStatsTab from './tabs/StaffStatsTab';
 
 interface StaffProfilePageProps {
   lang: 'vi' | 'en';
@@ -19,6 +20,7 @@ const translations = {
     tabAppointments: "📅 Lịch Hẹn Với Phụ Huynh",
     tabSchedule: "⏱️ Thời Khóa Biểu Tuần",
     tabIntervention: "📂 Hồ Sơ Can Thiệp",
+    tabAnalyzeStats: "📊 Phân Tích Thống Kê",
     roleSwitcher: "👶 PHỤ HUYNH PORTAL"
   },
   en: {
@@ -28,11 +30,12 @@ const translations = {
     tabAppointments: "📅 Appointments with Parents",
     tabSchedule: "⏱️ Weekly Schedule",
     tabIntervention: "📂 Intervention Records",
+    tabAnalyzeStats: "📊 Analyze Statistics",
     roleSwitcher: "👶 PARENT PORTAL"
   }
 };
 
-type TabType = 'profile' | 'appointments' | 'schedule' | 'intervention';
+type TabType = 'profile' | 'appointments' | 'schedule' | 'intervention' | 'stats';
 
 export interface StaffProfile {
   username: string;
@@ -89,6 +92,8 @@ const StaffProfilePage: React.FC<StaffProfilePageProps> = ({
         return <StaffScheduleTab lang={lang} />;
       case 'intervention':
         return <StaffInterventionTab lang={lang} />;
+      case 'stats':
+        return <StaffStatsTab lang={lang} />;
       case 'appointments':
       default:
         return <StaffAppointmentsTab lang={lang} />;
@@ -97,6 +102,7 @@ const StaffProfilePage: React.FC<StaffProfilePageProps> = ({
 
   const tabsConfig = [
     { id: 'appointments' as TabType, label: t.tabAppointments },
+    { id: 'stats' as TabType, label: t.tabAnalyzeStats },
     { id: 'profile' as TabType, label: t.tabUserProfile },
     { id: 'schedule' as TabType, label: t.tabSchedule },
     { id: 'intervention' as TabType, label: t.tabIntervention }

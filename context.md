@@ -31,6 +31,7 @@
         - `StaffsTab.tsx`: Manages staff roster with reactive search and CRUD.
         - `ObjectivesTab.tsx`: Manages behavioral training objectives.
         - `BlogsTab.tsx`: Manages communications blog articles.
+        - `OverviewTab.tsx`: [NEW] Bảng điều khiển Tổng quan độc lập dành riêng cho System Admin, cung cấp cái nhìn toàn diện về hoạt động hệ thống thông qua Bento Stats Grid, biểu đồ doanh thu 3D Memphis và phân bổ kỹ năng.
 3. **Smart Design Lab**: Context-aware customizer with granular contrast control and descriptive component labels for precise theming.
 4. **Design Code Documentation**: 2 interactive dark-themed pages documenting every UI component, token, animation, and layout pattern. Accessed via `</>` buttons from Homepage and Admin.
 5. **Tool Assessment Page (Trang Đánh giá Công cụ)**: Giao diện đánh giá độc lập áp dụng **Playful Geometric Design System** theo phong cách "Medical Playful" — cấu trúc nội dung nghiêm túc, decoration xung quanh sống động và có cá tính. Design tokens: nền `#FFFDF5` warm cream với polka-dot pattern overlay (28px grid), hard shadow system (`--shadow-sm/md/lg`: offset chunky `N px N px 0px #1E293B`, không blur). Font toàn trang: `Be Vietnam Pro` (Rule 9). Mỗi trong 4 nhóm công cụ lâm sàng có màu định danh riêng: Nhóm 1 Chẩn đoán chuyên sâu = Amber `#FBBF24`, Nhóm 2 Sàng lọc nhanh = Pink `#F472B6`, Nhóm 3 Hành vi thích ứng = Violet `#8B5CF6`, Nhóm 4 Tâm vận động = Blue `#60A5FA`. Group Cards active hiển thị hard shadow màu nhóm + wiggle icon animation. Tool Cards dạng Sticker Card (`border: 2px solid #1E293B`, shadow offset). Buttons kiểu Candy (violet pill, chunky border, hard shadow, bounce hover translate). Modal dạng Pop Dialog (`box-shadow: 12px 12px 0 #1E293B`, dot-pattern header band, entrance scale bounce). Toasts pop bounce. 4 floating decoration shapes (circles/triangle/square) animated nhẹ nhàng ở góc trang, ẩn trên mobile. Design Lab hỗ trợ 10 biến màu (6 base + 4 màu nhóm) real-time qua `.assessment-theme-root`. Accessibility: `prefers-reduced-motion` compliant.
@@ -39,8 +40,14 @@
    - Khu vực Hero giới thiệu (`.all-centers-hero-zone`) được đóng khung bo góc `24px` với viền Slate và bóng đổ Memphis, cùng vệt màu gradient đầu trang rực rỡ và tiêu đề lớn có bóng đổ Accent Coral/Pink.
    - Thanh Toolbar tìm kiếm và lọc (`.all-centers-toolbar-board`): bọc trong khung viền Slate bo góc `20px` với bóng đổ Memphis cứng, tích hợp ô tìm kiếm tự động xóa nhanh và bộ chọn select lọc tỉnh thành.
    - Grid hiển thị toàn bộ 9 trung tâm dạng sticker card `.center-card` kế thừa 100% các CSS đặc trưng (accent bar, pulse status animation, responsive 3 cột trên desktop, 2 cột trên tablet, 1 cột trên mobile).
+7. **Specialist Portal (Trang Cá Nhân Chuyên Gia - StaffProfilePage.tsx)**:
+   - Cổng làm việc và quản trị dành cho Chuyên gia/Bác sĩ/Giáo viên can thiệp sớm bao gồm 5 phân hệ tab: Hồ sơ cá nhân, Lịch hẹn với phụ huynh, Thời khóa biểu tuần, Hồ sơ can thiệp lâm sàng, và **Phân tích Thống kê**.
+   - **StaffStatsTab.tsx (📊 Phân Tích Thống Kê)**: Hiển thị báo cáo cá nhân hóa trực quan theo phong cách Playful Geometric Memphis, bao gồm Bento Stats Grid (Hồ sơ phụ trách, Giờ trị liệu, Tỷ lệ hài lòng, Số học viên tốt nghiệp), biểu đồ cột 3D Mastery Progress (đo lường tỷ lệ hoàn thành mục tiêu can thiệp lâm sàng của trẻ), biểu đồ đường lượn sóng SVG Skill categories wave, và Danh sách gạch đầu dòng mục tiêu trị liệu tiêu điểm trong tuần.
+   - **StaffInterventionTab.tsx (📂 Hồ Sơ Can Thiệp)**: Phân hệ quản lý toàn bộ hồ sơ trị liệu của trẻ đang phụ trách, tích hợp thanh tìm kiếm nhanh, bộ lọc trạng thái và danh sách sticker card chi tiết, đã được tinh chỉnh dọn dẹp sạch sẽ trùng lặp visual biểu đồ để tăng tính tập trung hóa.
 
 ## Current State
+- [x] Tinh chỉnh thiết kế thống kê chuyên khoa (`StaffStatsTab.tsx`) hiển thị biểu đồ Mastery Progress 3D Memphis và SVG phân bổ giờ can thiệp của trẻ đang phụ trách, tích hợp trơn tru dưới tab "📊 Phân Tích Thống Kê" trong Specialist Portal.
+- [x] Tinh chỉnh dọn dẹp tab Hồ sơ Can thiệp (`StaffInterventionTab.tsx`), loại bỏ khối thống kê trùng lặp để giao diện tập trung 100% vào danh sách hồ sơ điều trị.
 - [x] Reorganized Exercise Levels & Exercise Categories to belong to individual Centers instead of being global.
 - [x] Restructured dashboard code by breaking it down into 7 decoupled files (Rule 10).
 - [x] Created `CenterDetailView.tsx` with deep inner navigation for specific center settings.
