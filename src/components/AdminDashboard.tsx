@@ -3,7 +3,6 @@ import CentersTab from './dashboard/CentersTab';
 import CenterDetailView from './dashboard/CenterDetailView';
 import type { Center } from './dashboard/CenterDetailView';
 import StaffsTab from './dashboard/StaffsTab';
-import ObjectivesTab from './dashboard/ObjectivesTab';
 import BlogsTab from './dashboard/BlogsTab';
 import InvoicesTab from './dashboard/InvoicesTab';
 import SupportTicketsTab from './dashboard/SupportTicketsTab';
@@ -17,8 +16,9 @@ import PlansTab from './dashboard/PlansTab';
 import PlanDetailView from './dashboard/PlanDetailView';
 import type { Plan } from './dashboard/PlanDetailView';
 import ExercisesTab from './dashboard/ExercisesTab';
+import EventsTab from './dashboard/EventsTab';
 
-type Tab = 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks';
+type Tab = 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks' | 'events';
 
 interface AdminDashboardProps {
   lang: 'vi' | 'en';
@@ -299,9 +299,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
       labelEn: 'Training Content',
       icon: '🧩',
       items: [
-        { id: 'objectives', labelVi: 'Mục tiêu Huấn luyện', labelEn: 'Manage Objectives' },
         { id: 'plans', labelVi: 'Kế hoạch Can thiệp', labelEn: 'Manage Plans' },
         { id: 'exercises', labelVi: 'Quản lý Bài tập', labelEn: 'Manage Exercises' },
+        { id: 'events', labelVi: 'Quản lý sự kiện', labelEn: 'Manage Events' },
         { id: 'feedbacks', labelVi: 'Đánh giá Kế hoạch', labelEn: 'Plan Feedbacks' },
       ]
     },
@@ -430,8 +430,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
         );
       case 'staffs':
         return <StaffsTab lang={lang} />;
-      case 'objectives':
-        return <ObjectivesTab lang={lang} />;
+      case 'events':
+        return <EventsTab lang={lang} />;
       case 'blogs':
         return <BlogsTab lang={lang} />;
       case 'notification':
