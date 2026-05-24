@@ -291,7 +291,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
 
   // Objective Modal State
   const [isObjModalOpen, setIsObjModalOpen] = useState(false);
-  const [objModalMode, setObjModalMode] = useState<'create' | 'update' | 'delete'>('create');
+  const [objModalMode, setObjModalMode] = useState<'create' | 'update' | 'delete' | 'view'>('create');
   const [selectedObj, setSelectedObj] = useState<PhaseObjective | null>(null);
   const [objName, setObjName] = useState('');
   const [objTarget, setObjTarget] = useState('');
@@ -413,7 +413,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
   // Activity Handlers (Removed per user request)
 
   // Objective Handlers
-  const openObjModal = (mode: 'create' | 'update' | 'delete', obj: PhaseObjective | null = null) => {
+  const openObjModal = (mode: 'create' | 'update' | 'delete' | 'view', obj: PhaseObjective | null = null) => {
     setObjModalMode(mode);
     setSelectedObj(obj);
     if (obj) {
@@ -1676,11 +1676,19 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                     <table className="objectives-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                       <thead>
                         <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '2px solid #E2E8F0' }}>
-                          <th style={{ padding: '1rem', width: '40px' }}></th>
-                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569' }}>{t.objName || 'Tên mục tiêu'}</th>
-                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569', width: '120px', textAlign: 'center' }}>{'Target'}</th>
-                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569', width: '120px', textAlign: 'center' }}>{'Status'}</th>
-                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569', width: '100px', textAlign: 'right' }}>{'Actions'}</th>
+                          <th style={{ padding: '1rem', width: '5%' }}></th>
+                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569', width: '50%', textAlign: 'left' }}>
+                            {t.objName || 'Tên mục tiêu'}
+                          </th>
+                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569', width: '15%', textAlign: 'center' }}>
+                            {'Target'}
+                          </th>
+                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569', width: '15%', textAlign: 'center' }}>
+                            {'Status'}
+                          </th>
+                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569', width: '15%', textAlign: 'center' }}>
+                            {'Actions'}
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -1719,6 +1727,13 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                                 {/* Cột Action chặn sụp đổ dòng khi click nút bấm (stopPropagation) */}
                                 <td style={{ padding: '1rem', textAlign: 'right' }} onClick={(e) => e.stopPropagation()}>
                                   <div className="item-card-actions" style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                                    <button className="edit-btn-v2" 
+                                    title={'details'}
+                                     onClick={() => openObjModal('view', obj)}>
+                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                                      </svg>
+                                    </button>
                                     <button
                                       className="edit-btn-v2"
                                       title={t.editPhase || 'Sửa'}
@@ -1748,7 +1763,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                                     <div className="activity-section-wrapper" style={{ animation: 'fadeIn 0.2s ease-out' }}>
 
                                       {activities.length === 0 ? (
-                                        <p style={{ margin: 0, color: '#94A3B8', fontSize: '0.85rem', fontStyle: 'italic' }}>
+                                        <p style={{ margin: 0, color: '#94A3B8', fontSize: '0.85rem' }}>
                                           {'No activity found.'}
                                         </p>
                                       ) : (
@@ -1944,27 +1959,84 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
 
       {/* CRUD ACTIVITY MODAL (Removed per user request) */}
 
-      {/* CUD OBJECTIVE MODAL */}
       {isObjModalOpen && (
         <div className="modal-overlay" onClick={() => setIsObjModalOpen(false)}>
           <div className="admin-modal animate-in" onClick={(e) => e.stopPropagation()}>
+
+            {/* HEADER */}
             <div className="modal-header">
               <h3>
                 {objModalMode === 'create' && `🎯 ${t.createObjTitle}`}
                 {objModalMode === 'update' && `📝 ${t.editObjTitle}`}
                 {objModalMode === 'delete' && `⚠️ ${t.confirmDeleteObj}`}
+                {objModalMode === 'view' && `🔍 ${'Objective Detail'}`}
               </h3>
               <button className="close-modal" onClick={() => setIsObjModalOpen(false)}>×</button>
             </div>
 
-            <form onSubmit={handleSaveObj}>
+            <form onSubmit={objModalMode === 'view' ? (e) => e.preventDefault() : handleSaveObj}>
+              {/* BODY */}
               <div className="modal-body">
                 {objModalMode === 'delete' ? (
                   <div className="delete-confirm">
-
                     <p>{t.deleteSub}</p>
                   </div>
+                ) : objModalMode === 'view' ? (
+                  /* CHẾ ĐỘ XEM CHI TIẾT (DETAIL) */
+                  <div className="modal-detail-view" style={{ color: 'black',display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+
+                    <div className="detail-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                      <div className="detail-group" style={{ gridColumn: 'span 2' }}>
+                        <label style={{ fontWeight: 600, color: '#64748B', display: 'block', marginBottom: '0.25rem' }}>{t.objName}</label>
+                        <p style={{ margin: 0, fontSize: '1.1rem', fontWeight: 500 }}>{selectedObj?.objective_name}</p>
+                      </div>
+
+                      <div className="detail-group">
+                        <label style={{ fontWeight: 600, color: '#64748B', display: 'block', marginBottom: '0.25rem' }}>{t.objTarget}</label>
+                        <p style={{ margin: 0 }}>{selectedObj?.target_date}</p>
+                      </div>
+
+                      <div className="detail-group">
+                        <label style={{ fontWeight: 600, color: '#64748B', display: 'block', marginBottom: '0.25rem' }}>Status</label>
+                        <div>
+                          <span style={{
+                            padding: '0.25rem 0.5rem',
+                            borderRadius: '4px',
+                            fontSize: '0.85rem',
+                            fontWeight: 500,
+                            backgroundColor: selectedObj?.status === 'Completed' ? '#DCFCE7' : '#FEF9C3',
+                            color: selectedObj?.status === 'Completed' ? '#166534' : '#854D0E'
+                          }}>
+                            {selectedObj?.status}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* DANH SÁCH ACTIVITIES ĐI KÈM */}
+                    <div className="detail-activities" style={{ borderTop: '1px solid #E2E8F0', paddingTop: '1rem' }}>
+                      <label style={{ fontWeight: 600, color: '#64748B', display: 'block', marginBottom: '0.5rem' }}>
+                        Activities ({selectedObj?.activities?.length || 0})
+                      </label>
+
+                      {selectedObj?.activities && selectedObj?.activities?.length > 0 ? (
+                        <ul style={{ paddingLeft: '1.2rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                          {selectedObj?.activities?.map((act) => (
+                            <li key={act.activity_id} style={{ color: '#334155' }}>
+                              {act.activity_name}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p style={{ margin: 0, color: '#94A3B8', fontStyle: 'italic', fontSize: '0.9rem' }}>
+                          No activities planned for this objective.
+                        </p>
+                      )}
+                    </div>
+
+                  </div>
                 ) : (
+                  /* CHẾ ĐỘ CREATE / UPDATE (FORM GỐC CỦA BẠN) */
                   <div className="modal-form modal-form-grid">
                     <div className="form-group form-group-full">
                       <label>{t.objName}</label>
@@ -1972,13 +2044,13 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                     </div>
                     <div className="form-group form-group-full">
                       <label>{t.objTarget}</label>
-                      <input required type="text" placeholder="Ví dụ: 80%, 4/5 lần, Đạt" value={objTarget} onChange={e => setObjTarget(e.target.value)} spellCheck="false" />
+                      <input required type="date" placeholder="dd-mm-yyy" value={objTarget} onChange={e => setObjTarget(e.target.value)} spellCheck="false" />
                     </div>
                     <div className="form-group form-group-full">
                       <label>Status</label>
                       <select
                         required
-                        value={objDesc}
+                        value={objDesc} /* Note: Bạn đang dùng state objDesc để lưu status */
                         onChange={e => setObjDesc(e.target.value)}
                         style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #CBD5E1' }}
                       >
@@ -1990,18 +2062,29 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                 )}
               </div>
 
+              {/* FOOTER */}
               <div className="modal-footer">
-                <button type="button" className="btn-secondary" onClick={() => setIsObjModalOpen(false)}>
-                  {t.cancel}
-                </button>
-                <button type="submit" className={`btn-primary ${objModalMode === 'delete' ? 'btn-danger' : ''}`}>
-                  {objModalMode === 'delete' ? t.confirmDelete : (objModalMode === 'create' ? t.create : t.save)}
-                </button>
+                {objModalMode === 'view' ? (
+                  /* Nút đóng duy nhất ở chế độ xem chi tiết */
+                  <button type="button" className="btn-primary" onClick={() => setIsObjModalOpen(false)}>
+                    {'Close'}
+                  </button>
+                ) : (
+                  /* Nút hành động cho các chế độ create/update/delete */
+                  <>
+                    <button type="button" className="btn-secondary" onClick={() => setIsObjModalOpen(false)}>
+                      {t.cancel}
+                    </button>
+                    <button type="submit" className={`btn-primary ${objModalMode === 'delete' ? 'btn-danger' : ''}`}>
+                      {objModalMode === 'delete' ? t.confirmDelete : (objModalMode === 'create' ? t.create : t.save)}
+                    </button>
+                  </>
+                )}
               </div>
             </form>
           </div>
         </div>
-      ) }
+      )}
 
     </div>
   );
