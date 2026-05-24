@@ -3,7 +3,6 @@ import CentersTab from './dashboard/CentersTab';
 import CenterDetailView from './dashboard/CenterDetailView';
 import type { Center } from './dashboard/CenterDetailView';
 import StaffsTab from './dashboard/StaffsTab';
-import ObjectivesTab from './dashboard/ObjectivesTab';
 import BlogsTab from './dashboard/BlogsTab';
 import InvoicesTab from './dashboard/InvoicesTab';
 import SupportTicketsTab from './dashboard/SupportTicketsTab';
@@ -18,8 +17,10 @@ import PlanDetailView from './dashboard/PlanDetailView';
 import type { Plan } from './dashboard/PlanDetailView';
 import ExercisesTab from './dashboard/ExercisesTab';
 import OverviewTab from './dashboard/OverviewTab';
+import EventsTab from './dashboard/EventsTab';
+import StaffScheduleTab from './profile/staff/tabs/StaffScheduleTab';
 
-type Tab = 'overview' | 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks';
+type Tab = 'overview' | 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks' | 'events' | 'staffSchedule' | 'childrenDirectory';
 
 interface AdminDashboardProps {
   lang: 'vi' | 'en';
@@ -219,17 +220,27 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
       icon: '📅',
       items: [
         { id: 'schedule', labelVi: 'Quản lý Lịch trống', labelEn: 'Available Slots' },
+        { id: 'staffSchedule', labelVi: 'Lịch trình', labelEn: 'Schedule' },
       ]
     },
     {
+      id: 'diagnosic',
+      labelVi: 'Chuẩn đoán',
+      labelEn: 'Diagnosic',
+      icon: '🔍',
+      items: [
+        { id: 'childrenDirectory', labelVi: 'Danh sách trẻ em', labelEn: 'Children Directory' },
+      ]
+    },
+     {
       id: 'training',
       labelVi: 'Nội dung Huấn luyện',
       labelEn: 'Training Content',
       icon: '🧩',
       items: [
-        { id: 'objectives', labelVi: 'Mục tiêu Huấn luyện', labelEn: 'Manage Objectives' },
         { id: 'plans', labelVi: 'Kế hoạch Can thiệp', labelEn: 'Manage Plans' },
         { id: 'exercises', labelVi: 'Quản lý Bài tập', labelEn: 'Manage Exercises' },
+        { id: 'events', labelVi: 'Quản lý sự kiện', labelEn: 'Manage Events' },
         { id: 'feedbacks', labelVi: 'Đánh giá Kế hoạch', labelEn: 'Plan Feedbacks' },
       ]
     },
@@ -360,8 +371,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
         );
       case 'staffs':
         return <StaffsTab lang={lang} />;
-      case 'objectives':
-        return <ObjectivesTab lang={lang} />;
+      case 'events':
+        return <EventsTab lang={lang} />;
       case 'blogs':
         return <BlogsTab lang={lang} />;
       case 'notification':
@@ -376,6 +387,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
         return <SupportTicketsTab lang={lang} />;
       case 'feedbacks':
         return <PlanFeedbacksTab lang={lang} />;
+      case 'staffSchedule':
+       return <StaffScheduleTab lang={lang} />;
+      case 'childrenDirectory':
+        // return <ChildrenDirectoryTab lang={lang}/>;
       default:
         return <CentersTab lang={lang} centers={centers} onManageDetail={handleManageDetail} onUpdateCenters={setCenters} />;
     }
