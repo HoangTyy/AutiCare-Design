@@ -1,9 +1,13 @@
+html {
+  scrollbar-gutter: auto !important;
+}
+
 .admin-dashboard {
   display: flex;
   min-height: 100vh;
-  background-color: var(--bg-main); /* Base background behind islands */
+  background-color: #0F172A !important; /* Base background behind islands */
   font-family: var(--font-main);
-  color: var(--text-main);
+  color: #1E293B !important;
   padding: 12px;
   gap: 12px;
 }
@@ -172,8 +176,8 @@
 
 .sidebar-footer {
   padding: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: rgba(0, 0, 0, 0.4) !important;
 }
 
 .user-profile {
@@ -210,21 +214,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 32px;
-  background: linear-gradient(90deg, #1e1b4b 0%, #111827 100%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 24px 24px 20px 20px; /* Match parent top radius exactly */
-  margin: -1px -1px 24px -1px; /* Overfill by 1px to prevent sub-pixel gaps */
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  padding: 16px 32px !important;
+  background: #FFFFFF !important;
+  border-bottom: 3px solid #1E293B !important;
+  border-radius: 0px !important;
+  margin: 0 !important;
+  box-shadow: none !important;
   position: sticky;
-  top: -1px; /* Ensure no gap at the very top */
+  top: -1px;
   z-index: 10;
 }
 
 .breadcrumb {
-  font-size: 0.9rem;
-  color: #94A3B8;
-  font-weight: 500;
+  font-size: 0.82rem !important;
+  color: #1E293B !important;
+  font-weight: 800 !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
 }
 
 .user-info {
@@ -259,12 +266,13 @@
 /* Main Content */
 .dashboard-main {
   flex: 1;
-  background-color: var(--admin-content-bg);
-  border-radius: 24px;
+  background: radial-gradient(circle, rgba(30, 41, 59, 0.05) 1.5px, transparent 1.5px) 0 0 / 28px 28px, #FFFDF5 !important;
+  border: 3px solid #1E293B !important;
+  box-shadow: 8px 8px 0px #1E293B !important;
+  border-radius: 24px !important;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 
@@ -291,6 +299,7 @@
   padding: 2.5rem;
   flex: 1;
   max-width: 1400px;
+  margin: 0 auto !important; /* Căn giữa hoàn hảo vùng nội dung chính trên màn hình rộng */
 }
 
 .table-header {
@@ -528,12 +537,12 @@
   background: transparent; /* Changed to transparent to show dashboard-main bg */
   border-radius: 16px;
   border: none;
-  overflow: hidden;
+  overflow: visible !important; /* Cho phép shadow nhấc nổi thò ra thoải mái, không bị cắt cụt bởi biên giới vô hình */
 }
 
 .table-container {
-  padding: 0 1.5rem 1.5rem;
-  overflow-x: auto;
+  padding: 12px 1.5rem 1.5rem !important; /* Thêm padding đệm 12px phía trên để bóng đổ hàng đầu tiên không bị che khuất */
+  overflow: visible !important; /* Cho phép hiển thị shadow sườn trái/phải tràn viền hoàn mỹ */
 }
 
 table {
@@ -2016,4 +2025,506 @@ tbody tr:hover td:first-child {
     right: -8px;
   }
 }
+
+/* ==========================================================================
+   MEMPHIS PLAYFUL GEOMETRIC OVERRIDES FOR ALL ADMIN TABS (DOCTOR STYLE)
+   ========================================================================== */
+
+/* 1. Các khối Cards và Indicator nổi */
+.floating-card, .overview-card, .center-card, .stats-card, .plan-card, .exercise-card, .blog-card, .metric-card, .feedback-card, .bento-indicator, .detail-card, .plan-phase-card {
+  background-color: #FFFFFF !important;
+  border: 3px solid #1E293B !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+  border-radius: 20px !important;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease !important;
+}
+
+.floating-card:hover, .overview-card:hover, .center-card:hover, .stats-card:hover, .plan-card:hover, .exercise-card:hover, .blog-card:hover, .metric-card:hover, .feedback-card:hover, .bento-indicator:hover, .detail-card:hover, .plan-phase-card:hover {
+  transform: translate(-3px, -3px) rotate(0.5deg) !important;
+  box-shadow: 9px 9px 0px #1E293B !important;
+}
+
+/* 2. Ô tìm kiếm Memphis pill */
+.search-bar {
+  background: #FFFFFF !important;
+  border: 3px solid #1E293B !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+  border-radius: 999px !important;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  padding: 0 1.25rem !important;
+}
+
+.search-bar:focus-within {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+  border-color: #8B5CF6 !important;
+}
+
+.search-bar input {
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-weight: 700 !important;
+}
+
+/* 3. Nút bấm Candy Buttons */
+.add-btn, .view-toggle-btn, .action-btn-primary, .submit-btn, .intervention-create-btn, .schedule-sync-btn {
+  background-color: #8B5CF6 !important; /* Tím Violet */
+  color: #FFFFFF !important;
+  border: 3px solid #1E293B !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+  border-radius: 999px !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  font-size: 0.8rem !important;
+  padding: 0.75rem 1.5rem !important;
+  transition: all 120ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.add-btn:hover, .view-toggle-btn:hover, .action-btn-primary:hover, .submit-btn:hover, .intervention-create-btn:hover, .schedule-sync-btn:hover {
+  background-color: #7C3AED !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+}
+
+.add-btn:active, .view-toggle-btn:active, .action-btn-primary:active, .submit-btn:active, .intervention-create-btn:active, .schedule-sync-btn:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 2px 2px 0px #1E293B !important;
+}
+
+.icon-btn {
+  border: 2px solid #1E293B !important;
+  box-shadow: 3px 3px 0px #1E293B !important;
+  border-radius: 12px !important;
+  background: #FFFFFF !important;
+  transition: all 120ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.icon-btn:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0px #1E293B !important;
+  background: #F1F5F9 !important;
+}
+
+.icon-btn:active {
+  transform: translate(1.5px, 1.5px) !important;
+  box-shadow: 1.5px 1.5px 0px #1E293B !important;
+}
+
+/* 4. Dòng bảng dữ liệu nổi (Floating rows table) */
+tbody tr {
+  background: transparent !important; /* Đặt transparent để lộ bo góc của td */
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  box-shadow: none !important; /* Loại bỏ bóng đổ vuông góc sắc lẹm của thẻ tr */
+}
+
+tbody td {
+  padding: 1.25rem 1.5rem !important;
+  border-top: 2px solid #1E293B !important;
+  border-bottom: 2px solid #1E293B !important;
+  vertical-align: middle !important;
+  color: #1E293B !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  background: #FFFFFF !important; /* Nền trắng nằm ở td để bo góc hoạt động */
+  box-shadow: 4px 4px 0px #1E293B !important; /* Bóng đổ lệch phải + đáy đồng nhất giúp nối liền mạch 100% không vết nứt ở giữa */
+}
+
+tbody td:first-child {
+  border-left: 2px solid #1E293B !important;
+  border-top-left-radius: 14px !important;
+  border-bottom-left-radius: 14px !important;
+  box-shadow: 4px 4px 0px #1E293B !important; /* Đồng bộ bóng đổ lệch phải + đáy */
+}
+
+tbody td:last-child {
+  border-right: 2px solid #1E293B !important;
+  border-top-right-radius: 14px !important;
+  border-bottom-right-radius: 14px !important;
+  box-shadow: 4px 4px 0px #1E293B !important; /* Bóng đổ lệch phải + đáy được bo cong hoàn mỹ theo radius của td */
+}
+
+tbody tr:hover {
+  transform: translate(-4px, -4px) !important; /* Nhấc nổi tịnh tiến pixel-perfect, loại bỏ rotate để tránh khe nứt pixel giữa các td */
+  box-shadow: none !important;
+}
+
+tbody tr:hover td {
+  background: #FFFFFF !important; /* Giữ nguyên màu nền trắng tinh khiết để nổi bật rõ rệt hình dáng card */
+  border-color: #1E293B !important;
+  box-shadow: 7px 7px 0px #1E293B !important; /* Tăng bóng đổ đồng loạt khi nâng nổi */
+}
+
+tbody tr:hover td:first-child {
+  border-left: 5px solid #8B5CF6 !important; /* Lề trái tím Violet khi hover */
+  box-shadow: 7px 7px 0px #1E293B !important;
+}
+
+tbody tr:hover td:last-child {
+  box-shadow: 7px 7px 0px #1E293B !important;
+}
+
+/* Header bảng đậm chất Memphis - Tạo dải khung liền mạch thống nhất chạy ngang toàn bảng */
+thead th {
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-size: 0.78rem !important;
+  font-weight: 850 !important;
+  color: #1E293B !important; /* Màu đậm rõ nét */
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  padding: 0.85rem 1.5rem !important; /* Padding tinh tế */
+  background: #F1F5F9 !important; /* Nền xám Slate nhạt sạch sẽ tạo tương phản tốt với dòng td trắng */
+  border-top: 2px solid #1E293B !important;
+  border-bottom: 2px solid #1E293B !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: 4px 4px 0px #1E293B !important; /* Bóng đổ lệch phải + đáy nối liền mạch 100% không vết nứt */
+  vertical-align: middle !important;
+}
+
+thead th:first-child {
+  border-left: 2px solid #1E293B !important;
+  border-top-left-radius: 12px !important;
+  border-bottom-left-radius: 12px !important;
+}
+
+thead th:last-child {
+  border-right: 2px solid #1E293B !important;
+  border-top-right-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
+}
+
+/* 5. Inputs & Textareas Memphis viền đen dày */
+.form-group input, 
+.form-group textarea, 
+.form-group select {
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-weight: 700 !important;
+  color: #1E293B !important;
+  padding: 0.75rem 1rem !important;
+  border-radius: 14px !important;
+  border: 2.5px solid #1E293B !important;
+  box-shadow: 3px 3px 0px #1E293B !important;
+  outline: none !important;
+  background: #FFFFFF !important;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus, 
+.form-group select:focus {
+  border-color: #8B5CF6 !important; /* Focus tím */
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0px #1E293B !important;
+}
+
+.form-group label {
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-weight: 800 !important;
+  color: #475569 !important;
+  text-transform: uppercase !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.3px !important;
+  margin-bottom: 0.35rem !important;
+}
+
+/* 6. Badges & Pills Memphis viền đen */
+.status-badge, .badge, .role-pill, .center-pill, .badge-pill, .tag-pill {
+  border: 2px solid #1E293B !important;
+  box-shadow: 2px 2px 0px #1E293B !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  font-size: 0.7rem !important;
+  border-radius: 999px !important;
+  padding: 0.3rem 0.75rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+/* 7. Modals Memphis Pop-Dialog */
+.admin-modal, .detailed-report-modal {
+  background: #FFFDF5 !important; /* Giấy kem ấm */
+  border: 3px solid #1E293B !important;
+  box-shadow: 12px 12px 0px #1E293B !important;
+  border-radius: 28px !important;
+  overflow: visible !important;
+}
+
+.modal-header, .detailed-report-modal-header {
+  padding: 1.5rem 2rem !important;
+  background: linear-gradient(90deg, #FDF2F8 0%, #F5F3FF 100%) !important; /* Gradient pastel */
+  border-bottom: 3px solid #1E293B !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.modal-header h3, .detailed-report-modal-header h3 {
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-size: 1.25rem !important;
+  font-weight: 900 !important;
+  color: #1E293B !important;
+  margin: 0 !important;
+}
+
+.close-modal, .detailed-report-modal-close {
+  background: #FFFFFF !important;
+  border: 2px solid #1E293B !important;
+  box-shadow: 2px 2px 0px #1E293B !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  font-size: 1rem !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #1E293B !important;
+  transition: all 120ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.close-modal:hover, .detailed-report-modal-close:hover {
+  transform: translate(-1.5px, -1.5px) !important;
+  box-shadow: 3.5px 3.5px 0px #1E293B !important;
+  background: #F1F5F9 !important;
+}
+
+.close-modal:active, .detailed-report-modal-close:active {
+  transform: translate(1px, 1px) !important;
+  box-shadow: 1px 1px 0px #1E293B !important;
+}
+
+.modal-body {
+  padding: 2rem !important;
+}
+
+.modal-footer {
+  padding: 1.5rem 2rem !important;
+  background: transparent !important;
+  border-top: none !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 1rem !important;
+}
+
+.btn-secondary {
+  background-color: #FFFFFF !important;
+  color: #1E293B !important;
+  border: 3px solid #1E293B !important;
+  box-shadow: 3px 3px 0px #1E293B !important;
+  border-radius: 999px !important;
+  padding: 0.65rem 1.35rem !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  font-size: 0.78rem !important;
+  cursor: pointer !important;
+  transition: all 120ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.btn-secondary:hover {
+  background-color: #F1F5F9 !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0px #1E293B !important;
+}
+
+.btn-primary {
+  background-color: #FBBF24 !important; /* Vàng hổ phách Amber */
+  color: #1E293B !important;
+  border: 3px solid #1E293B !important;
+  box-shadow: 3px 3px 0px #1E293B !important;
+  border-radius: 999px !important;
+  padding: 0.65rem 1.35rem !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  font-size: 0.78rem !important;
+  cursor: pointer !important;
+  transition: all 120ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.btn-primary:hover {
+  background-color: #F59E0B !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0px #1E293B !important;
+}
+
+.btn-danger {
+  background-color: #EF4444 !important; /* Đỏ tươi */
+  color: #FFFFFF !important;
+  border: 3px solid #1E293B !important;
+  box-shadow: 3px 3px 0px #1E293B !important;
+  border-radius: 999px !important;
+  padding: 0.65rem 1.35rem !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  font-size: 0.78rem !important;
+  cursor: pointer !important;
+  transition: all 120ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.btn-danger:hover {
+  background-color: #DC2626 !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 5px 5px 0px #1E293B !important;
+}
+
+/* ==========================================================================
+   ADDITIONAL MEMPHIS PLAYFUL GEOMETRIC OVERRIDES (DOCTOR STYLE SYNC)
+   ========================================================================== */
+
+/* 1. Khung Header Card Memphis bọc Tiêu đề các tab Admin */
+.table-header, .intervention-header-zone {
+  background: #FFFFFF !important;
+  border: 3px solid #1E293B !important;
+  border-radius: 20px !important;
+  padding: 1.5rem 2rem !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  margin-bottom: 2rem !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 1.5rem !important;
+  flex-wrap: wrap !important;
+  transform: rotate(-0.15deg) !important; /* Xoay nhẹ đầy nghệ thuật */
+}
+
+.table-title, .intervention-tab-title {
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  margin: 0 !important;
+  font-weight: 900 !important;
+  color: #1E293B !important;
+  font-size: 1.4rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.intervention-tab-subtitle {
+  margin: 6px 0 0 0 !important;
+  color: #475569 !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+}
+
+/* 2. Nút Quay lại và Nút chi tiết Memphis */
+.back-btn-v2, .detail-navigation button, .profile-back-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 10px 20px !important;
+  border-radius: 999px !important;
+  border: 2px solid #1E293B !important;
+  background: #FFFFFF !important;
+  color: #1E293B !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  box-shadow: 3px 3px 0px #1E293B !important;
+  transition: all 120ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  text-decoration: none !important;
+}
+
+.back-btn-v2:hover, .detail-navigation button:hover, .profile-back-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 5px 5px 0px #1E293B !important;
+  background: #FFFDF5 !important;
+}
+
+.back-btn-v2:active, .detail-navigation button:active, .profile-back-btn:active {
+  transform: translateY(1px) !important;
+  box-shadow: 1px 1px 0px #1E293B !important;
+}
+
+/* 3. Nút thao tác nhỏ trong bảng (Action Buttons) */
+.action-btns button, .action-btn, .action-btns a {
+  border: 2px solid #1E293B !important;
+  box-shadow: 2px 2px 0px #1E293B !important;
+  border-radius: 10px !important;
+  background: #FFFFFF !important;
+  transition: all 120ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.action-btns button:hover, .action-btn:hover, .action-btns a:hover {
+  transform: translate(-1.5px, -1.5px) !important;
+  box-shadow: 3.5px 3.5px 0px #1E293B !important;
+}
+
+.action-btns button:active, .action-btn:active, .action-btns a:active {
+  transform: translate(1px, 1px) !important;
+  box-shadow: 1px 1px 0px #1E293B !important;
+}
+
+/* Hover màu sắc đặc trưng */
+.action-btns .view-btn-v2:hover { 
+  background: #EFF6FF !important; 
+  color: #2563EB !important;
+}
+.action-btns .edit-btn-v2:hover { 
+  background: #ECFDF5 !important; 
+  color: #10B981 !important;
+}
+.action-btns .delete-btn-v2:hover { 
+  background: #FEF2F2 !important; 
+  color: #EF4444 !important;
+}
+
+/* 4. Thanh điều hướng tab phụ trong view chi tiết */
+.sub-tab-navigation {
+  display: flex !important;
+  gap: 0.8rem !important;
+  margin-bottom: 2rem !important;
+  flex-wrap: wrap !important;
+  border-bottom: 3px dashed #CBD5E1 !important;
+  padding-bottom: 1rem !important;
+}
+
+.sub-tab-navigation button, .sub-tab-btn {
+  background: #FFFFFF !important;
+  border: 2px solid #1E293B !important;
+  padding: 8px 18px !important;
+  font-size: 0.85rem !important;
+  font-weight: 800 !important;
+  color: #1E293B !important;
+  border-radius: 14px !important;
+  cursor: pointer !important;
+  box-shadow: 3px 3px 0px #1E293B !important;
+  transition: all 150ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.sub-tab-navigation button:hover, .sub-tab-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 5px 5px 0px #1E293B !important;
+  background: #FFFDF5 !important;
+}
+
+.sub-tab-navigation button:active, .sub-tab-btn:active {
+  transform: translateY(1px) !important;
+  box-shadow: 1px 1px 0px #1E293B !important;
+}
+
+.sub-tab-navigation button.active, .sub-tab-btn.active {
+  background: #8B5CF6 !important; /* Màu tím Violet */
+  color: #FFFFFF !important;
+  transform: translateY(1px) !important;
+  box-shadow: 1px 1px 0px #1E293B !important;
+}
+
+
+
+
 
