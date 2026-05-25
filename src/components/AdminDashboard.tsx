@@ -22,7 +22,14 @@ import StaffScheduleTab from './profile/staff/tabs/StaffScheduleTab';
 import AdminProfileTab from './dashboard/AdminProfileTab';
 import type { AdminProfile } from './dashboard/AdminProfileTab';
 
-type Tab = 'overview' | 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks' | 'events' | 'staffSchedule' | 'childrenDirectory' | 'adminProfile';
+// Imports mới phục vụ Không gian làm việc Chuyên gia giả lập
+import StaffStatsTab from './profile/staff/tabs/StaffStatsTab';
+import StaffAppointmentsTab from './profile/staff/tabs/StaffAppointmentsTab';
+import StaffInterventionTab from './profile/staff/tabs/StaffInterventionTab';
+import ToolAssessmentPage from './assessment/ToolAssessmentPage';
+import ThemeCustomizer from './ThemeCustomizer';
+
+type Tab = 'overview' | 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks' | 'events' | 'staffSchedule' | 'childrenDirectory' | 'adminProfile' | 'stats' | 'appointments' | 'schedule_staff' | 'intervention' | 'assessment';
 
 interface AdminDashboardProps {
   lang: 'vi' | 'en';
@@ -209,78 +216,128 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
     }
   ]);
 
-  const menuGroups: MenuGroup[] = [
-    {
-      id: 'dashboard',
-      labelVi: 'Bảng điều khiển',
-      labelEn: 'Dashboard',
-      icon: '📊',
-      items: [
-        { id: 'overview', labelVi: 'Tổng quan hệ thống', labelEn: 'System Overview' }
-      ]
-    },
-    {
-      id: 'system',
-      labelVi: 'Hệ thống',
-      labelEn: 'System',
-      icon: '⚙️',
-      items: [
-        { id: 'centers', labelVi: 'Quản lý Trung tâm', labelEn: 'Manage Centers' },
-        { id: 'staffs', labelVi: 'Quản lý Nhân sự', labelEn: 'Manage Staffs' },
-      ]
-    },
-    {
-      id: 'scheduling',
-      labelVi: 'Lịch trình',
-      labelEn: 'Scheduling',
-      icon: '📅',
-      items: [
-        { id: 'schedule', labelVi: 'Quản lý Lịch trống', labelEn: 'Available Slots' },
-        { id: 'staffSchedule', labelVi: 'Lịch trình', labelEn: 'Schedule' },
-      ]
-    },
-    {
-      id: 'diagnosic',
-      labelVi: 'Chuẩn đoán',
-      labelEn: 'Diagnosic',
-      icon: '🔍',
-      items: [
-        { id: 'childrenDirectory', labelVi: 'Danh sách trẻ em', labelEn: 'Children Directory' },
-      ]
-    },
-     {
-      id: 'training',
-      labelVi: 'Nội dung Huấn luyện',
-      labelEn: 'Training Content',
-      icon: '🧩',
-      items: [
-        { id: 'plans', labelVi: 'Kế hoạch Can thiệp', labelEn: 'Manage Plans' },
-        { id: 'exercises', labelVi: 'Quản lý Bài tập', labelEn: 'Manage Exercises' },
-        { id: 'events', labelVi: 'Quản lý sự kiện', labelEn: 'Manage Events' },
-        { id: 'feedbacks', labelVi: 'Đánh giá Kế hoạch', labelEn: 'Plan Feedbacks' },
-      ]
-    },
-    {
-      id: 'content',
-      labelVi: 'Truyền thông & CSKH',
-      labelEn: 'Communication & Support',
-      icon: '📰',
-      items: [
-        { id: 'blogs', labelVi: 'Quản lý Blog', labelEn: 'Manage Blogs' },
-        { id: 'notification', labelVi: 'Quản lý Thông báo', labelEn: 'Manage Notifications' },
-        { id: 'support', labelVi: 'Yêu cầu Hỗ trợ', labelEn: 'Support Tickets' },
-      ]
-    },
-    {
-      id: 'finance',
-      labelVi: 'Tài chính',
-      labelEn: 'Finance',
-      icon: '💰',
-      items: [
-        { id: 'invoices', labelVi: 'Quản lý Hóa đơn', labelEn: 'Manage Invoices' },
-      ]
+  // useEffect đồng bộ hóa activeTab khi chuyển đổi vai trò giả lập
+  React.useEffect(() => {
+    if (adminInfo.role === 'doctor' || adminInfo.role === 'teacher') {
+      setActiveTab('stats');
+      setExpandedGroups(['stats', 'scheduling', 'clinical']);
+    } else {
+      setActiveTab(prev => 
+        ['stats', 'appointments', 'schedule_staff', 'intervention', 'assessment'].includes(prev) 
+          ? 'overview' 
+          : prev
+      );
+      setExpandedGroups(['dashboard', 'system', 'training', 'content']);
     }
-  ];
+  }, [adminInfo.role]);
+  const getMenuGroups = (): MenuGroup[] => {
+    if (adminInfo.role === 'doctor' || adminInfo.role === 'teacher') {
+      return [
+        {
+          id: 'stats',
+          labelVi: 'Báo cáo & Phân tích',
+          labelEn: 'Reports & Analytics',
+          icon: '📊',
+          items: [
+            { id: 'stats' as Tab, labelVi: 'Phân tích Thống kê', labelEn: 'Statistical Analysis' }
+          ]
+        },
+        {
+          id: 'scheduling',
+          labelVi: 'Quản lý Lịch hẹn',
+          labelEn: 'Appointments Scheduling',
+          icon: '📅',
+          items: [
+            { id: 'appointments' as Tab, labelVi: 'Lịch hẹn với Phụ huynh', labelEn: 'Appointments with Parents' },
+            { id: 'schedule_staff' as Tab, labelVi: 'Thời khóa biểu tuần', labelEn: 'Weekly Schedule' }
+          ]
+        },
+        {
+          id: 'clinical',
+          labelVi: 'Nghiệp vụ Lâm sàng',
+          labelEn: 'Clinical Intervention',
+          icon: '🩺',
+          items: [
+            { id: 'intervention' as Tab, labelVi: 'Hồ sơ Can thiệp', labelEn: 'Intervention Records' },
+            { id: 'assessment' as Tab, labelVi: 'Đánh giá Lâm sàng', labelEn: 'Clinical Assessment' }
+          ]
+        }
+      ];
+    }
+
+    return [
+      {
+        id: 'dashboard',
+        labelVi: 'Bảng điều khiển',
+        labelEn: 'Dashboard',
+        icon: '📊',
+        items: [
+          { id: 'overview', labelVi: 'Tổng quan hệ thống', labelEn: 'System Overview' }
+        ]
+      },
+      {
+        id: 'system',
+        labelVi: 'Hệ thống',
+        labelEn: 'System',
+        icon: '⚙️',
+        items: [
+          { id: 'centers', labelVi: 'Quản lý Trung tâm', labelEn: 'Manage Centers' },
+          { id: 'staffs', labelVi: 'Quản lý Nhân sự', labelEn: 'Manage Staffs' },
+        ]
+      },
+      {
+        id: 'scheduling',
+        labelVi: 'Lịch trình',
+        labelEn: 'Scheduling',
+        icon: '📅',
+        items: [
+          { id: 'schedule', labelVi: 'Quản lý Lịch trống', labelEn: 'Available Slots' },
+          { id: 'staffSchedule', labelVi: 'Lịch trình', labelEn: 'Schedule' },
+        ]
+      },
+      {
+        id: 'diagnosic',
+        labelVi: 'Chuẩn đoán',
+        labelEn: 'Diagnosic',
+        icon: '🔍',
+        items: [
+          { id: 'childrenDirectory', labelVi: 'Danh sách trẻ em', labelEn: 'Children Directory' },
+        ]
+      },
+       {
+        id: 'training',
+        labelVi: 'Nội dung Huấn luyện',
+        labelEn: 'Training Content',
+        icon: '🧩',
+        items: [
+          { id: 'plans', labelVi: 'Kế hoạch Can thiệp', labelEn: 'Manage Plans' },
+          { id: 'exercises', labelVi: 'Quản lý Bài tập', labelEn: 'Manage Exercises' },
+          { id: 'events', labelVi: 'Quản lý sự kiện', labelEn: 'Manage Events' },
+          { id: 'feedbacks', labelVi: 'Đánh giá Kế hoạch', labelEn: 'Plan Feedbacks' },
+        ]
+      },
+      {
+        id: 'content',
+        labelVi: 'Truyền thông & CSKH',
+        labelEn: 'Communication & Support',
+        icon: '📰',
+        items: [
+          { id: 'blogs', labelVi: 'Quản lý Blog', labelEn: 'Manage Blogs' },
+          { id: 'notification', labelVi: 'Quản lý Thông báo', labelEn: 'Manage Notifications' },
+          { id: 'support', labelVi: 'Yêu cầu Hỗ trợ', labelEn: 'Support Tickets' },
+        ]
+      },
+      {
+        id: 'finance',
+        labelVi: 'Tài chính',
+        labelEn: 'Finance',
+        icon: '💰',
+        items: [
+          { id: 'invoices', labelVi: 'Quản lý Hóa đơn', labelEn: 'Manage Invoices' },
+        ]
+      }
+    ];
+  };
 
   const toggleGroup = (groupId: string) => {
     setExpandedGroups(prev =>
@@ -289,11 +346,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
   };
 
   const getActiveItem = () => {
-    for (const group of menuGroups) {
+    const currentMenuGroups = getMenuGroups();
+    for (const group of currentMenuGroups) {
       const item = group.items.find(i => i.id === activeTab);
       if (item) return item;
     }
-    return menuGroups[0].items[0];
+    return { id: activeTab, labelVi: 'Hồ sơ cá nhân', labelEn: 'Personal Profile' };
   };
 
   // State Updates for Center Levels and Categories
@@ -405,6 +463,26 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
         return <PlanFeedbacksTab lang={lang} />;
       case 'staffSchedule':
        return <StaffScheduleTab lang={lang} />;
+      case 'stats':
+        return <StaffStatsTab lang={lang} />;
+      case 'appointments':
+        return <StaffAppointmentsTab lang={lang} />;
+      case 'schedule_staff':
+        return <StaffScheduleTab lang={lang} />;
+      case 'intervention':
+        return <StaffInterventionTab lang={lang} />;
+      case 'assessment':
+        return (
+          <div className="assessment-theme-root assessment-view-wrapper" style={{ width: '100%', padding: 0, border: 'none', background: 'transparent', boxShadow: 'none' }}>
+            <ToolAssessmentPage 
+              lang={lang} 
+              setLang={setLang} 
+              onBack={() => setActiveTab('stats')}
+              hideHeader={true}
+            />
+            <ThemeCustomizer view="assessment" />
+          </div>
+        );
       case 'adminProfile':
         return (
           <AdminProfileTab
@@ -421,16 +499,23 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
   };
 
   return (
-    <div className="admin-theme-root admin-dashboard">
-      <aside className="dashboard-sidebar">
+    <div className={`admin-theme-root admin-dashboard ${
+      (adminInfo.role === 'doctor' || adminInfo.role === 'teacher') ? 'staff-portal-theme' : ''
+    }`}>
+      <aside className="dashboard-sidebar" style={{ borderRight: (adminInfo.role === 'doctor' || adminInfo.role === 'teacher') ? '3px solid #1E293B' : undefined }}>
         <div className="sidebar-header">
           <div className="admin-logo">
             <h1 className="logo-text">AUTICARE</h1>
-            <span className="logo-subtitle">Dashboard</span>
+            <span className="logo-subtitle" style={{ color: (adminInfo.role === 'doctor' || adminInfo.role === 'teacher') ? '#0D9488' : undefined }}>
+              {adminInfo.role === 'doctor' || adminInfo.role === 'teacher'
+                ? (lang === 'vi' ? 'Không gian làm việc' : 'Workspace')
+                : 'Dashboard'
+              }
+            </span>
           </div>
         </div>
         <nav className="sidebar-nav">
-          {menuGroups.map((group) => (
+          {getMenuGroups().map((group) => (
             <div key={group.id} className="menu-group">
               <button
                 className={`group-toggle ${expandedGroups.includes(group.id) ? 'expanded' : ''}`}
@@ -545,7 +630,13 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
           </div>
         </header>
 
-        {renderActiveTab()}
+        {adminInfo.role === 'doctor' || adminInfo.role === 'teacher' ? (
+          <div className="dashboard-content-scroll" style={{ flex: 1, overflowY: 'auto', padding: activeTab === 'assessment' ? '0' : '2rem 2.5rem' }}>
+            {renderActiveTab()}
+          </div>
+        ) : (
+          renderActiveTab()
+        )}
       </main>
     </div>
   );

@@ -1,5 +1,19 @@
 # Project Logs
 
+## [2026-05-25] - Tích hợp Trực tiếp Không gian làm việc Chuyên gia vào Admin Dashboard qua Giả lập Vai trò
+- **Implementation**:
+  * **Giải pháp Tối ưu hóa Luồng điều hướng**: Khắc phục luồng truy cập rườm rà (`Homepage -> Profile -> Staff Portal -> Workspace -> Doctor Dashboard`) bằng cách liên kết trực tiếp với Dropdown Giả lập Vai trò (`activeRole`) tại trang **Admin Profile**.
+  * **Sidebar và Subtitle động**:
+    * Xây dựng hàm `getMenuGroups()` động. Khi `adminInfo.role` là `'doctor'` hoặc `'teacher'`, Sidebar trái của Admin Dashboard sẽ lập tức co gọn về chỉ hiển thị 3 nhóm chuyên môn (Báo cáo & Phân tích, Quản lý lịch hẹn, Nghiệp vụ lâm sàng) giống hệt Staff Dashboard.
+    * Logo subtitle hiển thị động chữ `"Không gian làm việc" / "Workspace"` màu xanh Teal `#0D9488` nảy nở khi giả lập chuyên gia.
+  * **Tự động chuyển đổi vai trò (`React.useEffect`)**: Thiết lập lắng nghe `adminInfo.role` để tự động nhảy `activeTab` sang `'stats'` (Phân tích Thống kê) và mở rộng các nhóm Sidebar lâm sàng ngay khi người dùng chọn Bác sĩ/Giáo viên.
+  * **Dynamic Theme & Content Scroll**:
+    * Bọc `{renderActiveTab()}` động trong container `.dashboard-content-scroll` khi giả lập vai trò chuyên gia, mang lại cảm giác cuộn mượt mà có padding chuẩn xác `2rem 2.5rem`.
+    * Kích hoạt class `staff-portal-theme` trên div bọc ngoài cùng `.admin-dashboard` để tự động chuyển đổi theme từ Midnight Indigo tối sang nền giấy kem chấm polka-dot rực rỡ và ngược lại thời gian thực 100% không reload.
+- **Walkthrough**:
+  * Người dùng vào Admin Dashboard, chọn tab Admin Profile, click bánh răng chọn giả lập "Bác sĩ lâm sàng", giao diện lập tức khoác lên mình tấm áo giấy kem polka-dot, Sidebar tự động co lại chỉ hiển thị các mục của Bác sĩ và nhảy sang tab Thống kê 3D cực Wow. Khi click avatar chân Sidebar để về Profile, chọn lại "Admin hệ thống", giao diện lập tức trả về màu tối và sidebar đầy đủ của Admin.
+  * Biên dịch sản phẩm thành công 100% không cảnh báo hay lỗi cú pháp (`built in 322ms`).
+
 ## [2026-05-25] - Khôi phục Nền Kem và Polka-Dot cho Không gian làm việc Chuyên gia (Staff Dashboard)
 - **Implementation**:
   * **Phát hiện sự cố**: Sau đợt git revert, CSS của `.staff-portal-theme` quy định giao diện của Không gian làm việc Chuyên gia (Staff Workspace/Dashboard) bị mất hoàn toàn, dẫn đến các tab: Phân tích Thống kê, Lịch hẹn phụ huynh, Thời khóa biểu tuần và Hồ sơ can thiệp bị chìm nền, mất khung và chấm polka-dot (chỉ có tab Đánh giá lâm sàng giữ được nền do có CSS độc lập bọc riêng).
