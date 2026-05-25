@@ -55,6 +55,7 @@
    - Sidebar footer tích hợp avatar và thông tin Bác sĩ chuyên khoa click chuyển nhanh về trang Cá nhân màu kem.
 
 ## Current State
+- [x] Khôi phục toàn diện màu nền giấy kem ngọt ngào `#FFFDF5`, họa tiết chấm polka-dot `radial-gradient` sẫm nhẹ và viền Slate `3px solid #1E293B` cùng bóng đổ cứng Memphis 3D `8px 8px 0px #1E293B` cho Không gian làm việc Chuyên gia (`StaffDashboard.tsx`), đồng bộ hóa Topbar trắng sữa và Breadcrumb sẫm tương phản cao 100% trên tất cả các tab nghiệp vụ chuyên môn (Thống kê, Lịch hẹn, Thời khóa biểu, Hồ sơ can thiệp và Đánh giá).
 - [x] Tinh chỉnh thiết kế thống kê chuyên khoa (`StaffStatsTab.tsx`) hiển thị biểu đồ Mastery Progress 3D Memphis và SVG phân bổ giờ can thiệp của trẻ đang phụ trách, tích hợp trơn tru dưới tab "📊 Phân Tích Thống Kê" trong Specialist Portal.
 - [x] Tinh chỉnh dọn dẹp tab Hồ sơ Can thiệp (`StaffInterventionTab.tsx`), loại bỏ khối thống kê trùng lặp để giao diện tập trung 100% vào danh sách hồ sơ điều trị.
 - [x] Reorganized Exercise Levels & Exercise Categories to belong to individual Centers instead of being global.

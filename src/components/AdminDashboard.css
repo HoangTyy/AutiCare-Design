@@ -2017,3 +2017,54 @@ tbody tr:hover td:first-child {
   }
 }
 
+/* ==========================================================================
+   STAFF PORTAL WORKSPACE THEME (Memphis Playful Geometric)
+   ========================================================================== */
+
+/* Nền giấy kem ấm áp và chấm polka-dot cho khu vực Workspace chính của Chuyên gia */
+.staff-portal-theme.admin-dashboard {
+  background-color: #0F172A !important; /* Sidebar Midnight Indigo giữ nền tối xung quanh */
+}
+
+.staff-portal-theme .dashboard-main {
+  background: radial-gradient(circle, rgba(30, 41, 59, 0.05) 1.5px, transparent 1.5px) 0 0 / 28px 28px, #FFFDF5 !important;
+  border: 3px solid #1E293B !important;
+  box-shadow: 8px 8px 0px #1E293B !important;
+  border-radius: 24px !important;
+  overflow: hidden !important;
+}
+
+/* Đồng bộ Topbar Header của Chuyên gia sang màu trắng sữa sạch sẽ, viền đen Slate dày */
+.staff-portal-theme .dashboard-topbar {
+  background: #FFFFFF !important;
+  border-bottom: 3px solid #1E293B !important;
+  border-radius: 0px !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  padding: 16px 32px !important;
+}
+
+/* Breadcrumb màu sẫm tương phản cao */
+.staff-portal-theme .breadcrumb {
+  color: #1E293B !important;
+  font-weight: 800 !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  text-transform: uppercase !important;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Fix background và border của Sidebar footer */
+.staff-portal-theme .sidebar-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Responsive adjustment cho main area */
+@media (max-width: 768px) {
+  .staff-portal-theme .dashboard-main {
+    box-shadow: 4px 4px 0px #1E293B !important;
+  }
+}
+
+

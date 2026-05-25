@@ -1,5 +1,17 @@
 # Project Logs
 
+## [2026-05-25] - Khôi phục Nền Kem và Polka-Dot cho Không gian làm việc Chuyên gia (Staff Dashboard)
+- **Implementation**:
+  * **Phát hiện sự cố**: Sau đợt git revert, CSS của `.staff-portal-theme` quy định giao diện của Không gian làm việc Chuyên gia (Staff Workspace/Dashboard) bị mất hoàn toàn, dẫn đến các tab: Phân tích Thống kê, Lịch hẹn phụ huynh, Thời khóa biểu tuần và Hồ sơ can thiệp bị chìm nền, mất khung và chấm polka-dot (chỉ có tab Đánh giá lâm sàng giữ được nền do có CSS độc lập bọc riêng).
+  * **Khôi phục CSS Memphis Playful Geometric**:
+    * Định nghĩa lại màu nền kem ngọt ngào `#FFFDF5` và họa tiết chấm polka-dot (`radial-gradient` sẫm nhẹ 5%) trên toàn bộ container `.staff-portal-theme .dashboard-main` với khoảng dãn 28px đồng bộ.
+    * Đóng khung viền đen Slate `3px solid #1E293B` và bóng đổ cứng Memphis 3D `8px 8px 0px #1E293B` cho vùng làm việc.
+    * Tái thiết kế Topbar `.dashboard-topbar` của chuyên gia sang màu trắng sữa sạch sẽ, viền đen Slate dày dặn, loại bỏ box-shadow và gradient bóng đêm của Admin để hòa nhập hoàn hảo với phong cách Funtopia tươi mới.
+    * Căn chỉnh breadcrumb sẫm màu có độ tương phản cao, định vị lại Sidebar footer.
+- **Walkthrough**:
+  * Chuyên gia di chuyển giữa bất kỳ tab nào (Thống kê, Lịch hẹn, Thời khóa biểu, Hồ sơ can thiệp) đều thấy nền giấy kem polka-dot nảy nở tuyệt đẹp, cấu trúc Bento và Header vững chãi, đồng bộ 100% về mặt thẩm mỹ với tab Đánh giá Lâm sàng.
+  * Build production thành công 100% không cảnh báo (`built in 333ms`).
+
 ## [2026-05-25] - Khôi phục Toàn bộ CSS Admin Profile Memphis Design System (Mất do Git Revert)
 - **Implementation**:
   * **Phát hiện nguyên nhân gốc rễ**: Toàn bộ file `.tsx` vẫn nguyên vẹn nhưng **toàn bộ phần CSS Playful Geometric Memphis Design System** (~700 dòng) cho trang Admin Profile bị mất hoàn toàn trong `AdminDashboard.css` do đợt git revert trước đó. Bao gồm: page container, floating island card, avatar circle, quick intro info, badges row, fields grid, footer actions, Candy buttons, role switcher dropdown, modal system (overlay, shell, header band, body, footer), avatar picker & upload overlay, emoji picker, error banner shake, scale bounce animation, disabled input, system field hint, toast bounce, và responsive mobile/tablet.
