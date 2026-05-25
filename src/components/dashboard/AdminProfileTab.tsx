@@ -562,11 +562,7 @@ export const AdminProfileTab: React.FC<AdminProfileTabProps> = ({ lang, profile,
               <p className="profile-display-username">@{formData.username}</p>
               <div className="profile-badges-row">
                 <span className="profile-badge-pill role-pill">{getRoleLabel()}</span>
-                {activeRole !== 'doctor' && activeRole !== 'teacher' && (
-                  <span className="profile-badge-pill simulation-pill">
-                    🎭 {t.simulationBadge}
-                  </span>
-                )}
+
                 {formData.center_name && shouldShowField('center_name') && (
                   <span className="profile-badge-pill center-pill">🏢 {formData.center_name}</span>
                 )}

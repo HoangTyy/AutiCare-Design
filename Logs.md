@@ -13,6 +13,24 @@
   * *Bảo mật*: Tiếp tục khóa cứng hoàn toàn nút xóa cho các vai trò mặc định hệ thống (isDefault) để bảo đảm an toàn vận hành.
 - **Biên dịch sản phẩm**: Chạy biên dịch sản phẩm `npm.cmd run build` thành công rực rỡ 100% không còn bất kỳ lỗi hay cảnh báo TypeScript nào.
 
+## [2026-05-25] - Khôi phục Toàn bộ CSS Admin Profile Memphis Design System (Mất do Git Revert)
+- **Implementation**:
+  * **Phát hiện nguyên nhân gốc rễ**: Toàn bộ file `.tsx` vẫn nguyên vẹn nhưng **toàn bộ phần CSS Playful Geometric Memphis Design System** (~700 dòng) cho trang Admin Profile bị mất hoàn toàn trong `AdminDashboard.css` do đợt git revert trước đó. Bao gồm: page container, floating island card, avatar circle, quick intro info, badges row, fields grid, footer actions, Candy buttons, role switcher dropdown, modal system (overlay, shell, header band, body, footer), avatar picker & upload overlay, emoji picker, error banner shake, scale bounce animation, disabled input, system field hint, toast bounce, và responsive mobile/tablet.
+  * **Khôi phục toàn bộ 700+ dòng CSS**: Viết lại đầy đủ 100% CSS Memphis Design System (viền Slate `3px`, bóng đổ cứng `8px 8px 0px #1E293B`, nền card trắng sữa, Candy buttons pill-shape bounce, nền giấy kem `#FFFDF5` cho modal, gradient header band pastel, focus Violet `#8B5CF6`, nút Amber `#FBBF24`).
+- **Walkthrough**:
+  * Trang Admin Profile hiển thị đầy đủ khung card Memphis, avatar tròn viền đen, lưới 2 cột, nút Candy, Role Switcher, Modal chỉnh sửa/đổi mật khẩu, Toast nổi, responsive hoàn hảo.
+  * Build production thành công 100% (`built in 334ms`).
+
+
+## [2026-05-25] - Khôi phục & Tinh chỉnh Hoàn thiện Edit Profile Admin (Toast và Modal Height CSS)
+- **Implementation**:
+  * **Kiểm tra và Khôi phục Git Pull**: Sau khi pull code từ remote sau đợt revert của người dùng, xác nhận các tệp code `AdminProfileTab.tsx` và `AdminDashboard.tsx` vẫn được Git tự động bảo toàn nguyên vẹn 100% (bao gồm đồng bộ vai trò, dynamic title/subtitle, loại bỏ View Mode badge và uploader Base64).
+  * **Bổ sung CSS Toast và Modal Height**: Do file `AdminDashboard.css` bị revert một phần, chúng tôi đã bổ sung lại class `.edit-profile-modal .modal-scrollable-body` để tắt cuộn scrollbar dọc giúp Modal Chỉnh sửa hồ sơ phẳng phiu tuyệt đẹp.
+  * **Thiết kế Toast Memphis nổi bồng bềnh**: Thêm mới class `.profile-toast-floating` định dạng Toast thông báo lưu thành công nổi 3D Memphis có viền đen Slate dày dặn, màu nền xanh ngọc lá cây `#34D399` rực rỡ và bóng đổ cứng offset `6px` cao cấp.
+- **Walkthrough**:
+  * Người dùng thay đổi thông tin cá nhân Admin và bấm Lưu, Toast Memphis xanh ngọc nổi bật ở góc phải màn hình lập tức nhảy động báo hiệu thành công cực kỳ sinh động và chuyên nghiệp. Modal chỉnh sửa dãn cao tự nhiên không còn thanh cuộn dọc khó chịu.
+  * Dự án được biên dịch production thành công 100% không cảnh báo hay lỗi TypeScript (`built in 325ms`).
+
 ## [2026-05-25] - Hoàn Thiện 100% Đánh Giá PEP-3 Lâm Sàng: Tích Hợp 172 Câu Hỏi Thực Tế, Lưới Nhảy Nhanh, Auto-Fill Demo & Công Thức Quy Đổi Đồ Thị Chuẩn Xác
 - **Nạp cơ sở dữ liệu y khoa thực tế PEP-3 (`PEP3TestRunner.tsx`)**:
   * *Hành động*: Thay thế danh sách 10 câu hỏi mock cũ bằng toàn bộ **172 bài tập lâm sàng PEP-3 thực tế** được import song ngữ (`vi` / `en`) trực tiếp từ tệp điều phối dữ liệu trung tâm `pep3ItemsList` (tổng hợp từ 13 tệp JSON độc lập).
