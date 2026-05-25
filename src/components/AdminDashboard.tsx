@@ -20,6 +20,7 @@ import OverviewTab from './dashboard/OverviewTab';
 import EventsTab from './dashboard/EventsTab';
 import StaffScheduleTab from './profile/staff/tabs/StaffScheduleTab';
 import AdminProfileTab from './dashboard/AdminProfileTab';
+import type { AdminProfile } from './dashboard/AdminProfileTab';
 
 type Tab = 'overview' | 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks' | 'events' | 'staffSchedule' | 'childrenDirectory' | 'adminProfile';
 
@@ -52,7 +53,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
   const [selectedCenterForDetail, setSelectedCenterForDetail] = useState<Center | null>(null);
   const [selectedPlanForDetail, setSelectedPlanForDetail] = useState<Plan | null>(null);
   
-  const [adminInfo, setAdminInfo] = useState({
+  const [adminInfo, setAdminInfo] = useState<AdminProfile>({
     username: 'auticare_admin',
     email: 'admin@auticare.vn',
     avatar: '⚡',
@@ -62,7 +63,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
     experience_years: 10,
     invite_code: 'ATC-ADMIN',
     description: 'Quản trị viên cấp cao của hệ thống AutiCare, chịu trách nhiệm vận hành nền tảng can thiệp sớm và kết nối các trung tâm trên toàn quốc.',
-    center_name: 'AutiCare Central Saigon'
+    center_name: 'AutiCare Central Saigon',
+    role: 'admin'
   });
 
   const [plans, setPlans] = useState<Plan[]>([
@@ -474,10 +476,26 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
             style={{ cursor: 'pointer' }}
             title={lang === 'vi' ? 'Xem hồ sơ cá nhân Admin' : 'View Admin Profile'}
           >
-            <div className="avatar">{adminInfo.avatar || 'AD'}</div>
+            <div className="avatar">
+              {adminInfo.avatar && (adminInfo.avatar.startsWith('data:image/') || adminInfo.avatar.startsWith('http://') || adminInfo.avatar.startsWith('https://') || adminInfo.avatar.startsWith('/')) ? (
+                <img 
+                  src={adminInfo.avatar} 
+                  alt="Avatar" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', display: 'block' }} 
+                />
+              ) : (
+                adminInfo.avatar || 'AD'
+              )}
+            </div>
             <div className="user-info">
               <div className="user-name">{adminInfo.full_name}</div>
-              <div className="user-role">Administrator</div>
+              <div className="user-role">
+                {adminInfo.role === 'admin' && (lang === 'vi' ? 'Quản trị viên' : 'Administrator')}
+                {adminInfo.role === 'director' && (lang === 'vi' ? 'Giám đốc trung tâm' : 'Center Director')}
+                {adminInfo.role === 'doctor' && (lang === 'vi' ? 'Bác sĩ lâm sàng' : 'Clinical Doctor')}
+                {adminInfo.role === 'teacher' && (lang === 'vi' ? 'Giáo viên can thiệp' : 'Intervention Teacher')}
+                {!adminInfo.role && (lang === 'vi' ? 'Quản trị viên' : 'Administrator')}
+              </div>
             </div>
           </div>
         </div>

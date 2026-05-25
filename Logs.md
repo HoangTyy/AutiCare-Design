@@ -1,5 +1,76 @@
 # Project Logs
 
+## [2026-05-25] - Đồng bộ hóa Tiêu đề & Mô tả Admin Profile theo Role và Loại bỏ View Mode Badge & Tắt Scrollbar Edit Modal & Bỏ Trường Không Sửa Được & Ẩn Trung Tâm Trực Thuộc
+- **Implementation**:
+  * **Đồng bộ hóa Tiêu đề & Mô tả động theo Vai trò**: Thiết kế hai helper function `getDynamicTitle` và `getDynamicSubtitle` trong `AdminProfileTab.tsx` để hiển thị động tiêu đề chính và mô tả phụ của trang Profile dựa trên vai trò đang giả lập (`activeRole`). Hiển thị cụ thể: `HỒ SƠ CÁ NHÂN ADMIN / ADMIN PROFILE`, `HỒ SƠ CÁ NHÂN GIÁM ĐỐC / DIRECTOR PROFILE`, `HỒ SƠ CÁ NHÂN BÁC SĨ / DOCTOR PROFILE`, `HỒ SƠ CÁ NHÂN GIÁO VIÊN / TEACHER PROFILE` kèm bản dịch tiếng Anh tương ứng.
+  * **Đồng bộ hóa vai trò dưới chân Sidebar trái (.user-role)**: Thêm thuộc tính `role?: MockRole` vào interface `AdminProfile` và các bộ dữ liệu giả lập `MOCK_PROFILES`. Khi người dùng thay đổi vai trò giả lập, state `adminInfo` tại `AdminDashboard.tsx` lập tức được đồng bộ và cập nhật trực tiếp vai trò dịch thuật tương ứng tại chân Sidebar trái thời gian thực, đem lại trải nghiệm nhất quán và chuyên nghiệp cao.
+  * **Loại bỏ hoàn toàn hiển thị View Mode**: Xóa bỏ hoàn toàn badge hiển thị trạng thái tĩnh `.profile-status-badge` ("View Mode / Chế độ xem") ở góc phải trên cùng của trang Profile Admin theo yêu cầu để làm phẳng hóa và tối giản hóa thiết kế.
+  * **Loại bỏ scrollbar dọc trong Modal Chỉnh sửa**: Định kiểu lại `.edit-profile-modal .modal-scrollable-body` trong `AdminDashboard.css` đặt `max-height: none !important;` và `overflow-y: visible !important;`. Điều này ép toàn bộ form modal dãn cao tự nhiên và vừa khít 100% nội dung, chấm dứt hoàn toàn thanh cuộn dọc (scroll) giúp UI phẳng phiu và hiện đại tối đa.
+  * **Loại bỏ hoàn toàn các trường không được phép chỉnh sửa**: Loại bỏ triệt để việc hiển thị các trường cố định hệ thống bao gồm `Username`, `System Invite Code` và đặc biệt là **Affiliated Center (Trực thuộc trung tâm)** ra khỏi Modal Chỉnh sửa hồ sơ. Form chỉnh sửa giờ đây tuyệt đối tinh giản và trực quan, chỉ tập trung hiển thị các trường dữ liệu có khả năng chỉnh sửa được.
+  * **TypeScript & verbatimModuleSyntax Compliance**: Thay thế import `AdminProfile` trong `AdminDashboard.tsx` thành `import type { AdminProfile }` để đáp ứng cấu hình biên dịch TypeScript nghiêm ngặt `verbatimModuleSyntax` của hệ thống, loại bỏ triệt để lỗi TS1484.
+- **Walkthrough**:
+  * Người dùng thay đổi vai trò giả lập qua nút bánh răng ⚙️ ở góc phải, tiêu đề trang Profile và mô tả lập tức biến đổi mượt mọc tương ứng với vai trò đó. Đồng thời, vai trò hiển thị dưới chân Sidebar trái cũng cập nhật sang "Giám đốc trung tâm", "Bác sĩ lâm sàng" hay "Giáo viên can thiệp" thời gian thực. Badge "View Mode" ở góc phải đã được dọn dẹp sạch sẽ. Đặc biệt, Modal Chỉnh sửa Hồ sơ giờ đây mở ra vô cùng hoành tráng, phẳng phiu, hiển thị trọn vẹn toàn bộ các trường nhập liệu và uploader mà không hề có thanh cuộn dọc. Đồng thời các trường cố định Username, System Invite Code và Trung tâm trực thuộc (Affiliated Center) bị loại bỏ hoàn toàn khỏi biểu mẫu chỉnh sửa giúp form sạch đẹp tuyệt đối.
+  * Toàn bộ mã nguồn biên dịch sạch lỗi compile TypeScript.
+
+## [2026-05-25] - Khóa Username/Invite Code & Tích hợp Upload Avatar Cá nhân Base64 đồng bộ Sidebar
+- **Implementation**:
+  * **Khóa cứng Username & System Invite Code**: Vô hiệu hóa khả năng tự ý chỉnh sửa của hai trường định danh bất biến `username` và `invite_code` trong Modal Chỉnh sửa hồ sơ. Thêm thuộc tính `disabled={true}`, `readOnly={true}` và lớp định kiểu `.disabled-input`.
+  * **Tích hợp Nhãn Phụ Hệ Thống Cố Định**: Bổ sung dòng chú thích màu xám nhạt `.system-field-hint` song ngữ Việt-Anh ngay dưới hai ô nhập liệu bị khóa để thông tin rõ ràng và trực quan (*"🔒 Thông tin hệ thống (Không thể tự chỉnh sửa)"* / *"🔒 System property (Cannot be edited)"*).
+  * **Tính năng Upload Avatar hình ảnh thật (Base64)**: Tích hợp File Input ẩn và hàm xử lý `handleFileChange` dùng `FileReader` HTML5 để đọc ảnh cá nhân từ máy tính, tự động chuyển đổi sang chuỗi Base64 Data URL, lưu trữ trực tiếp vào thuộc tính `avatar` của Profile.
+  * **Thiết kế Vùng Bấm & Hover Overlay 3D Memphis**: Nâng cấp ảnh tròn avatar lớn trong Modal Chỉnh sửa. Rê chuột vào sẽ hiện overlay mờ Slate `.modal-avatar-hover-overlay` có icon máy ảnh 📷 nảy động nhẹ và nhãn song ngữ gợi ý *"Tải ảnh lên / Upload Photo"*. Bấm vào sẽ mở hộp chọn tệp tin Windows mượt mà.
+  * **Hàm Render Avatar Thông Minh**: Viết helper function `renderAvatar` tự động phát hiện chuỗi Base64 hình ảnh (`data:image/`) để render thẻ `<img>` co dãn vừa khít (`object-fit: cover`), ngược lại render Emoji văn bản `<span>` chữ lớn như cũ.
+  * **Đồng bộ hóa chân Sidebar trái thời gian thực**: Cập nhật thẻ `.avatar` của Sidebar footer ở `AdminDashboard.tsx`. Khi quản trị viên tải ảnh thật cá nhân và bấm **Lưu thay đổi**, ảnh đại diện chân Sidebar trái lập tức đổi sang hình ảnh thật sắc nét và đồng bộ hoàn hảo trong tích tắc.
+  * **Bổ sung CSS Neo-Brutalist rực rỡ**: Định kiểu chi tiết cho `.disabled-input` (nền xám nhạt, chữ mờ, tắt hoàn toàn click và hover pointer), `.system-field-hint`, overlay hover `.modal-avatar-hover-overlay` kèm `.bounceMini` animation và viền đen Slate dày dặn đặc trưng Memphis.
+- **Walkthrough**:
+  * Người dùng mở Modal Chỉnh sửa, rê chuột lên Avatar tròn, hiện chữ "Tải ảnh lên" lấp lánh, click chọn ảnh chân dung từ máy tính. Ảnh lập tức được preview sắc nét. Bấm Lưu, ảnh thật hiển thị sắc nét trên Card Profile chính đồng thời chân Sidebar trái lập tức cập nhật ảnh thật tương ứng cực kỳ hiện đại. Hai trường Username và Invite Code bị khóa mờ, chuột biến thành vòng tròn cấm chéo, không thể gõ sửa.
+  * Toàn bộ mã nguồn biên dịch sạch lỗi compile TypeScript.
+
+## [2026-05-25] - Tái thiết kế Phân hệ Chỉnh sửa sang Modal Pop-Dialog Memphis lơ lửng
+- **Implementation**:
+  * **Tái cấu trúc luồng Chỉnh sửa Hồ sơ:** Di chuyển hoàn toàn biểu mẫu chỉnh sửa thông tin từ inline edit (chỉnh sửa trực tiếp trên Card chính) sang dạng **Modal Pop-Dialog Chỉnh sửa Hồ sơ (Edit Profile Modal)** lơ lửng. Giúp Card chính của tab luôn phẳng phiu, sạch sẽ và 100% Xem tĩnh (View Mode) mộc mạc đúng tinh thần Memphis tối giản.
+  * **Thiết kế Modal Chỉnh sửa Memphis Pop-Dialog:** Tạo cửa sổ pop-dialog `.edit-profile-modal` rộng rãi bề thế (`width: min(780px, calc(100% - 2rem))`), phủ nền mờ Slate `900` blur mịn. Modal sở hữu nền giấy kem ấm `#FFFDF5`, viền Slate `3px` và bóng đổ offset cứng Memphis 3D `12px 12px 0px #1E293B`.
+  * **Uploader Avatar Emoji lồng Modal:** Đưa bộ chọn Emoji Avatar vào lồng trong Modal kẹp bên cạnh ô Avatar tròn 80px có bóng đổ Memphis, tạo thành một khu vực `.modal-avatar-picker-zone` cực kỳ chuyên nghiệp và trực quan.
+  * **Biểu mẫu lưới Grid 2 cột & Custom Scrollbar:** Định kiểu form nhập liệu dạng lưới 2 cột co dãn linh hoạt, bọc các trường theo vai trò giả lập (`shouldShowField`) và tích hợp thanh cuộn mượt mà có responsive co gọn về 1 cột trên Mobile để chống tràn màn hình.
+  * **Cơ chế cô lập dữ liệu an toàn:** Dữ liệu chỉnh sửa được cô lập hoàn toàn trong state `editFormData` tạm thời, chỉ đồng bộ hóa thời gian thực lên Dashboard chân Sidebar trái và Card chính khi người dùng click bấm **Save (Lưu)**. Nếu bấm **Cancel (Hủy bỏ)** hoặc nút close `✕`, mọi thay đổi dở dang sẽ bị huỷ bỏ an toàn mà không ảnh hưởng visual.
+- **Walkthrough**:
+  * Người dùng bấm "Chỉnh sửa thông tin", modal lớn Memphis xuất hiện chứa đầy đủ form nhập liệu và uploader emoji. Trải nghiệm Save và Cancel mượt mà, phản ứng đa ngôn ngữ và Toast reactive sắc nét.
+  * Toàn bộ mã nguồn biên dịch sạch lỗi compile TypeScript.
+
+## [2026-05-25] - Tích hợp Modal Đổi mật khẩu (Change Password) Memphis & Banner rung lắc
+- **Implementation**:
+  * **Tích hợp nút Đổi mật khẩu (Change Password):** Bổ sung nút Candy Button `.candy-btn-change-password` màu trắng sữa viền Slate bên cạnh nút Chỉnh sửa ở chân Card thông tin Admin (chỉ hiển thị ở chế độ Xem tĩnh View Mode).
+  * **Thiết kế Modal Đổi mật khẩu Memphis Pop-Dialog:** Xây dựng modal pop-dialog lơ lửng `.change-password-modal` được phủ lớp nền mờ mờ Slate `900` (`backdrop-filter: blur(8px)`). Modal có thiết kế Memphis Neo-brutalist cực kỳ "Wow": nền giấy kem ấm `#FFFDF5`, viền đen Slate dày `3px`, bo góc rộng `24px` và đổ bóng 3D offset cứng `12px 12px 0px #1E293B` không blur.
+  * **Kiểm soát xác thực an toàn & Banner rung lắc:** Tích hợp banner cảnh báo lỗi màu đỏ tươi `.modal-error-banner` sở hữu hiệu ứng rung lắc (shake) khi người dùng nhập sai quy cách: bỏ trống trường, mật khẩu mới dưới 6 ký tự, hoặc xác nhận mật khẩu không khớp.
+  * **Tái cấu trúc Toast thông báo động:** Refactor Toast thông báo tĩnh của tab thành reactive state `toastMessage` động, cho phép hiển thị các thông báo lưu hồ sơ hoặc đổi mật khẩu thành công bằng cả 2 ngôn ngữ tương ứng.
+  * **CSS Định kiểu Memphis Neo-brutalist:** Viết hơn 200 dòng CSS cho `.profile-admin-modal-overlay`, `.profile-admin-modal-shell`, animation scale-bounce, header band tím nhạt, các input focus nảy nổi viền tím Violet, nút Candy vàng Amber ngọt ngào và responsive dãn rộng 100% trên thiết bị di động.
+- **Walkthrough**:
+  * Người dùng bấm "Đổi mật khẩu", modal bật lên cực kỳ mượt mà. Nhập đúng mật khẩu và bấm Xác nhận, modal tự động đóng, Toast lơ lửng màu xanh ngọc xuất hiện thông báo đổi mật khẩu thành công.
+  * Toàn bộ mã nguồn biên dịch sạch lỗi compile TypeScript.
+
+## [2026-05-25] - Tối ưu hóa Dữ liệu Mẫu Động & Đồng bộ hóa chân Sidebar theo Vai trò (Design Lab)
+- **Implementation**:
+  * **Xây dựng bộ dữ liệu mẫu `MOCK_PROFILES` hỗ trợ song ngữ:** Thiết kế chi tiết bộ thông tin mẫu thực tế và khớp tuyệt đối cho cả 4 vai trò:
+    - **System Admin (`admin`):** Họ tên "Quản trị viên AutiCare", username `@auticare_admin`, email `admin@auticare.vn`, avatar `⚡`.
+    - **Center Director (`director`):** Họ tên "Giám đốc Trần Quốc Bảo", username `@director_bao`, email `bao.tq@auticare.vn`, avatar `🛡️`.
+    - **Clinical Doctor (`doctor`):** Họ tên "ThS. BS. Nguyễn Minh Anh", học vị "Thạc sĩ Y khoa - Bác sĩ Tâm thần Nhi", 12 năm kinh nghiệm, bio chuyên sâu lâm sàng, avatar `🩺`.
+    - **Intervention Teacher (`teacher`):** Họ tên "Cô giáo Lê Thị Mai Chi", bằng cấp "Cử nhân Giáo dục Đặc biệt", 6 năm kinh nghiệm, bio can thiệp sớm (ABA, PECS), avatar `🎓`.
+  * **Đồng bộ dịch thuật thời gian thực (`React.useEffect`):** Khi thay đổi nút chuyển đổi ngôn ngữ VN/EN ở Topbar, toàn bộ thông tin mẫu của vai trò đang giả lập lập tức được tự động chuyển đổi dịch thuật 100% cực kỳ sắc nét.
+  * **Phản ứng đồng bộ Sidebar chân thời gian thực (`selectRole`):** Ngay khi người dùng nhấp chọn vai trò mới ở Dropdown giả lập, hệ thống tự động nạp dữ liệu mẫu mới và đồng bộ tức thì lên state cha ở `AdminDashboard.tsx`. Kết quả là avatar emoji và họ tên ở chân Sidebar trái lập tức biến đổi khớp theo vai trò đó trong chớp mắt mà không cần bấm Lưu, mang lại trải nghiệm tương tác liền mạch, hoàn hảo.
+  * **Bàn giao mặc định khớp tuyệt đối:** Đặt vai trò ban đầu lúc tải trang là `'admin'` để đồng bộ chính xác với badge "Administrator" mặc định.
+
+## [2026-05-25] - Tích hợp Bộ giả lập Vai trò Ẩn & Phân quyền Hiển thị Động Hồ sơ Admin (Design Lab)
+- **Implementation**:
+  * **Tích hợp Bộ giả lập Vai trò Ẩn trong `AdminProfileTab.tsx`**: Bổ sung một nút tròn absolute tinh tế `.btn-switch-role-trigger` mang biểu tượng ⚙️ ở góc phải trên cùng của Card Profile Admin. Nhấp chọn sẽ kích hoạt dropdown `.role-picker-dropdown` Memphis sặc sỡ cho phép chuyển đổi nhanh qua lại giữa 4 vai trò giả lập: `admin` (System Admin), `Center Director` (Giám đốc trung tâm), `doctor` (Bác sĩ lâm sàng), và `teacher` (Giáo viên can thiệp).
+  * **Lập trình logic hiển thị trường thông tin động (`shouldShowField`)**:
+    - Vai trò `admin` (System Admin): Chỉ hiển thị 4 trường cơ bản: *Full Name, Username, Email Address, Phone Number* cùng Avatar. Ẩn hoàn toàn 5 trường học thuật/lâm sàng khác ở cả View & Edit mode.
+    - Vai trò `Center Director`: Hiển thị 4 trường cơ bản trên và bổ sung thêm trường **Affiliated Center** (Trực thuộc trung tâm).
+    - Vai trò `doctor` & `teacher`: Hiển thị đầy đủ toàn bộ 10 trường thông tin chi tiết như hiện tại.
+  * **Đồng bộ hóa Visual**: Nhãn badge vai trò chính (`role-pill`) tự động cập nhật động theo vai trò đang giả lập (bằng song ngữ Anh-Việt), đồng thời hiển thị thêm badge đỏ lơ lửng `"🎭 Giả lập"` / `"🎭 Simulated"` để người thiết kế/kiểm thử dễ nhận biết. Thẻ trung tâm (`center-pill`) ở quick-intro cũng tự động ẩn/hiện khớp 100% với quyền hạn vai trò.
+  * **Thiết kế CSS Memphis tương phản cao (`AdminDashboard.css`)**: Bổ sung style cho `.profile-role-switcher-container`, nút trigger tròn (hover xoay nhẹ 45 độ), dropdown bọc viền Slate `3px` và bóng đổ Memphis cứng `6px 6px 0px #1E293B`, hiệu ứng bounce mở mượt mà và hover item di chuyển translate nẩy sắc nét, chuyển sang nền tím Violet và chữ trắng nổi bật khi active.
+- **Walkthrough**:
+  * Người dùng mở trang cá nhân Admin, nhấp chọn bánh răng ở góc để đổi vai trò. Grid thông tin lập tức co giãn, ẩn/hiện chính xác các nhóm trường thông tin ở cả chế độ Xem tĩnh và Chỉnh sửa form mà không gây lệch lạc bố cục, hỗ trợ song ngữ Việt-Anh hoàn chỉnh và responsive mượt mà trên di động.
+  * Phần code chỉnh sửa hoàn toàn sạch lỗi compile TypeScript.
+
 ## [2026-05-25] - Phát triển Phân hệ Hồ sơ Cá nhân Admin & Đồng bộ hóa chân Sidebar
 - **Implementation**:
   * **Tạo mới component `AdminProfileTab.tsx`**: Xây dựng thành công tệp component độc lập hiển thị chi tiết hồ sơ cá nhân của Admin bao gồm 10 trường theo yêu cầu, hỗ trợ song hành 2 chế độ View/Edit mượt mà, bộ chọn avatar emoji trực quan và Candy buttons nẩy bounce sinh động.
