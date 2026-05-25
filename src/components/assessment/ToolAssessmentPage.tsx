@@ -12,6 +12,7 @@ interface ToolAssessmentPageProps {
   lang: Language;
   setLang: (lang: Language) => void;
   onBack: () => void;
+  hideHeader?: boolean;
 }
 
 interface TestTool {
@@ -40,7 +41,7 @@ interface ToastMessage {
   type: 'teal' | 'orange';
 }
 
-const ToolAssessmentPage: React.FC<ToolAssessmentPageProps> = ({ lang, setLang, onBack }) => {
+const ToolAssessmentPage: React.FC<ToolAssessmentPageProps> = ({ lang, setLang, onBack, hideHeader = false }) => {
   const [selectedGroupId, setSelectedGroupId] = useState<string>('group_1');
   const [selectedTool, setSelectedTool] = useState<TestTool | null>(null);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
@@ -527,41 +528,40 @@ const ToolAssessmentPage: React.FC<ToolAssessmentPageProps> = ({ lang, setLang, 
 
   return (
     <div className="assessment-layout-wrapper assessment-theme-root">
-      {/* Floating Decoration Shapes (Playful Geometric) */}
-      <div className="assessment-deco assessment-deco-circle-1" />
-      <div className="assessment-deco assessment-deco-circle-2" />
-      <div className="assessment-deco assessment-deco-triangle" />
-      <div className="assessment-deco assessment-deco-square" />
+      {/* Floating Decoration Shapes (Playful Geometric) - Đã loại bỏ theo yêu cầu người dùng */}
+      
       
       {/* 1. Page Header */}
-      <header className="assessment-header">
-        <div className="container">
-          <div className="header-left">
-            <button className="btn-back" onClick={() => {
-              if (pep3Step === 'item_browser') {
-                setPep3Step('guide');
-              } else if (pep3Step !== 'none') {
-                setPep3Step('none');
-              } else {
-                onBack();
-              }
-            }}>
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-              {t.navBack}
-            </button>
-            <div className="brand-title">
-              <h2>AutiCare Assessment</h2>
-              <span>{t.title}</span>
+      {!hideHeader && (
+        <header className="assessment-header">
+          <div className="container">
+            <div className="header-left">
+              <button className="btn-back" onClick={() => {
+                if (pep3Step === 'item_browser') {
+                  setPep3Step('guide');
+                } else if (pep3Step !== 'none') {
+                  setPep3Step('none');
+                } else {
+                  onBack();
+                }
+              }}>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                {t.navBack}
+              </button>
+              <div className="brand-title">
+                <h2>AutiCare Assessment</h2>
+                <span>{t.title}</span>
+              </div>
+            </div>
+            <div className="header-right">
+              <div className="lang-switch">
+                <button className={`lang-btn ${lang === 'vi' ? 'active' : ''}`} onClick={() => setLang('vi')}>VN</button>
+                <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</button>
+              </div>
             </div>
           </div>
-          <div className="header-right">
-            <div className="lang-switch">
-              <button className={`lang-btn ${lang === 'vi' ? 'active' : ''}`} onClick={() => setLang('vi')}>VN</button>
-              <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</button>
-            </div>
-          </div>
-        </div>
-      </header>
+        </header>
+      )}
 
       {/* 2. PEP-3 Flow Rendering */}
       {pep3Step === 'select_child' && (

@@ -324,10 +324,22 @@ const StaffAppointmentsTab: React.FC<StaffAppointmentsTabProps> = ({ lang }) => 
         </div>
       )}
 
-      {/* Title Header Section */}
-      <div className="staff-appointments-header-zone">
-        <h2 className="staff-appointments-title">{t.title}</h2>
-        <p className="staff-appointments-subtitle">{t.subtitle}</p>
+      {/* Title Header Section với khung viền đen Memphis */}
+      <div 
+        className="staff-appointments-header-zone"
+        style={{
+          background: '#FFFFFF',
+          border: '3px solid #1E293B',
+          borderRadius: '20px',
+          padding: '1.5rem 2rem',
+          boxShadow: '6px 6px 0px #1E293B',
+          boxSizing: 'border-box',
+          width: '100%',
+          marginBottom: '2rem'
+        }}
+      >
+        <h2 className="staff-appointments-title" style={{ margin: 0, fontWeight: 900, color: '#1E293B', fontSize: '1.4rem' }}>{t.title}</h2>
+        <p className="staff-appointments-subtitle" style={{ margin: '6px 0 0 0', color: '#475569', fontSize: '0.85rem', fontWeight: 700 }}>{t.subtitle}</p>
       </div>
 
       {/* Filters Board */}

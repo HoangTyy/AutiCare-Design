@@ -56,7 +56,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({
   profile,
   onBack,
   onSave,
-  onViewChange
+  onViewChange: _
 }) => {
   const t = translations[lang];
   const [activeTab, setActiveTab] = useState<TabType>('profile');
@@ -106,13 +106,14 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({
           
           <div className="profile-header-right">
             {/* Candy Button chuyển vai trò nhanh */}
-            <button 
+            <a 
+              href="#/staff-profile"
               className="profile-role-switcher-btn"
-              onClick={() => onViewChange('staff-profile')}
               title={lang === 'vi' ? "Chuyển sang trang Chuyên gia" : "Switch to Staff Portal"}
+              style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}
             >
               🧑‍⚕️ {lang === 'vi' ? "CHUYÊN GIA PORTAL" : "STAFF PORTAL"}
-            </button>
+            </a>
 
             <div className="profile-lang-switch">
               <button 
@@ -129,9 +130,9 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({
               </button>
             </div>
             
-            <button className="profile-back-btn" onClick={onBack}>
+            <a href="#/" className="profile-back-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
               ⬅ {t.backToHome}
-            </button>
+            </a>
           </div>
         </div>
       </header>

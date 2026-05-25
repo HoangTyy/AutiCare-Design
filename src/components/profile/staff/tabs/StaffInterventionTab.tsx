@@ -182,17 +182,35 @@ const StaffInterventionTab: React.FC<{ lang: 'vi' | 'en' }> = ({ lang }) => {
         </div>
       )}
 
-      {/* Header */}
-      <div className="intervention-header-zone">
+      {/* Header với khung viền đen Memphis */}
+      <div 
+        className="intervention-header-zone"
+        style={{
+          background: '#FFFFFF',
+          border: '3px solid #1E293B',
+          borderRadius: '20px',
+          padding: '1.5rem 2rem',
+          boxShadow: '6px 6px 0px #1E293B',
+          boxSizing: 'border-box',
+          width: '100%',
+          marginBottom: '2rem',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: '1.5rem',
+          flexWrap: 'wrap'
+        }}
+      >
         <div className="intervention-title-block">
-          <h2 className="intervention-tab-title">{t.title}</h2>
-          <p className="intervention-tab-subtitle">{t.subtitle}</p>
+          <h2 className="intervention-tab-title" style={{ margin: 0, fontWeight: 900, color: '#1E293B', fontSize: '1.4rem' }}>{t.title}</h2>
+          <p className="intervention-tab-subtitle" style={{ margin: '6px 0 0 0', color: '#475569', fontSize: '0.85rem', fontWeight: 700 }}>{t.subtitle}</p>
         </div>
         
         <button 
           type="button" 
           className="intervention-create-btn"
           onClick={handleCreateRecord}
+          style={{ margin: 0 }}
         >
           {t.btnCreate}
         </button>

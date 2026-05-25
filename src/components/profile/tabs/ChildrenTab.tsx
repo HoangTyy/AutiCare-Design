@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ChildDetailView from './ChildDetailView';
 
 interface ChildrenTabProps {
   lang: 'vi' | 'en';
@@ -92,6 +93,7 @@ const ChildrenTab: React.FC<ChildrenTabProps> = ({ lang }) => {
   const [gender, setGender] = useState("male");
   const [level, setLevel] = useState("mild");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [selectedChildForDetail, setSelectedChildForDetail] = useState<any | null>(null);
 
   const handleCreateChild = (e: React.FormEvent) => {
     e.preventDefault();
@@ -139,6 +141,16 @@ const ChildrenTab: React.FC<ChildrenTabProps> = ({ lang }) => {
       default: return t.levelMild;
     }
   };
+
+  if (selectedChildForDetail) {
+    return (
+      <ChildDetailView 
+        child={selectedChildForDetail} 
+        onBack={() => setSelectedChildForDetail(null)} 
+        lang={lang} 
+      />
+    );
+  }
 
   return (
     <div className="profile-tab-content">
@@ -216,7 +228,7 @@ const ChildrenTab: React.FC<ChildrenTabProps> = ({ lang }) => {
               <button 
                 type="button" 
                 className="profile-page-btn-secondary child-detail-btn"
-                onClick={() => alert(lang === 'vi' ? 'Xem hồ sơ chi tiết bé ' + child.name : 'Showing detailed profile for ' + child.name)}
+                onClick={() => setSelectedChildForDetail(child)}
               >
                 {t.detailBtn}
               </button>

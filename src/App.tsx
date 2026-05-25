@@ -12,6 +12,7 @@ import ProfileModal from './components/homepage/ProfileModal'
 import ParentInvoicesModal from './components/homepage/ParentInvoicesModal'
 import ParentSupportTicketsModal from './components/homepage/ParentSupportTicketsModal'
 import AllCentersPage from './components/homepage/AllCentersPage'
+import { CenterDetailClientPage } from './components/homepage/CenterDetailClientPage'
 import type { Center } from './components/dashboard/CenterDetailView'
 
 // Modular Landing Sections
@@ -28,7 +29,7 @@ import FloatingNav from './components/homepage/FloatingNav'
 import './App.css'
 
 type Language = 'vi' | 'en'
-type View = 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment' | 'profile' | 'centers' | 'staff-profile' | 'staff-dashboard'
+type View = 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment' | 'profile' | 'centers' | 'staff-profile' | 'staff-dashboard' | 'center-detail'
 
 const translations = {
   vi: {
@@ -144,6 +145,7 @@ function App() {
   const [showSupportTickets, setShowSupportTickets] = useState(false)
   const [justBooked, setJustBooked] = useState(false)
   const [showUnderDev, setShowUnderDev] = useState(false)
+  const [selectedCenter, setSelectedCenter] = useState<Center | null>(null)
 
   // Core Mock Database State for Centers, their respective Levels, and Categories
   const [centers, setCenters] = useState<Center[]>([
@@ -339,7 +341,6 @@ function App() {
     job: 'Kế toán'
   })
 
-  // Navbar scroll visual shift
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 30)
@@ -347,6 +348,56 @@ function App() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Hash Routing - Synchronize URL Hash with View State
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash || '#/';
+      let targetView: View = 'landing';
+
+      if (hash === '#/dashboard/admin') {
+        targetView = 'admin';
+      } else if (hash === '#/profile') {
+        targetView = 'profile';
+      } else if (hash === '#/staff-profile') {
+        targetView = 'staff-profile';
+      } else if (hash === '#/dashboard/staff') {
+        targetView = 'staff-dashboard';
+      } else if (hash === '#/centers') {
+        targetView = 'centers';
+      } else if (hash === '#/design-homepage') {
+        targetView = 'designHomepage';
+      } else if (hash === '#/design-admin') {
+        targetView = 'designAdmin';
+      }
+
+      setView(targetView);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    // Initialize hash routing on mount
+    handleHashChange();
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+
+  // Update hash when view changes programmatically
+  useEffect(() => {
+    let targetHash = '#/';
+    if (view === 'admin') targetHash = '#/dashboard/admin';
+    else if (view === 'profile') targetHash = '#/profile';
+    else if (view === 'staff-profile') targetHash = '#/staff-profile';
+    else if (view === 'staff-dashboard') targetHash = '#/dashboard/staff';
+    else if (view === 'centers') targetHash = '#/centers';
+    else if (view === 'designHomepage') targetHash = '#/design-homepage';
+    else if (view === 'designAdmin') targetHash = '#/design-admin';
+
+    if (window.location.hash !== targetHash) {
+      window.location.hash = targetHash;
+    }
+  }, [view]);
 
   // Section Tracking IntersectionObserver for active indicators
   useEffect(() => {
@@ -454,6 +505,27 @@ function App() {
         setLang={setLang}
         centers={centers}
         onBack={() => setView('landing')}
+        onSelectCenter={(c) => {
+          setSelectedCenter(c as any);
+          setView('center-detail');
+        }}
+      />
+    )
+  }
+
+  if (view === 'center-detail' && selectedCenter) {
+    return (
+      <CenterDetailClientPage
+        lang={lang}
+        setLang={setLang}
+        center={selectedCenter}
+        onBack={() => setView('landing')}
+        onInvoiceGenerated={() => {
+          setJustBooked(true);
+          setTimeout(() => {
+            setShowParentInvoices(true);
+          }, 2000);
+        }}
       />
     )
   }
@@ -568,15 +640,16 @@ function App() {
                   </div>
                 )}
               </div>
-              <button 
+              <a 
+                href={currentUserName === 'TS. BS. Nguyễn Minh Anh' ? '#/dashboard/staff' : '#/dashboard/admin'}
                 className="icon-btn" 
-                title={currentUserName === 'TS. BS. Nguyễn Minh Anh' ? (lang === 'vi' ? 'Không gian làm việc' : 'Workspace') : t.dashboard} 
-                onClick={() => setView(currentUserName === 'TS. BS. Nguyễn Minh Anh' ? 'staff-dashboard' : 'admin')}
+                title={currentUserName === 'TS. BS. Nguyễn Minh Anh' ? (lang === 'vi' ? 'Không gian làm việc' : 'Workspace') : t.dashboard}
+                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'inherit', textDecoration: 'none' }}
               >
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2">
                   <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
                 </svg>
-              </button>
+              </a>
             </div>
             
             <div className="lang-switch">
@@ -586,14 +659,18 @@ function App() {
 
             {currentUserName ? (
               <div className="auth-session">
-                <span 
+                <a 
+                  href={currentUserName === 'TS. BS. Nguyễn Minh Anh' ? '#/staff-profile' : '#/profile'}
                   className="auth-user-chip" 
-                  onClick={() => setView('profile')}
                   title={lang === 'vi' ? 'Xem hồ sơ cá nhân' : 'View User Profile'}
+                  style={{ textDecoration: 'none' }}
                 >
                   {currentUserName}
-                </span>
-                <button className="auth-signout-btn" type="button" onClick={() => setCurrentUserName(null)}>
+                </a>
+                <button className="auth-signout-btn" type="button" onClick={() => {
+                  setCurrentUserName(null);
+                  window.location.hash = '#/';
+                }}>
                   {t.signOut}
                 </button>
               </div>
@@ -636,7 +713,16 @@ function App() {
         
         <AboutSection id="about" lang={lang} />
         
-        <CentersSection id="centers" lang={lang} centers={centers} onViewMoreCenters={() => setView('centers')} />
+        <CentersSection 
+          id="centers" 
+          lang={lang} 
+          centers={centers} 
+          onViewMoreCenters={() => setView('centers')} 
+          onSelectCenter={(c) => {
+            setSelectedCenter(c as any);
+            setView('center-detail');
+          }}
+        />
         
         <CtaSection id="cta" t={t} />
 
@@ -691,7 +777,7 @@ function App() {
           </div>
         </div>
       )}
-      <ThemeCustomizer view={view} onDesignCode={() => setView('designHomepage')} />
+      <ThemeCustomizer view={view === 'center-detail' ? 'landing' : view as any} onDesignCode={() => setView('designHomepage')} />
     </div>
   )
 }

@@ -21,6 +21,7 @@ interface CentersSectionProps {
   lang: 'vi' | 'en';
   centers: CenterInfo[];
   onViewMoreCenters: () => void;
+  onSelectCenter?: (center: CenterInfo) => void;
 }
 
 const translations = {
@@ -52,7 +53,8 @@ const CenterCard: React.FC<{
   center: CenterInfo;
   idx: number;
   t: typeof translations.vi;
-}> = ({ center, idx, t }) => {
+  onClick?: () => void;
+}> = ({ center, idx, t, onClick }) => {
   const displayPhone = center.phone_number || center.phone || 'Chưa cập nhật';
   const displayAddress = center.address || 'Chưa cập nhật';
   const displayEmail = center.email || 'Chưa cập nhật';
@@ -61,7 +63,8 @@ const CenterCard: React.FC<{
   return (
     <div
       className="center-card glass"
-      style={{ animationDelay: `${idx * 0.08}s` }}
+      style={{ animationDelay: `${idx * 0.08}s`, cursor: 'pointer' }}
+      onClick={onClick}
     >
       <div className="center-card-accent" />
 
@@ -125,14 +128,13 @@ const CenterCard: React.FC<{
       </div>
 
       <div className="center-card-footer">
-        <span className="center-card-id">{center.id}</span>
         <span className="center-card-province">{displayProvince}</span>
       </div>
     </div>
   );
 };
 
-const CentersSection: React.FC<CentersSectionProps> = ({ id, lang, centers, onViewMoreCenters }) => {
+const CentersSection: React.FC<CentersSectionProps> = ({ id, lang, centers, onViewMoreCenters, onSelectCenter }) => {
   const t = translations[lang];
   const PREVIEW_COUNT = 3;
   
@@ -148,7 +150,13 @@ const CentersSection: React.FC<CentersSectionProps> = ({ id, lang, centers, onVi
 
       <div className="container centers-grid">
         {previewCenters.map((center, idx) => (
-          <CenterCard key={center.id} center={center} idx={idx} t={t} />
+          <CenterCard 
+            key={center.id} 
+            center={center} 
+            idx={idx} 
+            t={t} 
+            onClick={() => onSelectCenter && onSelectCenter(center)}
+          />
         ))}
       </div>
 

@@ -57,7 +57,7 @@ const StaffProfilePage: React.FC<StaffProfilePageProps> = ({
   lang,
   setLang,
   onBack,
-  onViewChange
+  onViewChange: _
 }) => {
   const t = translations[lang];
   const [activeTab, setActiveTab] = useState<TabType>('profile');
@@ -125,23 +125,14 @@ const StaffProfilePage: React.FC<StaffProfilePageProps> = ({
           
           <div className="profile-header-right">
             {/* Candy Buttons chuyển đổi vai trò */}
-            <button 
-              className="profile-role-switcher-btn"
-              onClick={() => onViewChange('staff-dashboard')}
-              title={lang === 'vi' ? "Vào Không gian làm việc chuyên khoa" : "Enter Specialist Workspace"}
-              style={{ background: '#0D9488', color: 'white', marginRight: '8px' }}
-            >
-              {t.roleSwitcher}
-            </button>
-
-            <button 
+            <a 
+              href="#/profile"
               className="profile-role-switcher-btn parent-role-switcher-btn"
-              onClick={() => onViewChange('profile')}
               title={lang === 'vi' ? "Chuyển sang trang Phụ huynh" : "Switch to Parent Portal"}
-              style={{ marginRight: '8px' }}
+              style={{ marginRight: '8px', textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}
             >
               {lang === 'vi' ? "👶 PHỤ HUYNH PORTAL" : "👶 PARENT PORTAL"}
-            </button>
+            </a>
 
             <div className="profile-lang-switch">
               <button 
@@ -158,9 +149,9 @@ const StaffProfilePage: React.FC<StaffProfilePageProps> = ({
               </button>
             </div>
             
-            <button className="profile-back-btn" onClick={onBack}>
+            <a href="#/" className="profile-back-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
               ⬅ {t.backToHome}
-            </button>
+            </a>
           </div>
         </div>
       </header>
@@ -186,6 +177,27 @@ const StaffProfilePage: React.FC<StaffProfilePageProps> = ({
                   {tab.label}
                 </button>
               ))}
+
+              {/* Nút Không gian làm việc chuyển xuống dưới cùng hàng nút bên trái */}
+              <a 
+                href="#/dashboard/staff"
+                className="profile-sidebar-tab-btn profile-sidebar-workspace-btn"
+                title={lang === 'vi' ? "Vào Không gian làm việc chuyên khoa" : "Enter Specialist Workspace"}
+                style={{ 
+                  textDecoration: 'none', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  background: '#0D9488', 
+                  color: 'white',
+                  border: '2.5px solid #1E293B',
+                  boxShadow: '3px 3px 0px #1E293B',
+                  marginTop: '1.2rem',
+                  fontWeight: 800
+                }}
+              >
+                {t.roleSwitcher}
+              </a>
             </nav>
           </aside>
 

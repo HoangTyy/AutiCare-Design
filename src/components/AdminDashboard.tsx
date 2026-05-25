@@ -3,7 +3,6 @@ import CentersTab from './dashboard/CentersTab';
 import CenterDetailView from './dashboard/CenterDetailView';
 import type { Center } from './dashboard/CenterDetailView';
 import StaffsTab from './dashboard/StaffsTab';
-import ObjectivesTab from './dashboard/ObjectivesTab';
 import BlogsTab from './dashboard/BlogsTab';
 import InvoicesTab from './dashboard/InvoicesTab';
 import SupportTicketsTab from './dashboard/SupportTicketsTab';
@@ -18,8 +17,12 @@ import PlanDetailView from './dashboard/PlanDetailView';
 import type { Plan } from './dashboard/PlanDetailView';
 import ExercisesTab from './dashboard/ExercisesTab';
 import OverviewTab from './dashboard/OverviewTab';
+import EventsTab from './dashboard/EventsTab';
+import StaffScheduleTab from './profile/staff/tabs/StaffScheduleTab';
+import AdminProfileTab from './dashboard/AdminProfileTab';
+import type { AdminProfile } from './dashboard/AdminProfileTab';
 
-type Tab = 'overview' | 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks';
+type Tab = 'overview' | 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks' | 'events' | 'staffSchedule' | 'childrenDirectory' | 'adminProfile';
 
 interface AdminDashboardProps {
   lang: 'vi' | 'en';
@@ -44,11 +47,25 @@ interface MenuGroup {
   items: MenuItem[];
 }
 
-const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, onDesignCode, centers, setCenters }) => {
+const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: _, onDesignCode, centers, setCenters }) => {
   const [activeTab, setActiveTab] = useState<Tab>('overview');
   const [expandedGroups, setExpandedGroups] = useState<string[]>(['dashboard', 'system', 'training', 'content']);
   const [selectedCenterForDetail, setSelectedCenterForDetail] = useState<Center | null>(null);
   const [selectedPlanForDetail, setSelectedPlanForDetail] = useState<Plan | null>(null);
+  
+  const [adminInfo, setAdminInfo] = useState<AdminProfile>({
+    username: 'auticare_admin',
+    email: 'admin@auticare.vn',
+    avatar: '⚡',
+    phone_number: '028.3930.1234',
+    full_name: "AutiCare's Admin",
+    qualification: 'Thạc sĩ Quản lý Giáo dục Đặc biệt',
+    experience_years: 10,
+    invite_code: 'ATC-ADMIN',
+    description: 'Quản trị viên cấp cao của hệ thống AutiCare, chịu trách nhiệm vận hành nền tảng can thiệp sớm và kết nối các trung tâm trên toàn quốc.',
+    center_name: 'AutiCare Central Saigon',
+    role: 'admin'
+  });
 
   const [plans, setPlans] = useState<Plan[]>([
     {
@@ -219,17 +236,27 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
       icon: '📅',
       items: [
         { id: 'schedule', labelVi: 'Quản lý Lịch trống', labelEn: 'Available Slots' },
+        { id: 'staffSchedule', labelVi: 'Lịch trình', labelEn: 'Schedule' },
       ]
     },
     {
+      id: 'diagnosic',
+      labelVi: 'Chuẩn đoán',
+      labelEn: 'Diagnosic',
+      icon: '🔍',
+      items: [
+        { id: 'childrenDirectory', labelVi: 'Danh sách trẻ em', labelEn: 'Children Directory' },
+      ]
+    },
+     {
       id: 'training',
       labelVi: 'Nội dung Huấn luyện',
       labelEn: 'Training Content',
       icon: '🧩',
       items: [
-        { id: 'objectives', labelVi: 'Mục tiêu Huấn luyện', labelEn: 'Manage Objectives' },
         { id: 'plans', labelVi: 'Kế hoạch Can thiệp', labelEn: 'Manage Plans' },
         { id: 'exercises', labelVi: 'Quản lý Bài tập', labelEn: 'Manage Exercises' },
+        { id: 'events', labelVi: 'Quản lý sự kiện', labelEn: 'Manage Events' },
         { id: 'feedbacks', labelVi: 'Đánh giá Kế hoạch', labelEn: 'Plan Feedbacks' },
       ]
     },
@@ -360,8 +387,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
         );
       case 'staffs':
         return <StaffsTab lang={lang} />;
-      case 'objectives':
-        return <ObjectivesTab lang={lang} />;
+      case 'events':
+        return <EventsTab lang={lang} />;
       case 'blogs':
         return <BlogsTab lang={lang} />;
       case 'notification':
@@ -376,6 +403,18 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
         return <SupportTicketsTab lang={lang} />;
       case 'feedbacks':
         return <PlanFeedbacksTab lang={lang} />;
+      case 'staffSchedule':
+       return <StaffScheduleTab lang={lang} />;
+      case 'adminProfile':
+        return (
+          <AdminProfileTab
+            lang={lang}
+            profile={adminInfo}
+            onSave={setAdminInfo}
+          />
+        );
+      case 'childrenDirectory':
+        // return <ChildrenDirectoryTab lang={lang}/>;
       default:
         return <CentersTab lang={lang} centers={centers} onManageDetail={handleManageDetail} onUpdateCenters={setCenters} />;
     }
@@ -427,11 +466,36 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
           ))}
         </nav>
         <div className="sidebar-footer">
-          <div className="user-profile">
-            <div className="avatar">AD</div>
+          <div 
+            className={`user-profile interactive-profile-btn ${activeTab === 'adminProfile' ? 'active' : ''}`}
+            onClick={() => {
+              setActiveTab('adminProfile');
+              setSelectedCenterForDetail(null);
+              setSelectedPlanForDetail(null);
+            }}
+            style={{ cursor: 'pointer' }}
+            title={lang === 'vi' ? 'Xem hồ sơ cá nhân Admin' : 'View Admin Profile'}
+          >
+            <div className="avatar">
+              {adminInfo.avatar && (adminInfo.avatar.startsWith('data:image/') || adminInfo.avatar.startsWith('http://') || adminInfo.avatar.startsWith('https://') || adminInfo.avatar.startsWith('/')) ? (
+                <img 
+                  src={adminInfo.avatar} 
+                  alt="Avatar" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', display: 'block' }} 
+                />
+              ) : (
+                adminInfo.avatar || 'AD'
+              )}
+            </div>
             <div className="user-info">
-              <div className="user-name">AutiCare's Admin</div>
-              <div className="user-role">Administrator</div>
+              <div className="user-name">{adminInfo.full_name}</div>
+              <div className="user-role">
+                {adminInfo.role === 'admin' && (lang === 'vi' ? 'Quản trị viên' : 'Administrator')}
+                {adminInfo.role === 'director' && (lang === 'vi' ? 'Giám đốc trung tâm' : 'Center Director')}
+                {adminInfo.role === 'doctor' && (lang === 'vi' ? 'Bác sĩ lâm sàng' : 'Clinical Doctor')}
+                {adminInfo.role === 'teacher' && (lang === 'vi' ? 'Giáo viên can thiệp' : 'Intervention Teacher')}
+                {!adminInfo.role && (lang === 'vi' ? 'Quản trị viên' : 'Administrator')}
+              </div>
             </div>
           </div>
         </div>
@@ -448,9 +512,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
             </span>
           </div>
           <div className="topbar-right">
-            <button
+            <a
+              href="#/"
               className="view-toggle-btn"
-              onClick={onBack}
               style={{
                 padding: '8px 16px',
                 borderRadius: '20px',
@@ -459,11 +523,14 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
                 fontWeight: 700,
                 fontSize: '0.8rem',
                 border: 'none',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center'
               }}
             >
               ← {lang === 'vi' ? 'Quay lại Homepage' : 'Back to Homepage'}
-            </button>
+            </a>
             <div className="lang-switch" style={{ background: '#F1F5F9', border: '1px solid #E2E8F0', padding: '2px' }}>
               <button className={`lang-btn ${lang === 'vi' ? 'active' : ''}`} onClick={() => setLang('vi')}>VN</button>
               <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</button>

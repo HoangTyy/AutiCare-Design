@@ -33,8 +33,8 @@ interface MenuGroup {
 const StaffDashboard: React.FC<StaffDashboardProps> = ({ 
   lang, 
   setLang, 
-  onBack, 
-  onViewChange 
+  onBack: _, 
+  onViewChange: __ 
 }) => {
   const [activeTab, setActiveTab] = useState<TabType>('stats');
   const [expandedGroups, setExpandedGroups] = useState<string[]>(['stats', 'scheduling', 'clinical']);
@@ -66,7 +66,7 @@ const StaffDashboard: React.FC<StaffDashboardProps> = ({
       icon: '🩺',
       items: [
         { id: 'intervention', labelVi: 'Hồ sơ Can thiệp', labelEn: 'Intervention Records' },
-        { id: 'assessment', labelVi: 'Đánh giá Lâm sàng (PEP-3)', labelEn: 'Clinical Assessment (PEP-3)' }
+        { id: 'assessment', labelVi: 'Đánh giá Lâm sàng', labelEn: 'Clinical Assessment' }
       ]
     }
   ];
@@ -100,6 +100,7 @@ const StaffDashboard: React.FC<StaffDashboardProps> = ({
               lang={lang} 
               setLang={setLang} 
               onBack={() => setActiveTab('appointments')}
+              hideHeader={true}
             />
             <ThemeCustomizer view="assessment" />
           </div>
@@ -152,10 +153,10 @@ const StaffDashboard: React.FC<StaffDashboardProps> = ({
         </nav>
         <div className="sidebar-footer">
           {/* Click avatar/username để chuyển sang Trang cá nhân màu kem của Chuyên gia */}
-          <div 
+          <a 
+            href="#/staff-profile"
             className="user-profile" 
-            onClick={() => onViewChange?.('staff-profile')}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer', textDecoration: 'none', display: 'flex', alignItems: 'center', color: 'inherit' }}
             title={lang === 'vi' ? "Xem hồ sơ cá nhân" : "View personal profile"}
           >
             <div className="avatar" style={{ background: '#0D9488', fontSize: '1.2rem' }}>👩‍⚕️</div>
@@ -165,7 +166,7 @@ const StaffDashboard: React.FC<StaffDashboardProps> = ({
                 {lang === 'vi' ? 'Bác sĩ chuyên khoa' : 'Clinical Specialist'}
               </div>
             </div>
-          </div>
+          </a>
         </div>
       </aside>
 
@@ -179,9 +180,9 @@ const StaffDashboard: React.FC<StaffDashboardProps> = ({
             </span>
           </div>
           <div className="topbar-right">
-            <button
+            <a
+              href="#/"
               className="view-toggle-btn"
-              onClick={onBack}
               style={{
                 padding: '8px 16px',
                 borderRadius: '20px',
@@ -190,19 +191,23 @@ const StaffDashboard: React.FC<StaffDashboardProps> = ({
                 fontWeight: 700,
                 fontSize: '0.8rem',
                 border: 'none',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center'
               }}
             >
               ← {lang === 'vi' ? 'Quay lại Homepage' : 'Back to Homepage'}
-            </button>
+            </a>
             <div className="lang-switch" style={{ background: '#F1F5F9', border: '1px solid #E2E8F0', padding: '2px' }}>
               <button className={`lang-btn ${lang === 'vi' ? 'active' : ''}`} onClick={() => setLang('vi')}>VN</button>
               <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</button>
             </div>
           </div>
         </header>
-
-        {renderActiveTab()}
+        <div className="dashboard-content-scroll" style={{ flex: 1, overflowY: 'auto', padding: activeTab === 'assessment' ? '0' : '2rem 2.5rem' }}>
+          {renderActiveTab()}
+        </div>
       </main>
     </div>
   );
