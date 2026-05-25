@@ -127,7 +127,7 @@ const StaffScheduleTab: React.FC<{ lang: 'vi' | 'en' }> = ({ lang }) => {
   };
 
   const getDaysArray = () => {
-    return lang === 'vi'
+    return lang === 'vi' 
       ? [t.mon, t.tue, t.wed, t.thu, t.fri, t.sat, t.sun]
       : ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   };
@@ -136,7 +136,7 @@ const StaffScheduleTab: React.FC<{ lang: 'vi' | 'en' }> = ({ lang }) => {
 
   return (
     <div className="schedule-tab-wrapper staff-schedule-wrapper">
-
+      
       {/* Toast Sync Alert */}
       {showToast && (
         <div className="profile-toast-message shadow-bounce">
@@ -151,9 +151,9 @@ const StaffScheduleTab: React.FC<{ lang: 'vi' | 'en' }> = ({ lang }) => {
           <h2 className="schedule-tab-title">{t.title}</h2>
           <p className="schedule-tab-subtitle">{t.subtitle}</p>
         </div>
-
-        <button
-          type="button"
+        
+        <button 
+          type="button" 
           className="schedule-sync-btn"
           onClick={handleSyncClick}
         >
@@ -175,7 +175,7 @@ const StaffScheduleTab: React.FC<{ lang: 'vi' | 'en' }> = ({ lang }) => {
 
           return (
             <div key={dayName} className="weekly-day-column">
-
+              
               {/* Day Header Banner */}
               <div className={`weekly-day-header day-color-${idx}`}>
                 <span className="day-name">{dayName}</span>
@@ -194,7 +194,7 @@ const StaffScheduleTab: React.FC<{ lang: 'vi' | 'en' }> = ({ lang }) => {
                 ) : (
                   classesInDay.map((cls) => (
                     <div key={cls.id} className={`schedule-class-sticker border-color-${cls.color}`}>
-
+                      
                       {/* Accent strip */}
                       <div className={`class-accent-strip bg-color-${cls.color}`}></div>
 
@@ -206,19 +206,12 @@ const StaffScheduleTab: React.FC<{ lang: 'vi' | 'en' }> = ({ lang }) => {
                       </div>
 
                       <h4 className="class-child-name">{cls.childName}</h4>
-
-                      <div className="class-activity-badge max-w-[150px] truncate">
-                        {(() => {
-                          let text = '';
-                          if (cls.activity === 'ABA') text = t.activityABA;
-                          else if (cls.activity === 'Speech') text = t.activitySpeech;
-                          else if (cls.activity === 'Physio') text = t.activityPhysio;
-                          else if (cls.activity === 'Clinical') text = t.activityClinical;
-                          const maxLength = 10;
-                          return text && text.length > maxLength
-                            ? `${text.substring(0, maxLength)}...`
-                            : text;
-                        })()}
+                      
+                      <div className="class-activity-badge">
+                        {cls.activity === 'ABA' && t.activityABA}
+                        {cls.activity === 'Speech' && t.activitySpeech}
+                        {cls.activity === 'Physio' && t.activityPhysio}
+                        {cls.activity === 'Clinical' && t.activityClinical}
                       </div>
 
                       <div className="class-room-info">

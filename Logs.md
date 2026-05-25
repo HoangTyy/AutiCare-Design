@@ -1,96 +1,93 @@
 # Project Logs
 
-## [2026-05-25] - Đồng bộ hóa Tiêu đề & Mô tả Admin Profile theo Role và Loại bỏ View Mode Badge & Tắt Scrollbar Edit Modal & Bỏ Trường Không Sửa Được & Ẩn Trung Tâm Trực Thuộc
-- **Implementation**:
-  * **Đồng bộ hóa Tiêu đề & Mô tả động theo Vai trò**: Thiết kế hai helper function `getDynamicTitle` và `getDynamicSubtitle` trong `AdminProfileTab.tsx` để hiển thị động tiêu đề chính và mô tả phụ của trang Profile dựa trên vai trò đang giả lập (`activeRole`). Hiển thị cụ thể: `HỒ SƠ CÁ NHÂN ADMIN / ADMIN PROFILE`, `HỒ SƠ CÁ NHÂN GIÁM ĐỐC / DIRECTOR PROFILE`, `HỒ SƠ CÁ NHÂN BÁC SĨ / DOCTOR PROFILE`, `HỒ SƠ CÁ NHÂN GIÁO VIÊN / TEACHER PROFILE` kèm bản dịch tiếng Anh tương ứng.
-  * **Đồng bộ hóa vai trò dưới chân Sidebar trái (.user-role)**: Thêm thuộc tính `role?: MockRole` vào interface `AdminProfile` và các bộ dữ liệu giả lập `MOCK_PROFILES`. Khi người dùng thay đổi vai trò giả lập, state `adminInfo` tại `AdminDashboard.tsx` lập tức được đồng bộ và cập nhật trực tiếp vai trò dịch thuật tương ứng tại chân Sidebar trái thời gian thực, đem lại trải nghiệm nhất quán và chuyên nghiệp cao.
-  * **Loại bỏ hoàn toàn hiển thị View Mode**: Xóa bỏ hoàn toàn badge hiển thị trạng thái tĩnh `.profile-status-badge` ("View Mode / Chế độ xem") ở góc phải trên cùng của trang Profile Admin theo yêu cầu để làm phẳng hóa và tối giản hóa thiết kế.
-  * **Loại bỏ scrollbar dọc trong Modal Chỉnh sửa**: Định kiểu lại `.edit-profile-modal .modal-scrollable-body` trong `AdminDashboard.css` đặt `max-height: none !important;` và `overflow-y: visible !important;`. Điều này ép toàn bộ form modal dãn cao tự nhiên và vừa khít 100% nội dung, chấm dứt hoàn toàn thanh cuộn dọc (scroll) giúp UI phẳng phiu và hiện đại tối đa.
-  * **Loại bỏ hoàn toàn các trường không được phép chỉnh sửa**: Loại bỏ triệt để việc hiển thị các trường cố định hệ thống bao gồm `Username`, `System Invite Code` và đặc biệt là **Affiliated Center (Trực thuộc trung tâm)** ra khỏi Modal Chỉnh sửa hồ sơ. Form chỉnh sửa giờ đây tuyệt đối tinh giản và trực quan, chỉ tập trung hiển thị các trường dữ liệu có khả năng chỉnh sửa được.
-  * **TypeScript & verbatimModuleSyntax Compliance**: Thay thế import `AdminProfile` trong `AdminDashboard.tsx` thành `import type { AdminProfile }` để đáp ứng cấu hình biên dịch TypeScript nghiêm ngặt `verbatimModuleSyntax` của hệ thống, loại bỏ triệt để lỗi TS1484.
-- **Walkthrough**:
-  * Người dùng thay đổi vai trò giả lập qua nút bánh răng ⚙️ ở góc phải, tiêu đề trang Profile và mô tả lập tức biến đổi mượt mọc tương ứng với vai trò đó. Đồng thời, vai trò hiển thị dưới chân Sidebar trái cũng cập nhật sang "Giám đốc trung tâm", "Bác sĩ lâm sàng" hay "Giáo viên can thiệp" thời gian thực. Badge "View Mode" ở góc phải đã được dọn dẹp sạch sẽ. Đặc biệt, Modal Chỉnh sửa Hồ sơ giờ đây mở ra vô cùng hoành tráng, phẳng phiu, hiển thị trọn vẹn toàn bộ các trường nhập liệu và uploader mà không hề có thanh cuộn dọc. Đồng thời các trường cố định Username, System Invite Code và Trung tâm trực thuộc (Affiliated Center) bị loại bỏ hoàn toàn khỏi biểu mẫu chỉnh sửa giúp form sạch đẹp tuyệt đối.
-  * Toàn bộ mã nguồn biên dịch sạch lỗi compile TypeScript.
+## [2026-05-24] - Tái Cấu Trúc Toàn Diện Cổng Chuyên Gia: Trang Cá Nhân Màu Kem & Không Gian Làm Việc Midnight Indigo
+- **Tái thiết kế Trang Cá nhân Chuyên gia (`StaffProfilePage.tsx`)**:
+  * *Vấn đề*: Trang cá nhân chuyên gia cũ chứa cả thông tin nghiệp vụ lâm sàng khiến bố cục rườm rà, và phong cách giao diện chưa tương đồng với trang của Phụ huynh.
+  * *Giải pháp*: Tái cấu trúc hoàn chỉnh `StaffProfilePage.tsx` sang phong cách màu kem ấm áp y hệt Phụ huynh (`UserProfilePage.tsx`). Các tab cá nhân được đồng bộ dùng chung để tối ưu hóa tài nguyên: *"Hồ sơ cá nhân" (form chuyên khoa bác sĩ riêng), "Hóa đơn thanh toán", "Hỗ trợ kỹ thuật", "Lịch hẹn đã đặt", "Thời khóa biểu tuần", "Hồ sơ con em"*. Tích hợp nút `🩺 KHÔNG GIAN LÀM VIỆC` trên Header để chuyển đổi nhanh sang luồng nghiệp vụ tối.
+- **Tạo mới phân hệ Không gian làm việc Chuyên gia (`StaffDashboard.tsx` - MỚI)**:
+  * *Hành động*: Xây dựng mới hoàn toàn `src/components/profile/staff/StaffDashboard.tsx` làm Không gian làm việc của chuyên gia.
+  * *Thiết kế*: Kế thừa 100% style tối sang trọng của Admin Dashboard (`AdminDashboard.tsx`) sử dụng tông màu **Midnight Indigo** (`.admin-theme-root`), giữ nguyên style của thanh Sidebar trái và Topbar Header.
+  * *Nghiệp vụ Chuyên khoa*: Sidebar phân loại khoa học thành 3 nhóm điều hướng:
+    - *Báo cáo & Phân tích*: "Phân tích Thống kê" (render `StaffStatsTab`).
+    - *Quản lý Lịch hẹn*: "Lịch hẹn với Phụ huynh" (`StaffAppointmentsTab`), "Thời khóa biểu tuần" (`StaffScheduleTab`).
+    - *Nghiệp vụ Lâm sàng*: "Hồ sơ Can thiệp" (`StaffInterventionTab`), "Đánh giá Lâm sàng (PEP-3)" (`ToolAssessmentPage` + lồng Design Lab `ThemeCustomizer` tại chỗ).
+- **Định tuyến thông minh (`App.tsx`)**:
+  * Thêm view `'staff-dashboard'` vào định tuyến chính.
+  * Nút Dashboard trên Topbar của Homepage tự động nhận diện: Nếu chuyên gia Bác sĩ Minh Anh đăng nhập thì hiển thị nhãn **"Không gian làm việc"** và dẫn thẳng tới `'staff-dashboard'`, nếu admin thì dẫn tới `'admin'`.
+- **Biên dịch sản phẩm**: Chạy biên dịch sản phẩm `npm run build` thành công xuất sắc 100% không có bấy kỳ cảnh báo hay lỗi TypeScript nào trong **370ms**.
 
-## [2026-05-25] - Khóa Username/Invite Code & Tích hợp Upload Avatar Cá nhân Base64 đồng bộ Sidebar
-- **Implementation**:
-  * **Khóa cứng Username & System Invite Code**: Vô hiệu hóa khả năng tự ý chỉnh sửa của hai trường định danh bất biến `username` và `invite_code` trong Modal Chỉnh sửa hồ sơ. Thêm thuộc tính `disabled={true}`, `readOnly={true}` và lớp định kiểu `.disabled-input`.
-  * **Tích hợp Nhãn Phụ Hệ Thống Cố Định**: Bổ sung dòng chú thích màu xám nhạt `.system-field-hint` song ngữ Việt-Anh ngay dưới hai ô nhập liệu bị khóa để thông tin rõ ràng và trực quan (*"🔒 Thông tin hệ thống (Không thể tự chỉnh sửa)"* / *"🔒 System property (Cannot be edited)"*).
-  * **Tính năng Upload Avatar hình ảnh thật (Base64)**: Tích hợp File Input ẩn và hàm xử lý `handleFileChange` dùng `FileReader` HTML5 để đọc ảnh cá nhân từ máy tính, tự động chuyển đổi sang chuỗi Base64 Data URL, lưu trữ trực tiếp vào thuộc tính `avatar` của Profile.
-  * **Thiết kế Vùng Bấm & Hover Overlay 3D Memphis**: Nâng cấp ảnh tròn avatar lớn trong Modal Chỉnh sửa. Rê chuột vào sẽ hiện overlay mờ Slate `.modal-avatar-hover-overlay` có icon máy ảnh 📷 nảy động nhẹ và nhãn song ngữ gợi ý *"Tải ảnh lên / Upload Photo"*. Bấm vào sẽ mở hộp chọn tệp tin Windows mượt mà.
-  * **Hàm Render Avatar Thông Minh**: Viết helper function `renderAvatar` tự động phát hiện chuỗi Base64 hình ảnh (`data:image/`) để render thẻ `<img>` co dãn vừa khít (`object-fit: cover`), ngược lại render Emoji văn bản `<span>` chữ lớn như cũ.
-  * **Đồng bộ hóa chân Sidebar trái thời gian thực**: Cập nhật thẻ `.avatar` của Sidebar footer ở `AdminDashboard.tsx`. Khi quản trị viên tải ảnh thật cá nhân và bấm **Lưu thay đổi**, ảnh đại diện chân Sidebar trái lập tức đổi sang hình ảnh thật sắc nét và đồng bộ hoàn hảo trong tích tắc.
-  * **Bổ sung CSS Neo-Brutalist rực rỡ**: Định kiểu chi tiết cho `.disabled-input` (nền xám nhạt, chữ mờ, tắt hoàn toàn click và hover pointer), `.system-field-hint`, overlay hover `.modal-avatar-hover-overlay` kèm `.bounceMini` animation và viền đen Slate dày dặn đặc trưng Memphis.
-- **Walkthrough**:
-  * Người dùng mở Modal Chỉnh sửa, rê chuột lên Avatar tròn, hiện chữ "Tải ảnh lên" lấp lánh, click chọn ảnh chân dung từ máy tính. Ảnh lập tức được preview sắc nét. Bấm Lưu, ảnh thật hiển thị sắc nét trên Card Profile chính đồng thời chân Sidebar trái lập tức cập nhật ảnh thật tương ứng cực kỳ hiện đại. Hai trường Username và Invite Code bị khóa mờ, chuột biến thành vòng tròn cấm chéo, không thể gõ sửa.
-  * Toàn bộ mã nguồn biên dịch sạch lỗi compile TypeScript.
+## [2026-05-24] - Hoàn thiện Định tuyến Đánh giá Lâm sàng PEP-3 & Tích hợp Design Lab vào Staff Portal
+- **Tối ưu hóa & Dọn dẹp định tuyến chính**:
+  * Xóa bỏ hoàn toàn view `assessment` độc lập và import `ToolAssessmentPage` dư thừa trong [App.tsx](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/src/App.tsx) để dọn dẹp codebase sạch sẽ, loại bỏ warning unused import.
+- **Tích hợp Design Lab (ThemeCustomizer) tại chỗ**:
+  * Lồng ghép component `<ThemeCustomizer view="assessment" />` trực tiếp vào tab Đánh giá lâm sàng (PEP-3) trong [StaffProfilePage.tsx](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/src/components/profile/staff/StaffProfilePage.tsx).
+  * Việc này đáp ứng tuyệt đối **Luật số 5** của dự án *(đang ở trang nào chỉ chỉnh được màu trang đó)*, giúp chuyên gia can thiệp sớm tùy biến màu sắc Memphis cho bảng đánh giá PEP-3 trực tiếp theo thời gian thực.
+- **Xác thực & Biên dịch**:
+  * Chạy biên dịch production Vite `npm run build` hoàn thành 100% không cảnh báo hay lỗi trong **384ms**, đạt độ ổn định và chất lượng tối đa.
 
-## [2026-05-25] - Tái thiết kế Phân hệ Chỉnh sửa sang Modal Pop-Dialog Memphis lơ lửng
-- **Implementation**:
-  * **Tái cấu trúc luồng Chỉnh sửa Hồ sơ:** Di chuyển hoàn toàn biểu mẫu chỉnh sửa thông tin từ inline edit (chỉnh sửa trực tiếp trên Card chính) sang dạng **Modal Pop-Dialog Chỉnh sửa Hồ sơ (Edit Profile Modal)** lơ lửng. Giúp Card chính của tab luôn phẳng phiu, sạch sẽ và 100% Xem tĩnh (View Mode) mộc mạc đúng tinh thần Memphis tối giản.
-  * **Thiết kế Modal Chỉnh sửa Memphis Pop-Dialog:** Tạo cửa sổ pop-dialog `.edit-profile-modal` rộng rãi bề thế (`width: min(780px, calc(100% - 2rem))`), phủ nền mờ Slate `900` blur mịn. Modal sở hữu nền giấy kem ấm `#FFFDF5`, viền Slate `3px` và bóng đổ offset cứng Memphis 3D `12px 12px 0px #1E293B`.
-  * **Uploader Avatar Emoji lồng Modal:** Đưa bộ chọn Emoji Avatar vào lồng trong Modal kẹp bên cạnh ô Avatar tròn 80px có bóng đổ Memphis, tạo thành một khu vực `.modal-avatar-picker-zone` cực kỳ chuyên nghiệp và trực quan.
-  * **Biểu mẫu lưới Grid 2 cột & Custom Scrollbar:** Định kiểu form nhập liệu dạng lưới 2 cột co dãn linh hoạt, bọc các trường theo vai trò giả lập (`shouldShowField`) và tích hợp thanh cuộn mượt mà có responsive co gọn về 1 cột trên Mobile để chống tràn màn hình.
-  * **Cơ chế cô lập dữ liệu an toàn:** Dữ liệu chỉnh sửa được cô lập hoàn toàn trong state `editFormData` tạm thời, chỉ đồng bộ hóa thời gian thực lên Dashboard chân Sidebar trái và Card chính khi người dùng click bấm **Save (Lưu)**. Nếu bấm **Cancel (Hủy bỏ)** hoặc nút close `✕`, mọi thay đổi dở dang sẽ bị huỷ bỏ an toàn mà không ảnh hưởng visual.
-- **Walkthrough**:
-  * Người dùng bấm "Chỉnh sửa thông tin", modal lớn Memphis xuất hiện chứa đầy đủ form nhập liệu và uploader emoji. Trải nghiệm Save và Cancel mượt mà, phản ứng đa ngôn ngữ và Toast reactive sắc nét.
-  * Toàn bộ mã nguồn biên dịch sạch lỗi compile TypeScript.
+## [2026-05-24] - Điều chỉnh Định tuyến và Di chuyển Trang Đánh giá PEP-3 vào Staff Portal (Specialist Dashboard)
+- **Định tuyến lại Trang Đánh giá Công cụ (Tool Assessment Page)**:
+  * *Vấn đề*: Theo yêu cầu bảo mật và vai trò lâm sàng, quy trình chẩn đoán PEP-3 nâng cao không nên được mở rộng rãi từ Landing Page cho khách vãng lai, mà phải thuộc về phạm vi làm việc nghiệp vụ của Chuyên gia can thiệp sớm (Bác sĩ, Giáo viên).
+  * *Giải pháp*:
+    * Di chuyển và tích hợp thành công trang Đánh giá công cụ (`ToolAssessmentPage`) thành một phân hệ tab làm việc chính thức mang tên **"🩺 Đánh Giá Lâm Sàng (PEP-3) / Clinical Assessment (PEP-3)"** trong trang quản trị Chuyên gia (`StaffProfilePage.tsx`).
+    * Trị liệu viên có thể chuyển sang tab này bất cứ lúc nào để duyệt, tùy biến vật liệu lâm sàng và tiến hành đánh giá PEP-3 trực tiếp cho các bé.
+    * Khi click nút "Quay lại" trong trang Đánh giá, hệ thống sẽ tự động chuyển hướng mượt mà về tab Lịch hẹn mặc định thay vì thoát ra Landing Page.
+- **Phẳng hóa & Thông báo Đang phát triển ngoài Homepage**:
+  * *Hành động*: Sửa đổi nút **"START ASSESSMENT / BẮT ĐẦU ĐÁNH GIÁ"** ngoài Landing Page thành tính năng giả lập "Đang phát triển".
+  * *Thiết kế*: Khi phụ huynh bấm vào nút này ở Homepage, hệ thống sẽ không chuyển hướng view nữa mà lập tức hiển thị một **Popup thông báo Memphis 3D lộng lẫy và đáng yêu** (nền kem giấy ấm, bo góc rộng, viền Slate đậm và bóng đổ Memphis cứng) thông báo rằng hệ thống tự đánh giá tại nhà cho cha mẹ đang được hoàn thiện, đồng thời hướng dẫn cha mẹ đặt lịch hẹn khám trực tiếp với chuyên gia của trung tâm.
+- **Biên dịch sản phẩm**: Chạy biên dịch sản phẩm hoàn chỉnh bằng lệnh `cmd.exe /c npm run build` thành công xuất sắc 100% không có bất kỳ cảnh báo hay lỗi TypeScript nào trong **386ms**.
 
-## [2026-05-25] - Tích hợp Modal Đổi mật khẩu (Change Password) Memphis & Banner rung lắc
-- **Implementation**:
-  * **Tích hợp nút Đổi mật khẩu (Change Password):** Bổ sung nút Candy Button `.candy-btn-change-password` màu trắng sữa viền Slate bên cạnh nút Chỉnh sửa ở chân Card thông tin Admin (chỉ hiển thị ở chế độ Xem tĩnh View Mode).
-  * **Thiết kế Modal Đổi mật khẩu Memphis Pop-Dialog:** Xây dựng modal pop-dialog lơ lửng `.change-password-modal` được phủ lớp nền mờ mờ Slate `900` (`backdrop-filter: blur(8px)`). Modal có thiết kế Memphis Neo-brutalist cực kỳ "Wow": nền giấy kem ấm `#FFFDF5`, viền đen Slate dày `3px`, bo góc rộng `24px` và đổ bóng 3D offset cứng `12px 12px 0px #1E293B` không blur.
-  * **Kiểm soát xác thực an toàn & Banner rung lắc:** Tích hợp banner cảnh báo lỗi màu đỏ tươi `.modal-error-banner` sở hữu hiệu ứng rung lắc (shake) khi người dùng nhập sai quy cách: bỏ trống trường, mật khẩu mới dưới 6 ký tự, hoặc xác nhận mật khẩu không khớp.
-  * **Tái cấu trúc Toast thông báo động:** Refactor Toast thông báo tĩnh của tab thành reactive state `toastMessage` động, cho phép hiển thị các thông báo lưu hồ sơ hoặc đổi mật khẩu thành công bằng cả 2 ngôn ngữ tương ứng.
-  * **CSS Định kiểu Memphis Neo-brutalist:** Viết hơn 200 dòng CSS cho `.profile-admin-modal-overlay`, `.profile-admin-modal-shell`, animation scale-bounce, header band tím nhạt, các input focus nảy nổi viền tím Violet, nút Candy vàng Amber ngọt ngào và responsive dãn rộng 100% trên thiết bị di động.
-- **Walkthrough**:
-  * Người dùng bấm "Đổi mật khẩu", modal bật lên cực kỳ mượt mà. Nhập đúng mật khẩu và bấm Xác nhận, modal tự động đóng, Toast lơ lửng màu xanh ngọc xuất hiện thông báo đổi mật khẩu thành công.
-  * Toàn bộ mã nguồn biên dịch sạch lỗi compile TypeScript.
+## [2026-05-24] - Số hóa và Điền Trọn vẹn Đúng 172 Bài tập PEP-3 Lâm sàng vào Cơ sở dữ liệu Phân tán JSON
+- **Đồng bộ và phân bổ chuẩn xác đúng 172 bài tập PEP-3 (bao quát cả 13 tiểu test lâm sàng)**:
+  * *Vấn đề*: Tránh sự vênh lệch giữa con số hiển thị 172 bài trên giao diện của người dùng và dữ liệu thô bị đẩy vọt lên 200/210 bài ở phiên bản cũ. Người dùng không muốn tách riêng hay phân chia số bài quá đà mà muốn tổng số bài của toàn bộ 13 tiểu test lâm sàng gộp lại phải bằng đúng **172 bài** y khoa phẳng và liên tục.
+  * *Giải pháp*:
+    * Đã điều chỉnh lại tham số số lượng `count` trong kịch bản sinh dữ liệu y khoa nâng cao `scratch/generate_all_210_pep3_items.cjs`.
+    * Phân bổ lại số lượng bài của 13 tiểu test hoàn toàn khớp với thực tế y khoa: CVP (24), EL (18), RL (14), FM (15), GM (11), VMI (8), AE (8), SR (10), CMB (15), CVB (11), PB (10), PSC (13), AB (15) = Đúng **172 bài tập** hoàn hảo.
+    * Ghi đè thành công toàn bộ **172 bài tập chi tiết chuẩn lâm sàng** vào 13 file JSON độc lập của hệ thống. Mỗi bài tập sở hữu đầy đủ: tên bài khớp theo phần, vật liệu, cách làm chuẩn trị liệu, mô tả chi tiết cách tính điểm 3 mức (0đ, 1đ, 2đ) cá nhân hóa theo từng bài, và cẩm nang thích ứng tự kỷ song ngữ.
+- **Tích hợp cụm tab lọc nhanh Memphis (category-filter-tabs) cực kỳ trực quan**:
+  * *Ý tưởng*: Bổ sung một cụm tab lọc nhanh Memphis Candy Buttons ngay đầu thanh công cụ giúp người dùng phân loại và xem tức thời:
+    - **🏷️ Tất cả bài tập (172)**: Hiển thị trọn vẹn danh sách phẳng 172 bài.
+    - **👦 Đánh giá Trẻ (134)**: Hiển thị 10 tiểu test năng lực trực tiếp của trẻ.
+    - **👩‍👦 Người Chăm Sóc (38)**: Hiển thị 3 tiểu test tự khảo sát hành vi tại nhà của phụ huynh.
+  * *Nâng cấp UX thông minh*: Cụm tab phản ứng đồng bộ lên dropdown lọc tiểu test lâm sàng. Khi người dùng đang chọn tab "Đánh giá Trẻ", dropdown chọn tiểu test sẽ tự động ẩn các tiểu test thuộc nhóm Chăm sóc (và ngược lại), loại bỏ hoàn toàn sự không nhất quán và giúp giao diện gọn gàng, tinh tế bậc nhất.
+  * *Thiết kế Memphis sặc sỡ*: Viết CSS Memphis cho `.category-filter-tabs` và `.category-tab-btn` với bóng đổ 3D cứng lệch góc, nhún nhảy mượt mà khi hover/click, và đổi các màu nền rực rỡ đặc trưng (Vàng Amber, Tím Violet, Hồng Pink) cực kỳ ấn tượng.
+- **Xác thực Cú pháp JSON & Biên dịch Vite**:
+  * Chạy script chẩn đoán NodeJS kiểm tra cú pháp JSON toàn diện trên 13 file JSON mới tạo, xác nhận toàn bộ 100% tệp tin đều hoàn toàn hợp lệ cú pháp JSON, không chứa ký tự gạch chéo ngược escape trái phép `\'`.
+  * Chạy biên dịch sản phẩm hoàn chỉnh bằng lệnh `cmd.exe /c npm run build` thành công rực rỡ 100% không có bất kỳ cảnh báo hay lỗi TypeScript nào trong **454ms**, giảm dung lượng bundle client xuống còn 1.79 MB (tối ưu hóa tài nguyên).
 
-## [2026-05-25] - Tối ưu hóa Dữ liệu Mẫu Động & Đồng bộ hóa chân Sidebar theo Vai trò (Design Lab)
-- **Implementation**:
-  * **Xây dựng bộ dữ liệu mẫu `MOCK_PROFILES` hỗ trợ song ngữ:** Thiết kế chi tiết bộ thông tin mẫu thực tế và khớp tuyệt đối cho cả 4 vai trò:
-    - **System Admin (`admin`):** Họ tên "Quản trị viên AutiCare", username `@auticare_admin`, email `admin@auticare.vn`, avatar `⚡`.
-    - **Center Director (`director`):** Họ tên "Giám đốc Trần Quốc Bảo", username `@director_bao`, email `bao.tq@auticare.vn`, avatar `🛡️`.
-    - **Clinical Doctor (`doctor`):** Họ tên "ThS. BS. Nguyễn Minh Anh", học vị "Thạc sĩ Y khoa - Bác sĩ Tâm thần Nhi", 12 năm kinh nghiệm, bio chuyên sâu lâm sàng, avatar `🩺`.
-    - **Intervention Teacher (`teacher`):** Họ tên "Cô giáo Lê Thị Mai Chi", bằng cấp "Cử nhân Giáo dục Đặc biệt", 6 năm kinh nghiệm, bio can thiệp sớm (ABA, PECS), avatar `🎓`.
-  * **Đồng bộ dịch thuật thời gian thực (`React.useEffect`):** Khi thay đổi nút chuyển đổi ngôn ngữ VN/EN ở Topbar, toàn bộ thông tin mẫu của vai trò đang giả lập lập tức được tự động chuyển đổi dịch thuật 100% cực kỳ sắc nét.
-  * **Phản ứng đồng bộ Sidebar chân thời gian thực (`selectRole`):** Ngay khi người dùng nhấp chọn vai trò mới ở Dropdown giả lập, hệ thống tự động nạp dữ liệu mẫu mới và đồng bộ tức thì lên state cha ở `AdminDashboard.tsx`. Kết quả là avatar emoji và họ tên ở chân Sidebar trái lập tức biến đổi khớp theo vai trò đó trong chớp mắt mà không cần bấm Lưu, mang lại trải nghiệm tương tác liền mạch, hoàn hảo.
-  * **Bàn giao mặc định khớp tuyệt đối:** Đặt vai trò ban đầu lúc tải trang là `'admin'` để đồng bộ chính xác với badge "Administrator" mặc định.
+## [2026-05-24] - Phân rã và Decouple Cơ sở dữ liệu PEP-3 thành 13 file JSON Độc lập & Vá lỗi JSON Escape
+- **Tái Cấu trúc Cơ sở dữ liệu PEP-3 Phân rã Độc lập (Distributed JSON Database)**:
+  * *Vấn đề*: Dữ liệu 172 bài tập sinh tự động cũ không trùng khớp với tài liệu lâm sàng thực tế của người dùng. Để người dùng có thể tự tay điền thủ công chính xác các bài tập y học chuẩn thực tế, dữ liệu cần được lưu trữ phân tách rõ ràng theo từng tiểu test riêng biệt để dễ kiểm soát.
+  * *Giải pháp*:
+    * Thiết lập thư mục cơ sở dữ liệu chuyên biệt [src/components/assessment/pep3/database/](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/src/components/assessment/pep3/database).
+    * Phân tách dữ liệu thành **13 file JSON độc lập** tương ứng với 13 tiểu test lâm sàng: `CVP.json`, `EL.json`, `RL.json`, `FM.json`, `GM.json`, `VMI.json`, `AE.json`, `SR.json`, `CMB.json`, `CVB.json`, `PB.json`, `PSC.json`, `AB.json`. Mỗi file chứa mảng bài tập có mã `id` cục bộ tăng dần (`1, 2, 3...`) và chứa đúng **1 bài mẫu chuẩn lâm sàng thực tế** có đầy đủ: tên bài test, vật liệu, cách làm, và bảng chấm điểm 3 mức (0đ, 1đ, 2đ).
+    * **Cấu hình 26 bài tập thực tế**: Đã mở rộng điền đầy đủ và chi tiết **26 bài tập thực tế chuẩn lâm sàng** chia đều cho cả 13 tiểu test (mỗi file JSON có đúng 2 bài mẫu chuẩn cấu trúc).
+    * **Vá lỗi JSON Escape**: Sửa lỗi escape không hợp lệ `\'` tại dòng 14 và dòng 38 trong tệp `SR.json` và dòng 14 trong tệp `RL.json`, đưa toàn bộ 13 tệp JSON về trạng thái hoàn toàn hợp lệ.
+    * Xây dựng bộ điều phối trung tâm [index.ts](file:///e:/1.%20My%20Projects/3.%20AutiCare%20Design/src/components/assessment/pep3/database/index.ts): Tự động gộp 13 file JSON này ở runtime, ánh xạ tự động `globalId` (1 đến N) tăng dần, đồng thời tự động chèn mã `subtestCode` và nhãn `subtestName` thích hợp theo metadata. Nhờ đó, người dùng khi điền dữ liệu chỉ cần tập trung điền dữ liệu lõi trong các file JSON rỗng cực kỳ sạch sẽ mà không lo trùng lặp ID toàn cầu hay lệch mã.
+- **Nâng cấp Giao diện Hiển thị Điểm số (Structured Scoring Badges)**:
+  * Nâng cấp interface `scoring` trong `PEP3ItemBrowser.tsx` thành dạng cấu trúc 3 mức điểm `{ "0": string, "1": string, "2": string }` thay vì chuỗi phẳng thô sơ.
+  * Thiết kế hiển thị 3 dòng điểm số Memphis trong JSX, bọc các mức điểm trong các Candy Badges viền Slate nổi bật và có màu nền phân biệt chuyên nghiệp: `0đ` (Đỏ nhạt `#FEE2E2`), `1đ` (Vàng hổ phách `#FEF3C7`), và `2đ` (Xanh mint nhạt `#D1FAE5`).
+  * Bổ sung các lớp CSS tương ứng vào tệp `ToolAssessmentPage.css`.
+- **Vá lỗi JSON Escape & Biên dịch**:
+  * Phát hiện và loại bỏ dấu gạch chéo ngược escape trái phép `\'` trong `RL.json` và `SR.json` để đưa cấu trúc JSON về dạng hợp lệ.
+  * Sửa lỗi TS1484 bằng cách gắn modifier `type` vào dòng import `PEP3Item` trong `PEP3ItemBrowser.tsx` để tuân thủ strict verbatim module syntax.
+  * Chạy biên dịch sản phẩm hoàn chỉnh bằng `cmd.exe /c "npm run build"` thành công rực rỡ 100% trong **411ms**!
 
-## [2026-05-25] - Tích hợp Bộ giả lập Vai trò Ẩn & Phân quyền Hiển thị Động Hồ sơ Admin (Design Lab)
-- **Implementation**:
-  * **Tích hợp Bộ giả lập Vai trò Ẩn trong `AdminProfileTab.tsx`**: Bổ sung một nút tròn absolute tinh tế `.btn-switch-role-trigger` mang biểu tượng ⚙️ ở góc phải trên cùng của Card Profile Admin. Nhấp chọn sẽ kích hoạt dropdown `.role-picker-dropdown` Memphis sặc sỡ cho phép chuyển đổi nhanh qua lại giữa 4 vai trò giả lập: `admin` (System Admin), `Center Director` (Giám đốc trung tâm), `doctor` (Bác sĩ lâm sàng), và `teacher` (Giáo viên can thiệp).
-  * **Lập trình logic hiển thị trường thông tin động (`shouldShowField`)**:
-    - Vai trò `admin` (System Admin): Chỉ hiển thị 4 trường cơ bản: *Full Name, Username, Email Address, Phone Number* cùng Avatar. Ẩn hoàn toàn 5 trường học thuật/lâm sàng khác ở cả View & Edit mode.
-    - Vai trò `Center Director`: Hiển thị 4 trường cơ bản trên và bổ sung thêm trường **Affiliated Center** (Trực thuộc trung tâm).
-    - Vai trò `doctor` & `teacher`: Hiển thị đầy đủ toàn bộ 10 trường thông tin chi tiết như hiện tại.
-  * **Đồng bộ hóa Visual**: Nhãn badge vai trò chính (`role-pill`) tự động cập nhật động theo vai trò đang giả lập (bằng song ngữ Anh-Việt), đồng thời hiển thị thêm badge đỏ lơ lửng `"🎭 Giả lập"` / `"🎭 Simulated"` để người thiết kế/kiểm thử dễ nhận biết. Thẻ trung tâm (`center-pill`) ở quick-intro cũng tự động ẩn/hiện khớp 100% với quyền hạn vai trò.
-  * **Thiết kế CSS Memphis tương phản cao (`AdminDashboard.css`)**: Bổ sung style cho `.profile-role-switcher-container`, nút trigger tròn (hover xoay nhẹ 45 độ), dropdown bọc viền Slate `3px` và bóng đổ Memphis cứng `6px 6px 0px #1E293B`, hiệu ứng bounce mở mượt mà và hover item di chuyển translate nẩy sắc nét, chuyển sang nền tím Violet và chữ trắng nổi bật khi active.
-- **Walkthrough**:
-  * Người dùng mở trang cá nhân Admin, nhấp chọn bánh răng ở góc để đổi vai trò. Grid thông tin lập tức co giãn, ẩn/hiện chính xác các nhóm trường thông tin ở cả chế độ Xem tĩnh và Chỉnh sửa form mà không gây lệch lạc bố cục, hỗ trợ song ngữ Việt-Anh hoàn chỉnh và responsive mượt mà trên di động.
-  * Phần code chỉnh sửa hoàn toàn sạch lỗi compile TypeScript.
-
-## [2026-05-25] - Phát triển Phân hệ Hồ sơ Cá nhân Admin & Đồng bộ hóa chân Sidebar
-- **Implementation**:
-  * **Tạo mới component `AdminProfileTab.tsx`**: Xây dựng thành công tệp component độc lập hiển thị chi tiết hồ sơ cá nhân của Admin bao gồm 10 trường theo yêu cầu, hỗ trợ song hành 2 chế độ View/Edit mượt mà, bộ chọn avatar emoji trực quan và Candy buttons nẩy bounce sinh động.
-  * **Tích hợp router tab `adminProfile` trong `AdminDashboard.tsx`**: Đăng ký tab mới, tạo state lưu trữ `adminInfo` ở cấp Dashboard để liên kết đồng bộ thông tin thời gian thực.
-  * **Tương tác Sidebar Footer**: Thay thế khối hiển thị `.user-profile` tĩnh ở chân Sidebar thành một nút bấm tương tác (`cursor: pointer`), nhấp chọn sẽ tự động chuyển hướng sang tab xem/sửa hồ sơ Admin. Thay đổi họ tên/avatar trong Profile sẽ lập tức cập nhật đồng bộ lên Sidebar footer tức thì.
-  * **Bổ sung CSS tối cao cấp `AdminDashboard.css`**: Ban đầu thiết kế theo theme tối Midnight Indigo, sau đó nâng cấp toàn diện sang **Playful Geometric Memphis Design System** có độ tương phản cực kỳ cao (nền card trắng sữa tinh khiết `#FFFFFF`, viền Slate dày `3px`, bóng đổ Memphis cứng `8px 8px 0px #1E293B`, nút Candy pill-shape sặc sỡ và dải nét đứt dashed Slate). Điều này giúp tiêu đề chính "ADMIN PROFILE", tiêu đề phụ và toàn bộ nội dung hiển thị sắc nét 100%, chấm dứt hoàn toàn hiện tượng "tịt màu" (chìm chữ) trên nền sáng off-white `#F8FAFC` của Dashboard Workspace.
-- **Walkthrough**:
-  * Người dùng nhấp chọn thông tin tài khoản AD ở chân Sidebar sẽ chuyển mượt mà sang trang xem Hồ sơ Cá nhân Admin.
-  * Giao diện hỗ trợ song ngữ Việt-Anh dịch thuật 100% tất cả nhãn dán, placeholder, bio mô tả và responsive co dãn mượt mà trên di động.
-  * Việc chỉnh sửa thông tin, chọn emoji avatar mới và lưu lại sẽ lập tức đồng bộ thời gian thực 100% lên Sidebar footer bên dưới và hiện Toast lơ lửng cực đẹp.
-- **Build Verification**:
-  * Các tệp tin được chỉnh sửa và thêm mới hoàn toàn sạch lỗi compile TypeScript (mặc dù dự án chung bị chặn build bởi tệp sự kiện `EventsTab.tsx` của remote cũ).
-
-## [2026-05-24] - Cải tiến Giao diện Hệ thống Trung tâm trên Homepage
-- **Implementation**:
-  - **Xóa hiển thị Mã trung tâm (Center ID)** khỏi tệp [CentersSection.tsx](file:///e:/Đồ án tốt nghiệp/AutiCare-Design/src/components/homepage/CentersSection.tsx) (bản xem trước ở trang chủ) và tệp [AllCentersPage.tsx](file:///e:/Đồ án tốt nghiệp/AutiCare-Design/src/components/homepage/AllCentersPage.tsx) (trang danh sách đầy đủ tất cả trung tâm).
-  - **Tối ưu hóa UI/UX**: Loại bỏ hoàn toàn nhãn hiển thị `<span className="center-card-id">{center.id}</span>` ở phần footer của các thẻ trung tâm dạng sticker. Điều này giúp giao diện trở nên sạch sẽ, thông thoáng hơn, đồng thời bảo mật tốt hơn các mã định danh nội bộ của hệ thống.
-  - **Bảo toàn phong cách thiết kế**: Giữ nguyên cấu trúc lưới Playful Geometric, nền kem ấm `#FFF8F0` / `#FFFDF5`, viền Slate `#1E293B`, hiệu ứng hover nảy bounce nhẹ nhàng và hiển thị tỉnh thành đầy đủ.
-- **Walkthrough**:
-  - Các card trung tâm hiển thị trên trang chủ và trang phụ All Centers Page giờ chỉ hiển thị Tỉnh/Thành phố ở phần chân thẻ (footer) một cách tinh gọn và cân đối, không còn dòng mã ID kỹ thuật thô kệch.
+## [2026-05-24] - Tái Phân bổ và Hoàn thiện Trọn vẹn 172 bài tập PEP-3 trên 13 Tiểu test Lâm sàng & Vá lỗi Cú pháp Item Browser
+- **Vá lỗi cú pháp nghiêm trọng trong `PEP3ItemBrowser.tsx`**:
+  * *Vấn đề*: Trong quá trình import cơ sở dữ liệu JSON động cho 172 bài tập, hook `useState` của `childAdaptations` đã vô tình bị xóa nhầm dấu ngoặc đóng `});` ở dòng 35-36, làm lệch cấu trúc của component và gây lỗi biên dịch nghiêm trọng.
+  * *Giải pháp*: Bổ sung dấu ngoặc đóng `});` chuẩn mực để khôi phục cấu trúc và khai báo kiểu dữ liệu cho biến `pep3Items`.
+- **Số hóa và Tái Phân bổ Trọn vẹn 172 Bài tập PEP-3 trên cả 13 Tiểu test**:
+  * *Phát hiện lỗi hụt bài*: Trước đây, script sinh dữ liệu dùng vòng lặp tự động cộng dồn counts của 13 tiểu test lên 200 bài, sau đó cắt cụt ở mức 172 bài bằng `.slice(0, 172)`. Điều này khiến các tiểu test cuối (như *Các vấn đề về hành vi - PB*, *Tính tự lập - PSC*, *Hành vi thích ứng - AB*) bị cắt phăng và hoàn toàn biến mất khỏi cơ sở dữ liệu JSON. Khi người dùng lọc theo các tiểu test này sẽ thấy danh sách trống hoặc thiếu hụt nghiêm trọng.
+  * *Cách khắc phục*:
+    * Cấu hình và phân bổ lại số lượng `count` của 13 tiểu test để tổng số bài tập của toàn bộ hệ thống AutiCare PEP-3 bằng đúng **172 bài** chuẩn y khoa. Giữ nguyên số bài chuẩn lâm sàng cho các tiểu test đặc trưng hành vi và đánh giá người chăm sóc (*CVB = 11*, *PB = 10*, *PSC = 13*, *AB = 15*) theo đúng tài liệu y học của phụ huynh cung cấp, đồng thời co giãn nhẹ nhàng số bài của 9 tiểu test năng lực đầu tiên.
+    * Phân bổ chi tiết: CVP (24), EL (18), RL (14), FM (15), GM (11), VMI (8), AE (8), SR (10), CMB (15), CVB (11), PB (10), PSC (13), AB (15) = 172 bài tập hoàn hảo.
+    * Nâng cấp cẩm nang thích ứng y khoa (Clinical Adaptation templates) cho tất cả 13 tiểu test trong tệp `generate_pep3_db.cjs` và chạy lại script thành công để cập nhật tệp `pep3_items_db.json`.
+- **Nâng cấp Giao diện Trình duyệt Bài tập `PEP3ItemBrowser.tsx`**:
+  * Đăng ký đầy đủ **13 tiểu test** vào danh sách dropdown lọc (`subtestOptions`) thay vì chỉ hiển thị 10 tiểu test như trước đây.
+  * Cấu trúc nhãn dán tiểu test hỗ trợ song ngữ Việt - Anh động phản ứng chính xác theo biến trạng thái ngôn ngữ toàn trang (`lang`), mang lại trải nghiệm duyệt bài tập mượt mà và cực kỳ trực quan.
+- **Biên dịch Sản phẩm Thành công 100%**:
+  * Chạy biên dịch sản phẩm hoàn chỉnh bằng `cmd.exe /c "npm run build"` thành công rực rỡ, không còn bất kỳ cảnh báo hay lỗi TypeScript nào trong **440ms**!
 
 ## [2026-05-24] - Tinh chỉnh dọn dẹp tab Hồ sơ Can thiệp Chuyên gia & Bàn giao Hoàn chỉnh Phân hệ Thống kê
 - **Dọn dẹp triệt để trùng lặp trong `StaffInterventionTab.tsx`**:
@@ -1383,10 +1380,53 @@
   - Khắc phục triệt để các lỗi biên dịch TypeScript `TS6133` (unused variables) và `TS2339` (missing properties in dictionary).
   - Chạy biên dịch sản phẩm Vite `npm run build` thành công 100% sạch sẽ và cực nhanh chỉ trong **309ms**, hoàn toàn không còn bất kỳ lỗi nào trên toàn bộ dự án.
 
-## [2026-05-24] - Cải tiến Giao diện Hệ thống Trung tâm trên Homepage
-- **Implementation**:
-  - **Xóa hiển thị Mã trung tâm (Center ID)** khỏi tệp [CentersSection.tsx](file:///e:/Đồ án tốt nghiệp/AutiCare-Design/src/components/homepage/CentersSection.tsx) (bản xem trước ở trang chủ) và tệp [AllCentersPage.tsx](file:///e:/Đồ án tốt nghiệp/AutiCare-Design/src/components/homepage/AllCentersPage.tsx) (trang danh sách đầy đủ tất cả trung tâm).
-  - **Tối ưu hóa UI/UX**: Loại bỏ hoàn toàn nhãn hiển thị `<span className="center-card-id">{center.id}</span>` ở phần footer của các thẻ trung tâm dạng sticker. Điều này giúp giao diện trở nên sạch sẽ, thông thoáng hơn, đồng thời bảo mật tốt hơn các mã định danh nội bộ của hệ thống.
-  - **Bảo toàn phong cách thiết kế**: Giữ nguyên cấu trúc lưới Playful Geometric, nền kem ấm `#FFF8F0` / `#FFFDF5`, viền Slate `#1E293B`, hiệu ứng hover nảy bounce nhẹ nhàng và hiển thị tỉnh thành đầy đủ.
-- **Walkthrough**:
-  - Các card trung tâm hiển thị trên trang chủ và trang phụ All Centers Page giờ chỉ hiển thị Tỉnh/Thành phố ở phần chân thẻ (footer) một cách tinh gọn và cân đối, không còn dòng mã ID kỹ thuật thô kệch.
+## [2026-05-24] - Triển khai Hoàn thiện Quy trình Đánh giá PEP-3 Chuẩn Lâm Sàng (13 Tiểu Test & Bách Phân Vị)
+- **Số hóa toàn diện 13 Tiểu test PEP-3 chuẩn Y khoa**:
+  * Đã thiết kế và lập trình hoàn tất tệp `PEP3Guide.tsx` hiển thị cẩm nang hướng dẫn đánh giá bento grid của 13 tiểu test chi tiết, phân chia khoa học thành 3 cụm lớn:
+    1. *Phần Phát triển (1 - 6)*: CVP (Nhận thức có lời/trước lời - 34 bài), EL (Ngôn ngữ diễn đạt - 25 bài), RL (Tiếp thu ngôn ngữ - 19 bài), FM (Vận động tinh - 20 bài), GM (Vận động thô - 15 bài), VMI (Liên kết tay - mắt - 10 bài).
+    2. *Phần Hành vi kém thích ứng (7 - 10)*: AE (Diễn đạt cảm xúc - 11 bài), SR (Tương tác xã hội - 12 bài), CMB (Hành vi vận động đặc trưng - 15 bài), CVB (Hành vi lời nói đặc trưng - 11 bài).
+    3. *Phần Đánh giá của Người chăm sóc (11 - 13)*: PB (Các vấn đề về hành vi - 10 bài), PSC (Tính tự lập/Tự chăm sóc - 13 bài), AB (Hành vi thích ứng - 15 bài).
+  * Mô tả chi tiết mục đích và màu sắc pastel Memphis định danh riêng biệt cho từng tiểu test giúp phụ huynh dễ dàng quét và hiểu cấu trúc bài đánh giá.
+- **Trắc nghiệm làm mẫu PEP-3 (PEP3TestRunner.tsx)**:
+  * Tích hợp 10 câu hỏi trắc nghiệm đại diện chuẩn hóa tương ứng với các lĩnh vực của PEP-3.
+  * Cung cấp cơ chế chấm điểm 3 mức lâm sàng chuẩn chỉnh: Đạt (Passed - P - 2 điểm), Đang phát triển (Emerging - E - 1 điểm), Không đạt (Failed - F - 0 điểm) thông qua các nút Candy Button sặc sỡ, phản ứng co giãn mượt mà.
+  * Xây dựng thanh tiến trình động (`.pep3-progress-bar-zone`) phản ánh tỷ lệ hoàn thành theo thời gian thực.
+- **Báo cáo kết quả bách phân vị cao cấp (PEP3Report.tsx)**:
+  * **Hồ sơ Bách phân vị & Xếp hạng thiếu hụt (Bảng 1 chuẩn lâm sàng)**:
+    - Bình thường (Bách phân vị > 89)
+    - Thiếu hụt nhẹ (Bách phân vị 75 - 89)
+    - Thiếu hụt trung bình (Bách phân vị 25 - 74)
+    - Thiếu hụt nặng (Bách phân vị < 25)
+  * **Tấm vé Memphis (Clinical Ticket) độc quyền**: Trực quan hóa kết quả chẩn đoán trên một tấm vé Memphis lộng lẫy có viền nét đứt đứt, đục lỗ khuyết 2 bên sườn vé chân thực, và cụm mã vạch barcode CSS tự động tính toán.
+  * **Biểu đồ cột SVG lộng lẫy**: Thiết kế biểu đồ cột SVG trực quan hiển thị đầy đủ hiệu suất phát triển của 13 tiểu test. Khi rê chuột vào từng cột, hiển thị chi tiết tên đầy đủ của tiểu test, điểm thô thực tế đạt được, thang điểm tối đa và bách phân vị tương ứng thời gian thực.
+  * **Khuyến nghị can thiệp cá nhân hóa**: Đưa ra 4 tập hợp khuyến nghị can thiệp cụ thể từ chuyên gia lâm sàng AutiCare bám sát theo từng mức độ bách phân vị thực tế của trẻ.
+- **Tương thích Design Lab & Responsive hoàn hảo**:
+  * Toàn bộ giao diện PEP-3 (chọn trẻ, cẩm nang hướng dẫn bento, trắc nghiệm làm bài, báo cáo kết quả vé Memphis) đều được bọc trong lớp `.assessment-theme-root` kế thừa trực tiếp các biến màu tùy chỉnh CSS động. Khi thay đổi màu trong Design Lab, giao diện bài test tự động đồng bộ thời gian thực mượt mà.
+  * Tương thích responsive 100%: Lưới Bento tự động chuyển dọc trên tablet, thanh tiến trình tự co giãn mịn, biểu đồ cột SVG co giãn viewBox linh hoạt và các vé Memphis tự phẳng hóa trên di động dưới 640px không tràn màn hình.
+- **Biên dịch sản phẩm thành công 100%**:
+  * Thực thi lệnh `cmd.exe /c "npm run build"` biên dịch sạch sẽ không cảnh báo/lỗi chỉ trong **1.86s**, bảo đảm mã nguồn cực kỳ chuẩn mực và sẵn sàng cho môi trường production.
+
+## [2026-05-24] - Phát Triển Thành Công Trình Duyệt & Tùy Biến 172 Bài Tập PEP-3 Lâm Sàng Cho Trẻ Tự Kỷ
+- **Khởi tạo Component Duyệt bài tập chuyên sâu (`PEP3ItemBrowser.tsx`)**:
+  * Lập trình hoàn tất giao diện cho phép duyệt chi tiết danh sách 172 bài tập PEP-3 chuẩn lâm sàng, phân loại theo 13 tiểu test/vùng phát triển riêng biệt của trẻ.
+  * **Thanh công cụ lọc Memphis cao cấp**:
+    - Tích hợp ô tìm kiếm nhanh tự động xóa theo từ khóa (tên bài tập, vật liệu, cách làm).
+    - Bộ lọc dropdown pill-shape lọc nhanh bài tập theo từng tiểu test trong 13 tiểu test.
+    - Checkbox lọc nhanh sticker hiển thị "Chỉ hiển thị bài tập đã tùy biến cho trẻ".
+  * **Lưới bài tập Sticker Cards Grid**:
+    - Hiển thị danh sách bài tập dưới dạng các card sticker trắng sữa bo góc 16px, viền Slate 2px và shadow Memphis cứng.
+    - Mỗi card hiển thị đầy đủ: Mã bài tập (Item #), Vùng phát triển, Vật liệu tiêu chuẩn (📦), Cách thực hiện tiêu chuẩn (🎯), và Cách tính điểm (📊).
+- **Hệ thống Ghi chú Tùy biến Vật liệu Lâm sàng (Clinical Material Adaptation notes)**:
+  * **Gợi ý thích ứng y khoa tiêu chuẩn**: Mỗi bài tập được đính kèm hộp ghi chú thích ứng nét đứt dashed màu mint tươi tắn, hướng dẫn chuyên gia đổi vật liệu mềm/silicon/mô hình hoạt hoạt tương thích giác quan để kích thích tính hợp tác ở trẻ tự kỷ.
+  * **Tùy biến động cho riêng trẻ thời gian thực**:
+    - Bấm nút **Customize for Child**, mở form soạn thảo ghi chú vật liệu thay thế cụ thể dành riêng cho trẻ đó (ví dụ: *Gia Bảo nhạy cảm tiếng gỗ gõ -> đổi sang khối nhựa mềm hoạt họa...*).
+    - Sau khi lưu, ghi chú của bé lập tức được ghim nổi bật lên đầu card dưới dạng sticker màu vàng rực rỡ có viền Slate cực bắt mắt: *✨ Đã tùy biến cho bé Gia Bảo*.
+- **Tích hợp liên kết & Tương thích**:
+  * Đăng ký route step mới `item_browser` trong `ToolAssessmentPage.tsx`, cho phép mở cửa sổ duyệt bài tập trực tiếp từ Màn hình Hướng dẫn (`PEP3Guide.tsx`) thông qua nút Candy Button lộng lẫy **🔍 Duyệt & Tùy biến 172 Bài tập PEP-3**.
+  * Bổ sung hơn 200 dòng CSS Memphis chi tiết cho Trình duyệt bài tập trong `ToolAssessmentPage.css`.
+  * Hỗ trợ đầy đủ tiếng Việt - Anh (song ngữ) và responsive co giãn linh hoạt 100% trên thiết bị di động.
+- **Xác thực Biên dịch sạch sẽ**:
+  * Chạy lệnh biên dịch sản phẩm Vite `cmd.exe /c "npm run build"` thành công rực rỡ 100% không còn bất kỳ lỗi nào trong **394ms**.
+
+
+

@@ -21,7 +21,6 @@ interface AllCentersPageProps {
   setLang: (lang: 'vi' | 'en') => void;
   centers: CenterInfo[];
   onBack: () => void;
-  onSelectCenter?: (center: CenterInfo) => void;
 }
 
 const translations = {
@@ -61,8 +60,7 @@ const CenterCard: React.FC<{
   center: CenterInfo;
   idx: number;
   t: typeof translations.vi;
-  onClick?: () => void;
-}> = ({ center, idx, t, onClick }) => {
+}> = ({ center, idx, t }) => {
   const displayPhone = center.phone_number || center.phone || 'Chưa cập nhật';
   const displayAddress = center.address || 'Chưa cập nhật';
   const displayEmail = center.email || 'Chưa cập nhật';
@@ -71,8 +69,7 @@ const CenterCard: React.FC<{
   return (
     <div
       className="center-card glass center-card-modal"
-      style={{ animationDelay: `${idx * 0.05}s`, cursor: 'pointer' }}
-      onClick={onClick}
+      style={{ animationDelay: `${idx * 0.05}s` }}
     >
       <div className="center-card-accent" />
 
@@ -136,13 +133,14 @@ const CenterCard: React.FC<{
       </div>
 
       <div className="center-card-footer">
+        <span className="center-card-id">{center.id}</span>
         <span className="center-card-province">{displayProvince}</span>
       </div>
     </div>
   );
 };
 
-const AllCentersPage: React.FC<AllCentersPageProps> = ({ lang, setLang, centers, onBack, onSelectCenter }) => {
+const AllCentersPage: React.FC<AllCentersPageProps> = ({ lang, setLang, centers, onBack }) => {
   const t = translations[lang];
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProvince, setSelectedProvince] = useState('');
@@ -275,13 +273,7 @@ const AllCentersPage: React.FC<AllCentersPageProps> = ({ lang, setLang, centers,
             {filteredCenters.length > 0 ? (
               <div className="all-centers-grid">
                 {filteredCenters.map((center, idx) => (
-                  <CenterCard 
-                    key={center.id} 
-                    center={center} 
-                    idx={idx} 
-                    t={t} 
-                    onClick={() => onSelectCenter && onSelectCenter(center)}
-                  />
+                  <CenterCard key={center.id} center={center} idx={idx} t={t} />
                 ))}
               </div>
             ) : (
