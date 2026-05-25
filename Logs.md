@@ -1,5 +1,18 @@
 # Project Logs
 
+## [2026-05-25] - Phát triển Phân hệ Hồ sơ Cá nhân Admin & Đồng bộ hóa chân Sidebar
+- **Implementation**:
+  * **Tạo mới component `AdminProfileTab.tsx`**: Xây dựng thành công tệp component độc lập hiển thị chi tiết hồ sơ cá nhân của Admin bao gồm 10 trường theo yêu cầu, hỗ trợ song hành 2 chế độ View/Edit mượt mà, bộ chọn avatar emoji trực quan và Candy buttons nẩy bounce sinh động.
+  * **Tích hợp router tab `adminProfile` trong `AdminDashboard.tsx`**: Đăng ký tab mới, tạo state lưu trữ `adminInfo` ở cấp Dashboard để liên kết đồng bộ thông tin thời gian thực.
+  * **Tương tác Sidebar Footer**: Thay thế khối hiển thị `.user-profile` tĩnh ở chân Sidebar thành một nút bấm tương tác (`cursor: pointer`), nhấp chọn sẽ tự động chuyển hướng sang tab xem/sửa hồ sơ Admin. Thay đổi họ tên/avatar trong Profile sẽ lập tức cập nhật đồng bộ lên Sidebar footer tức thì.
+  * **Bổ sung CSS tối cao cấp `AdminDashboard.css`**: Viết hơn 300 dòng CSS Midnight Indigo tối sang trọng, kẹp viền neon xanh Teal focus rực rỡ và Toast thông báo thành công màu xanh lá lục bảo lơ lửng lộng lẫy.
+- **Walkthrough**:
+  * Người dùng nhấp chọn thông tin tài khoản AD ở chân Sidebar sẽ chuyển mượt mà sang trang xem Hồ sơ Cá nhân Admin.
+  * Giao diện hỗ trợ song ngữ Việt-Anh dịch thuật 100% tất cả nhãn dán, placeholder, bio mô tả và responsive co dãn mượt mà trên di động.
+  * Việc chỉnh sửa thông tin, chọn emoji avatar mới và lưu lại sẽ lập tức đồng bộ thời gian thực 100% lên Sidebar footer bên dưới và hiện Toast lơ lửng cực đẹp.
+- **Build Verification**:
+  * Các tệp tin được chỉnh sửa và thêm mới hoàn toàn sạch lỗi compile TypeScript (mặc dù dự án chung bị chặn build bởi tệp sự kiện `EventsTab.tsx` của remote cũ).
+
 ## [2026-05-24] - Cải tiến Giao diện Hệ thống Trung tâm trên Homepage
 - **Implementation**:
   - **Xóa hiển thị Mã trung tâm (Center ID)** khỏi tệp [CentersSection.tsx](file:///e:/Đồ án tốt nghiệp/AutiCare-Design/src/components/homepage/CentersSection.tsx) (bản xem trước ở trang chủ) và tệp [AllCentersPage.tsx](file:///e:/Đồ án tốt nghiệp/AutiCare-Design/src/components/homepage/AllCentersPage.tsx) (trang danh sách đầy đủ tất cả trung tâm).

@@ -19,8 +19,9 @@ import ExercisesTab from './dashboard/ExercisesTab';
 import OverviewTab from './dashboard/OverviewTab';
 import EventsTab from './dashboard/EventsTab';
 import StaffScheduleTab from './profile/staff/tabs/StaffScheduleTab';
+import AdminProfileTab from './dashboard/AdminProfileTab';
 
-type Tab = 'overview' | 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks' | 'events' | 'staffSchedule' | 'childrenDirectory';
+type Tab = 'overview' | 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks' | 'events' | 'staffSchedule' | 'childrenDirectory' | 'adminProfile';
 
 interface AdminDashboardProps {
   lang: 'vi' | 'en';
@@ -50,6 +51,19 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
   const [expandedGroups, setExpandedGroups] = useState<string[]>(['dashboard', 'system', 'training', 'content']);
   const [selectedCenterForDetail, setSelectedCenterForDetail] = useState<Center | null>(null);
   const [selectedPlanForDetail, setSelectedPlanForDetail] = useState<Plan | null>(null);
+  
+  const [adminInfo, setAdminInfo] = useState({
+    username: 'auticare_admin',
+    email: 'admin@auticare.vn',
+    avatar: '⚡',
+    phone_number: '028.3930.1234',
+    full_name: "AutiCare's Admin",
+    qualification: 'Thạc sĩ Quản lý Giáo dục Đặc biệt',
+    experience_years: 10,
+    invite_code: 'ATC-ADMIN',
+    description: 'Quản trị viên cấp cao của hệ thống AutiCare, chịu trách nhiệm vận hành nền tảng can thiệp sớm và kết nối các trung tâm trên toàn quốc.',
+    center_name: 'AutiCare Central Saigon'
+  });
 
   const [plans, setPlans] = useState<Plan[]>([
     {
@@ -389,6 +403,14 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
         return <PlanFeedbacksTab lang={lang} />;
       case 'staffSchedule':
        return <StaffScheduleTab lang={lang} />;
+      case 'adminProfile':
+        return (
+          <AdminProfileTab
+            lang={lang}
+            profile={adminInfo}
+            onSave={setAdminInfo}
+          />
+        );
       case 'childrenDirectory':
         // return <ChildrenDirectoryTab lang={lang}/>;
       default:
@@ -442,10 +464,19 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack, 
           ))}
         </nav>
         <div className="sidebar-footer">
-          <div className="user-profile">
-            <div className="avatar">AD</div>
+          <div 
+            className={`user-profile interactive-profile-btn ${activeTab === 'adminProfile' ? 'active' : ''}`}
+            onClick={() => {
+              setActiveTab('adminProfile');
+              setSelectedCenterForDetail(null);
+              setSelectedPlanForDetail(null);
+            }}
+            style={{ cursor: 'pointer' }}
+            title={lang === 'vi' ? 'Xem hồ sơ cá nhân Admin' : 'View Admin Profile'}
+          >
+            <div className="avatar">{adminInfo.avatar || 'AD'}</div>
             <div className="user-info">
-              <div className="user-name">AutiCare's Admin</div>
+              <div className="user-name">{adminInfo.full_name}</div>
               <div className="user-role">Administrator</div>
             </div>
           </div>
