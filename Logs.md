@@ -1,5 +1,33 @@
 # Project Logs
 
+## [2026-05-25] - Hoàn Thiện Đồng Bộ Style Admin Memphis Playful: Header Card, Tab Phụ Viên Thuốc & Nút Quay Lại Neo-Brutalist (Sửa lỗi Bo góc & Lề phải Scrollbar)
+- **Implementation**:
+  * **Thiết kế Header Card Memphis bọc Tiêu đề**: Thiết lập CSS overrides toàn cục cho `.table-header` và `.intervention-header-zone` trong `AdminDashboard.css` biến tiêu đề phẳng của 20 tab Admin thành các Header Card Memphis bề thế: nền trắng sữa `#FFFFFF`, viền Slate dày `3px solid #1E293B`, bo góc `20px` và bóng đổ cứng Memphis 3D `6px 6px 0px #1E293B` xoay nhẹ `-0.15deg`.
+  * **Nút Quay lại & Nút Thao tác Chi tiết Memphis**: Định kiểu lại các nút quay lại `.back-btn-v2` sang phong cách pill nẩy nổi có viền đen, bóng đổ cứng Memphis `3px 3px 0px #1E293B`, khi hover co giãn elastic. Đồng thời sửa style inline phẳng cũ trong `CenterDetailView.tsx` sang dùng class `back-btn-v2` đồng bộ.
+  * **Tab Phụ Memphis Viên Thuốc Nẩy Nổi**: Thiết kế các tab phụ `.sub-tab-navigation button` và `.sub-tab-btn` thành các viên thuốc Memphis có viền đen, bóng đổ cứng, khi active đổi sang màu tím Violet `#8B5CF6` nổi bật. Sửa style inline phẳng cũ của tab con cơ sở trong `CenterDetailView.tsx` để kế thừa style tuyệt đẹp này.
+  * **Nút hành động trong bảng (Action Buttons)**: Định kiểu lại các nút sửa, xóa, xem `.action-btns button` thành Memphis mini nẩy elastic viền đen dày, hover đổi màu dịu mát theo đúng style y khoa của Bác sĩ.
+  * **Khắc phục lỗi Bo góc hàng bảng nổi (tbody tr & td)**: Di chuyển màu nền `#FFFFFF` từ dòng `tr` xuống các ô `td` và đặt nền `tr` thành `transparent` để lộ toàn bộ các góc bo cong `14px` mềm mại trên `td:first-child` và `td:last-child` của hàng dữ liệu nổi.
+  * **Khắc phục khe hở lề phải scrollbar**: Bổ sung rule `html { scrollbar-gutter: auto !important; }` để vô hiệu hóa lùi khoảng trống scrollbar chừa sẵn của trang chủ, giúp background kem polka-dot của Admin Dashboard tràn sát sang lề bên phải cửa sổ một cách phẳng phiu và nhất quán.
+- **Walkthrough**:
+  * Giao diện Admin Dashboard hoàn toàn "lột xác" rực rỡ và chuyên nghiệp, toàn bộ các tab nghiệp vụ được đồng bộ hóa style Memphis Playful Geometric 100% với Bác sĩ. Các Header Card, tab phụ viên thuốc và nút nẩy nổi tạo hiệu ứng thị giác cực kỳ sinh động và cao cấp.
+  * Các hàng trong bảng dữ liệu đã bo cong mịn màng 3D lướt mượt, và background kem polka-dot lộng lẫy đã tràn sát lề phải màn hình phẳng phiu không còn khe hở.
+  * Biên dịch sản phẩm thành công 100% sạch lỗi TypeScript chỉ trong **341ms**.
+
+
+## [2026-05-25] - Đồng bộ hóa Toàn diện Giao diện các tab Admin theo Phong cách Memphis Bác sĩ
+- **Implementation**:
+  * **Giải pháp Thẩm mỹ Toàn diện và An toàn**: Triển khai giải pháp CSS Overrides toàn cục trong tệp `AdminDashboard.css` để chuyển đổi toàn bộ 20 tab nghiệp vụ Admin sang phong cách Memphis Playful Geometric của Bác sĩ một cách nhanh chóng và an toàn 100% (không can thiệp vào logic code React của các file tab).
+  * **Thiết lập Overrides Memphis chi tiết**:
+    * **Cards & Bento Indicators**: Cấu hình các lớp `.floating-card`, `.overview-card`, `.center-card`, `.plan-card`, `.exercise-card`, `.bento-indicator`... có viền Slate dày `3px solid #1E293B`, bóng đổ cứng Memphis 3D `6px 6px 0px #1E293B` và hover nẩy elastic translate nhẹ.
+    * **Bảng Dữ liệu Nổi 3D**: Sửa đổi `tbody tr` có bóng đổ Memphis cứng `4px 4px 0px #1E293B`, các ô `td` có viền Slate `2px`, đặc biệt bo góc rộng `14px` cho hai đầu. Khi rê chuột (hover) hàng dữ liệu sẽ nẩy lên elastic, đổi nền sang kem `#FFFDF5`, và hiện vệt tím đậm đà ở lề bên trái.
+    * **Nút bấm Candy**: Định kiểu cho `.add-btn`, `.view-toggle-btn`, `.intervention-create-btn`... có nền tím Violet `#8B5CF6`, viền Slate `3px`, bóng đổ cứng nẩy bounce khi hover/active.
+    * **Ô tìm kiếm & Toolbar**: Ô tìm kiếm chuyển thành dạng viên thuốc (pill-shape), viền Slate `3px`, bóng Memphis `4px`, nẩy nhẹ khi focus.
+    * **Inputs & Labels**: Toàn bộ inputs, selects, textareas chuyển sang viền Slate `2.5px`, bóng đổ `3px` và focus tím Violet nẩy nổi.
+    * **Hộp thoại Modals**: Cửa sổ pop-dialog `.admin-modal` chuyển sang nền giấy kem `#FFFDF5`, header gradient pastel viền Slate `3px`, nút đóng tròn nẩy, các nút Xác nhận (Amber) / Hủy (Trắng) dạng viên thuốc viền đen Memphis.
+- **Walkthrough**:
+  * Khi di chuyển qua bất kỳ tab nào của Admin (Tổng quan, Quản lý trung tâm, Kế hoạch can thiệp, Blog...), toàn bộ các thành phần dữ liệu và nút bấm đều khoác lên mình phong cách Memphis rực rỡ, đồng bộ 100% về mặt thẩm mỹ với Không gian làm việc Bác sĩ lâm sàng.
+  * Biên dịch sản phẩm thành công 100% không cảnh báo hay lỗi cú pháp (`built in 340ms`).
+
 ## [2026-05-25] - Đồng bộ màu nền giấy kem Memphis mặc định cho toàn bộ Admin Dashboard
 - **Implementation**:
   * **Giải pháp Thẩm mỹ Nhất quán**: Đồng bộ hoàn toàn background của Admin Dashboard cho giống với Bác sĩ để tạo một ngôn ngữ thiết kế nhất quán tuyệt đối (Memphis Playful Geometric).
@@ -1574,3 +1602,48 @@
   - **Bảo toàn phong cách thiết kế**: Giữ nguyên cấu trúc lưới Playful Geometric, nền kem ấm `#FFF8F0` / `#FFFDF5`, viền Slate `#1E293B`, hiệu ứng hover nảy bounce nhẹ nhàng và hiển thị tỉnh thành đầy đủ.
 - **Walkthrough**:
   - Các card trung tâm hiển thị trên trang chủ và trang phụ All Centers Page giờ chỉ hiển thị Tỉnh/Thành phố ở phần chân thẻ (footer) một cách tinh gọn và cân đối, không còn dòng mã ID kỹ thuật thô kệch.
+
+## [2026-05-25] - Đồng bộ bóng đổ Memphis bo cong hoàn hảo cho bảng dữ liệu Admin & Doctor
+- **Khắc phục triệt để lỗi thò shadow vuông**: Chuyển cấu hình `box-shadow` từ thẻ `tr` (thẻ vuông không bo cong được) sang từng ô `td` độc lập.
+- **Bóng đổ đáy liền mạch**: Thiết lập `box-shadow: 0px 4px 0px #1E293B !important` cho tất cả các ô `td` ở giữa và ô đầu dòng (`td:first-child`).
+- **Bo cong shadow lệch phải**: Thiết lập `box-shadow: 4px 4px 0px #1E293B !important` độc quyền cho ô cuối dòng (`td:last-child`), giúp trình duyệt tự động bo tròn bóng đổ 3D cứng Memphis theo góc bo tròn `14px` của ô cuối dòng này, loại bỏ 100% hiện tượng "line đen nhọn sắc cạnh" thò ra ở góc.
+- **Đồng bộ hóa Hover nhấc nổi 3D**: Cập nhật shadow của các ô `td` khi hover tăng lên thành `0px 7px 0px` (đối với ô thường) và `7px 7px 0px` (đối với ô cuối dòng) tương ứng với chuyển dịch nhấc nổi `translate(-3px, -3px)` của dòng.
+- **Xác thực**: Giao diện bảng nổi 3D Memphis trở nên hoàn mỹ, mượt mà và đồng bộ 100% giữa Admin Dashboard và Specialist Portal (Doctor Workspace).
+
+## [2026-05-25] - Khắc phục lỗi đồng bộ vai trò hiển thị khi nhấn chọn Profile cá nhân
+- **Khắc phục lỗi reset thông tin về Admin**: Thay vì khởi tạo mặc định biến state `activeRole` cứng là `'admin'` làm ghi đè mất thông tin thực tế khi mount component `AdminProfileTab`, nay đã chuyển sang khởi tạo động: `useState<MockRole>(profile.role || 'admin')` kế thừa trực tiếp từ prop của cha.
+- **Bổ sung hiệu ứng đồng bộ phản ứng ngược (Reactive Sync Effect)**: Thêm `useEffect` lắng nghe sự thay đổi của `profile.role` để tự động cập nhật `activeRole` khi vai trò thay đổi từ môi trường bên ngoài, đảm bảo dữ liệu hiển thị tức thời 100%.
+- **Trải nghiệm nhất quán**: Khi người dùng ở góc nhìn Bác sĩ (`doctor`) hoặc Giáo viên (`teacher`) can thiệp và nhấp vào mục Hồ sơ ở chân Sidebar, hệ thống hiển thị chính xác 100% hồ sơ học vị, thâm niên và bio chuyên môn tương ứng của Bác sĩ/Giáo viên thay vì bị nhảy về Admin mặc định.
+- **Xác thực**: Quy trình chuyển vai trò giả lập và tương tác profile phản hồi chính xác 100% thời gian thực không reload, Vite build thành công sạch sẽ.
+
+## [2026-05-25] - Khắc phục lỗi tự động chuyển trang khi đổi vai trò ở trang Profile
+- **Ngăn chặn nhảy trang ngoài ý muốn**: Tinh chỉnh logic chuyển đổi tab động trong `useEffect` của `AdminDashboard.tsx`. Khi đổi vai trò giả lập (Bác sĩ, Giáo viên, Admin) từ chính trang Profile (`activeTab === 'adminProfile'`), hệ thống sẽ giữ nguyên tab hiện tại (`activeTab === 'adminProfile'`) thay vì tự động chuyển sang tab `'stats'` hay các trang mặc định khác.
+- **Bảo toàn hành vi nghiệp vụ**: Đối với các tab nghiệp vụ thông thường khác, khi người dùng đổi vai trò giả lập, hệ thống vẫn tự động chuyển đổi tab tương ứng để tránh lỗi phân quyền (Admin sang Overview, Bác sĩ/Giáo viên sang Stats).
+- **Trải nghiệm mượt mà**: Người dùng chuyển vai trò giả lập của profile xong vẫn ở nguyên trang Profile đó để quan sát sự thay đổi thông tin hồ sơ của vai trò mới một cách trực quan 100%.
+- **Xác thực**: Kiểm thử thay đổi vai trò giả lập trong Profile Tab giữ nguyên vị trí, không tự động nhảy trang, Vite build hoàn toàn sạch lỗi 100%.
+
+## [2026-05-25] - Loại bỏ nút chuyển đổi nhanh Chuyên gia Portal ở trang Cá nhân Phụ huynh
+- **Loại bỏ nút chuyển đổi vai trò nhanh**: Gỡ bỏ hoàn toàn thẻ `<a>` của nút `profile-role-switcher-btn` (hiển thị nhãn "🧑‍⚕️ CHUYÊN GIA PORTAL" / "STAFF PORTAL") ở góc phải thanh Header của [UserProfilePage.tsx](file:///e:/Đồ án tốt nghiệp/AutiCare-Design/src/components/profile/UserProfilePage.tsx).
+- **Mục tiêu**: Tinh gọn hóa giao diện thanh Header của Phụ huynh, phân cấp luồng nghiệp vụ rõ ràng, tránh gây bối rối hoặc thao tác nhầm vai trò cho người dùng thông thường.
+- **Xác thực**: Nút Chuyên gia Portal đã được gỡ bỏ hoàn toàn trên giao diện xem và chỉnh sửa thông tin cá nhân của Phụ huynh, thanh Header hiển thị cân đối và gọn gàng, Vite build thành công sạch lỗi 100%.
+
+## [2026-05-25] - Nâng cấp toàn diện giao diện danh sách Bảng Admin và Bác Sĩ (Memphis Layout & Shadow Fix)
+- **Khắc phục lỗi cắt xén shadow nhấc nổi ở hai bên**: Sửa đổi `.data-table-wrapper` và `.table-container` thành `overflow: visible !important`. Đồng thời bổ sung padding đệm phía trên của bảng lên `12px` giúp shadow thò ra ngoài tràn viền một cách phóng khoáng mà không bị cắt đứt bởi biên giới vô hình của các container.
+- **Canh giữa hoàn hảo vùng nội dung chính**: Bổ sung thuộc tính `margin: 0 auto !important` cho `.dashboard-content-area` để toàn bộ view danh sách, biểu đồ và biểu mẫu luôn được căn giữa cân đối trên các màn hình máy tính có độ phân giải siêu rộng (Ultra-wide Desktop).
+- **Khắc phục lỗi nứt đứt gãy shadow ở giữa các thuộc tính**: Đồng bộ hóa bóng đổ lệch phải + dưới `box-shadow: 4px 4px 0px #1E293B !important` cho tất cả các ô `td` (thay vì chỉ gán cho `td:last-child`). Do các ô kề nhau xếp khít sườn, ô tiếp sau sẽ đè nền màu trắng che đi bóng lệch phải của ô trước, để lộ ra dải bóng đáy liên mạch 100% không một vết nứt ở giữa, đồng thời ô cuối dòng lộ bóng lệch phải bo cong hoàn mỹ. Khi hover nhấc nổi, shadow tăng đồng loạt lên `7px 7px 0px #1E293B !important`.
+- **Tạo khung nhãn Sticker cực đẹp cho tiêu đề cột (thead th)**: Đóng khung viền đen dày dặn `2px solid #1E293B`, bo góc `10px`, gán nền giấy kem ấm `#FFFDF5` và bóng đổ cứng Memphis `2.5px 2.5px 0px #1E293B` cho các cột tiêu đề `ID`, `Center Name`, `Physical Address`, `Actions`. Từng cột tiêu đề hiện lên như một tấm nhãn sticker Memphis nổi bật, chuyên nghiệp và cực cá tính.
+- **Xác thực**: Giao diện list view trở nên hoàn mỹ, cân đối tuyệt đối ở trung tâm, không bị cắt góc vô hình, Vite build thành công sạch lỗi 100%.
+
+## [2026-05-25] - Nâng cấp thanh tiêu đề cột liền mạch chạy ngang toàn bảng (Continuous Table Header Row)
+- **Khắc phục tiêu đề cột rời rạc**: Tinh chỉnh lại CSS cho `thead th` và các selector con để gom cụm các tiêu đề cột `ID`, `Plan Name`, `Start Date`, `End Date`, `Status`, `Actions` (hoặc ID, Center Name, Address, Actions) thành một dải khung liền mạch thống nhất chạy ngang 100% chiều rộng của bảng dữ liệu nổi.
+- **Thiết kế dải khung Memphis liền mạch**:
+  * Các ô ở giữa chỉ giữ lại viền trên (`border-top: 2px solid #1E293B`) và viền dưới (`border-bottom: 2px solid #1E293B`), đồng thời gỡ bỏ các viền dọc sườn.
+  * Ô tiêu đề đầu tiên (`thead th:first-child`) có thêm viền trái (`border-left`) và được bo góc tròn bên trái (`border-radius: 12px 0 0 12px`).
+  * Ô tiêu đề cuối cùng (`thead th:last-child`) có thêm viền phải (`border-right`) and được bo góc tròn bên phải (`border-radius: 0 12px 12px 0`).
+  * Đồng bộ hóa bóng đổ lệch phải + đáy `box-shadow: 4px 4px 0px #1E293B !important` cho tất cả các `th` để bóng đáy liên tục không bị đứt đoạn hay nứt nẻ ở điểm nối.
+- **Xác thực**: Thanh tiêu đề bảng (table header row) hiện lên như một tấm dải băng lơ lửng liền mạch 100% cực kỳ gọn gàng, vững chãi, đồng bộ tuyệt đối với các hàng dữ liệu nổi bên dưới, Vite build thành công sạch lỗi.
+
+## [2026-05-25] - Khắc phục triệt để lỗi mất màu card & vệt nứt dọc khi hover dòng bảng nổi
+- **Khắc phục lỗi mất màu nền trắng (màu card)**: Đổi màu nền của các ô `td` khi hover từ màu kem nhạt `#FFFDF5` (bị trùng màu nền Graph Paper / Graph Polka-dot của Dashboard làm mất hình dạng card) thành màu trắng sữa `#FFFFFF !important` tinh khiết. Điều này giúp card nổi lên giữ nguyên hình khối chữ nhật bo góc lộng lẫy và nổi bật rõ nét 100% trên nền kem.
+- **Khắc phục lỗi vệt nứt dọc kẽ pixel khi hover (rotate-gap pixel fix)**: Loại bỏ thuộc tính xoay nhẹ `rotate(0.1deg)` trong `transform` của `tbody tr:hover`, chỉ giữ lại dịch chuyển tịnh tiến nhấc nổi `transform: translate(-4px, -4px) !important`. Điều này ngăn chặn việc trình duyệt render lệch pixel (sub-pixel rendering) gây ra các khe hở/vệt nứt dọc xám mờ phân cách giữa các ô `td` khi hàng di chuyển, đảm bảo các ô `td` luôn khít sát 100% cực kỳ mịn màng và hoàn mỹ.
+- **Xác thực**: Các hàng dữ liệu nổi 3D Memphis khi hover nhấc lên giữ nguyên màu trắng sữa, trơn tru, liền mạch tuyệt đối không còn một kẽ hở hay vệt kẻ nứt dọc, Vite build thành công sạch sẽ.

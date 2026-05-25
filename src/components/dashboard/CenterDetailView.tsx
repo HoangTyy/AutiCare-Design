@@ -290,29 +290,7 @@ const CenterDetailView: React.FC<CenterDetailViewProps> = ({
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <button
             onClick={onBack}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '8px 16px',
-              borderRadius: '12px',
-              border: '1px solid #E2E8F0',
-              background: 'white',
-              fontWeight: 700,
-              fontSize: '0.85rem',
-              color: '#0F172A',
-              cursor: 'pointer',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
-              transition: 'all 0.2s'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.borderColor = 'var(--primary)';
-              e.currentTarget.style.color = 'var(--primary)';
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.borderColor = '#E2E8F0';
-              e.currentTarget.style.color = '#0F172A';
-            }}
+            className="back-btn-v2"
           >
             ← {t.back}
           </button>
@@ -402,18 +380,7 @@ const CenterDetailView: React.FC<CenterDetailViewProps> = ({
       </div>
 
       {/* Sub-tab navigation */}
-      <div
-        className="sub-tab-navigation"
-        style={{
-          display: 'flex',
-          gap: '0.5rem',
-          borderBottom: '2px solid #E2E8F0',
-          paddingBottom: '1px',
-          marginBottom: '2rem',
-          overflowX: 'auto',
-          whiteSpace: 'nowrap'
-        }}
-      >
+      <div className="sub-tab-navigation">
         {[
           { id: 'overview', icon: 'ℹ️', label: t.tabOverview },
           { id: 'director_stats', icon: userRole === 'director' ? '📊' : '🔒', label: t.tabDirectorStats },
@@ -425,21 +392,7 @@ const CenterDetailView: React.FC<CenterDetailViewProps> = ({
           <button
             key={tab.id}
             onClick={() => setActiveSubTab(tab.id as any)}
-            style={{
-              padding: '12px 20px',
-              border: 'none',
-              background: 'transparent',
-              fontWeight: 700,
-              fontSize: '0.9rem',
-              color: activeSubTab === tab.id ? 'var(--primary)' : '#64748B',
-              cursor: 'pointer',
-              borderBottom: activeSubTab === tab.id ? '3px solid var(--primary)' : '3px solid transparent',
-              marginBottom: '-2px',
-              transition: 'all 0.2s',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px'
-            }}
+            className={`sub-tab-btn ${activeSubTab === tab.id ? 'active' : ''}`}
           >
             <span>{tab.icon}</span>
             <span>{tab.label}</span>

@@ -269,9 +269,16 @@ export const AdminProfileTab: React.FC<AdminProfileTabProps> = ({ lang, profile,
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   
-  // State for mock role simulation
-  const [activeRole, setActiveRole] = useState<MockRole>('admin');
+  // State for mock role simulation - Khởi tạo từ profile.role của component cha thay vì fix cứng admin
+  const [activeRole, setActiveRole] = useState<MockRole>(profile.role || 'admin');
   const [showRolePicker, setShowRolePicker] = useState(false);
+
+  // Đồng bộ hóa vai trò giả lập khi prop profile thay đổi từ bên ngoài
+  React.useEffect(() => {
+    if (profile.role) {
+      setActiveRole(profile.role);
+    }
+  }, [profile.role]);
 
   // States for change password modal
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);

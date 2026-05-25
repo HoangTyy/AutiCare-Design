@@ -105,16 +105,6 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({
           <h1 className="profile-page-title">{t.title}</h1>
           
           <div className="profile-header-right">
-            {/* Candy Button chuyển vai trò nhanh */}
-            <a 
-              href="#/staff-profile"
-              className="profile-role-switcher-btn"
-              title={lang === 'vi' ? "Chuyển sang trang Chuyên gia" : "Switch to Staff Portal"}
-              style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}
-            >
-              🧑‍⚕️ {lang === 'vi' ? "CHUYÊN GIA PORTAL" : "STAFF PORTAL"}
-            </a>
-
             <div className="profile-lang-switch">
               <button 
                 className={`profile-lang-btn ${lang === 'vi' ? 'active' : ''}`} 

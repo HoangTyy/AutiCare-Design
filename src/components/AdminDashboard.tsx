@@ -219,7 +219,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
   // useEffect đồng bộ hóa activeTab khi chuyển đổi vai trò giả lập
   React.useEffect(() => {
     if (adminInfo.role === 'doctor' || adminInfo.role === 'teacher') {
-      setActiveTab('stats');
+      // Chỉ nhảy tab sang 'stats' nếu tab hiện tại không phải là 'adminProfile' (trang Hồ sơ)
+      setActiveTab(prev => prev === 'adminProfile' ? 'adminProfile' : 'stats');
       setExpandedGroups(['stats', 'scheduling', 'clinical']);
     } else {
       setActiveTab(prev => 
