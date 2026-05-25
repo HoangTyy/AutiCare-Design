@@ -18,7 +18,7 @@
 - **i18n**: Custom state-based translation dictionary (VN/EN) integrated reactively inside every tab.
 
 ## Key Modules
-1. **Landing Page**: Redesigned header with Nav Links (Left), Neon Logo (Center), and Minimalist Icons (Right). Redesigned homepage with high-end, elegant light warm cream (#FFF8F0) background, 3D WebGL Three.js interactive floating particle sphere (ThreeBackground.tsx), six snap-scrollable desktop sections (Hero, Categories Bento Grid, Glowing Reviews, Statistic About Counters, **Centers Network Cards**, Gradient CTA Banner), developers and Mentor footer, and a custom right-floating glassmorphic section nav indicator (FloatingNav.tsx). **CentersSection.tsx** hiển thị danh sách 3 trung tâm AutiCare dạng neo-brutalism card grid (3 cột desktop, 2 cột tablet, 1 cột mobile), mỗi card gồm accent bar gradient, icon building, tên + trạng thái (pulse animation), địa chỉ/SĐT/email, mã trung tâm footer, hover lift effect.
+1. **Landing Page**: Redesigned header with Nav Links (Left), Neon Logo (Center), and Minimalist Icons (Right). Redesigned homepage with high-end, elegant light warm cream (#FFF8F0) background, 3D WebGL Three.js interactive floating particle sphere (ThreeBackground.tsx), six snap-scrollable desktop sections (Hero, Categories Bento Grid, Glowing Reviews, Statistic About Counters, **Centers Network Cards**, Gradient CTA Banner), developers and Mentor footer, and a custom right-floating glassmorphic section nav indicator (FloatingNav.tsx). **CentersSection.tsx** hiển thị danh sách 3 trung tâm AutiCare dạng neo-brutalism card grid (3 cột desktop, 2 cột tablet, 1 cột mobile), mỗi card gồm accent bar gradient, icon building, tên + trạng thái (pulse animation), địa chỉ/SĐT/email, thông tin tỉnh thành ở footer (đã loại bỏ mã trung tâm), hover lift effect.
 2. **Admin Dashboard**: 
     - **Sidebar & Topbar**: Unified **Midnight Indigo** theme with neon branding and glassmorphism interactive states.
     - **Contextual UI**: Modals and breadcrumbs dynamically update based on the active tab for precise user guidance.
@@ -53,8 +53,16 @@
      - **Quản lý Lịch hẹn**: tab `appointments` Lịch hẹn với phụ huynh (render `StaffAppointmentsTab.tsx`), tab `schedule` Thời khóa biểu tuần (`StaffScheduleTab.tsx`).
      - **Nghiệp vụ Lâm sàng**: tab `intervention` Hồ sơ can thiệp (`StaffInterventionTab.tsx`), tab `assessment` Đánh giá Lâm sàng PEP-3 (`ToolAssessmentPage.tsx`) có Design Lab `ThemeCustomizer` tích hợp tại chỗ (thỏa mãn Luật số 5).
    - Sidebar footer tích hợp avatar và thông tin Bác sĩ chuyên khoa click chuyển nhanh về trang Cá nhân màu kem.
+9. **Client Center Detail Page (Trang chi tiết trung tâm phía phụ huynh - CenterDetailClientPage.tsx)**:
+   - View độc lập thay thế cho giao diện Homepage khi nhấp chọn bất kỳ thẻ trung tâm nào ở trang chủ hoặc All Centers Page.
+   - **Playful Geometric Design System**: Áp dụng đồng bộ nền kem ấm `#FFFDF5`, viền cứng Slate `#1E293B`, bóng đổ Memphis cứng cá tính.
+   - **Phần trên (Thông tin cơ sở)**: Bố cục Single Card Board Layout lớn hiển thị Tên trung tâm, Badge trạng thái hoạt động rực rỡ, Địa chỉ, Số điện thoại, Email, và Giám đốc trực thuộc được nạp vào lưới trắng sữa tương phản cao.
+   - **Phần dưới (Đặt lịch bác sĩ theo hàng ngang)**: Danh sách bác sĩ chất lượng cao được thiết kế dạng các hàng ngang (.doctor-row-card). Cột trái là Avatar tròn, Chức danh chuyên khoa, Hộp đánh giá sao lấp lánh (Rating reviews) và đoạn mô tả triết lý trị liệu. Cột phải là Lịch biểu (Schedule) đặt lịch 2h/phiên cho phép chọn ngày nhanh dạng pill và click trực tiếp vào ca giờ trống (Available/Online/Offline) để mở modal xác nhận đặt lịch.
+   - **Vé hẹn AutiCare (Appointment Ticket)**: Thiết kế dạng vé Memphis cao cấp có mã vạch giả lập, in đầy đủ thông tin bác sĩ, cơ sở, thời gian và hình thức tư vấn có hỗ trợ dịch thuật song ngữ Anh-Việt hoàn chỉnh và Responsive 100% tự động xếp dọc.
 
 ## Current State
+- [x] Phát triển Trang chi tiết trung tâm độc lập phía phụ huynh (`CenterDetailClientPage.tsx`) tích hợp thông tin cơ sở và hệ thống đặt lịch hẹn bác sĩ theo hàng ngang trực quan, sinh động có in vé hẹn Memphis.
+- [x] Khắc phục triệt để toàn bộ các lỗi biên dịch TypeScript phát sinh từ luồng tích hợp mới trong `App.tsx`, `CentersSection.tsx` và `AllCentersPage.tsx`.
 - [x] Tinh chỉnh thiết kế thống kê chuyên khoa (`StaffStatsTab.tsx`) hiển thị biểu đồ Mastery Progress 3D Memphis và SVG phân bổ giờ can thiệp của trẻ đang phụ trách, tích hợp trơn tru dưới tab "📊 Phân Tích Thống Kê" trong Specialist Portal.
 - [x] Tinh chỉnh dọn dẹp tab Hồ sơ Can thiệp (`StaffInterventionTab.tsx`), loại bỏ khối thống kê trùng lặp để giao diện tập trung 100% vào danh sách hồ sơ điều trị.
 - [x] Reorganized Exercise Levels & Exercise Categories to belong to individual Centers instead of being global.
