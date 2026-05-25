@@ -1,5 +1,18 @@
 # Project Logs
 
+## [2026-05-25] - Tích Hợp Nút Xóa Vai Trò Custom Trong Quản Lý Center Roles
+- **Bổ sung nút xóa nhanh trên danh sách vai trò bên trái (Roles Scroll List)**:
+  * *Hành động*: Bổ sung nút xóa nhanh hình chiếc thùng rác `🗑️` màu đỏ cho các vai trò Tự tạo (Custom roles) ở góc phải của card vai trò trong danh sách cuộn bên trái.
+  * *Micro-interaction*: Thiết lập cơ chế ẩn Badge "Tự tạo" và hiện nút xóa `🗑️` khi hover thông qua CSS transition/transform. Click vào nút này gọi `e.stopPropagation()` để chặn việc chọn card và kích hoạt modal xác nhận xóa.
+  * *Ý nghĩa*: Mang lại trải nghiệm thao tác nhanh cực kỳ tiện lợi và gọn gàng, tránh hiện tượng phình ngang hay tràn chữ của card vai trò.
+- **Bổ sung nút xóa nhanh cạnh tiêu đề ở cột bên phải**:
+  * *Hành động*: Thêm nút xóa nhỏ màu đỏ `🗑️` ngay bên cạnh tên vai trò đang cấu hình ở đầu cột bên phải.
+  * *Ý nghĩa*: Cho phép người dùng xóa vai trò Custom từ bất kỳ tab phụ nào (General hay Permissions) mà không cần phải chuyển tab hay cuộn xuống chân trang.
+- **Nâng cấp State và Modal xác nhận xóa**:
+  * *Hành động*: Thay thế state `deleteConfirmOpen` bằng `roleToDelete` lưu trữ chính xác vai trò cần xóa. Nâng cấp hàm `handleDeleteRole` để xóa vai trò tương ứng và tự động chọn vai trò đầu tiên còn lại nếu vai trò bị xóa trùng với vai trò đang được chọn.
+  * *Bảo mật*: Tiếp tục khóa cứng hoàn toàn nút xóa cho các vai trò mặc định hệ thống (isDefault) để bảo đảm an toàn vận hành.
+- **Biên dịch sản phẩm**: Chạy biên dịch sản phẩm `npm.cmd run build` thành công rực rỡ 100% không còn bất kỳ lỗi hay cảnh báo TypeScript nào.
+
 ## [2026-05-25] - Hoàn Thiện 100% Đánh Giá PEP-3 Lâm Sàng: Tích Hợp 172 Câu Hỏi Thực Tế, Lưới Nhảy Nhanh, Auto-Fill Demo & Công Thức Quy Đổi Đồ Thị Chuẩn Xác
 - **Nạp cơ sở dữ liệu y khoa thực tế PEP-3 (`PEP3TestRunner.tsx`)**:
   * *Hành động*: Thay thế danh sách 10 câu hỏi mock cũ bằng toàn bộ **172 bài tập lâm sàng PEP-3 thực tế** được import song ngữ (`vi` / `en`) trực tiếp từ tệp điều phối dữ liệu trung tâm `pep3ItemsList` (tổng hợp từ 13 tệp JSON độc lập).

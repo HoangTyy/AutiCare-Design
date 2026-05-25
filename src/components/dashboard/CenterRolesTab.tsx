@@ -154,7 +154,7 @@ const CenterRolesTab: React.FC<CenterRolesTabProps> = ({ lang, roles, onUpdateRo
   
   // Auto-saved micro-indicator state
   const [showSaved, setShowSaved] = useState(false);
-  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [roleToDelete, setRoleToDelete] = useState<CenterRole | null>(null);
 
   // Sync state if center or prop updates
   useEffect(() => {
@@ -288,8 +288,8 @@ const CenterRolesTab: React.FC<CenterRolesTabProps> = ({ lang, roles, onUpdateRo
 
   // Delete Role
   const handleDeleteRole = () => {
-    if (!selectedRole || selectedRole.isDefault) return;
-    const filtered = currentRoles.filter(r => r.id !== selectedRole.id);
+    if (!roleToDelete || roleToDelete.isDefault) return;
+    const filtered = currentRoles.filter(r => r.id !== roleToDelete.id);
     
     // Re-adjust priorities
     const updated = filtered.map((r, idx) => ({
@@ -298,11 +298,15 @@ const CenterRolesTab: React.FC<CenterRolesTabProps> = ({ lang, roles, onUpdateRo
     }));
 
     setCurrentRoles(updated);
-    setDeleteConfirmOpen(false);
+    setRoleToDelete(null);
     
-    // Select first role remaining
-    if (updated.length > 0) {
-      setSelectedRoleId(updated[0].id);
+    // If deleted role was selected, auto-select the first remaining role
+    if (selectedRoleId === roleToDelete.id) {
+      if (updated.length > 0) {
+        setSelectedRoleId(updated[0].id);
+      } else {
+        setSelectedRoleId('');
+      }
     }
   };
 
@@ -368,6 +372,30 @@ const CenterRolesTab: React.FC<CenterRolesTabProps> = ({ lang, roles, onUpdateRo
         .role-card-item:hover .drag-handle-glow {
           color: var(--primary) !important;
           text-shadow: 0 0 4px rgba(13, 148, 136, 0.4);
+        }
+        
+        .role-badge-custom {
+          transition: all 0.2s ease;
+        }
+        
+        .role-card-item:hover .role-badge-custom {
+          display: none !important;
+        }
+        
+        .role-card-item:hover .role-delete-btn {
+          display: flex !important;
+          animation: fadeInScale 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        @keyframes fadeInScale {
+          0% {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1);
+          }
         }
       `}</style>
       
@@ -572,8 +600,8 @@ const CenterRolesTab: React.FC<CenterRolesTabProps> = ({ lang, roles, onUpdateRo
                       </div>
                     </div>
 
-                    {/* Badges system */}
-                    <div style={{ display: 'flex', gap: '4px', marginLeft: '6px' }}>
+                    {/* Badges system & Delete Button */}
+                    <div style={{ display: 'flex', gap: '4px', marginLeft: '6px', alignItems: 'center', position: 'relative', minWidth: '55px', justifyContent: 'flex-end' }}>
                       {role.isDefault ? (
                         <span style={{
                           background: '#EFF6FF',
@@ -588,18 +616,56 @@ const CenterRolesTab: React.FC<CenterRolesTabProps> = ({ lang, roles, onUpdateRo
                           {t.isDefault}
                         </span>
                       ) : (
-                        <span style={{
-                          background: '#F0FDFA',
-                          border: '1px solid #CCFBF1',
-                          color: '#0F766E',
-                          fontSize: '0.65rem',
-                          fontWeight: 800,
-                          padding: '2px 6px',
-                          borderRadius: '6px',
-                          textTransform: 'uppercase'
-                        }}>
-                          {t.isCustom}
-                        </span>
+                        <>
+                          <span className="role-badge-custom" style={{
+                            background: '#F0FDFA',
+                            border: '1px solid #CCFBF1',
+                            color: '#0F766E',
+                            fontSize: '0.65rem',
+                            fontWeight: 800,
+                            padding: '2px 6px',
+                            borderRadius: '6px',
+                            textTransform: 'uppercase'
+                          }}>
+                            {t.isCustom}
+                          </span>
+                          
+                          <button
+                            className="role-delete-btn"
+                            title={t.deleteBtn}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setRoleToDelete(role);
+                            }}
+                            style={{
+                              background: '#FEF2F2',
+                              border: '1px solid #FEE2E2',
+                              color: '#EF4444',
+                              width: '26px',
+                              height: '26px',
+                              borderRadius: '8px',
+                              display: 'none',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '0.75rem',
+                              cursor: 'pointer',
+                              padding: 0,
+                              transition: 'all 0.2s'
+                            }}
+                            onMouseOver={(e) => {
+                              e.currentTarget.style.background = '#EF4444';
+                              e.currentTarget.style.color = 'white';
+                              e.currentTarget.style.borderColor = '#EF4444';
+                            }}
+                            onMouseOut={(e) => {
+                              e.currentTarget.style.background = '#FEF2F2';
+                              e.currentTarget.style.color = '#EF4444';
+                              e.currentTarget.style.borderColor = '#FEE2E2';
+                            }}
+                          >
+                            🗑️
+                          </button>
+                        </>
                       )}
                     </div>
                   </div>
@@ -630,9 +696,44 @@ const CenterRolesTab: React.FC<CenterRolesTabProps> = ({ lang, roles, onUpdateRo
               {/* Detail Header Title */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '8px', marginBottom: '1.25rem' }}>
                 <div>
-                  <h4 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 800, color: '#0F172A' }}>
-                    {lang === 'vi' ? selectedRole.nameVi : selectedRole.nameEn}
-                  </h4>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <h4 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 800, color: '#0F172A' }}>
+                      {lang === 'vi' ? selectedRole.nameVi : selectedRole.nameEn}
+                    </h4>
+                    {!selectedRole.isDefault && (
+                      <button
+                        onClick={() => setRoleToDelete(selectedRole)}
+                        title={t.deleteBtn}
+                        style={{
+                          background: '#FEF2F2',
+                          border: '1px solid #FEE2E2',
+                          color: '#EF4444',
+                          width: '26px',
+                          height: '26px',
+                          borderRadius: '8px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '0.75rem',
+                          cursor: 'pointer',
+                          padding: 0,
+                          transition: 'all 0.2s'
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.background = '#EF4444';
+                          e.currentTarget.style.color = 'white';
+                          e.currentTarget.style.borderColor = '#EF4444';
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.background = '#FEF2F2';
+                          e.currentTarget.style.color = '#EF4444';
+                          e.currentTarget.style.borderColor = '#FEE2E2';
+                        }}
+                      >
+                        🗑️
+                      </button>
+                    )}
+                  </div>
                   <div style={{ fontSize: '0.75rem', color: '#64748B', marginTop: '2px', fontWeight: 600 }}>
                     ID: <span style={{ color: 'var(--primary)' }}>{selectedRole.id}</span> • Priority: <span style={{ color: '#E29578' }}>#{selectedRole.priority}</span>
                   </div>
@@ -799,7 +900,7 @@ const CenterRolesTab: React.FC<CenterRolesTabProps> = ({ lang, roles, onUpdateRo
                   {/* Delete role button */}
                   <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '1.25rem', display: 'flex', justifyContent: 'flex-end' }}>
                     <button
-                      onClick={() => !selectedRole.isDefault && setDeleteConfirmOpen(true)}
+                      onClick={() => !selectedRole.isDefault && setRoleToDelete(selectedRole)}
                       disabled={selectedRole.isDefault}
                       style={{
                         padding: '10px 20px',
@@ -943,7 +1044,7 @@ const CenterRolesTab: React.FC<CenterRolesTabProps> = ({ lang, roles, onUpdateRo
       </div>
 
       {/* Delete Confirmation Modal (Glow effect) */}
-      {deleteConfirmOpen && selectedRole && (
+      {roleToDelete && (
         <div
           style={{
             position: 'fixed',
@@ -979,12 +1080,12 @@ const CenterRolesTab: React.FC<CenterRolesTabProps> = ({ lang, roles, onUpdateRo
             <p style={{ color: '#475569', fontSize: '0.85rem', marginBottom: '2rem', lineHeight: '1.6' }}>
               {t.deleteConfirmDesc} <br />
               <span style={{ display: 'block', marginTop: '10px', fontSize: '1rem', fontWeight: 800, color: '#0F172A' }}>
-                "{lang === 'vi' ? selectedRole.nameVi : selectedRole.nameEn}"
+                "{lang === 'vi' ? roleToDelete.nameVi : roleToDelete.nameEn}"
               </span>
             </p>
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
               <button
-                onClick={() => setDeleteConfirmOpen(false)}
+                onClick={() => setRoleToDelete(null)}
                 style={{
                   padding: '10px 20px',
                   borderRadius: '10px',
