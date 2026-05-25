@@ -1157,3 +1157,863 @@ tbody tr:hover td:first-child {
   }
 }
 
+/* ==========================================================================
+   ADMIN PROFILE - PLAYFUL GEOMETRIC MEMPHIS DESIGN SYSTEM
+   ========================================================================== */
+
+/* === Page Container === */
+.admin-profile-container {
+  padding: 0 !important;
+  max-width: 100% !important;
+}
+
+/* === Page Header Zone === */
+.profile-header-zone {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 0 0.5rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.profile-header-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.profile-main-title {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: #0F172A;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.profile-main-subtitle {
+  font-size: 0.9rem;
+  color: #64748B;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* === Floating Island Card (Memphis) === */
+.admin-profile-form {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.profile-island-card {
+  background: #FFFFFF;
+  border: 3px solid #1E293B;
+  border-radius: 20px;
+  box-shadow: 8px 8px 0px #1E293B;
+  padding: 2rem 2.5rem;
+  position: relative;
+}
+
+/* === Top Bar Details: Avatar + Quick Intro === */
+.profile-top-bar-details {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Avatar Circle */
+.profile-avatar-circle-wrapper {
+  flex-shrink: 0;
+}
+
+.profile-avatar-display {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 3px solid #1E293B;
+  box-shadow: 4px 4px 0px #1E293B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #EDE9FE 0%, #FEF3C7 100%);
+  overflow: hidden;
+}
+
+.profile-avatar-display img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+/* Quick Intro Info */
+.profile-quick-intro-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.profile-display-name {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.profile-display-username {
+  font-size: 0.85rem;
+  color: #64748B;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Badge Row */
+.profile-badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.profile-badge-pill {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  border: 2px solid #1E293B;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.profile-badge-pill.role-pill {
+  background: #EDE9FE;
+  color: #5B21B6;
+}
+
+.profile-badge-pill.simulation-pill {
+  background: #FEE2E2;
+  color: #DC2626;
+}
+
+.profile-badge-pill.center-pill {
+  background: #DBEAFE;
+  color: #1D4ED8;
+}
+
+/* === Section Divider (Memphis Dashed) === */
+.profile-section-divider {
+  border: none;
+  border-top: 2px dashed #CBD5E1;
+  margin: 1.25rem 0;
+}
+
+/* === Fields Grid (2 Column Static View) === */
+.profile-fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.form-group-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group-item label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.static-field-value {
+  background: #F8FAFC;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: #1E293B;
+  font-weight: 600;
+  border: 1px solid #E2E8F0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.static-field-value.text-area-static {
+  min-height: 80px;
+  align-items: flex-start;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.static-field-value.secure-invite-field {
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 2px;
+  color: #7C3AED;
+  font-weight: 800;
+}
+
+.full-width-field {
+  grid-column: span 2;
+}
+
+/* === Footer Actions (View Mode Buttons) === */
+.profile-footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px dashed #CBD5E1;
+}
+
+.profile-btn-primary,
+.profile-btn-secondary {
+  padding: 0.7rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  border: 3px solid #1E293B;
+  box-shadow: 4px 4px 0px #1E293B;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-family: var(--font-main);
+}
+
+.profile-btn-primary:hover,
+.profile-btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px #1E293B;
+}
+
+.profile-btn-primary:active,
+.profile-btn-secondary:active {
+  transform: translateY(2px);
+  box-shadow: 2px 2px 0px #1E293B;
+}
+
+.candy-btn-edit {
+  background: #8B5CF6;
+  color: white;
+}
+
+.candy-btn-change-password {
+  background: #FFFFFF;
+  color: #1E293B;
+}
+
+/* === Role Switcher (Design Lab Hidden Trigger) === */
+.profile-role-switcher-container {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 20;
+}
+
+.btn-switch-role-trigger {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #CBD5E1;
+  background: #F8FAFC;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.btn-switch-role-trigger:hover {
+  border-color: #1E293B;
+  background: #EDE9FE;
+  transform: rotate(45deg);
+  box-shadow: 2px 2px 0px #1E293B;
+}
+
+.role-picker-dropdown {
+  position: absolute;
+  top: 44px;
+  right: 0;
+  background: #FFFDF5;
+  border: 3px solid #1E293B;
+  border-radius: 16px;
+  box-shadow: 6px 6px 0px #1E293B;
+  padding: 0.75rem;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  animation: bounceIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.dropdown-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.3rem 0.5rem;
+  border-bottom: 2px dashed #CBD5E1;
+  margin-bottom: 0.3rem;
+}
+
+.dropdown-role-item {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1E293B;
+  text-align: left;
+  transition: all 0.2s;
+  font-family: var(--font-main);
+}
+
+.dropdown-role-item:hover {
+  background: #EDE9FE;
+  transform: translateX(4px);
+}
+
+.dropdown-role-item.active {
+  background: #8B5CF6;
+  color: white;
+  font-weight: 800;
+  box-shadow: 2px 2px 0px #1E293B;
+}
+
+@keyframes bounceIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   ADMIN PROFILE - MODAL SYSTEM (Memphis Neo-Brutalist)
+   ========================================================================== */
+
+/* === Modal Overlay === */
+.profile-admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  padding: 1rem;
+}
+
+/* === Modal Shell === */
+.profile-admin-modal-shell {
+  background: #FFFDF5;
+  border: 3px solid #1E293B;
+  border-radius: 24px;
+  box-shadow: 12px 12px 0px #1E293B;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.change-password-modal {
+  max-width: 520px;
+}
+
+.edit-profile-modal {
+  max-width: min(780px, calc(100% - 2rem));
+}
+
+/* === Modal Header Band === */
+.modal-header-band {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, #EDE9FE 0%, #FEF3C7 50%, #DBEAFE 100%);
+  border-bottom: 3px solid #1E293B;
+}
+
+.modal-title {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #1E293B;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.modal-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #1E293B;
+  background: #FFFFFF;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #64748B;
+  transition: all 0.2s;
+}
+
+.modal-close-btn:hover {
+  background: #FEE2E2;
+  color: #DC2626;
+  transform: rotate(90deg);
+}
+
+/* === Modal Body Content === */
+.modal-body-content {
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.modal-subtitle-text {
+  font-size: 0.85rem;
+  color: #64748B;
+  margin: 0 0 1.25rem 0;
+  font-weight: 500;
+}
+
+/* === Modal Scrollable Body (Edit Profile) === */
+.modal-scrollable-body {
+  padding: 1.5rem;
+  flex: 1;
+  max-height: none !important;
+  overflow-y: visible !important;
+}
+
+/* === Modal Form Fields === */
+.modal-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.modal-form-group label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modal-form-group input,
+.modal-form-group textarea,
+.modal-form-group select {
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 2px solid #CBD5E1;
+  font-size: 0.9rem;
+  color: #1E293B;
+  font-weight: 600;
+  outline: none;
+  transition: all 0.2s;
+  font-family: var(--font-main);
+  background: #FFFFFF;
+}
+
+.modal-form-group input:focus,
+.modal-form-group textarea:focus {
+  border-color: #8B5CF6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+  transform: translateY(-1px);
+}
+
+.modal-form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Modal Fields Grid 2 Column */
+.modal-fields-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.modal-fields-grid-2col .full-width-field {
+  grid-column: span 2;
+}
+
+/* === Modal Footer Actions === */
+.modal-footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  border-top: 3px solid #1E293B;
+  background: #F8FAFC;
+}
+
+.modal-btn-cancel,
+.modal-btn-confirm {
+  padding: 0.65rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: 3px solid #1E293B;
+  box-shadow: 4px 4px 0px #1E293B;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-family: var(--font-main);
+}
+
+.modal-btn-cancel:hover,
+.modal-btn-confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px #1E293B;
+}
+
+.modal-btn-cancel:active,
+.modal-btn-confirm:active {
+  transform: translateY(2px);
+  box-shadow: 2px 2px 0px #1E293B;
+}
+
+.candy-btn-cancel {
+  background: #FFFFFF;
+  color: #1E293B;
+}
+
+.candy-btn-save {
+  background: #FBBF24;
+  color: #1E293B;
+}
+
+/* === Error Banner with Shake === */
+.modal-error-banner {
+  background: #FEE2E2;
+  color: #DC2626;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 2px solid #FECACA;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.animate-shake {
+  animation: shakeError 0.5s ease-in-out;
+}
+
+@keyframes shakeError {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-6px); }
+  20%, 40%, 60%, 80% { transform: translateX(6px); }
+}
+
+/* === Scale Bounce Entrance === */
+.animate-scale-bounce {
+  animation: scaleBounce 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes scaleBounce {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   ADMIN PROFILE - AVATAR PICKER & UPLOAD OVERLAY
+   ========================================================================== */
+
+.modal-avatar-picker-zone {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.5rem 0;
+}
+
+.modal-avatar-display-wrapper {
+  flex-shrink: 0;
+  position: relative;
+}
+
+.modal-avatar-display {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #1E293B;
+  box-shadow: 4px 4px 0px #1E293B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  background: linear-gradient(135deg, #EDE9FE 0%, #FEF3C7 100%);
+  overflow: hidden;
+}
+
+.modal-avatar-display img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.interactive-avatar-wrapper {
+  cursor: pointer;
+}
+
+/* Upload Hover Overlay */
+.modal-avatar-hover-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  cursor: pointer;
+  border: 3px solid #1E293B;
+}
+
+.interactive-avatar-wrapper:hover .modal-avatar-hover-overlay {
+  opacity: 1;
+}
+
+.overlay-camera-icon {
+  font-size: 1.4rem;
+  animation: bounceMini 1s infinite;
+}
+
+.overlay-text {
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: white;
+  text-align: center;
+  line-height: 1.2;
+}
+
+@keyframes bounceMini {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Emoji Picker */
+.modal-emoji-picker-container {
+  flex: 1;
+}
+
+.picker-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748B;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.modal-emoji-picker-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.modal-emoji-selector-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 2px solid #E2E8F0;
+  background: #FFFFFF;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.modal-emoji-selector-btn:hover {
+  border-color: #8B5CF6;
+  background: #EDE9FE;
+  transform: scale(1.15);
+}
+
+.modal-emoji-selector-btn.selected {
+  border-color: #8B5CF6;
+  background: #EDE9FE;
+  box-shadow: 2px 2px 0px #1E293B;
+  transform: scale(1.1);
+}
+
+/* === Disabled Input (System Fields) === */
+.disabled-input {
+  background: #F1F5F9 !important;
+  color: #94A3B8 !important;
+  cursor: not-allowed !important;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.system-field-hint {
+  font-size: 0.7rem;
+  color: #94A3B8;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+
+/* ==========================================================================
+   ADMIN PROFILE CUSTOMIZATIONS & UX REFINEMENTS
+   ========================================================================== */
+
+/* Tắt scrollbar dọc trong Modal Chỉnh sửa hồ sơ Admin */
+.edit-profile-modal .modal-scrollable-body {
+  max-height: none !important;
+  overflow-y: visible !important;
+}
+
+/* Toast Memphis Playful nổi bồng bềnh khi Lưu thành công */
+.profile-toast-floating {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #34D399; /* Green Emerald */
+  color: #1E293B;
+  padding: 16px 24px;
+  border-radius: 16px;
+  border: 3px solid #1E293B;
+  box-shadow: 6px 6px 0px #1E293B;
+  font-family: var(--font-main);
+  font-weight: 800;
+  font-size: 0.95rem;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.animate-bounce {
+  animation: toastBounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes toastBounceIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   ADMIN PROFILE - RESPONSIVE (Mobile / Tablet)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .profile-island-card {
+    padding: 1.25rem;
+    box-shadow: 4px 4px 0px #1E293B;
+  }
+
+  .profile-top-bar-details {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .profile-quick-intro-info {
+    align-items: center;
+  }
+
+  .profile-badges-row {
+    justify-content: center;
+  }
+
+  .profile-fields-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width-field {
+    grid-column: span 1;
+  }
+
+  .profile-footer-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .profile-footer-actions button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .profile-main-title {
+    font-size: 1.3rem;
+  }
+
+  /* Modal Responsive */
+  .profile-admin-modal-shell {
+    box-shadow: 6px 6px 0px #1E293B;
+    max-height: 95vh;
+  }
+
+  .modal-fields-grid-2col {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-fields-grid-2col .full-width-field {
+    grid-column: span 1;
+  }
+
+  .modal-avatar-picker-zone {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .modal-emoji-picker-grid {
+    justify-content: center;
+  }
+
+  .modal-footer-actions {
+    flex-direction: column-reverse;
+  }
+
+  .modal-footer-actions button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .role-picker-dropdown {
+    right: -8px;
+  }
+}
+
