@@ -69,6 +69,18 @@
 - **Walkthrough**:
   * Chuyên gia di chuyển giữa bất kỳ tab nào (Thống kê, Lịch hẹn, Thời khóa biểu, Hồ sơ can thiệp) đều thấy nền giấy kem polka-dot nảy nở tuyệt đẹp, cấu trúc Bento và Header vững chãi, đồng bộ 100% về mặt thẩm mỹ với tab Đánh giá Lâm sàng.
   * Build production thành công 100% không cảnh báo (`built in 333ms`).
+## [2026-05-25] - Tích Hợp Nút Xóa Vai Trò Custom Trong Quản Lý Center Roles
+- **Bổ sung nút xóa nhanh trên danh sách vai trò bên trái (Roles Scroll List)**:
+  * *Hành động*: Bổ sung nút xóa nhanh hình chiếc thùng rác `🗑️` màu đỏ cho các vai trò Tự tạo (Custom roles) ở góc phải của card vai trò trong danh sách cuộn bên trái.
+  * *Micro-interaction*: Thiết lập cơ chế ẩn Badge "Tự tạo" và hiện nút xóa `🗑️` khi hover thông qua CSS transition/transform. Click vào nút này gọi `e.stopPropagation()` để chặn việc chọn card và kích hoạt modal xác nhận xóa.
+  * *Ý nghĩa*: Mang lại trải nghiệm thao tác nhanh cực kỳ tiện lợi và gọn gàng, tránh hiện tượng phình ngang hay tràn chữ của card vai trò.
+- **Bổ sung nút xóa nhanh cạnh tiêu đề ở cột bên phải**:
+  * *Hành động*: Thêm nút xóa nhỏ màu đỏ `🗑️` ngay bên cạnh tên vai trò đang cấu hình ở đầu cột bên phải.
+  * *Ý nghĩa*: Cho phép người dùng xóa vai trò Custom từ bất kỳ tab phụ nào (General hay Permissions) mà không cần phải chuyển tab hay cuộn xuống chân trang.
+- **Nâng cấp State và Modal xác nhận xóa**:
+  * *Hành động*: Thay thế state `deleteConfirmOpen` bằng `roleToDelete` lưu trữ chính xác vai trò cần xóa. Nâng cấp hàm `handleDeleteRole` để xóa vai trò tương ứng và tự động chọn vai trò đầu tiên còn lại nếu vai trò bị xóa trùng với vai trò đang được chọn.
+  * *Bảo mật*: Tiếp tục khóa cứng hoàn toàn nút xóa cho các vai trò mặc định hệ thống (isDefault) để bảo đảm an toàn vận hành.
+- **Biên dịch sản phẩm**: Chạy biên dịch sản phẩm `npm.cmd run build` thành công rực rỡ 100% không còn bất kỳ lỗi hay cảnh báo TypeScript nào.
 
 ## [2026-05-25] - Khôi phục Toàn bộ CSS Admin Profile Memphis Design System (Mất do Git Revert)
 - **Implementation**:
