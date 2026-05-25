@@ -1158,7 +1158,7 @@ tbody tr:hover td:first-child {
 }
 
 /* ==========================================================================
-   AutiCare Admin Profile Tab Styling (Midnight Indigo / Premium Dark Theme)
+   AutiCare Admin Profile Tab Styling (Playful Geometric Memphis Design System)
    ========================================================================== */
 
 .admin-profile-container {
@@ -1171,40 +1171,40 @@ tbody tr:hover td:first-child {
   position: fixed;
   top: 24px;
   right: 24px;
-  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  background: #10B981;
   color: white;
   padding: 1rem 2rem;
-  border-radius: 16px;
+  border-radius: 99px;
   font-weight: 800;
   font-size: 0.95rem;
-  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 4px 4px 0px #1E293B;
   z-index: 100000;
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border: 3px solid #1E293B;
 }
 
 .profile-header-zone {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.25rem;
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 3px dashed #CBD5E1;
 }
 
 .profile-main-title {
   font-family: 'Fredoka', sans-serif;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 800;
-  color: white;
+  color: #1E293B; /* High-legibility Dark Slate */
   margin: 0;
   letter-spacing: 0.5px;
-  text-shadow: 0 0 20px rgba(94, 234, 212, 0.15);
 }
 
 .profile-main-subtitle {
-  font-size: 0.9rem;
-  color: #94A3B8;
-  margin: 0.25rem 0 0 0;
+  font-size: 0.95rem;
+  color: #475569; /* Slate 600 */
+  margin: 0.35rem 0 0 0;
+  font-weight: 500;
 }
 
 .profile-status-badge {
@@ -1214,46 +1214,47 @@ tbody tr:hover td:first-child {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
+  border: 2px solid #1E293B;
+  box-shadow: 2px 2px 0px #1E293B;
 }
 
 .profile-status-badge.viewing {
-  background: rgba(14, 116, 144, 0.2);
-  color: #22D3EE;
-  border: 1px solid rgba(34, 211, 238, 0.2);
+  background: #E0F2FE;
+  color: #0369A1;
 }
 
 .profile-status-badge.editing {
-  background: rgba(217, 119, 6, 0.2);
-  color: #FBBF24;
-  border: 1px solid rgba(251, 191, 36, 0.2);
+  background: #FEF3C7;
+  color: #B45309;
 }
 
 .profile-island-card {
-  background: linear-gradient(160deg, #1E1B4B 0%, #111827 100%);
-  border: 1.5px solid rgba(255, 255, 255, 0.06);
-  border-radius: 28px;
+  background: #FFFFFF !important; /* Pure high contrast white background */
+  border: 3px solid #1E293B !important; /* Thick slate border */
+  border-radius: 24px !important;
   padding: 2.5rem;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+  box-shadow: 8px 8px 0px #1E293B !important; /* Hard chunky Memphis shadow */
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.25rem;
 }
 
 /* Avatar Circle styling */
 .profile-avatar-circle-wrapper {
   position: relative;
-  width: 100px;
-  height: 100px;
-  background: linear-gradient(135deg, #14B8A6 0%, #3B82F6 100%);
+  width: 110px;
+  height: 110px;
+  background: #E8F5E9;
   border-radius: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.05);
+  box-shadow: 4px 4px 0px #1E293B;
+  border: 3px solid #1E293B;
 }
 
 .profile-avatar-display {
-  font-size: 3.5rem;
+  font-size: 3.8rem;
   line-height: 1;
 }
 
@@ -1261,17 +1262,17 @@ tbody tr:hover td:first-child {
   position: absolute;
   bottom: -4px;
   right: -4px;
-  background: #F59E0B;
-  color: white;
-  width: 28px;
-  height: 28px;
+  background: #FBBF24;
+  color: #1E293B;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  border: 2px solid #1E1B4B;
+  font-size: 0.85rem;
+  box-shadow: 2px 2px 0px #1E293B;
+  border: 2px solid #1E293B;
 }
 
 .profile-top-bar-details {
@@ -1283,21 +1284,21 @@ tbody tr:hover td:first-child {
 .profile-quick-intro-info {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.4rem;
 }
 
 .profile-display-name {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.75rem;
+  font-size: 1.85rem;
   font-weight: 700;
-  color: white;
+  color: #1E293B;
   margin: 0;
 }
 
 .profile-display-username {
-  font-size: 0.95rem;
-  color: #14B8A6;
-  font-weight: 700;
+  font-size: 1rem;
+  color: #8B5CF6; /* Playful Violet */
+  font-weight: 800;
   margin: 0;
 }
 
@@ -1309,28 +1310,28 @@ tbody tr:hover td:first-child {
 }
 
 .profile-badge-pill {
-  padding: 0.3rem 0.85rem;
+  padding: 0.35rem 0.85rem;
   border-radius: 8px;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 800;
+  border: 2px solid #1E293B;
+  box-shadow: 2px 2px 0px #1E293B;
 }
 
 .profile-badge-pill.role-pill {
-  background: rgba(94, 234, 212, 0.1);
-  color: #5EEAD4;
-  border: 1px solid rgba(94, 234, 212, 0.15);
+  background: #EDE9FE;
+  color: #6D28D9;
 }
 
 .profile-badge-pill.center-pill {
-  background: rgba(59, 130, 246, 0.1);
-  color: #93C5FD;
-  border: 1px solid rgba(59, 130, 246, 0.15);
+  background: #DBEAFE;
+  color: #1D4ED8;
 }
 
 .profile-section-divider {
   width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%);
+  height: 2px;
+  border-top: 2px dashed #CBD5E1;
 }
 
 /* Fields Grid Layout */
@@ -1351,40 +1352,39 @@ tbody tr:hover td:first-child {
 }
 
 .form-group-item label {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #64748B;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #475569;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   padding-left: 2px;
 }
 
 /* Static View mode field values */
 .static-field-value {
   padding: 0.9rem 1.25rem;
-  background: rgba(30, 41, 59, 0.4);
+  background: #F8FAFC !important; /* Subtle off-white static field value */
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  color: #E2E8F0;
+  border: 2px solid #CBD5E1 !important;
+  color: #1E293B !important;
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 600;
   min-height: 48px;
   display: flex;
   align-items: center;
   transition: all 0.2s;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .static-field-value:hover {
-  background: rgba(30, 41, 59, 0.6);
-  border-color: rgba(255, 255, 255, 0.08);
+  background: #F1F5F9 !important;
+  border-color: #94A3B8 !important;
 }
 
 .static-field-value.secure-invite-field {
   font-family: monospace;
   letter-spacing: 1.5px;
-  color: #38BDF8;
-  font-weight: bold;
+  color: #0284C7 !important;
+  font-weight: 800;
 }
 
 .static-field-value.text-area-static {
@@ -1398,22 +1398,22 @@ tbody tr:hover td:first-child {
 .form-group-item input,
 .form-group-item textarea {
   padding: 0.9rem 1.25rem;
-  background: rgba(15, 23, 42, 0.6);
-  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  background: #FFFFFF !important;
+  border: 2px solid #1E293B !important;
   border-radius: 12px;
-  color: white;
+  color: #1E293B !important;
   font-size: 0.95rem;
   outline: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   font-family: 'Be Vietnam Pro', sans-serif;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .form-group-item input:focus,
 .form-group-item textarea:focus {
-  border-color: #14B8A6;
-  background: rgba(15, 23, 42, 0.85);
-  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-color: #8B5CF6 !important;
+  background: #FAF5FF !important;
+  box-shadow: 3px 3px 0px #1E293B !important;
 }
 
 /* Emoji Picker styling */
@@ -1421,16 +1421,16 @@ tbody tr:hover td:first-child {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  background: rgba(15, 23, 42, 0.3);
+  background: #F8FAFC;
   padding: 1.25rem;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  border: 2px solid #E2E8F0;
 }
 
 .picker-label {
   font-size: 0.85rem;
-  font-weight: 700;
-  color: #94A3B8;
+  font-weight: 800;
+  color: #475569;
 }
 
 .emoji-picker-grid {
@@ -1442,26 +1442,27 @@ tbody tr:hover td:first-child {
 .emoji-selector-btn {
   width: 42px;
   height: 42px;
-  background: rgba(30, 41, 59, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #FFFFFF;
+  border: 2px solid #CBD5E1;
   border-radius: 10px;
   font-size: 1.6rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
 }
 
 .emoji-selector-btn:hover {
-  background: rgba(30, 41, 59, 0.95);
+  background: #F1F5F9;
+  border-color: #1E293B;
   transform: translateY(-2px);
 }
 
 .emoji-selector-btn.selected {
-  background: #14B8A6;
-  border-color: #5EEAD4;
-  box-shadow: 0 0 15px rgba(20, 184, 166, 0.5);
+  background: #8B5CF6 !important;
+  border-color: #1E293B !important;
+  box-shadow: 3px 3px 0px #1E293B !important;
   transform: scale(1.1);
 }
 
@@ -1471,14 +1472,14 @@ tbody tr:hover td:first-child {
   justify-content: flex-end;
   gap: 1.25rem;
   margin-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-top: 2px dashed #E2E8F0;
   padding-top: 1.75rem;
 }
 
 .profile-btn-primary,
 .profile-btn-secondary {
   padding: 0.85rem 2.25rem;
-  border-radius: 14px;
+  border-radius: 99px;
   font-weight: 800;
   font-size: 0.95rem;
   cursor: pointer;
@@ -1486,39 +1487,40 @@ tbody tr:hover td:first-child {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  border: 3.5px solid #1E293B !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
 }
 
 .profile-btn-primary {
-  background: linear-gradient(135deg, #14B8A6 0%, #0D9488 100%);
-  color: white;
-  border: none;
-  box-shadow: 0 6px 20px rgba(20, 184, 166, 0.25);
+  background: #8B5CF6 !important; /* Playful Violet Candy */
+  color: white !important;
 }
 
 .profile-btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(20, 184, 166, 0.4);
+  transform: translate(-2px, -3px);
+  box-shadow: 6px 7px 0px #1E293B !important;
+  background: #7C3AED !important;
 }
 
 .profile-btn-primary:active {
-  transform: translateY(-1px);
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #1E293B !important;
 }
 
 .profile-btn-secondary {
-  background: rgba(30, 41, 59, 0.7);
-  color: #E2E8F0;
-  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  background: #FFFFFF !important;
+  color: #1E293B !important;
 }
 
 .profile-btn-secondary:hover {
-  background: rgba(30, 41, 59, 0.95);
-  color: white;
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
+  background: #F1F5F9 !important;
+  transform: translate(-2px, -3px);
+  box-shadow: 6px 7px 0px #1E293B !important;
 }
 
 .profile-btn-secondary:active {
-  transform: translateY(0);
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #1E293B !important;
 }
 
 /* Sidebar Footer User profile interactive styling */
