@@ -499,17 +499,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
   };
 
   return (
-    <div className={`admin-theme-root admin-dashboard ${
-      (adminInfo.role === 'doctor' || adminInfo.role === 'teacher') ? 'staff-portal-theme' : ''
-    }`}>
-      <aside className="dashboard-sidebar" style={{ borderRight: (adminInfo.role === 'doctor' || adminInfo.role === 'teacher') ? '3px solid #1E293B' : undefined }}>
+    <div className="admin-theme-root admin-dashboard">
+      <aside className="dashboard-sidebar" style={{ borderRight: '3px solid #1E293B' }}>
         <div className="sidebar-header">
           <div className="admin-logo">
             <h1 className="logo-text">AUTICARE</h1>
-            <span className="logo-subtitle" style={{ color: (adminInfo.role === 'doctor' || adminInfo.role === 'teacher') ? '#0D9488' : undefined }}>
+            <span className="logo-subtitle" style={{ color: '#0D9488' }}>
               {adminInfo.role === 'doctor' || adminInfo.role === 'teacher'
                 ? (lang === 'vi' ? 'Không gian làm việc' : 'Workspace')
-                : 'Dashboard'
+                : (lang === 'vi' ? 'Quản trị hệ thống' : 'Administration')
               }
             </span>
           </div>
@@ -630,13 +628,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
           </div>
         </header>
 
-        {adminInfo.role === 'doctor' || adminInfo.role === 'teacher' ? (
-          <div className="dashboard-content-scroll" style={{ flex: 1, overflowY: 'auto', padding: activeTab === 'assessment' ? '0' : '2rem 2.5rem' }}>
-            {renderActiveTab()}
-          </div>
-        ) : (
-          renderActiveTab()
-        )}
+        <div className="dashboard-content-scroll" style={{ flex: 1, overflowY: 'auto', padding: activeTab === 'assessment' ? '0' : '2rem 2.5rem' }}>
+          {renderActiveTab()}
+        </div>
       </main>
     </div>
   );

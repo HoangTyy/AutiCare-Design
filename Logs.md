@@ -1,5 +1,21 @@
 # Project Logs
 
+## [2026-05-25] - Đồng bộ màu nền giấy kem Memphis mặc định cho toàn bộ Admin Dashboard
+- **Implementation**:
+  * **Giải pháp Thẩm mỹ Nhất quán**: Đồng bộ hoàn toàn background của Admin Dashboard cho giống với Bác sĩ để tạo một ngôn ngữ thiết kế nhất quán tuyệt đối (Memphis Playful Geometric).
+  * **Đưa style sáng kem làm mặc định cho `.admin-dashboard` (`AdminDashboard.css`)**:
+    * Sửa đổi `.admin-dashboard` ngoài cùng sử dụng màu nền tối tương phản `#0F172A !important` để tạo viền cho Workspace và đổi màu chữ mặc định sang Slate đậm `#1E293B !important` để tối ưu hóa độ dễ đọc trên nền sáng.
+    * Đưa background kem chấm polka-dot (`radial-gradient` sẫm nhẹ 5%), viền đen Slate `3px solid #1E293B`, và bóng đổ cứng Memphis 3D `8px 8px 0px #1E293B` làm mặc định cho `.dashboard-main`.
+    * Cấu hình Topbar `.dashboard-topbar` mặc định sang màu trắng sữa sạch sẽ `#FFFFFF`, viền Slate dưới chân `3px`, loại bỏ bóng đêm và gradient.
+    * Sửa đổi Breadcrumbs `.breadcrumb` và chân Sidebar footer `.sidebar-footer` mặc định sang màu tương phản rõ nét.
+    * Dọn dẹp hoàn toàn các class ghi đè `.staff-portal-theme` dư thừa ở cuối tệp CSS.
+  * **Bọc Container Cuộn Mặc định (`AdminDashboard.tsx`)**:
+    * Loại bỏ class dynamic `staff-portal-theme` dư thừa.
+    * Áp dụng bọc `{renderActiveTab()}` trong `.dashboard-content-scroll` với cuộn dọc và padding `2rem 2.5rem` mặc định cho tất cả các vai trò, đảm bảo các bảng dữ liệu Admin (kiểu Floating Card trắng sữa nổi bồng bềnh viền đen) hiển thị cân đối và 3D Memphis cực kỳ đẹp mắt.
+- **Walkthrough**:
+  * Khi quản trị viên truy cập bất kỳ tab nào của Admin (Tổng quan hệ thống, Quản lý trung tâm, Quản lý nhân sự, Blog, Kế hoạch can thiệp...), giao diện đều khoác lên mình nền giấy kem chấm polka-dot rực rỡ và Topbar trắng sữa cực kỳ sinh động, đồng bộ 100% về mặt thẩm mỹ với Không gian làm việc Bác sĩ.
+  * Biên dịch sản phẩm thành công 100% không cảnh báo hay lỗi cú pháp (`built in 366ms`).
+
 ## [2026-05-25] - Tích hợp Trực tiếp Không gian làm việc Chuyên gia vào Admin Dashboard qua Giả lập Vai trò
 - **Implementation**:
   * **Giải pháp Tối ưu hóa Luồng điều hướng**: Khắc phục luồng truy cập rườm rà (`Homepage -> Profile -> Staff Portal -> Workspace -> Doctor Dashboard`) bằng cách liên kết trực tiếp với Dropdown Giả lập Vai trò (`activeRole`) tại trang **Admin Profile**.

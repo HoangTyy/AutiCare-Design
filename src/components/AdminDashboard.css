@@ -1,9 +1,9 @@
 .admin-dashboard {
   display: flex;
   min-height: 100vh;
-  background-color: var(--bg-main); /* Base background behind islands */
+  background-color: #0F172A !important; /* Base background behind islands */
   font-family: var(--font-main);
-  color: var(--text-main);
+  color: #1E293B !important;
   padding: 12px;
   gap: 12px;
 }
@@ -172,8 +172,8 @@
 
 .sidebar-footer {
   padding: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: rgba(0, 0, 0, 0.4) !important;
 }
 
 .user-profile {
@@ -210,21 +210,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 32px;
-  background: linear-gradient(90deg, #1e1b4b 0%, #111827 100%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 24px 24px 20px 20px; /* Match parent top radius exactly */
-  margin: -1px -1px 24px -1px; /* Overfill by 1px to prevent sub-pixel gaps */
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  padding: 16px 32px !important;
+  background: #FFFFFF !important;
+  border-bottom: 3px solid #1E293B !important;
+  border-radius: 0px !important;
+  margin: 0 !important;
+  box-shadow: none !important;
   position: sticky;
-  top: -1px; /* Ensure no gap at the very top */
+  top: -1px;
   z-index: 10;
 }
 
 .breadcrumb {
-  font-size: 0.9rem;
-  color: #94A3B8;
-  font-weight: 500;
+  font-size: 0.82rem !important;
+  color: #1E293B !important;
+  font-weight: 800 !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
 }
 
 .user-info {
@@ -259,12 +262,13 @@
 /* Main Content */
 .dashboard-main {
   flex: 1;
-  background-color: var(--admin-content-bg);
-  border-radius: 24px;
+  background: radial-gradient(circle, rgba(30, 41, 59, 0.05) 1.5px, transparent 1.5px) 0 0 / 28px 28px, #FFFDF5 !important;
+  border: 3px solid #1E293B !important;
+  box-shadow: 8px 8px 0px #1E293B !important;
+  border-radius: 24px !important;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 
@@ -2017,54 +2021,6 @@ tbody tr:hover td:first-child {
   }
 }
 
-/* ==========================================================================
-   STAFF PORTAL WORKSPACE THEME (Memphis Playful Geometric)
-   ========================================================================== */
 
-/* Nền giấy kem ấm áp và chấm polka-dot cho khu vực Workspace chính của Chuyên gia */
-.staff-portal-theme.admin-dashboard {
-  background-color: #0F172A !important; /* Sidebar Midnight Indigo giữ nền tối xung quanh */
-}
-
-.staff-portal-theme .dashboard-main {
-  background: radial-gradient(circle, rgba(30, 41, 59, 0.05) 1.5px, transparent 1.5px) 0 0 / 28px 28px, #FFFDF5 !important;
-  border: 3px solid #1E293B !important;
-  box-shadow: 8px 8px 0px #1E293B !important;
-  border-radius: 24px !important;
-  overflow: hidden !important;
-}
-
-/* Đồng bộ Topbar Header của Chuyên gia sang màu trắng sữa sạch sẽ, viền đen Slate dày */
-.staff-portal-theme .dashboard-topbar {
-  background: #FFFFFF !important;
-  border-bottom: 3px solid #1E293B !important;
-  border-radius: 0px !important;
-  margin: 0 !important;
-  box-shadow: none !important;
-  padding: 16px 32px !important;
-}
-
-/* Breadcrumb màu sẫm tương phản cao */
-.staff-portal-theme .breadcrumb {
-  color: #1E293B !important;
-  font-weight: 800 !important;
-  font-family: 'Be Vietnam Pro', sans-serif !important;
-  text-transform: uppercase !important;
-  font-size: 0.82rem !important;
-  letter-spacing: 0.5px !important;
-}
-
-/* Fix background và border của Sidebar footer */
-.staff-portal-theme .sidebar-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-  background: rgba(0, 0, 0, 0.4) !important;
-}
-
-/* Responsive adjustment cho main area */
-@media (max-width: 768px) {
-  .staff-portal-theme .dashboard-main {
-    box-shadow: 4px 4px 0px #1E293B !important;
-  }
-}
 
 
