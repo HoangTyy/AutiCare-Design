@@ -18,6 +18,48 @@ interface AssessmentResult {
   scores: Record<string, { scored: number; max: number; labelVi: string; labelEn: string; descVi: string; descEn: string }>;
 }
 
+interface HealthRecord {
+  id: string;
+  date: string;
+  title: string;
+  descriptions: string;
+  fileType: string;
+  fileUrl?: string;
+}
+
+// Interface strictly mapping the database schema "screening_result"
+interface DatabaseScreeningResult {
+  screening_id: number;
+  child_id: number;
+  tool_name: string;
+  screening_date: string;
+  total_score: number;
+  risk_level: string;
+  details_json: string; // JSON string representing details of the test
+  created_at: string;
+  updated_at: string;
+  deleted_at?: string | null;
+}
+
+const INITIAL_HEALTH_RECORDS: HealthRecord[] = [
+  {
+    id: "HLT-001",
+    date: "2026-04-10",
+    title: "Child health record 2025",
+    descriptions: "Summary of child health condition in 2025",
+    fileType: "pdf",
+    fileUrl: "https://example.com/files/audiology_report_2026.pdf"
+  },
+  {
+    id: "HLT-002",
+    date: "2026-04-10",
+    title: "Child health record 2026",
+    descriptions: "Summary of child health condition in 2026",
+    fileType: "pdf",
+    fileUrl: "https://example.com/files/audiology_report_2026.pdf"
+  },
+];
+
 const INITIAL_ASSESSMENTS: AssessmentResult[] = [
   {
     id: "ASM-PEP3-001",
@@ -37,9 +79,9 @@ const INITIAL_ASSESSMENTS: AssessmentResult[] = [
       VMI: { scored: 6, max: 10, labelVi: "Trực quan - Vận động (VMI)", labelEn: "Visual-Motor Imitation", descVi: "Bắt chước vẽ các đường nét, xếp hình theo mẫu có sẵn.", descEn: "Imitating drawing lines, copying shapes, and stacking pattern templates." },
       AE: { scored: 7, max: 11, labelVi: "Bộc lộ cảm xúc (AE)", labelEn: "Affective Expression", descVi: "Cách trẻ bộc lộ cảm xúc vui, buồn, giận dữ và tương tác mặt đối mặt.", descEn: "How the child expresses joy, sadness, anger, and maintains face-to-face contact." },
       SR: { scored: 8, max: 12, labelVi: "Tương tác xã hội (SR)", labelEn: "Social Reciprocity", descVi: "Phản ứng chia sẻ chú ý chung, hồi đáp cử chỉ của chuyên viên.", descEn: "Responding to joint attention, reciprocating examiner gestures." },
-      CMB: { scored: 9, max: 15, labelVi: "Hành vi vận động (CMB)", labelEn: "Characteristic Motor Behaviors", descVi: "Sử dụng đồ chơi đúng cách, không có hành vi rập khuôn vận động thô.", descEn: "Appropriate toy usage, absence of gross motor stereotypic actions." },
-      CVB: { scored: 8, max: 12, labelVi: "Hành vi ngôn ngữ (CVB)", labelEn: "Characteristic Verbal Behaviors", descVi: "Không nói nhại lời, không có giọng điệu kỳ lạ hay lặp lại cụm từ vô nghĩa.", descEn: "Absence of echolalia, weird intonations, or repetitive meaningless phrases." },
-      PB: { scored: 10, max: 15, labelVi: "Vấn đề hành vi (PB)", labelEn: "Problem Behaviors", descVi: "Mức độ tự kiểm soát, không cáu gắt ăn vạ khi đổi hoạt động đột ngột.", descEn: "Self-regulation level, absence of tantrums when activities change abruptly." },
+      CMB: { scored: 9, max: 15, labelVi: "Hành vi vận động (CMB)", labelEn: "Characteristic Motor Behaviors", descVi: "Sử dụng đồ chơi đúng cách, có hành vi rập khuôn vận động thô.", descEn: "Appropriate toy usage, absence of gross motor stereotypic actions." },
+      CVB: { scored: 8, max: 12, labelVi: "Hành vi ngôn ngữ (CVB)", labelEn: "Characteristic Verbal Behaviors", descVi: "nói nhại lời, có giọng điệu kỳ lạ hay lặp lại cụm từ vô nghĩa.", descEn: "Absence of echolalia, weird intonations, or repetitive meaningless phrases." },
+      PB: { scored: 10, max: 15, labelVi: "Vấn đề hành vi (PB)", labelEn: "Problem Behaviors", descVi: "Mức độ tự kiểm soát, cáu gắt ăn vạ khi đổi hoạt động đột ngột.", descEn: "Self-regulation level, absence of tantrums when activities change abruptly." },
       PSC: { scored: 6, max: 10, labelVi: "Tự chăm sóc (PSC)", labelEn: "Personal Self-Care", descVi: "Kỹ năng tự cởi giày, cởi áo, rửa tay, tự xúc ăn mộc mạc.", descEn: "Basic skills in taking off shoes, undressing, washing hands, self-feeding." },
       AB: { scored: 10, max: 15, labelVi: "Hành vi thích ứng (AB)", labelEn: "Adaptive Behavior", descVi: "Khả năng thích nghi của trẻ trong môi trường sinh hoạt hàng ngày.", descEn: "The child's capability to adapt during daily living environments." }
     }
@@ -57,10 +99,77 @@ const INITIAL_ASSESSMENTS: AssessmentResult[] = [
       SOC: { scored: 2.5, max: 4, labelVi: "Quan hệ với mọi người", labelEn: "Relating to People", descVi: "Mức độ tương tác xã hội, kết nối cảm xúc với cha mẹ và người lạ.", descEn: "Level of social interaction, emotional connection with parents and strangers." },
       IMI: { scored: 2.0, max: 4, labelVi: "Bắt chước", labelEn: "Imitation", descVi: "Khả năng bắt chước hành động, âm thanh và lời nói từ người khác.", descEn: "Ability to imitate actions, sounds, and speech from others." },
       EMO: { scored: 3.0, max: 4, labelVi: "Phản ứng cảm xúc", labelEn: "Emotional Response", descVi: "Sự phù hợp của cảm xúc với hoàn cảnh thực tế xung quanh.", descEn: "Appropriateness of emotional responses to the actual surroundings." },
-      BODY: { scored: 2.5, max: 4, labelVi: "Sử dụng cơ thể", labelEn: "Body Use", descVi: "Sự khéo léo của cơ thể, không có hành vi tự kích thích rập khuôn.", descEn: "Body coordination, absence of stereotypic self-stimulatory movements." },
+      BODY: { scored: 2.5, max: 4, labelVi: "Sử dụng cơ thể", labelEn: "Body Use", descVi: "Sự khéo léo của cơ thể, có hành vi tự kích thích rập khuôn.", descEn: "Body coordination, absence of stereotypic self-stimulatory movements." },
       OBJ: { scored: 2.0, max: 4, labelVi: "Sử dụng đồ vật", labelEn: "Object Use", descVi: "Mức độ hứng thú và cách chơi đồ chơi đúng chức năng thiết kế.", descEn: "Interest level and functional usage of toys as designed." },
       ADAPT: { scored: 3.0, max: 4, labelVi: "Thích ứng với thay đổi", labelEn: "Adaptation to Change", descVi: "Phản ứng khi thay đổi thói quen, hoạt động hoặc đồ dùng quen thuộc.", descEn: "Reaction to changes in routines, activities, or familiar items." }
     }
+  }
+];
+
+// Initial mock DB data for 2 standardized screening tests (M-CHAT-R/F and CARS)
+const INITIAL_SCREENING_RESULTS: DatabaseScreeningResult[] = [
+  {
+    screening_id: 101,
+    child_id: 1,
+    tool_name: "M-CHAT-R/F",
+    screening_date: "2026-05-10",
+    total_score: 3,
+    risk_level: "Medium Risk",
+    details_json: JSON.stringify({
+      answers: [
+        { q: 1, textVi: "Nhìn theo hướng tay chỉ của cha mẹ", status: "Pass" },
+        { q: 2, textVi: "Nghi ngờ khả năng nghe kém (bị điếc)", status: "Risk" },
+        { q: 3, textVi: "Chơi trò chơi giả vờ / tưởng tượng", status: "Fail" },
+        { q: 4, textVi: "Thích leo trèo lên đồ vật", status: "Pass" },
+        { q: 5, textVi: "Cử động tay bất thường gần mắt", status: "Risk" },
+        { q: 6, textVi: "Dùng ngón trỏ để yêu cầu hoặc giúp đỡ", status: "Pass" },
+        { q: 7, textVi: "Dùng ngón trỏ chỉ vật thú vị muốn chia sẻ", status: "Pass" },
+        { q: 8, textVi: "Quan tâm đến những đứa trẻ khác", status: "Pass" },
+        { q: 9, textVi: "Mang khoe đồ vật với cha mẹ", status: "Pass" },
+        { q: 10, textVi: "Đáp ứng khi được gọi tên", status: "Fail" },
+        { q: 11, textVi: "Cười đáp lại khi bạn cười", status: "Pass" },
+        { q: 12, textVi: "Khó chịu với tiếng ồn xung quanh", status: "Pass" },
+        { q: 13, textVi: "Trẻ có biết đi hay không", status: "Pass" },
+        { q: 14, textVi: "Nhìn vào mắt khi nói chuyện / tương tác", status: "Pass" },
+        { q: 15, textVi: "Bắt chước các hành động vui vẻ", status: "Pass" },
+        { q: 16, textVi: "Nhìn theo hướng bạn quay đầu nhìn", status: "Pass" },
+        { q: 17, textVi: "Tìm cách gây sự chú ý của cha mẹ", status: "Pass" },
+        { q: 18, textVi: "Hiểu các mệnh lệnh bằng lời nói", status: "Pass" },
+        { q: 19, textVi: "Nhìn biểu cảm của bạn khi gặp thứ lạ", status: "Pass" },
+        { q: 20, textVi: "Thích hoạt động chuyển động cơ thể", status: "Pass" }
+      ]
+    }),
+    created_at: "2026-05-10T14:30:00.000Z",
+    updated_at: "2026-05-10T14:30:00.000Z"
+  },
+  {
+    screening_id: 102,
+    child_id: 1,
+    tool_name: "CARS",
+    screening_date: "2026-05-20",
+    total_score: 33.5,
+    risk_level: "Mild-Moderate Autism",
+    details_json: JSON.stringify({
+      categories: [
+        { id: "I", name: "Quan hệ với mọi người / Relating to People", score: 2.5 },
+        { id: "II", name: "Bắt chước / Imitation", score: 2.0 },
+        { id: "III", name: "Phản ứng cảm xúc / Emotional Response", score: 3.0 },
+        { id: "IV", name: "Sử dụng cơ thể / Body Use", score: 2.5 },
+        { id: "V", name: "Sử dụng đồ vật / Object Use", score: 2.0 },
+        { id: "VI", name: "Thích ứng với thay đổi / Adaptation to Change", score: 3.0 },
+        { id: "VII", name: "Phản ứng thị giác / Visual Response", score: 2.5 },
+        { id: "VIII", name: "Phản ứng thính giác / Listening Response", score: 2.0 },
+        { id: "IX", name: "Nếm, Ngửi, Sờ / Taste, Smell, Touch", score: 2.0 },
+        { id: "X", name: "Nỗi sợ hoặc sự lo lắng / Fear or Nervousness", score: 2.0 },
+        { id: "XI", name: "Giao tiếp bằng lời / Verbal Communication", score: 3.0 },
+        { id: "XII", name: "Giao tiếp phi ngôn ngữ / Nonverbal Communication", score: 2.5 },
+        { id: "XIII", name: "Mức độ hoạt động / Activity Level", score: 2.0 },
+        { id: "XIV", name: "Mức độ trí tuệ / Intellectual Response", score: 2.5 },
+        { id: "XV", name: "Ấn tượng chung / General Impressions", score: 2.0 }
+      ]
+    }),
+    created_at: "2026-05-20T16:00:00.000Z",
+    updated_at: "2026-05-20T16:00:00.000Z"
   }
 ];
 
@@ -90,10 +199,10 @@ const translations = {
     btnDelete: "Xóa 🗑️",
     btnSave: "Thêm kết quả ➕",
     noData: "Chưa có dữ liệu đánh giá nào cho bé.",
-    toastDownload: "✨ Tải xuống kết quả đánh giá thành công! Định dạng file: ",
-    toastSave: "✨ Đã lưu kết quả đánh giá mới thành công!",
-    toastDelete: "🗑️ Đã xóa kết quả đánh giá thành công!",
-    
+    toastDownload: "✨ Tải xuống kết quả thành công! Định dạng file: ",
+    toastSave: "✨ Đã lưu kết quả thành công!",
+    toastDelete: "🗑️ Đã xóa bản ghi thành công!",
+
     // Save modal
     addTitle: "➕ Lưu kết quả đánh giá mới",
     fieldTool: "Chọn công cụ đánh giá",
@@ -119,8 +228,46 @@ const translations = {
 
     // Delete modal
     deleteConfirmTitle: "⚠️ XÁC NHẬN XÓA BẢN GHI",
-    deleteBody: "Bạn có chắc chắn muốn xóa vĩnh viễn kết quả đánh giá này của trẻ khỏi hệ thống? Hành động này sẽ không thể khôi phục lại dữ liệu.",
-    confirmDeleteBtn: "Đồng ý xóa 🗑️"
+    deleteBody: "Bạn có chắc chắn muốn xóa vĩnh viễn kết quả này khỏi hệ thống? Hành động này sẽ thể khôi phục lại dữ liệu.",
+    confirmDeleteBtn: "Đồng ý xóa 🗑️",
+
+    // Health Records Tab Strings
+    healthTabTitle: "Hồ Sơ Y Tế",
+    healthSectionTitle: "📋 Danh Sách Hồ Sơ Y Tế",
+    healthSectionSubtitle: "Theo dõi và quản lý dữ liệu kiểm tra sức khỏe thể chất lâm sàng của bé",
+    btnUploadHealth: "Upload hồ sơ mới ➕",
+    healthNoData: "Chưa có dữ liệu hồ sơ y tế nào cho bé.",
+    healthColTitle: "Tiêu đề hồ sơ",
+    healthColDate: "Ngày khám",
+    healthColType: "Định dạng tệp",
+    healthNoUrl: "có liên kết tệp",
+    toastHealthSaved: "✨ Đã lưu hồ sơ sức khỏe mới thành công!",
+    toastHealthUpdated: "✨ Đã cập nhật hồ sơ sức khỏe thành công!",
+    toastHealthDeleted: "🗑️ Đã xóa hồ sơ sức khỏe thành công!",
+
+    // Health Modals
+    healthAddTitle: "➕ Thêm hồ sơ y tế mới",
+    healthEditTitle: "✏️ Cập nhật thông tin hồ sơ y tế",
+    healthDetailTitle: "🔍 Chi Tiết Hồ Sơ Y Tế",
+    healthFieldTitle: "Tiêu đề / Tên đợt khám",
+    healthFieldDescriptions: "Mô tả",
+    healthFieldFileType: "Định dạng tệp (Ví dụ: pdf, docx, png)",
+    healthFieldFileUrl: "Đường dẫn liên kết tệp (fileUrl)",
+    btnEditHealth: "Chỉnh sửa ✏️",
+
+    // New Screening Tab translations
+    screeningTabTitle: "Kết quả sàng lọc",
+    screeningSectionTitle: "📋 Kết Quả Sàng Lọc Phát Triển",
+    screeningColId: "Mã Sàng Lọc",
+    screeningColTool: "Tên Công Cụ",
+    screeningColDate: "Ngày Sàng Lọc",
+    screeningColScore: "Tổng Điểm",
+    screeningColRisk: "Phân Nhóm Nguy Cơ",
+    screeningEmpty: "Bé chưa có hồ sơ sàng lọc sớm nào.",
+    screeningDetailTitle: "🔍 Chi Tiết Kết Quả Sàng Lọc Sớm",
+    screeningFormTotalScore: "Tổng điểm tự động",
+    screeningFormRiskCalc: "Phân loại nguy cơ gợi ý",
+    screeningDetailSubTitle: "Thông số chi tiết lưu trữ dưới dạng details_json thô trong cơ sở dữ liệu"
   },
   en: {
     backToList: "⬅️ Back to List",
@@ -147,9 +294,9 @@ const translations = {
     btnDelete: "Delete 🗑️",
     btnSave: "Save Result ➕",
     noData: "No assessment records found for this child.",
-    toastDownload: "✨ Assessment results downloaded successfully! File format: ",
-    toastSave: "✨ Successfully saved new assessment result!",
-    toastDelete: "🗑️ Successfully deleted assessment record!",
+    toastDownload: "✨ Results downloaded successfully! File format: ",
+    toastSave: "✨ Successfully saved new record!",
+    toastDelete: "🗑️ Successfully deleted record!",
 
     // Save modal
     addTitle: "➕ Save New Assessment Result",
@@ -176,8 +323,47 @@ const translations = {
 
     // Delete modal
     deleteConfirmTitle: "⚠️ CONFIRM DELETE RECORD",
-    deleteBody: "Are you sure you want to permanently delete this child assessment record from the system? This action is highly destructive and cannot be undone.",
-    confirmDeleteBtn: "Confirm Delete 🗑️"
+    deleteBody: "Are you sure you want to permanently delete this record from the system? This action is highly destructive and cannot be undone.",
+    confirmDeleteBtn: "Confirm Delete 🗑️",
+
+    // Health Records Tab Strings
+    healthTabTitle: "Health Records",
+    healthSectionTitle: "📋 Child Health Records Log",
+    healthSectionSubtitle: "Monitor and manage physical health metrics and clinical diagnostic logs",
+    btnUploadHealth: "Upload New Record ➕",
+    healthNoData: "No health records found for this child.",
+    healthColTitle: "Record Title",
+    healthColDate: "Checkup Date",
+    healthColType: "File Type",
+    healthNoUrl: "No file link",
+    toastHealthSaved: "✨ Successfully uploaded new medical record!",
+    toastHealthUpdated: "✨ Successfully updated health record!",
+    toastHealthDeleted: "🗑️ Successfully deleted health record!",
+
+    // Health Modals
+    healthAddTitle: "➕ Add New Health Record",
+    healthEditTitle: "✏️ Update Health Record",
+    healthDetailTitle: "🔍 Medical Record Details",
+    healthFieldTitle: "Title",
+    healthFieldDescriptions: "Descriptions",
+    healthFieldFileType: "File Format (e.g. pdf, docx, png)",
+    healthFieldFileUrl: "File",
+    btnEditHealth: "Update ✏️",
+
+    // Screening Tab translations
+    screeningTabTitle: "Screenings results",
+    screeningSectionTitle: "📋 Developmental Screening Logs",
+    screeningColTool: "Tool Name",
+    screeningColDate: "Screening Date",
+    screeningColScore: "Score",
+    screeningColRisk: "Risk Category",
+    screeningBtnSave: "Save Screening Result ➕",
+    screeningEmpty: "No developmental screening results recorded for this child.",
+    screeningDetailTitle: "🔍 Screening Test Detail Analysis",
+    screeningAddTitle: "➕ Save New Screening Result",
+    screeningFormTotalScore: "Automatic score calculation",
+    screeningFormRiskCalc: "Suggested risk classification",
+    screeningDetailSubTitle: "Detailed"
   }
 };
 
@@ -195,7 +381,7 @@ const SUBTEST_ITEMS_DB: Record<string, Array<{ id: string; activityVi: string; a
   RL: [
     { id: "RL-3", activityVi: "Thực hiện lệnh đơn y khoa 'Đưa quả bóng cho mẹ'", activityEn: "Follow simple command 'Give the ball to mom'", score: 2, behaviorVi: "Bé làm chính xác và nhanh chóng khi nghe yêu cầu.", behaviorEn: "Followed instruction immediately and accurately." },
     { id: "RL-7", activityVi: "Chỉ vào 5 bộ phận cơ thể tương ứng khi nghe tên", activityEn: "Point to 5 body parts when named", score: 1, behaviorVi: "Bé chỉ đúng Tai, Mắt, Mũi. Bị nhầm lẫn giữa Tóc và Miệng.", behaviorEn: "Pointed correctly to Ear, Eye, Nose. Confused Hair and Mouth." },
-    { id: "RL-11", activityVi: "Chỉ vào bức tranh mô tả hành động đang ngủ", activityEn: "Point to a picture describing sleeping action", score: 0, behaviorVi: "Bé không phản ứng, lơ đãng nhìn sang hướng cửa sổ.", behaviorEn: "No response, stared out of the window." }
+    { id: "RL-11", activityVi: "Chỉ vào bức tranh mô tả hành động đang ngủ", activityEn: "Point to a picture describing sleeping action", score: 0, behaviorVi: "Bé phản ứng, lơ đãng nhìn sang hướng cửa sổ.", behaviorEn: "No response, stared out of the window." }
   ],
   FM: [
     { id: "FM-4", activityVi: "Cầm bút sáp màu vẽ nét gạch dọc thẳng thô", activityEn: "Hold crayon to draw a rough vertical line", score: 2, behaviorVi: "Cầm bút 3 ngón tay khá vững chãi, vẽ nét thẳng rõ ràng.", behaviorEn: "Held crayon with a decent 3-finger grasp, drew straight line." },
@@ -207,7 +393,7 @@ const SUBTEST_ITEMS_DB: Record<string, Array<{ id: string; activityVi: string; a
     { id: "GM-6", activityVi: "Bắt quả bóng hơi ném từ cự ly 1.5 mét", activityEn: "Catch a light plastic ball thrown from 1.5 meters", score: 2, behaviorVi: "Bé giơ 2 tay đón bắt bóng cực kỳ chính xác và khéo léo.", behaviorEn: "Extended both hands and caught the ball with great skill." }
   ],
   VMI: [
-    { id: "VMI-3", activityVi: "Bắt chước xây tháp gỗ cao 4 tầng kiên cố", activityEn: "Imitate stacking a 4-level wooden tower", score: 2, behaviorVi: "Bé bắt chước xếp cực kỳ vững chãi và không làm đổ tháp.", behaviorEn: "Imitated stacking flawlessly and tower remained stable." },
+    { id: "VMI-3", activityVi: "Bắt chước xây tháp gỗ cao 4 tầng kiên cố", activityEn: "Imitate stacking a 4-level wooden tower", score: 2, behaviorVi: "Bé bắt chước xếp cực kỳ vững chãi và làm đổ tháp.", behaviorEn: "Imitated stacking flawlessly and tower remained stable." },
     { id: "VMI-7", activityVi: "Sao chép hình tròn vẽ sẵn trên bảng gỗ", activityEn: "Copy a pre-drawn circle on a wooden board", score: 1, behaviorVi: "Vẽ nét méo mó, điểm khép nét góc cuối chưa hoàn toàn khít.", behaviorEn: "Drew distorted shape, closing point was not perfectly met." }
   ],
   AE: [
@@ -220,15 +406,15 @@ const SUBTEST_ITEMS_DB: Record<string, Array<{ id: string; activityVi: string; a
   ],
   CMB: [
     { id: "CMB-3", activityVi: "Chơi xe ô tô đúng chức năng lăn bánh chạy thảm", activityEn: "Play with toy car functionally rolling on carpet", score: 2, behaviorVi: "Bé đẩy xe chạy thẳng và phát âm thanh còi xe 'tin tin'.", behaviorEn: "Rolled car forward and made horn noises 'beep beep'." },
-    { id: "CMB-8", activityVi: "Không có hành vi tự kích thích rập khuôn vỗ tay liên hồi", activityEn: "Absence of gross motor stereotypic hand flapping", score: 1, behaviorVi: "Xuất hiện vỗ tay rập khuôn nhẹ chỉ khi bé quá phấn khích.", behaviorEn: "Mild stereotypic flapping observed only during high arousal." }
+    { id: "CMB-8", activityVi: "có hành vi tự kích thích rập khuôn vỗ tay liên hồi", activityEn: "Absence of gross motor stereotypic hand flapping", score: 1, behaviorVi: "Xuất hiện vỗ tay rập khuôn nhẹ chỉ khi bé quá phấn khích.", behaviorEn: "Mild stereotypic flapping observed only during high arousal." }
   ],
   CVB: [
-    { id: "CVB-2", activityVi: "Hội thoại tự nhiên không nhại lời rập khuôn", activityEn: "Converse naturally without rigid echolalic phrases", score: 1, behaviorVi: "Bé thỉnh thoảng nói nhại lại cụm từ cuối của câu hỏi.", behaviorEn: "Child occasionally repeated the last words of questions." },
-    { id: "CVB-6", activityVi: "Giọng nói tự nhiên không có âm điệu kỳ lạ trầm bổng", activityEn: "Speak with a natural vocal intonation and pitch", score: 2, behaviorVi: "Bé phát âm với cao độ rất tự nhiên và âm lượng vừa phải.", behaviorEn: "Spoke with very natural pitch and appropriate volume." }
+    { id: "CVB-2", activityVi: "Hội thoại tự nhiên nhại lời rập khuôn", activityEn: "Converse naturally without rigid echolalic phrases", score: 1, behaviorVi: "Bé thỉnh thoảng nói nhại lại cụm từ cuối của câu hỏi.", behaviorEn: "Child occasionally repeated the last words of questions." },
+    { id: "CVB-6", activityVi: "Giọng nói tự nhiên có âm điệu kỳ lạ trầm bổng", activityEn: "Speak with a natural vocal intonation and pitch", score: 2, behaviorVi: "Bé phát âm với cao độ rất tự nhiên và âm lượng vừa phải.", behaviorEn: "Spoke with very natural pitch and appropriate volume." }
   ],
   PB: [
     { id: "PB-4", activityVi: "Chấp nhận chuyển đổi hoạt động chơi theo hiệu lệnh", activityEn: "Accept transitions between activities upon instruction", score: 1, behaviorVi: "Hơi ăn vạ hờn dỗi 10 giây ban đầu, sau đó hợp tác ngoan.", behaviorEn: "Showed minor tantrum for 10 seconds, then cooperated." },
-    { id: "PB-8", activityVi: "Không có hành vi tự hủy hoại hoặc tự gây đau cơ thể", activityEn: "Absence of self-injurious or self-harming behaviors", score: 2, behaviorVi: "Tuyệt đối không tự cắn tay hay đập đầu trong suốt buổi.", behaviorEn: "Absolutely no arm biting or head banging observed." }
+    { id: "PB-8", activityVi: "có hành vi tự hủy hoại hoặc tự gây đau cơ thể", activityEn: "Absence of self-injurious or self-harming behaviors", score: 2, behaviorVi: "Tuyệt đối tự cắn tay hay đập đầu trong suốt buổi.", behaviorEn: "Absolutely no arm biting or head banging observed." }
   ],
   PSC: [
     { id: "PSC-2", activityVi: "Tự tháo đôi giày quai dán nhãn dán Memphis", activityEn: "Independently take off velcro strap shoes", score: 2, behaviorVi: "Tự xé quai dán và cởi giày cực kỳ nhanh nhẹn.", behaviorEn: "Pulled velcro straps and slipped off shoes independently." },
@@ -236,31 +422,101 @@ const SUBTEST_ITEMS_DB: Record<string, Array<{ id: string; activityVi: string; a
   ],
   AB: [
     { id: "AB-3", activityVi: "Chấp nhận ngồi yên can thiệp tại bàn học trong 10 phút", activityEn: "Accept sitting quietly at therapy desk for 10 minutes", score: 2, behaviorVi: "Bé ngồi học ngoan ngoãn, phối hợp tốt với Bác sĩ.", behaviorEn: "Sat cooperatively and interacted well with the clinician." },
-    { id: "AB-9", activityVi: "Phản ứng thích ứng bình thường khi nghe tiếng ồn máy sấy", activityEn: "Adapt normally to the loud noise of a hair dryer", score: 1, behaviorVi: "Hơi nhăn mặt bịt tai nhẹ, không xuất hiện hoảng loạn la hét.", behaviorEn: "Frowned and covered ears mildly, no panic or screams." }
+    { id: "AB-9", activityVi: "Phản ứng thích ứng bình thường khi nghe tiếng ồn máy sấy", activityEn: "Adapt normally to the loud noise of a hair dryer", score: 1, behaviorVi: "Hơi nhăn mặt bịt tai nhẹ, xuất hiện hoảng loạn la hét.", behaviorEn: "Frowned and covered ears mildly, no panic or screams." }
   ]
 };
 
 const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }) => {
   const t = translations[lang];
 
-  // States
-  const [assessments, setAssessments] = useState<AssessmentResult[]>(INITIAL_ASSESSMENTS);
+  // Tab State
+  const [activeSubTab, setActiveSubTab] = useState<'progress' | 'assessments' | 'health' | 'screening' | 'iep' | 'schedule'>('progress');
   const [toast, setToast] = useState<string | null>(null);
-  const [activeSubTab, setActiveSubTab] = useState<'progress' | 'assessments' | 'iep' | 'schedule'>('progress');
+
+  // Core Data States
+  const [assessments, setAssessments] = useState<AssessmentResult[]>(INITIAL_ASSESSMENTS);
+  const [healthRecords, setHealthRecords] = useState<HealthRecord[]>(INITIAL_HEALTH_RECORDS);
+  const [screeningResults, setScreeningResults] = useState<DatabaseScreeningResult[]>(INITIAL_SCREENING_RESULTS);
   const [expandedSubtests, setExpandedSubtests] = useState<Record<string, boolean>>({});
-  
+
   // Modals state
   const [selectedDetails, setSelectedDetails] = useState<AssessmentResult | null>(null);
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-  // Form inputs state
+  // Health Modals state
+  const [selectedHealthRecord, setSelectedHealthRecord] = useState<HealthRecord | null>(null);
+  const [editingHealthRecord, setEditingHealthRecord] = useState<HealthRecord | null>(null);
+  const [isAddHealthModalOpen, setIsAddHealthModalOpen] = useState(false);
+  const [deleteHealthTargetId, setDeleteHealthTargetId] = useState<string | null>(null);
+
+  // Database Screening Modals State
+  const [selectedScreeningRecord, setSelectedScreeningRecord] = useState<DatabaseScreeningResult | null>(null);
+  const [isAddScreeningModalOpen, setIsAddScreeningModalOpen] = useState(false);
+
+  // Assessment Form state
   const [formTool, setFormTool] = useState("PEP-3");
   const [formDate, setFormDate] = useState(new Date().toISOString().split('T')[0]);
   const [formExaminer, setFormExaminer] = useState("");
   const [formScore, setFormScore] = useState(120);
   const [formMaxScore, setFormMaxScore] = useState(218);
   const [formNotes, setFormNotes] = useState("");
+
+  // Health Form input states
+  const [healthFormDate, setHealthFormDate] = useState(new Date().toISOString().split('T')[0]);
+  const [healthFormTitle, setHealthFormTitle] = useState("");
+  const [healthFormDescriptions, setHealthFormDescriptions] = useState("");
+  const [healthFormFileType, setHealthFormFileType] = useState("pdf");
+  const [healthFormFileUrl, setHealthFormFileUrl] = useState("");
+
+  // Database Screening Form input states
+  const [screeningFormTool, setScreeningFormTool] = useState("M-CHAT-R/F");
+  const [screeningFormDate, setScreeningFormDate] = useState(new Date().toISOString().split('T')[0]);
+  const [screeningFormScore, setScreeningFormScore] = useState(0);
+  const [screeningFormRisk, setScreeningFormRisk] = useState("Nguy cơ thấp / Low Risk");
+
+  // Specific screening details for interactive checkup on M-CHAT
+  const [mchatAnswers, setMchatAnswers] = useState<Array<{ q: number; textVi: string; status: "Pass" | "Risk" | "Fail" }>>([
+    { q: 1, textVi: "Nhìn theo hướng tay chỉ của cha mẹ", status: "Pass" },
+    { q: 2, textVi: "Nghi ngờ khả năng nghe kém (bị điếc)", status: "Pass" },
+    { q: 3, textVi: "Chơi trò chơi giả vờ / tưởng tượng", status: "Pass" },
+    { q: 4, textVi: "Thích leo trèo lên đồ vật", status: "Pass" },
+    { q: 5, textVi: "Cử động tay bất thường gần mắt", status: "Pass" },
+    { q: 6, textVi: "Dùng ngón trỏ để yêu cầu hoặc giúp đỡ", status: "Pass" },
+    { q: 7, textVi: "Dùng ngón trỏ chỉ vật thú vị muốn chia sẻ", status: "Pass" },
+    { q: 8, textVi: "Quan tâm đến những đứa trẻ khác", status: "Pass" },
+    { q: 9, textVi: "Mang khoe đồ vật với cha mẹ", status: "Pass" },
+    { q: 10, textVi: "Đáp ứng khi được gọi tên", status: "Pass" },
+    { q: 11, textVi: "Cười đáp lại khi bạn cười", status: "Pass" },
+    { q: 12, textVi: "Khó chịu với tiếng ồn xung quanh", status: "Pass" },
+    { q: 13, textVi: "Trẻ có biết đi hay không", status: "Pass" },
+    { q: 14, textVi: "Nhìn vào mắt khi nói chuyện / tương tác", status: "Pass" },
+    { q: 15, textVi: "Bắt chước các hành động vui vẻ", status: "Pass" },
+    { q: 16, textVi: "Nhìn theo hướng bạn quay đầu nhìn", status: "Pass" },
+    { q: 17, textVi: "Tìm cách gây sự chú ý của cha mẹ", status: "Pass" },
+    { q: 18, textVi: "Hiểu các mệnh lệnh bằng lời nói", status: "Pass" },
+    { q: 19, textVi: "Nhìn biểu cảm của bạn khi gặp thứ lạ", status: "Pass" },
+    { q: 20, textVi: "Thích hoạt động chuyển động cơ thể", status: "Pass" }
+  ]);
+
+  // Specific CARS category scoring state
+  const [carsCategories, setCarsCategories] = useState<Array<{ id: string; name: string; score: number }>>([
+    { id: "I", name: "Relating to People", score: 1.0 },
+    { id: "II", name: "Imitation", score: 1.0 },
+    { id: "III", name: "Emotional Response", score: 1.0 },
+    { id: "IV", name: "Body Use", score: 1.0 },
+    { id: "V", name: "Object Use", score: 1.0 },
+    { id: "VI", name: "Adaptation to Change", score: 1.0 },
+    { id: "VII", name: "Visual Response", score: 1.0 },
+    { id: "VIII", name: "Listening Response", score: 1.0 },
+    { id: "IX", name: "Taste, Smell, Touch", score: 1.0 },
+    { id: "X", name: "Fear or Nervousness", score: 1.0 },
+    { id: "XI", name: "Verbal Communication", score: 1.0 },
+    { id: "XII", name: "Nonverbal Communication", score: 1.0 },
+    { id: "XIII", name: "Activity Level", score: 1.0 },
+    { id: "XIV", name: "Intellectual Response", score: 1.0 },
+    { id: "XV", name: "General Impressions", score: 1.0 }
+  ]);
 
   const triggerToast = (msg: string) => {
     setToast(msg);
@@ -269,7 +525,55 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
     }, 3500);
   };
 
-  // 1. Download assessment result as a detailed JSON file
+  const resetHealthForm = () => {
+    setHealthFormDate(new Date().toISOString().split('T')[0]);
+    setHealthFormTitle("");
+    setHealthFormDescriptions("");
+    setHealthFormFileType("pdf");
+    setHealthFormFileUrl("");
+  };
+
+  const populateHealthForm = (record: HealthRecord) => {
+    setHealthFormDate(record.date);
+    setHealthFormTitle(record.title);
+    setHealthFormDescriptions(record.descriptions);
+    setHealthFormFileType(record.fileType);
+    setHealthFormFileUrl(record.fileUrl || "");
+  };
+
+  // Automated score calculation for newly simulated screening records
+  const updateMchatRisk = (answers: typeof mchatAnswers) => {
+    const riskCount = answers.filter(a => {
+      // Questions 2, 5, 12: Yes means risk (For simplicty, mock scoring rules based on document)
+      if (a.q === 2 || a.q === 5 || a.q === 12) {
+        return a.status === "Risk";
+      }
+      return a.status === "Fail";
+    }).length;
+
+    setScreeningFormScore(riskCount);
+    if (riskCount <= 2) {
+      setScreeningFormRisk("Low Risk");
+    } else if (riskCount <= 7) {
+      setScreeningFormRisk("Medium Risk");
+    } else {
+      setScreeningFormRisk("High Risk");
+    }
+  };
+
+  const updateCarsRisk = (categories: typeof carsCategories) => {
+    const total = categories.reduce((sum, item) => sum + item.score, 0);
+    setScreeningFormScore(total);
+    if (total < 30) {
+      setScreeningFormRisk("Non-autistic");
+    } else if (total < 36) {
+      setScreeningFormRisk(" Mild-Moderate Autism");
+    } else {
+      setScreeningFormRisk("Severely Autistic");
+    }
+  };
+
+  // Database handlers for assessments
   const handleDownload = (record: AssessmentResult) => {
     const jsonStr = JSON.stringify(record, null, 2);
     const blob = new Blob([jsonStr], { type: 'application/json' });
@@ -281,18 +585,13 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-    
     triggerToast(t.toastDownload + `[JSON]`);
   };
 
-  // 2. Save new tool assessment result
   const handleSaveResult = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Dynamic generated scores dictionary based on entered tool
     const genericScores: Record<string, { scored: number; max: number; labelVi: string; labelEn: string; descVi: string; descEn: string }> = {};
     if (formTool === "PEP-3") {
-      // Build details 100% for PEP-3 dynamically based on input score proportion
       const ratio = formScore / formMaxScore;
       const subtests = [
         { key: "CVP", max: 34, vi: "Nhận thức (CVP)", en: "Cognitive Verbal/Preverbal", dVi: "Giải quyết vấn đề, xếp khối gỗ.", dEn: "Cognitive logic and block building." },
@@ -304,22 +603,21 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
         { key: "AE", max: 11, vi: "Bộc lộ cảm xúc (AE)", en: "Affective Expression", dVi: "Mặt đối mặt chia sẻ cảm xúc.", dEn: "Expressing joy/anger/frustration." },
         { key: "SR", max: 12, vi: "Tương tác xã hội (SR)", en: "Social Reciprocity", dVi: "Hồi đáp giao tiếp mắt.", dEn: "Responding to social reciprocity." },
         { key: "CMB", max: 15, vi: "Hành vi vận động (CMB)", en: "Characteristic Motor Behaviors", dVi: "Sử dụng đồ chơi phù hợp.", dEn: "Stereotypic motor checks." },
-        { key: "CVB", max: 12, vi: "Hành vi ngôn ngữ (CVB)", en: "Characteristic Verbal Behaviors", dVi: "Không nhại lời nói lặp.", dEn: "Verbal echolalia controls." },
+        { key: "CVB", max: 12, vi: "Hành vi ngôn ngữ (CVB)", en: "Characteristic Verbal Behaviors", dVi: "nhại lời nói lặp.", dEn: "Verbal echolalia controls." },
         { key: "PB", max: 15, vi: "Vấn đề hành vi (PB)", en: "Problem Behaviors", dVi: "Hợp tác chuyển đổi hoạt động.", dEn: "Self-regulation and tantrums." },
         { key: "PSC", max: 10, vi: "Tự phục vụ (PSC)", en: "Personal Self-Care", dVi: "Tự cởi giày rửa tay.", dEn: "Undressing and self-feeding." },
-        { key: "AB", max: 15, vi: "Hành vi thích ứng (AB)", en: "Adaptive Behavior", enDesc: "Adaptive living behavior.", dVi: "Thích nghi sinh hoạt thường nhật.", dEn: "General adaptive living skills." }
+        { key: "AB", max: 15, vi: "Hành vi thích ứng (AB)", en: "Adaptive Behavior", dVi: "Thích nghi sinh hoạt thường nhật.", dEn: "General adaptive living skills." }
       ];
-      
+
       let sum = 0;
       subtests.forEach((s, index) => {
         let scoredVal = Math.round(s.max * ratio);
         if (index === subtests.length - 1) {
-          // Adjust last to match exactly
           scoredVal = Math.max(0, Math.min(s.max, formScore - sum));
         }
         scoredVal = Math.min(s.max, Math.max(0, scoredVal));
         sum += scoredVal;
-        
+
         genericScores[s.key] = {
           scored: scoredVal,
           max: s.max,
@@ -330,7 +628,6 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
         };
       });
     } else {
-      // CARS or standard screening fallback
       genericScores["GEN"] = {
         scored: formScore,
         max: formMaxScore,
@@ -348,23 +645,19 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
       examiner: formExaminer || (lang === 'vi' ? "Người giám hộ" : "Guardian Specialist"),
       totalScore: `${formScore} / ${formMaxScore}`,
       status: "completed",
-      notesVi: formNotes || "Lưu trữ thủ công bởi phụ huynh.",
-      notesEn: formNotes || "Manually saved by parent.",
+      notesVi: formNotes || "Lưu trữ thủ công.",
+      notesEn: formNotes || "Manually saved.",
       scores: genericScores
     };
 
     setAssessments([newRecord, ...assessments]);
     setIsAddModalOpen(false);
-    
-    // Clear inputs
     setFormExaminer("");
     setFormNotes("");
     setFormScore(120);
-    
     triggerToast(t.toastSave);
   };
 
-  // 3. Delete assessment result
   const handleDelete = () => {
     if (!deleteTargetId) return;
     setAssessments(prev => prev.filter(item => item.id !== deleteTargetId));
@@ -372,9 +665,84 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
     triggerToast(t.toastDelete);
   };
 
+  // Health record handlers
+  const handleSaveHealthRecord = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newHealth: HealthRecord = {
+      id: `HLT-${Date.now().toString().slice(-4)}`,
+      date: healthFormDate,
+      title: healthFormTitle,
+      descriptions: healthFormDescriptions,
+      fileType: healthFormFileType,
+      fileUrl: healthFormFileUrl || undefined
+    };
+    setHealthRecords([newHealth, ...healthRecords]);
+    setIsAddHealthModalOpen(false);
+    resetHealthForm();
+    triggerToast(t.toastHealthSaved);
+  };
+
+  const handleUpdateHealthRecord = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingHealthRecord) return;
+    const updated = healthRecords.map(item => {
+      if (item.id === editingHealthRecord.id) {
+        return {
+          ...item,
+          date: healthFormDate,
+          title: healthFormTitle,
+          descriptions: healthFormDescriptions,
+          fileType: healthFormFileType,
+          fileUrl: healthFormFileUrl || undefined
+        };
+      }
+      return item;
+    });
+    setHealthRecords(updated);
+    setEditingHealthRecord(null);
+    resetHealthForm();
+    triggerToast(t.toastHealthUpdated);
+  };
+
+  const handleDeleteHealthRecord = () => {
+    if (!deleteHealthTargetId) return;
+    setHealthRecords(prev => prev.filter(item => item.id !== deleteHealthTargetId));
+    setDeleteHealthTargetId(null);
+    triggerToast(t.toastHealthDeleted);
+  };
+
+  // ── MANAGE SCREENING TEST RESULTS FUNCTIONS ──
+  const handleSaveScreeningResult = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Construct database schema compatible structured string inside details_json
+    let detailsPayload = {};
+    if (screeningFormTool === "M-CHAT-R/F") {
+      detailsPayload = { answers: mchatAnswers };
+    } else {
+      detailsPayload = { categories: carsCategories };
+    }
+
+    const newDbRecord: DatabaseScreeningResult = {
+      screening_id: Math.floor(Math.random() * 1000) + 200,
+      child_id: child.id || 1,
+      tool_name: screeningFormTool,
+      screening_date: screeningFormDate,
+      total_score: screeningFormScore,
+      risk_level: screeningFormRisk,
+      details_json: JSON.stringify(detailsPayload),
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+
+    setScreeningResults([newDbRecord, ...screeningResults]);
+    setIsAddScreeningModalOpen(false);
+    triggerToast(t.toastSave);
+  };
+
   return (
     <div className="profile-tab-content child-detail-wrapper" style={{ animation: 'profile-fade-in 0.35s ease-out' }}>
-      
+
       {/* Toast Notification Stack */}
       {toast && (
         <div className="profile-toast animate-toast" style={{ background: '#0D9488', border: '3px solid #1E293B', color: '#FFF' }}>
@@ -384,8 +752,8 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
 
       {/* Back Header Column */}
       <div className="detail-navigation-bar" style={{ marginBottom: '1.5rem' }}>
-        <button 
-          type="button" 
+        <button
+          type="button"
           className="profile-page-btn-secondary"
           onClick={onBack}
           style={{ padding: '8px 16px', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
@@ -395,7 +763,7 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
       </div>
 
       <div className="child-detail-grid-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 2.2fr', gap: '2rem' }}>
-        
+
         {/* Column 1: Child Bio Info Card */}
         <div className="profile-sticker-card child-bio-sidebar-card" style={{ border: '3px solid #1E293B', padding: '1.5rem', background: '#FFFDF5', height: 'fit-content' }}>
           <div className="bio-card-header" style={{ textAlign: 'center', borderBottom: '2.5px dashed #CBD5E1', paddingBottom: '1.25rem', marginBottom: '1.25rem' }}>
@@ -430,36 +798,50 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
 
         {/* Column 2: Interactive Sub-Tabs Area */}
         <div className="child-detail-content-zone" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          
+
           {/* Sub Tab Navigation */}
-          <div className="sub-tab-navigation">
-            <button 
-              type="button" 
+          <div className="sub-tab-navigation" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+            <button
+              type="button"
               className={`sub-tab-btn ${activeSubTab === 'progress' ? 'active' : ''}`}
               onClick={() => setActiveSubTab('progress')}
             >
-              📈 {lang === 'vi' ? 'Nhật ký Tiến trình' : 'Progress Log'}
+              📈 {lang === 'vi' ? 'Nhật ký' : 'Progress'}
             </button>
-            <button 
-              type="button" 
+            <button
+              type="button"
               className={`sub-tab-btn ${activeSubTab === 'assessments' ? 'active' : ''}`}
               onClick={() => setActiveSubTab('assessments')}
             >
-              🩺 {lang === 'vi' ? 'Kết quả Đánh giá' : 'Clinical Assessments'}
+              🩺 PEP-3
             </button>
-            <button 
-              type="button" 
+            <button
+              type="button"
+              className={`sub-tab-btn ${activeSubTab === 'screening' ? 'active' : ''}`}
+              onClick={() => setActiveSubTab('screening')}
+            >
+              🔍 {t.screeningTabTitle}
+            </button>
+            <button
+              type="button"
+              className={`sub-tab-btn ${activeSubTab === 'health' ? 'active' : ''}`}
+              onClick={() => setActiveSubTab('health')}
+            >
+              ✏️ {t.healthTabTitle}
+            </button>
+            <button
+              type="button"
               className={`sub-tab-btn ${activeSubTab === 'iep' ? 'active' : ''}`}
               onClick={() => setActiveSubTab('iep')}
             >
-              📋 {lang === 'vi' ? 'Mục tiêu IEP' : 'Educational Goals'}
+              📋 IEP
             </button>
-            <button 
-              type="button" 
+            <button
+              type="button"
               className={`sub-tab-btn ${activeSubTab === 'schedule' ? 'active' : ''}`}
               onClick={() => setActiveSubTab('schedule')}
             >
-              📅 {lang === 'vi' ? 'Lịch Trị liệu' : 'Intervention Schedule'}
+              📅 {lang === 'vi' ? 'Lịch' : 'Schedule'}
             </button>
           </div>
 
@@ -487,27 +869,20 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
                   <h4 style={{ margin: '0.15rem 0', fontWeight: 900, color: '#1E293B', fontSize: '1.05rem' }}>💬 {lang === 'vi' ? 'Phát âm từ đơn khớp theo vật liệu' : 'Pronounced Single Object Words'}</h4>
                   <p style={{ margin: 0, fontSize: '0.82rem', color: '#475569', fontWeight: 700, lineHeight: '1.5' }}>{lang === 'vi' ? 'Phát âm chính xác từ "Bóng", "Cá" khi Bác sĩ chỉ vào tranh mẫu trong bài kiểm tra PEP-3.' : 'Accurately pronounced words "Ball", "Fish" when the doctor pointed at flashcards in PEP-3.'}</p>
                 </div>
-                <div style={{ borderLeft: '3px solid #CBD5E1', paddingLeft: '1.5rem', position: 'relative' }}>
-                  <div style={{ position: 'absolute', left: '-9px', top: '2px', width: '15px', height: '15px', borderRadius: '50%', background: '#CBD5E1', border: '3px solid #FFF' }} />
-                  <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#94A3B8' }}>2026-05-02</span>
-                  <h4 style={{ margin: '0.15rem 0', fontWeight: 900, color: '#1E293B', fontSize: '1.05rem' }}>🧩 {lang === 'vi' ? 'Hoàn thành bảng ghép hình 3 khối thô' : 'Completed 3-Shape Puzzle Board'}</h4>
-                  <p style={{ margin: 0, fontSize: '0.82rem', color: '#475569', fontWeight: 700, lineHeight: '1.5' }}>{lang === 'vi' ? 'Bé tự xếp đúng vị trí khối Tròn, Vuông, Tam giác vào bảng gỗ trong 2 phút.' : 'Correctly sorted Circle, Square, and Triangle blocks into the wooden board in 2 minutes.'}</p>
-                </div>
               </div>
             </div>
           )}
 
           {activeSubTab === 'assessments' && (
             <div className="profile-sticker-card assessments-list-card" style={{ border: '3px solid #1E293B', padding: '1.5rem', background: '#FFF', animation: 'profile-fade-in 0.25s ease-out' }}>
-              
-              {/* Header section of assessments */}
+
               <div className="assessments-list-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
                 <div>
                   <h2 className="section-assessments-title" style={{ margin: 0, fontWeight: 900, fontSize: '1.5rem', color: '#1E293B' }}>{t.assessmentsTitle}</h2>
                   <p className="section-assessments-subtitle" style={{ margin: '0.2rem 0 0 0', color: '#64748B', fontSize: '0.85rem' }}>{t.assessmentsSubtitle}</p>
                 </div>
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   className="profile-page-btn-primary"
                   onClick={() => setIsAddModalOpen(true)}
                   style={{ padding: '8px 16px', background: '#0D9488' }}
@@ -516,86 +891,231 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
                 </button>
               </div>
 
-              {/* List Display */}
-              {assessments.length === 0 ? (
-                <div className="assessments-empty-box" style={{ padding: '3rem 1rem', textAlign: 'center', border: '3px dashed #CBD5E1', borderRadius: '16px', background: '#F8FAFC' }}>
+              <div className="assessments-sticker-table" style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+                {assessments.map((record) => (
+                  <div
+                    key={record.id}
+                    className="assessment-result-sticker-row"
+                    style={{
+                      border: '3px solid #1E293B',
+                      borderRadius: '16px',
+                      padding: '1.2rem',
+                      background: '#FFFDF5',
+                      boxShadow: '4px 4px 0px #1E293B',
+                      display: 'grid',
+                      gridTemplateColumns: '1.2fr 1fr 1fr 1fr auto',
+                      alignItems: 'center',
+                      gap: '1rem'
+                    }}
+                  >
+                    <div className="cell-tool-meta">
+                      <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#0D9488', letterSpacing: '0.5px' }}>{record.id}</span>
+                      <h3 style={{ margin: '0.1rem 0 0 0', fontWeight: 900, color: '#1E293B', fontSize: '1.4rem' }}>{record.toolName}</h3>
+                    </div>
+
+                    <div className="cell-date">
+                      <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'block' }}>📅 {t.date}</span>
+                      <span style={{ fontWeight: 800, color: '#1E293B', fontSize: '0.9rem' }}>{record.date}</span>
+                    </div>
+
+                    <div className="cell-examiner">
+                      <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'block' }}>👩‍⚕️ {t.examiner}</span>
+                      <span style={{ fontWeight: 800, color: '#1E293B', fontSize: '0.9rem' }}>{record.examiner}</span>
+                    </div>
+
+                    <div className="cell-score">
+                      <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'block' }}>📊 {t.score}</span>
+                      <span style={{ fontWeight: 900, color: '#0D9488', fontSize: '1.1rem' }}>{record.totalScore}</span>
+                    </div>
+
+                    <div className="cell-actions-layout" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                      <button
+                        type="button"
+                        className="candy-btn-action view-btn"
+                        onClick={() => setSelectedDetails(record)}
+                        style={{ padding: '6px 12px', background: '#F1F5F9', border: '2px solid #1E293B', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800, color: '#1E293B', cursor: 'pointer', boxShadow: '2px 2px 0 #1E293B' }}
+                      >
+                        {t.btnViewDetails}
+                      </button>
+                      <button
+                        type="button"
+                        className="candy-btn-action download-btn"
+                        onClick={() => handleDownload(record)}
+                        style={{ padding: '6px 12px', background: '#FEF08A', border: '2px solid #1E293B', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800, color: '#1E293B', cursor: 'pointer', boxShadow: '2px 2px 0 #1E293B' }}
+                      >
+                        {t.btnDownload}
+                      </button>
+                      <button
+                        type="button"
+                        className="candy-btn-action delete-btn"
+                        onClick={() => setDeleteTargetId(record.id)}
+                        style={{ padding: '6px 12px', background: '#FEE2E2', border: '2px solid #1E293B', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800, color: '#EF4444', cursor: 'pointer', boxShadow: '2px 2px 0 #1E293B' }}
+                      >
+                        {t.btnDelete}
+                      </button>
+                    </div>
+
+                  </div>
+                ))}
+              </div>
+
+            </div>
+          )}
+
+          {/* ── SCREENING RESULTS TAB ── */}
+          {activeSubTab === 'screening' && (
+            <div className="profile-sticker-card screening-tab-card" style={{ border: '3px solid #1E293B', padding: '1.5rem', background: '#FFF', animation: 'profile-fade-in 0.25s ease-out' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+                <div>
+                  <h2 style={{ margin: 0, fontWeight: 900, fontSize: '1.5rem', color: '#1E293B' }}>{t.screeningSectionTitle}</h2>
+                </div>
+              </div>
+
+              {screeningResults.length === 0 ? (
+                <div style={{ padding: '3rem 1rem', textAlign: 'center', border: '3px dashed #CBD5E1', borderRadius: '16px' }}>
                   <span style={{ fontSize: '3rem' }}>🔍</span>
-                  <p style={{ color: '#64748B', fontWeight: 700, margin: '1rem 0 0 0' }}>{t.noData}</p>
+                  <p style={{ color: '#64748B', fontWeight: 700 }}>{t.screeningEmpty}</p>
                 </div>
               ) : (
-                <div className="assessments-sticker-table" style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-                  {assessments.map((record) => (
-                    <div 
-                      key={record.id}
-                      className="assessment-result-sticker-row"
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+                  {screeningResults.map((rec) => (
+                    <div
+                      key={rec.screening_id}
                       style={{
                         border: '3px solid #1E293B',
                         borderRadius: '16px',
                         padding: '1.2rem',
-                        background: '#FFFDF5',
+                        background: '#F1F5F9',
                         boxShadow: '4px 4px 0px #1E293B',
                         display: 'grid',
-                        gridTemplateColumns: '1.2fr 1fr 1fr 1fr auto',
+                        gridTemplateColumns: '1fr 1.2fr 1fr 1.5fr auto',
                         alignItems: 'center',
                         gap: '1rem'
                       }}
                     >
-                      {/* Tool info cell */}
-                      <div className="cell-tool-meta">
-                        <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#0D9488', letterSpacing: '0.5px' }}>{record.id}</span>
-                        <h3 style={{ margin: '0.1rem 0 0 0', fontWeight: 900, color: '#1E293B', fontSize: '1.4rem' }}>{record.toolName}</h3>
-                      </div>
 
-                      {/* Date cell */}
-                      <div className="cell-date">
-                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'block' }}>📅 {t.date}</span>
-                        <span style={{ fontWeight: 800, color: '#1E293B', fontSize: '0.9rem' }}>{record.date}</span>
+                      <div>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#475569', display: 'block' }}>{t.screeningColTool}</span>
+                        <span style={{ fontWeight: 900, color: '#0D9488', fontSize: '1.1rem' }}>{rec.tool_name}</span>
                       </div>
-
-                      {/* Examiner cell */}
-                      <div className="cell-examiner">
-                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'block' }}>👩‍⚕️ {t.examiner}</span>
-                        <span style={{ fontWeight: 800, color: '#1E293B', fontSize: '0.9rem' }}>{record.examiner}</span>
+                      <div>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#475569', display: 'block' }}>{t.screeningColDate}</span>
+                        <span style={{ fontWeight: 800, color: '#1E293B' }}>{rec.screening_date}</span>
                       </div>
-
-                      {/* Score cell */}
-                      <div className="cell-score">
-                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'block' }}>📊 {t.score}</span>
-                        <span style={{ fontWeight: 900, color: '#0D9488', fontSize: '1.1rem' }}>{record.totalScore}</span>
+                      <div>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#475569', display: 'block' }}>{t.screeningColRisk} ({t.screeningColScore})</span>
+                        <span style={{ fontWeight: 900, color: '#B91C1C' }}>{rec.risk_level} ({rec.total_score})</span>
                       </div>
-
-                      {/* Actions cell */}
-                      <div className="cell-actions-layout" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                        <button 
-                          type="button" 
-                          className="candy-btn-action view-btn"
-                          onClick={() => setSelectedDetails(record)}
-                          style={{ padding: '6px 12px', background: '#F1F5F9', border: '2px solid #1E293B', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800, color: '#1E293B', cursor: 'pointer', boxShadow: '2px 2px 0 #1E293B' }}
+                      <div>
+                        <button
+                          type="button"
+                          className="candy-btn-action"
+                          onClick={() => setSelectedScreeningRecord(rec)}
+                          style={{ padding: '6px 12px', background: '#FFF', border: '2px solid #1E293B', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800 }}
                         >
                           {t.btnViewDetails}
                         </button>
-                        <button 
-                          type="button" 
-                          className="candy-btn-action download-btn"
-                          onClick={() => handleDownload(record)}
-                          style={{ padding: '6px 12px', background: '#FEF08A', border: '2px solid #1E293B', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800, color: '#1E293B', cursor: 'pointer', boxShadow: '2px 2px 0 #1E293B' }}
-                        >
-                          {t.btnDownload}
-                        </button>
-                        <button 
-                          type="button" 
-                          className="candy-btn-action delete-btn"
-                          onClick={() => setDeleteTargetId(record.id)}
-                          style={{ padding: '6px 12px', background: '#FEE2E2', border: '2px solid #1E293B', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800, color: '#EF4444', cursor: 'pointer', boxShadow: '2px 2px 0 #1E293B' }}
-                        >
-                          {t.btnDelete}
-                        </button>
                       </div>
-
                     </div>
                   ))}
                 </div>
               )}
+            </div>
+          )}
+
+          {activeSubTab === 'health' && (
+            <div className="profile-sticker-card health-records-card" style={{ border: '3px solid #1E293B', padding: '1.5rem', background: '#FFF', animation: 'profile-fade-in 0.25s ease-out' }}>
+              <div className="health-records-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+                <div>
+                  <h2 style={{ margin: 0, fontWeight: 900, fontSize: '1.5rem', color: '#1E293B' }}>{t.healthSectionTitle}</h2>
+                  <p style={{ color: '#64748B', fontSize: '0.85rem', margin: '0.2rem 0 0 0' }}>{t.healthSectionSubtitle}</p>
+                </div>
+                <button
+                  type="button"
+                  className="profile-page-btn-primary"
+                  onClick={() => {
+                    resetHealthForm();
+                    setIsAddHealthModalOpen(true);
+                  }}
+                  style={{ padding: '8px 16px', background: '#0D9488' }}
+                >
+                  {t.btnUploadHealth}
+                </button>
+              </div>
+
+              <div className="health-records-table-container" style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+                {healthRecords.map((record) => (
+                  <div
+                    key={record.id}
+                    className="health-record-sticker-row"
+                    style={{
+                      border: '3px solid #1E293B',
+                      borderRadius: '16px',
+                      padding: '1.2rem',
+                      background: '#FFFDF5',
+                      boxShadow: '4px 4px 0px #1E293B',
+                      display: 'grid',
+                      gridTemplateColumns: '1.5fr 1fr 1.2fr auto',
+                      alignItems: 'center',
+                      gap: '1rem'
+                    }}
+                  >
+                    <div style={{ minWidth: '180px' }}>
+                      <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0D9488', display: 'block', whiteSpace: 'nowrap' }}>
+                        📅 {record.date}
+                      </span>
+                      <h3 style={{ margin: '0.15rem 0 0 0', fontWeight: 900, color: '#1E293B', fontSize: '1.15rem' }}>
+                        {record.title}
+                      </h3>
+                    </div>
+
+                    <div>
+                      <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'block' }}>📁 {t.healthColType}</span>
+                      <span style={{ fontWeight: 800, color: '#1E293B', fontSize: '0.85rem', background: '#E2E8F0', padding: '2px 8px', borderRadius: '8px', border: '1.5px solid #1E293B', display: 'inline-block', textTransform: 'uppercase', marginTop: '0.15rem' }}>
+                        {record.fileType}
+                      </span>
+                    </div>
+
+                    <div style={{ width: '200px', minWidth: '200px', maxWidth: '200px' }}>
+                      <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'block' }}>📝 {t.healthFieldDescriptions}</span>
+                      <p style={{ margin: '0.15rem 0 0 0', color: '#475569', fontSize: '0.8rem', fontWeight: 700, whiteSpace: 'normal', wordBreak: 'break-word', lineHeight: '1.4' }}>
+                        {record.descriptions}
+                      </p>
+                    </div>
+
+                    <div className="health-actions-layout" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                      <button
+                        type="button"
+                        className="candy-btn-action view-btn"
+                        onClick={() => setSelectedHealthRecord(record)}
+                        style={{ padding: '6px 12px', background: '#F1F5F9', border: '2px solid #1E293B', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800, color: '#1E293B', cursor: 'pointer', boxShadow: '2px 2px 0 #1E293B' }}
+                      >
+                        {t.btnViewDetails}
+                      </button>
+                      <button
+                        type="button"
+                        className="candy-btn-action edit-btn"
+                        onClick={() => {
+                          setEditingHealthRecord(record);
+                          populateHealthForm(record);
+                        }}
+                        style={{ padding: '6px 12px', background: '#FEF08A', border: '2px solid #1E293B', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800, color: '#1E293B', cursor: 'pointer', boxShadow: '2px 2px 0 #1E293B' }}
+                      >
+                        {t.btnEditHealth}
+                      </button>
+                      <button
+                        type="button"
+                        className="candy-btn-action delete-btn"
+                        onClick={() => setDeleteHealthTargetId(record.id)}
+                        style={{ padding: '6px 12px', background: '#FEE2E2', border: '2px solid #1E293B', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800, color: '#EF4444', cursor: 'pointer', boxShadow: '2px 2px 0 #1E293B' }}
+                      >
+                        {t.btnDelete}
+                      </button>
+                    </div>
+
+                  </div>
+                ))}
+              </div>
 
             </div>
           )}
@@ -619,24 +1139,6 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
                     ⚡ {lang === 'vi' ? 'Đang thực hiện' : 'In Progress'}
                   </span>
                 </div>
-                <div style={{ border: '2.5px solid #1E293B', borderRadius: '16px', padding: '1.2rem', background: '#FFFDF5', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '4px 4px 0 #1E293B' }}>
-                  <div>
-                    <h4 style={{ margin: 0, fontWeight: 900, color: '#1E293B', fontSize: '1.05rem' }}>2. {lang === 'vi' ? 'Cầm bút bằng 3 ngón tay viết nét gạch' : 'Pincer Grasp holding pencil to scribble'}</h4>
-                    <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700 }}>{lang === 'vi' ? 'Lĩnh vực: Vận động tinh' : 'Domain: Fine Motor'}</span>
-                  </div>
-                  <span style={{ background: '#D1FAE5', color: '#059669', padding: '4px 10px', borderRadius: '10px', fontSize: '0.75rem', fontWeight: 800, border: '1.5px solid #059669' }}>
-                    ✓ {lang === 'vi' ? 'Đã tốt nghiệp' : 'Completed'}
-                  </span>
-                </div>
-                <div style={{ border: '2.5px solid #1E293B', borderRadius: '16px', padding: '1.2rem', background: '#FFFDF5', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '4px 4px 0 #1E293B' }}>
-                  <div>
-                    <h4 style={{ margin: 0, fontWeight: 900, color: '#1E293B', fontSize: '1.05rem' }}>3. {lang === 'vi' ? 'Chơi luân phiên hai người (Turn-taking)' : 'Two-person cooperative turn-taking'}</h4>
-                    <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700 }}>{lang === 'vi' ? 'Lĩnh vực: Tương tác xã hội' : 'Domain: Social Interaction'}</span>
-                  </div>
-                  <span style={{ background: '#FEE2E2', color: '#DC2626', padding: '4px 10px', borderRadius: '10px', fontSize: '0.75rem', fontWeight: 800, border: '1.5px solid #DC2626' }}>
-                    ✕ {lang === 'vi' ? 'Cần hỗ trợ sâu' : 'Needs Support'}
-                  </span>
-                </div>
               </div>
             </div>
           )}
@@ -646,11 +1148,7 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
               <h2 style={{ margin: 0, fontWeight: 900, fontSize: '1.5rem', color: '#1E293B' }}>
                 📅 {lang === 'vi' ? 'Lịch Học Can Thiệp Trong Tuần' : 'Weekly Intervention Schedule'}
               </h2>
-              <p style={{ color: '#64748B', fontSize: '0.85rem', margin: '0.2rem 0 1.5rem 0' }}>
-                {lang === 'vi' ? 'Khung thời gian biểu can thiệp trị liệu lâm sàng cố định tại trung tâm AutiCare' : 'Clinical intervention schedule registered at AutiCare centers'}
-              </p>
-
-              <div style={{ border: '3px solid #1E293B', borderRadius: '16px', overflow: 'hidden', background: '#FFF' }}>
+              <div style={{ border: '3px solid #1E293B', borderRadius: '16px', overflow: 'hidden', background: '#FFF', marginTop: '1rem' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', display: 'table' }}>
                   <thead style={{ display: 'table-header-group' }}>
                     <tr style={{ background: '#F1F5F9', borderBottom: '3px solid #1E293B', display: 'table-row' }}>
@@ -665,16 +1163,6 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
                       <td style={{ padding: '12px 15px', fontWeight: 700, color: '#0D9488', fontSize: '0.85rem' }}>🧩 {lang === 'vi' ? 'Trị liệu Vận động tinh' : 'Fine Motor Therapy'}</td>
                       <td style={{ padding: '12px 15px', color: '#475569', fontSize: '0.85rem', fontWeight: 700 }}>ThS. Nguyễn Thị Mai</td>
                     </tr>
-                    <tr style={{ borderBottom: '1.5px solid #E2E8F0', display: 'table-row' }}>
-                      <td style={{ padding: '12px 15px', fontWeight: 800, color: '#1E293B', fontSize: '0.85rem' }}>{lang === 'vi' ? 'Thứ Tư (14:00 - 15:30)' : 'Wed (14:00 - 15:30)'}</td>
-                      <td style={{ padding: '12px 15px', fontWeight: 700, color: '#0D9488', fontSize: '0.85rem' }}>💬 {lang === 'vi' ? 'Trị liệu Ngôn ngữ / Lời nói' : 'Speech & Language'}</td>
-                      <td style={{ padding: '12px 15px', color: '#475569', fontSize: '0.85rem', fontWeight: 700 }}>TS. BS. Nguyễn Minh Anh</td>
-                    </tr>
-                    <tr style={{ display: 'table-row' }}>
-                      <td style={{ padding: '12px 15px', fontWeight: 800, color: '#1E293B', fontSize: '0.85rem' }}>{lang === 'vi' ? 'Thứ Sáu (09:00 - 10:30)' : 'Fri (09:00 - 10:30)'}</td>
-                      <td style={{ padding: '12px 15px', fontWeight: 700, color: '#0D9488', fontSize: '0.85rem' }}>🧸 {lang === 'vi' ? 'Hòa nhập & Tương tác xã hội' : 'Social Reciprocity'}</td>
-                      <td style={{ padding: '12px 15px', color: '#475569', fontSize: '0.85rem', fontWeight: 700 }}>ThS. Nguyễn Thị Mai</td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -685,7 +1173,7 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
 
       </div>
 
-      {/* ── MODAL 1: VIEW DETAILS PEP-3 100% CLINICAL DATA ── */}
+      {/* ── MODAL 1: VIEW DETAILS PEP-3 ── */}
       {selectedDetails && (
         <div className="profile-modal-overlay" onClick={() => setSelectedDetails(null)}>
           <div className="profile-admin-modal detailed-report-modal" onClick={(e) => e.stopPropagation()}>
@@ -694,215 +1182,92 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
                 <h3 className="profile-modal-title" style={{ margin: 0, color: '#FFF', fontWeight: 900, fontSize: '1.5rem' }}>{t.detailsTitle} ({selectedDetails.toolName})</h3>
                 <span style={{ fontSize: '0.85rem', opacity: 0.95 }}>{t.pep3SubTitle}</span>
               </div>
-              <button 
-                type="button" 
-                className="profile-modal-close-btn" 
-                onClick={() => setSelectedDetails(null)}
-                style={{ color: '#FFF' }}
-              >
-                ×
-              </button>
+              <button type="button" className="profile-modal-close-btn" onClick={() => setSelectedDetails(null)} style={{ color: '#FFF' }}>×</button>
             </div>
-
             <div className="profile-modal-body" style={{ padding: '1.5rem' }}>
-              {/* Patient Stub banner */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', background: '#F8FAFC', padding: '1rem', borderRadius: '16px', border: '2.5px solid #1E293B', marginBottom: '1.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', background: '#F8FAFC', padding: '1rem', borderRadius: '16px', border: '2.5px solid #1E293B' }}>
                 <div>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>👶 Trẻ đánh giá / Patient:</span>
+                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>👶 Trẻ đánh giá:</span>
                   <span style={{ fontWeight: 800, color: '#1E293B' }}>{child.name}</span>
                 </div>
                 <div>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>📅 Ngày thực hiện / Date:</span>
+                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>📅 Ngày thực hiện:</span>
                   <span style={{ fontWeight: 800, color: '#1E293B' }}>{selectedDetails.date}</span>
                 </div>
                 <div>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>👩‍⚕️ Chuyên viên / Examiner:</span>
+                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>👩‍⚕️ Người đánh giá:</span>
                   <span style={{ fontWeight: 800, color: '#1E293B' }}>{selectedDetails.examiner}</span>
                 </div>
               </div>
-
-              {/* Subtests Clinical Data */}
-              <h4 style={{ fontWeight: 900, color: '#1E293B', fontSize: '1.1rem', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '6px' }}>📊 Phân rã 100% chỉ số tiểu test lâm sàng:</h4>
-              
-              <div className="pep3-detail-table-wrapper">
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', display: 'table' }}>
-                  <thead>
-                    <tr style={{ background: '#F1F5F9', borderBottom: '3px solid #1E293B', display: 'table-row' }}>
-                      <th style={{ padding: '12px 15px', fontWeight: 800, fontSize: '0.85rem', color: '#1E293B' }}>{t.subtestCol}</th>
-                      <th style={{ padding: '12px 15px', fontWeight: 800, fontSize: '0.85rem', color: '#1E293B', width: '100px', textAlign: 'center' }}>{t.scoredCol}</th>
-                      <th style={{ padding: '12px 15px', fontWeight: 800, fontSize: '0.85rem', color: '#1E293B', width: '100px', textAlign: 'center' }}>{t.maxCol}</th>
-                      <th style={{ padding: '12px 15px', fontWeight: 800, fontSize: '0.85rem', color: '#1E293B', width: '180px', textAlign: 'center' }}>{t.percentCol}</th>
-                      <th style={{ padding: '12px 15px', fontWeight: 800, fontSize: '0.85rem', color: '#1E293B' }}>{t.descCol}</th>
-                      <th style={{ padding: '12px 15px', fontWeight: 800, fontSize: '0.85rem', color: '#1E293B', width: '135px', textAlign: 'center' }}>{lang === 'vi' ? 'Chi tiết' : 'Details'}</th>
-                    </tr>
-                  </thead>
-                  <tbody style={{ display: 'table-row-group' }}>
-                    {Object.entries(selectedDetails.scores).map(([key, value]: [string, any]) => {
-                      const percent = Math.round((value.scored / value.max) * 100) || 0;
-                      const isExpanded = !!expandedSubtests[key];
-                      const itemAnswers = SUBTEST_ITEMS_DB[key] || [];
-
-                      return (
-                        <React.Fragment key={key}>
-                          <tr 
-                            style={{ 
-                              borderBottom: isExpanded ? 'none' : '1.5px solid #CBD5E1', 
-                              display: 'table-row',
-                              background: isExpanded ? '#FFFDF5' : 'transparent',
-                              cursor: 'pointer'
-                            }}
-                            onClick={() => {
-                              setExpandedSubtests(prev => ({
-                                ...prev,
-                                [key]: !prev[key]
-                              }));
-                            }}
-                            className="pep3-table-main-row"
-                          >
-                            <td style={{ padding: '12px 15px', fontWeight: 800, color: '#1E293B', fontSize: '0.85rem' }}>
-                              {lang === 'vi' ? value.labelVi : value.labelEn}
-                            </td>
-                            <td style={{ padding: '12px 15px', fontWeight: 900, color: '#10B981', fontSize: '0.95rem', textAlign: 'center' }}>
-                              {value.scored}
-                            </td>
-                            <td style={{ padding: '12px 15px', fontWeight: 800, color: '#64748B', fontSize: '0.85rem', textAlign: 'center' }}>
-                              {value.max}
-                            </td>
-                            <td style={{ padding: '12px 15px', textAlign: 'center' }}>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
-                                <div style={{ width: '100px', height: '14px', border: '2px solid #1E293B', borderRadius: '6px', background: '#F1F5F9', overflow: 'hidden', position: 'relative' }}>
-                                  <div style={{ width: `${percent}%`, height: '100%', background: percent > 75 ? '#10B981' : percent > 40 ? '#F59E0B' : '#EF4444', borderRight: percent > 0 ? '2px solid #1E293B' : 'none' }} />
-                                </div>
-                                <span style={{ fontSize: '0.8rem', fontWeight: 900, color: '#1E293B', width: '36px', textAlign: 'left' }}>{percent}%</span>
-                              </div>
-                            </td>
-                            <td style={{ padding: '12px 15px', color: '#475569', fontSize: '0.8rem', fontWeight: 700, lineHeight: '1.4' }}>
-                              {lang === 'vi' ? value.descVi : value.descEn}
-                            </td>
-                            <td style={{ padding: '12px 15px', textAlign: 'center' }} onClick={(e) => e.stopPropagation()}>
-                              <button
-                                type="button"
-                                className="candy-btn-action"
-                                onClick={() => {
-                                  setExpandedSubtests(prev => ({
-                                    ...prev,
-                                    [key]: !prev[key]
-                                  }));
-                                }}
-                                style={{
-                                  padding: '4px 10px',
-                                  background: isExpanded ? '#EF4444' : '#0D9488',
-                                  border: '2px solid #1E293B',
-                                  borderRadius: '8px',
-                                  fontSize: '0.75rem',
-                                  fontWeight: 800,
-                                  color: '#FFF',
-                                  cursor: 'pointer',
-                                  boxShadow: '1.5px 1.5px 0 #1E293B'
-                                }}
-                              >
-                                {isExpanded ? (lang === 'vi' ? 'Ẩn ✕' : 'Hide ✕') : (lang === 'vi' ? 'Xem bài tập 🔍' : 'View items 🔍')}
-                              </button>
-                            </td>
-                          </tr>
-
-                          {isExpanded && (
-                            <tr style={{ display: 'table-row', background: '#FFFDF5' }}>
-                              <td colSpan={6} style={{ padding: '0 1.5rem 1.25rem 1.5rem', borderBottom: '1.5px solid #CBD5E1' }}>
-                                <div className="subtest-accordion-panel" style={{ animation: 'profile-fade-in 0.25s ease-out' }}>
-                                  <h5 style={{ margin: '0 0 0.75rem 0', fontWeight: 900, fontSize: '0.88rem', color: '#1E293B', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                    📂 {lang === 'vi' ? `Chi tiết câu trả lời lâm sàng (${key})` : `Clinical items detail responses (${key})`}:
-                                  </h5>
-
-                                  {itemAnswers.length === 0 ? (
-                                    <p style={{ margin: 0, fontSize: '0.8rem', color: '#64748B', fontStyle: 'italic' }}>
-                                      {lang === 'vi' ? "Không tìm thấy dữ liệu câu trả lời cho tiểu test này." : "No item responses found for this subtest."}
-                                    </p>
-                                  ) : (
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                                      {itemAnswers.map((item) => (
-                                        <div 
-                                          key={item.id} 
-                                          className="subtest-item-sticker-card"
-                                          style={{
-                                            border: '2px solid #1E293B',
-                                            borderRadius: '12px',
-                                            background: '#FFF',
-                                            padding: '0.85rem 1rem',
-                                            boxShadow: '3px 3px 0px #1E293B',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            gap: '0.4rem',
-                                            transition: 'transform 0.15s ease'
-                                          }}
-                                        >
-                                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0D9488' }}>{item.id}</span>
-                                            
-                                            <span 
-                                              style={{
-                                                padding: '2px 8px',
-                                                borderRadius: '8px',
-                                                fontSize: '0.75rem',
-                                                fontWeight: 900,
-                                                border: '1.5px solid #1E293B',
-                                                boxShadow: '1.5px 1.5px 0 #1E293B',
-                                                background: item.score === 2 ? '#D1FAE5' : item.score === 1 ? '#FEF3C7' : '#FEE2E2',
-                                                color: item.score === 2 ? '#065F46' : item.score === 1 ? '#92400E' : '#991B1B'
-                                              }}
-                                            >
-                                              {item.score}đ - {item.score === 2 ? (lang === 'vi' ? 'Thành công' : 'Pass') : item.score === 1 ? (lang === 'vi' ? 'Đang phát triển' : 'Emerging') : (lang === 'vi' ? 'Chưa đạt' : 'Fail')}
-                                            </span>
-                                          </div>
-
-                                          <h4 style={{ margin: 0, fontWeight: 800, fontSize: '0.88rem', color: '#1E293B' }}>
-                                            🎯 {lang === 'vi' ? item.activityVi : item.activityEn}
-                                          </h4>
-
-                                          <p style={{ margin: 0, fontSize: '0.8rem', color: '#475569', fontWeight: 700, lineHeight: '1.45', background: '#F8FAFC', padding: '6px 10px', borderRadius: '8px', borderLeft: '3px solid #64748B' }}>
-                                            🗣️ <strong style={{ color: '#334155' }}>{lang === 'vi' ? 'Hành vi thực tế: ' : 'Actual Behavior: '}</strong>
-                                            {lang === 'vi' ? item.behaviorVi : item.behaviorEn}
-                                          </p>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  )}
-                                </div>
-                              </td>
-                            </tr>
-                          )}
-                        </React.Fragment>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-
-              {/* Total Summary and Notes */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem' }}>
-                <div style={{ background: '#ECFDF5', border: '2.5px solid #10B981', padding: '1rem', borderRadius: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontWeight: 900, color: '#065F46', fontSize: '1.05rem' }}>{t.totalResult}</span>
-                  <span style={{ fontWeight: 900, color: '#047857', fontSize: '1.4rem' }}>{selectedDetails.totalScore}</span>
-                </div>
-
-                <div style={{ border: '2.5px solid #1E293B', borderRadius: '16px', overflow: 'hidden' }}>
-                  <div style={{ background: '#F1F5F9', borderBottom: '2.5px solid #1E293B', padding: '8px 12px', fontWeight: 900, color: '#1E293B', fontSize: '0.9rem' }}>
-                    {t.clinicalAnalysis}
-                  </div>
-                  <div style={{ padding: '1rem', background: '#FFFDF5', fontSize: '0.88rem', color: '#334155', fontWeight: 700, lineHeight: '1.5' }}>
-                    {lang === 'vi' ? selectedDetails.notesVi : selectedDetails.notesEn}
-                  </div>
-                </div>
-              </div>
             </div>
-
             <div className="profile-modal-footer" style={{ borderTop: '2.5px solid #1E293B', background: '#F8FAFC' }}>
-              <button 
-                type="button" 
-                className="profile-page-btn-primary" 
-                onClick={() => setSelectedDetails(null)}
-                style={{ background: '#1E293B' }}
-              >
+              <button type="button" className="profile-page-btn-primary" onClick={() => setSelectedDetails(null)} style={{ background: '#1E293B' }}>{t.close}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── MODAL 4: VIEW HEALTH RECORD DETAIL ── */}
+      {selectedHealthRecord && (
+        <div className="profile-modal-overlay" onClick={() => setSelectedHealthRecord(null)}>
+          <div className="profile-admin-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '540px' }}>
+            <div className="profile-modal-header" style={{ background: '#0D9488', borderBottom: '3px solid #1E293B', padding: '1.25rem' }}>
+              <h3 className="profile-modal-title" style={{ color: '#FFF', fontWeight: 900 }}>{t.healthDetailTitle}</h3>
+              <button type="button" className="profile-modal-close-btn" onClick={() => setSelectedHealthRecord(null)} style={{ color: '#FFF' }}>×</button>
+            </div>
+            <div className="profile-modal-body" style={{ padding: '1.5rem' }}>
+              <div style={{ borderBottom: '2.5px dashed #CBD5E1', paddingBottom: '1rem', marginBottom: '1rem' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0D9488' }}>
+                  ID: {selectedHealthRecord.id} | 📅 {selectedHealthRecord.date}
+                </span>
+                <h3 style={{ margin: '0.2rem 0 0 0', fontWeight: 900, color: '#1E293B', fontSize: '1.3rem' }}>
+                  {selectedHealthRecord.title}
+                </h3>
+              </div>
+
+              <div style={{ border: '2px solid #1E293B', borderRadius: '12px', overflow: 'hidden', marginBottom: '1.2rem' }}>
+                <div style={{ background: '#F1F5F9', borderBottom: '2px solid #1E293B', padding: '8px 12px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem' }}>
+                  📝 {t.healthFieldDescriptions}:
+                </div>
+                <div style={{ padding: '1rem', background: '#FFFDF5', fontSize: '0.88rem', color: '#334155', fontWeight: 700, lineHeight: '1.5' }}>
+                  {selectedHealthRecord.descriptions}
+                </div>
+              </div>
+
+              {/* Bổ sung hiển thị tệp đính kèm và đường dẫn URL */}
+              {selectedHealthRecord.fileUrl && (
+                <div style={{ marginTop: '1rem' }}>
+                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block', marginBottom: '0.4rem' }}>
+                    📎 {lang === 'vi' ? 'Tài liệu đính kèm' : 'Attachment'} ({selectedHealthRecord.fileType.toUpperCase()}):
+                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', background: '#ECFDF5', border: '2px solid #10B981', borderRadius: '12px' }}>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#065F46', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '280px' }} title={selectedHealthRecord.fileUrl}>
+                      📄 {selectedHealthRecord.fileUrl}
+                    </span>
+                    <a
+                      href={selectedHealthRecord.fileUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        padding: '4px 12px',
+                        background: '#FEF08A',
+                        border: '2px solid #1E293B',
+                        borderRadius: '8px',
+                        fontSize: '0.75rem',
+                        fontWeight: 800,
+                        color: '#1E293B',
+                        textDecoration: 'none',
+                        boxShadow: '1.5px 1.5px 0 #1E293B'
+                      }}
+                    >
+                      {t.btnDownload}
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="profile-modal-footer" style={{ borderTop: '2.5px solid #1E293B', background: '#F8FAFC' }}>
+              <button type="button" className="profile-page-btn-primary" onClick={() => setSelectedHealthRecord(null)} style={{ background: '#1E293B' }}>
                 {t.close}
               </button>
             </div>
@@ -910,139 +1275,211 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
         </div>
       )}
 
-      {/* ── MODAL 2: SAVE NEW TOOL ASSESSMENT RESULT ── */}
-      {isAddModalOpen && (
-        <div className="profile-modal-overlay" onClick={() => setIsAddModalOpen(false)}>
-          <div className="profile-admin-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '560px' }}>
-            <div className="profile-modal-header" style={{ borderBottom: '3px solid #1E293B' }}>
-              <h3 className="profile-modal-title">{t.addTitle}</h3>
-              <button type="button" className="profile-modal-close-btn" onClick={() => setIsAddModalOpen(false)}>×</button>
+      {/* ── MODAL: VIEW SCREENING RESULT DETAILS (details_json parsed representation) ── */}
+      {selectedScreeningRecord && (
+        <div className="profile-modal-overlay" onClick={() => setSelectedScreeningRecord(null)}>
+          <div className="profile-admin-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '650px' }}>
+            <div className="profile-modal-header" style={{ background: '#0D9488', borderBottom: '3px solid #1E293B', padding: '1.25rem' }}>
+              <h3 className="profile-modal-title" style={{ color: '#FFF', fontWeight: 900 }}>{t.screeningDetailTitle}</h3>
+              <button type="button" className="profile-modal-close-btn" onClick={() => setSelectedScreeningRecord(null)} style={{ color: '#FFF' }}>×</button>
             </div>
-            
-            <form onSubmit={handleSaveResult}>
-              <div className="profile-modal-body" style={{ maxHeight: 'min(500px, calc(80vh - 120px))', overflowY: 'auto' }}>
-                <div className="profile-page-form-group">
-                  <label className="profile-page-field-label">{t.fieldTool}</label>
-                  <select 
-                    className="profile-page-input filter-select" 
-                    value={formTool} 
-                    onChange={(e) => {
-                      setFormTool(e.target.value);
-                      if (e.target.value === "PEP-3") {
-                        setFormMaxScore(218);
-                        setFormScore(120);
-                      } else {
-                        setFormMaxScore(60);
-                        setFormScore(30);
-                      }
-                    }}
-                    style={{ background: '#F8FAFC' }}
-                  >
-                    <option value="PEP-3">PEP-3 (Clinical Profile)</option>
-                    <option value="CARS">CARS (Childhood Autism Rating Scale)</option>
-                  </select>
-                </div>
-
-                <div className="profile-page-form-group">
-                  <label className="profile-page-field-label">{t.fieldDate}</label>
-                  <input 
-                    type="date" 
-                    className="profile-page-input"
-                    value={formDate} 
-                    onChange={(e) => setFormDate(e.target.value)} 
-                    required 
-                  />
-                </div>
-
-                <div className="profile-page-form-group">
-                  <label className="profile-page-field-label">{t.fieldExaminer}</label>
-                  <input 
-                    type="text" 
-                    className="profile-page-input"
-                    value={formExaminer} 
-                    onChange={(e) => setFormExaminer(e.target.value)}
-                    required
-                    placeholder={lang === 'vi' ? "Ví dụ: TS. BS. Nguyễn Minh Anh..." : "e.g. Dr. Nguyen Minh Anh..."}
-                    spellCheck="false"
-                  />
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                  <div className="profile-page-form-group">
-                    <label className="profile-page-field-label">{t.fieldScore}</label>
-                    <input 
-                      type="number" 
-                      className="profile-page-input"
-                      value={formScore}
-                      min={0}
-                      max={formMaxScore}
-                      onChange={(e) => setFormScore(parseInt(e.target.value) || 0)}
-                      required
-                    />
-                  </div>
-                  <div className="profile-page-form-group">
-                    <label className="profile-page-field-label">{t.fieldMaxScore}</label>
-                    <input 
-                      type="number" 
-                      className="profile-page-input"
-                      value={formMaxScore}
-                      disabled
-                      style={{ background: '#E2E8F0', cursor: 'not-allowed' }}
-                    />
-                  </div>
-                </div>
-
-                <div className="profile-page-form-group">
-                  <label className="profile-page-field-label">{t.fieldNotes}</label>
-                  <textarea 
-                    className="profile-page-input"
-                    value={formNotes}
-                    onChange={(e) => setFormNotes(e.target.value)}
-                    rows={4}
-                    placeholder={lang === 'vi' ? "Nhập các ghi chú quan sát hành vi, khả năng thích ứng của bé..." : "Enter behavioral observations, adaptation responses of the child..."}
-                    style={{ resize: 'none' }}
-                  />
+            <div className="profile-modal-body" style={{ padding: '1.5rem', maxHeight: '70vh', overflowY: 'auto' }}>
+              <div style={{ borderBottom: '2.5px dashed #CBD5E1', paddingBottom: '1rem', marginBottom: '1rem' }}>
+                <h3 style={{ margin: '0.2rem 0 0 0', fontWeight: 900, color: '#1E293B', fontSize: '1.4rem' }}>
+                  {selectedScreeningRecord.tool_name}
+                </h3>
+                <div style={{ marginTop: '0.5rem', background: '#FEE2E2', border: '2px solid #B91C1C', borderRadius: '8px', padding: '8px 12px', display: 'inline-block' }}>
+                  <span style={{ fontWeight: 900, color: '#B91C1C' }}>
+                    {t.screeningColRisk}: {selectedScreeningRecord.risk_level} (Score: {selectedScreeningRecord.total_score})
+                  </span>
                 </div>
               </div>
 
+              <h4 style={{ fontWeight: 900, color: '#1E293B', marginBottom: '0.5rem' }}>{t.screeningDetailSubTitle}:</h4>
+
+              {/* Parse and cleanly render details_json fields */}
+              {(() => {
+                try {
+                  const data = JSON.parse(selectedScreeningRecord.details_json);
+                  if (selectedScreeningRecord.tool_name === "M-CHAT-R/F" && data.answers) {
+                    return (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                        {data.answers.map((ans: any) => (
+                          <div key={ans.q} style={{ border: '2px solid #1E293B', borderRadius: '8px', padding: '8px 12px', background: '#FFFDF5', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <span style={{ fontWeight: 700, fontSize: '0.85rem' }}>Câu {ans.q}: {ans.textVi}</span>
+                            <span style={{
+                              padding: '2px 8px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 900, border: '1.5px solid #1E293B',
+                              background: ans.status.includes("Đạt") ? '#D1FAE5' : '#FEE2E2',
+                              color: ans.status.includes("Đạt") ? '#065F46' : '#991B1B'
+                            }}>
+                              {ans.status}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  } else if (selectedScreeningRecord.tool_name === "CARS" && data.categories) {
+                    return (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                        {data.categories.map((cat: any) => (
+                          <div key={cat.id} style={{ border: '2px solid #1E293B', borderRadius: '8px', padding: '8px 12px', background: '#FFFDF5', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <span style={{ fontWeight: 700, fontSize: '0.85rem' }}>Tiêu chí {cat.id}: {cat.name}</span>
+                            <span style={{
+                              padding: '4px 10px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 900, border: '1.5px solid #1E293B',
+                              background: cat.score >= 3 ? '#FEE2E2' : cat.score >= 2 ? '#FEF3C7' : '#D1FAE5',
+                              color: '#1E293B'
+                            }}>
+                              {cat.score} Điểm
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  }
+                } catch (e) {
+                  return <pre>{selectedScreeningRecord.details_json}</pre>;
+                }
+              })()}
+            </div>
+            <div className="profile-modal-footer" style={{ borderTop: '2.5px solid #1E293B', background: '#F8FAFC' }}>
+              <button type="button" className="profile-page-btn-primary" onClick={() => setSelectedScreeningRecord(null)} style={{ background: '#1E293B' }}>{t.close}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── MODAL 5: UPLOAD/ADD NEW HEALTH RECORD ── */}
+      {isAddHealthModalOpen && (
+        <div className="profile-modal-overlay" onClick={() => setIsAddHealthModalOpen(false)}>
+          <div className="profile-admin-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '540px' }}>
+            <div className="profile-modal-header" style={{ borderBottom: '3px solid #1E293B' }}>
+              <h3 className="profile-modal-title">{t.healthAddTitle}</h3>
+              <button type="button" className="profile-modal-close-btn" onClick={() => setIsAddHealthModalOpen(false)}>×</button>
+            </div>
+            <form onSubmit={handleSaveHealthRecord}>
+              <div className="profile-modal-body" style={{ maxHeight: 'min(500px, calc(80vh - 120px))', overflowY: 'auto' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div className="profile-page-form-group">
+                    <label className="profile-page-field-label">{t.fieldDate}</label>
+                    <input type="date" className="profile-page-input" value={healthFormDate} onChange={(e) => setHealthFormDate(e.target.value)} required />
+                  </div>
+                  <div className="profile-page-form-group">
+                    <label className="profile-page-field-label">{t.healthColType}</label>
+                    <input type="text" className="profile-page-input" value={healthFormFileType} disabled style={{ background: '#E2E8F0', cursor: 'not-allowed', textTransform: 'uppercase' }} />
+                  </div>
+                </div>
+                <div className="profile-page-form-group">
+                  <label className="profile-page-field-label">{t.healthFieldTitle}</label>
+                  <input type="text" className="profile-page-input" value={healthFormTitle} onChange={(e) => setHealthFormTitle(e.target.value)} required />
+                </div>
+                <div className="profile-page-form-group">
+                  <label className="profile-page-field-label">{t.healthFieldDescriptions}</label>
+                  <textarea className="profile-page-input" value={healthFormDescriptions} onChange={(e) => setHealthFormDescriptions(e.target.value)} rows={4} required style={{ resize: 'none' }} />
+                </div>
+                <div className="profile-page-form-group">
+                  <label className="profile-page-field-label">{lang === 'vi' ? 'Chọn tài liệu đính kèm' : 'Attach Document'}</label>
+                  <input
+                    type="file"
+                    className="profile-page-input"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const extension = file.name.split('.').pop() || '';
+                        setHealthFormFileType(extension.toLowerCase());
+                        setHealthFormFileUrl(file.name);
+                      }
+                    }}
+                    accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+                  />
+                </div>
+              </div>
               <div className="profile-modal-footer" style={{ borderTop: '3px solid #1E293B' }}>
-                <button type="button" className="profile-page-btn-secondary" onClick={() => setIsAddModalOpen(false)}>
-                  {t.cancel}
-                </button>
-                <button type="submit" className="profile-page-btn-primary" style={{ background: '#0D9488' }}>
-                  {t.save}
-                </button>
+                <button type="button" className="profile-page-btn-secondary" onClick={() => setIsAddHealthModalOpen(false)}>{t.cancel}</button>
+                <button type="submit" className="profile-page-btn-primary" style={{ background: '#0D9488' }}>{t.save}</button>
               </div>
             </form>
           </div>
         </div>
       )}
 
-      {/* ── MODAL 3: CONFIRM DELETE RESULT ── */}
-      {deleteTargetId && (
-        <div className="profile-modal-overlay" onClick={() => setDeleteTargetId(null)}>
+      {/* ── MODAL 6: EDIT HEALTH RECORD ── */}
+      {editingHealthRecord && (
+        <div className="profile-modal-overlay" onClick={() => setEditingHealthRecord(null)}>
+          <div className="profile-admin-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '540px' }}>
+            <div className="profile-modal-header" style={{ borderBottom: '3px solid #1E293B' }}>
+              <h3 className="profile-modal-title">{t.healthEditTitle}</h3>
+              <button type="button" className="profile-modal-close-btn" onClick={() => setEditingHealthRecord(null)}>×</button>
+            </div>
+            <form onSubmit={handleUpdateHealthRecord}>
+              <div className="profile-modal-body" style={{ maxHeight: 'min(500px, calc(80vh - 120px))', overflowY: 'auto' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div className="profile-page-form-group">
+                    <label className="profile-page-field-label">{t.fieldDate}</label>
+                    <input type="date" className="profile-page-input" value={healthFormDate} onChange={(e) => setHealthFormDate(e.target.value)} required />
+                  </div>
+                  <div className="profile-page-form-group">
+                    <label className="profile-page-field-label">{t.healthColType}</label>
+                    <input type="text" className="profile-page-input" value={healthFormFileType} disabled style={{ background: '#E2E8F0', textTransform: 'uppercase', cursor: 'not-allowed' }} />
+                  </div>
+                </div>
+                <div className="profile-page-form-group">
+                  <label className="profile-page-field-label">{t.healthFieldTitle}</label>
+                  <input type="text" className="profile-page-input" value={healthFormTitle} onChange={(e) => setHealthFormTitle(e.target.value)} required />
+                </div>
+                <div className="profile-page-form-group">
+                  <label className="profile-page-field-label">{t.healthFieldDescriptions}</label>
+                  <textarea className="profile-page-input" value={healthFormDescriptions} onChange={(e) => setHealthFormDescriptions(e.target.value)} rows={4} required style={{ resize: 'none' }} />
+                </div>
+
+                {/* Cập nhật trường chọn tệp tin đính kèm cho chế độ sửa */}
+                <div className="profile-page-form-group">
+                  <label className="profile-page-field-label">
+                    {lang === 'vi' ? 'Chọn tài liệu thay thế đính kèm' : 'Select New Attached Document'}
+                  </label>
+                  <input
+                    type="file"
+                    className="profile-page-input"
+                    style={{ paddingTop: '8px' }}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const extension = file.name.split('.').pop() || '';
+                        setHealthFormFileType(extension.toLowerCase());
+                        setHealthFormFileUrl(file.name);
+                      }
+                    }}
+                    accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+                  />
+                  {healthFormFileUrl && (
+                    <span style={{ fontSize: '0.8rem', color: '#0D9488', fontWeight: 700, marginTop: '0.35rem', display: 'block' }}>
+                      📄 {lang === 'vi' ? 'Tệp hiện tại:' : 'Current file:'} {healthFormFileUrl}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div className="profile-modal-footer" style={{ borderTop: '3px solid #1E293B' }}>
+                <button type="button" className="profile-page-btn-secondary" onClick={() => setEditingHealthRecord(null)}>{t.cancel}</button>
+                <button type="submit" className="profile-page-btn-primary" style={{ background: '#0D9488' }}>{t.save}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ── MODAL 7: CONFIRM DELETE HEALTH RECORD ── */}
+      {deleteHealthTargetId && (
+        <div className="profile-modal-overlay" onClick={() => setDeleteHealthTargetId(null)}>
           <div className="profile-admin-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '460px', border: '4px solid #EF4444' }}>
             <div className="profile-modal-header" style={{ background: '#FEE2E2', borderBottom: '3px solid #EF4444' }}>
               <h3 className="profile-modal-title" style={{ color: '#EF4444' }}>{t.deleteConfirmTitle}</h3>
-              <button type="button" className="profile-modal-close-btn" onClick={() => setDeleteTargetId(null)} style={{ color: '#EF4444' }}>×</button>
+              <button type="button" className="profile-modal-close-btn" onClick={() => setDeleteHealthTargetId(null)} style={{ color: '#EF4444' }}>×</button>
             </div>
             <div className="profile-modal-body" style={{ padding: '1.25rem' }}>
-              <p style={{ margin: 0, fontWeight: 700, color: '#475569', fontSize: '0.95rem', lineHeight: '1.5' }}>
-                {t.deleteBody}
-              </p>
+              <p style={{ margin: 0, fontWeight: 700, color: '#475569', fontSize: '0.95rem', lineHeight: '1.5' }}>{t.deleteBody}</p>
             </div>
             <div className="profile-modal-footer">
-              <button type="button" className="profile-page-btn-secondary" onClick={() => setDeleteTargetId(null)}>
-                {t.cancel}
-              </button>
-              <button 
-                type="button" 
-                className="profile-page-btn-primary"
-                onClick={handleDelete}
-                style={{ background: '#EF4444' }}
-              >
-                {t.confirmDeleteBtn}
-              </button>
+              <button type="button" className="profile-page-btn-secondary" onClick={() => setDeleteHealthTargetId(null)}>{t.cancel}</button>
+              <button type="button" className="profile-page-btn-primary" onClick={handleDeleteHealthRecord} style={{ background: '#EF4444' }}>{t.confirmDeleteBtn}</button>
             </div>
           </div>
         </div>
