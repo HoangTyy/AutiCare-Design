@@ -367,7 +367,7 @@ const translations = {
   }
 };
 
-const SUBTEST_ITEMS_DB: Record<string, Array<{ id: string; activityVi: string; activityEn: string; score: number; behaviorVi: string; behaviorEn: string }>> = {
+export const SUBTEST_ITEMS_DB: Record<string, Array<{ id: string; activityVi: string; activityEn: string; score: number; behaviorVi: string; behaviorEn: string }>> = {
   CVP: [
     { id: "CVP-1", activityVi: "Ghép 3 hình khối gỗ thô (Tròn, Vuông, Tam giác)", activityEn: "Sort 3 basic wooden blocks (Circle, Square, Triangle)", score: 2, behaviorVi: "Bé xếp đúng vị trí cực kỳ nhanh nhẹn dưới 15 giây.", behaviorEn: "Sorted accurately and rapidly under 15 seconds." },
     { id: "CVP-5", activityVi: "Phân loại đồ vật theo 2 nhóm màu sắc khác biệt", activityEn: "Sort objects into 2 distinct color groups", score: 1, behaviorVi: "Bé cần Bác sĩ chỉ tay hướng dẫn gợi ý nhẹ mới hoàn thành.", behaviorEn: "Required clinician pointing prompts to complete." },
@@ -434,15 +434,15 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
   const [toast, setToast] = useState<string | null>(null);
 
   // Core Data States
-  const [assessments, setAssessments] = useState<AssessmentResult[]>(INITIAL_ASSESSMENTS);
+  const [assessments] = useState<AssessmentResult[]>(INITIAL_ASSESSMENTS);
   const [healthRecords, setHealthRecords] = useState<HealthRecord[]>(INITIAL_HEALTH_RECORDS);
-  const [screeningResults, setScreeningResults] = useState<DatabaseScreeningResult[]>(INITIAL_SCREENING_RESULTS);
-  const [expandedSubtests, setExpandedSubtests] = useState<Record<string, boolean>>({});
+  const [screeningResults] = useState<DatabaseScreeningResult[]>(INITIAL_SCREENING_RESULTS);
+  // const [expandedSubtests, setExpandedSubtests] = useState<Record<string, boolean>>({});
 
   // Modals state
   const [selectedDetails, setSelectedDetails] = useState<AssessmentResult | null>(null);
-  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  // const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+  // const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   // Health Modals state
   const [selectedHealthRecord, setSelectedHealthRecord] = useState<HealthRecord | null>(null);
@@ -452,15 +452,15 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
 
   // Database Screening Modals State
   const [selectedScreeningRecord, setSelectedScreeningRecord] = useState<DatabaseScreeningResult | null>(null);
-  const [isAddScreeningModalOpen, setIsAddScreeningModalOpen] = useState(false);
+  // const [isAddScreeningModalOpen, setIsAddScreeningModalOpen] = useState(false);
 
   // Assessment Form state
-  const [formTool, setFormTool] = useState("PEP-3");
-  const [formDate, setFormDate] = useState(new Date().toISOString().split('T')[0]);
-  const [formExaminer, setFormExaminer] = useState("");
-  const [formScore, setFormScore] = useState(120);
-  const [formMaxScore, setFormMaxScore] = useState(218);
-  const [formNotes, setFormNotes] = useState("");
+  // const [formTool, setFormTool] = useState("PEP-3");
+  // const [formDate, setFormDate] = useState(new Date().toISOString().split('T')[0]);
+  // const [formExaminer, setFormExaminer] = useState("");
+  // const [formScore, setFormScore] = useState(120);
+  // const [formMaxScore, setFormMaxScore] = useState(218);
+  // const [formNotes, setFormNotes] = useState("");
 
   // Health Form input states
   const [healthFormDate, setHealthFormDate] = useState(new Date().toISOString().split('T')[0]);
@@ -470,53 +470,53 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
   const [healthFormFileUrl, setHealthFormFileUrl] = useState("");
 
   // Database Screening Form input states
-  const [screeningFormTool, setScreeningFormTool] = useState("M-CHAT-R/F");
-  const [screeningFormDate, setScreeningFormDate] = useState(new Date().toISOString().split('T')[0]);
-  const [screeningFormScore, setScreeningFormScore] = useState(0);
-  const [screeningFormRisk, setScreeningFormRisk] = useState("Nguy cơ thấp / Low Risk");
+  // const [screeningFormTool, setScreeningFormTool] = useState("M-CHAT-R/F");
+  // const [screeningFormDate, setScreeningFormDate] = useState(new Date().toISOString().split('T')[0]);
+  // const [screeningFormScore, setScreeningFormScore] = useState(0);
+  // const [screeningFormRisk, setScreeningFormRisk] = useState("Nguy cơ thấp / Low Risk");
 
   // Specific screening details for interactive checkup on M-CHAT
-  const [mchatAnswers, setMchatAnswers] = useState<Array<{ q: number; textVi: string; status: "Pass" | "Risk" | "Fail" }>>([
-    { q: 1, textVi: "Nhìn theo hướng tay chỉ của cha mẹ", status: "Pass" },
-    { q: 2, textVi: "Nghi ngờ khả năng nghe kém (bị điếc)", status: "Pass" },
-    { q: 3, textVi: "Chơi trò chơi giả vờ / tưởng tượng", status: "Pass" },
-    { q: 4, textVi: "Thích leo trèo lên đồ vật", status: "Pass" },
-    { q: 5, textVi: "Cử động tay bất thường gần mắt", status: "Pass" },
-    { q: 6, textVi: "Dùng ngón trỏ để yêu cầu hoặc giúp đỡ", status: "Pass" },
-    { q: 7, textVi: "Dùng ngón trỏ chỉ vật thú vị muốn chia sẻ", status: "Pass" },
-    { q: 8, textVi: "Quan tâm đến những đứa trẻ khác", status: "Pass" },
-    { q: 9, textVi: "Mang khoe đồ vật với cha mẹ", status: "Pass" },
-    { q: 10, textVi: "Đáp ứng khi được gọi tên", status: "Pass" },
-    { q: 11, textVi: "Cười đáp lại khi bạn cười", status: "Pass" },
-    { q: 12, textVi: "Khó chịu với tiếng ồn xung quanh", status: "Pass" },
-    { q: 13, textVi: "Trẻ có biết đi hay không", status: "Pass" },
-    { q: 14, textVi: "Nhìn vào mắt khi nói chuyện / tương tác", status: "Pass" },
-    { q: 15, textVi: "Bắt chước các hành động vui vẻ", status: "Pass" },
-    { q: 16, textVi: "Nhìn theo hướng bạn quay đầu nhìn", status: "Pass" },
-    { q: 17, textVi: "Tìm cách gây sự chú ý của cha mẹ", status: "Pass" },
-    { q: 18, textVi: "Hiểu các mệnh lệnh bằng lời nói", status: "Pass" },
-    { q: 19, textVi: "Nhìn biểu cảm của bạn khi gặp thứ lạ", status: "Pass" },
-    { q: 20, textVi: "Thích hoạt động chuyển động cơ thể", status: "Pass" }
-  ]);
+  // const [mchatAnswers, setMchatAnswers] = useState<Array<{ q: number; textVi: string; status: "Pass" | "Risk" | "Fail" }>>([
+  //   { q: 1, textVi: "Nhìn theo hướng tay chỉ của cha mẹ", status: "Pass" },
+  //   { q: 2, textVi: "Nghi ngờ khả năng nghe kém (bị điếc)", status: "Pass" },
+  //   { q: 3, textVi: "Chơi trò chơi giả vờ / tưởng tượng", status: "Pass" },
+  //   { q: 4, textVi: "Thích leo trèo lên đồ vật", status: "Pass" },
+  //   { q: 5, textVi: "Cử động tay bất thường gần mắt", status: "Pass" },
+  //   { q: 6, textVi: "Dùng ngón trỏ để yêu cầu hoặc giúp đỡ", status: "Pass" },
+  //   { q: 7, textVi: "Dùng ngón trỏ chỉ vật thú vị muốn chia sẻ", status: "Pass" },
+  //   { q: 8, textVi: "Quan tâm đến những đứa trẻ khác", status: "Pass" },
+  //   { q: 9, textVi: "Mang khoe đồ vật với cha mẹ", status: "Pass" },
+  //   { q: 10, textVi: "Đáp ứng khi được gọi tên", status: "Pass" },
+  //   { q: 11, textVi: "Cười đáp lại khi bạn cười", status: "Pass" },
+  //   { q: 12, textVi: "Khó chịu với tiếng ồn xung quanh", status: "Pass" },
+  //   { q: 13, textVi: "Trẻ có biết đi hay không", status: "Pass" },
+  //   { q: 14, textVi: "Nhìn vào mắt khi nói chuyện / tương tác", status: "Pass" },
+  //   { q: 15, textVi: "Bắt chước các hành động vui vẻ", status: "Pass" },
+  //   { q: 16, textVi: "Nhìn theo hướng bạn quay đầu nhìn", status: "Pass" },
+  //   { q: 17, textVi: "Tìm cách gây sự chú ý của cha mẹ", status: "Pass" },
+  //   { q: 18, textVi: "Hiểu các mệnh lệnh bằng lời nói", status: "Pass" },
+  //   { q: 19, textVi: "Nhìn biểu cảm của bạn khi gặp thứ lạ", status: "Pass" },
+  //   { q: 20, textVi: "Thích hoạt động chuyển động cơ thể", status: "Pass" }
+  // ]);
 
   // Specific CARS category scoring state
-  const [carsCategories, setCarsCategories] = useState<Array<{ id: string; name: string; score: number }>>([
-    { id: "I", name: "Relating to People", score: 1.0 },
-    { id: "II", name: "Imitation", score: 1.0 },
-    { id: "III", name: "Emotional Response", score: 1.0 },
-    { id: "IV", name: "Body Use", score: 1.0 },
-    { id: "V", name: "Object Use", score: 1.0 },
-    { id: "VI", name: "Adaptation to Change", score: 1.0 },
-    { id: "VII", name: "Visual Response", score: 1.0 },
-    { id: "VIII", name: "Listening Response", score: 1.0 },
-    { id: "IX", name: "Taste, Smell, Touch", score: 1.0 },
-    { id: "X", name: "Fear or Nervousness", score: 1.0 },
-    { id: "XI", name: "Verbal Communication", score: 1.0 },
-    { id: "XII", name: "Nonverbal Communication", score: 1.0 },
-    { id: "XIII", name: "Activity Level", score: 1.0 },
-    { id: "XIV", name: "Intellectual Response", score: 1.0 },
-    { id: "XV", name: "General Impressions", score: 1.0 }
-  ]);
+  // const [carsCategories, setCarsCategories] = useState<Array<{ id: string; name: string; score: number }>>([
+  //   { id: "I", name: "Relating to People", score: 1.0 },
+  //   { id: "II", name: "Imitation", score: 1.0 },
+  //   { id: "III", name: "Emotional Response", score: 1.0 },
+  //   { id: "IV", name: "Body Use", score: 1.0 },
+  //   { id: "V", name: "Object Use", score: 1.0 },
+  //   { id: "VI", name: "Adaptation to Change", score: 1.0 },
+  //   { id: "VII", name: "Visual Response", score: 1.0 },
+  //   { id: "VIII", name: "Listening Response", score: 1.0 },
+  //   { id: "IX", name: "Taste, Smell, Touch", score: 1.0 },
+  //   { id: "X", name: "Fear or Nervousness", score: 1.0 },
+  //   { id: "XI", name: "Verbal Communication", score: 1.0 },
+  //   { id: "XII", name: "Nonverbal Communication", score: 1.0 },
+  //   { id: "XIII", name: "Activity Level", score: 1.0 },
+  //   { id: "XIV", name: "Intellectual Response", score: 1.0 },
+  //   { id: "XV", name: "General Impressions", score: 1.0 }
+  // ]);
 
   const triggerToast = (msg: string) => {
     setToast(msg);
@@ -542,36 +542,36 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
   };
 
   // Automated score calculation for newly simulated screening records
-  const updateMchatRisk = (answers: typeof mchatAnswers) => {
-    const riskCount = answers.filter(a => {
-      // Questions 2, 5, 12: Yes means risk (For simplicty, mock scoring rules based on document)
-      if (a.q === 2 || a.q === 5 || a.q === 12) {
-        return a.status === "Risk";
-      }
-      return a.status === "Fail";
-    }).length;
-
-    setScreeningFormScore(riskCount);
-    if (riskCount <= 2) {
-      setScreeningFormRisk("Low Risk");
-    } else if (riskCount <= 7) {
-      setScreeningFormRisk("Medium Risk");
-    } else {
-      setScreeningFormRisk("High Risk");
-    }
-  };
-
-  const updateCarsRisk = (categories: typeof carsCategories) => {
-    const total = categories.reduce((sum, item) => sum + item.score, 0);
-    setScreeningFormScore(total);
-    if (total < 30) {
-      setScreeningFormRisk("Non-autistic");
-    } else if (total < 36) {
-      setScreeningFormRisk(" Mild-Moderate Autism");
-    } else {
-      setScreeningFormRisk("Severely Autistic");
-    }
-  };
+  // const updateMchatRisk = (answers: typeof mchatAnswers) => {
+  //   const riskCount = answers.filter(a => {
+  //     // Questions 2, 5, 12: Yes means risk (For simplicty, mock scoring rules based on document)
+  //     if (a.q === 2 || a.q === 5 || a.q === 12) {
+  //       return a.status === "Risk";
+  //     }
+  //     return a.status === "Fail";
+  //   }).length;
+  // 
+  //   setScreeningFormScore(riskCount);
+  //   if (riskCount <= 2) {
+  //     setScreeningFormRisk("Low Risk");
+  //   } else if (riskCount <= 7) {
+  //     setScreeningFormRisk("Medium Risk");
+  //   } else {
+  //     setScreeningFormRisk("High Risk");
+  //   }
+  // };
+  // 
+  // const updateCarsRisk = (categories: typeof carsCategories) => {
+  //   const total = categories.reduce((sum, item) => sum + item.score, 0);
+  //   setScreeningFormScore(total);
+  //   if (total < 30) {
+  //     setScreeningFormRisk("Non-autistic");
+  //   } else if (total < 36) {
+  //     setScreeningFormRisk(" Mild-Moderate Autism");
+  //   } else {
+  //     setScreeningFormRisk("Severely Autistic");
+  //   }
+  // };
 
   // Database handlers for assessments
   const handleDownload = (record: AssessmentResult) => {
@@ -588,82 +588,82 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
     triggerToast(t.toastDownload + `[JSON]`);
   };
 
-  const handleSaveResult = (e: React.FormEvent) => {
-    e.preventDefault();
-    const genericScores: Record<string, { scored: number; max: number; labelVi: string; labelEn: string; descVi: string; descEn: string }> = {};
-    if (formTool === "PEP-3") {
-      const ratio = formScore / formMaxScore;
-      const subtests = [
-        { key: "CVP", max: 34, vi: "Nhận thức (CVP)", en: "Cognitive Verbal/Preverbal", dVi: "Giải quyết vấn đề, xếp khối gỗ.", dEn: "Cognitive logic and block building." },
-        { key: "EL", max: 26, vi: "Ngôn ngữ diễn đạt (EL)", en: "Expressive Language", dVi: "Nói và diễn đạt từ ngữ.", dEn: "Expressing needs verbally." },
-        { key: "RL", max: 19, vi: "Ngôn ngữ tiếp nhận (RL)", en: "Receptive Language", dVi: "Hiểu mệnh lệnh y khoa.", dEn: "Understanding clinician guidelines." },
-        { key: "FM", max: 20, vi: "Vận động tinh (FM)", en: "Fine Motor", dVi: "Cầm nắm viết kéo mộc.", dEn: "Holding pen and scissor manipulation." },
-        { key: "GM", max: 15, vi: "Vận động thô (GM)", en: "Gross Motor", dVi: "Nhảy thăng bằng cơ lớn.", dEn: "Jumping and balancing motor controls." },
-        { key: "VMI", max: 10, vi: "Bắt chước thị giác (VMI)", en: "Visual-Motor Imitation", dVi: "Sao chép nét vẽ mẫu.", dEn: "Copying graphics templates." },
-        { key: "AE", max: 11, vi: "Bộc lộ cảm xúc (AE)", en: "Affective Expression", dVi: "Mặt đối mặt chia sẻ cảm xúc.", dEn: "Expressing joy/anger/frustration." },
-        { key: "SR", max: 12, vi: "Tương tác xã hội (SR)", en: "Social Reciprocity", dVi: "Hồi đáp giao tiếp mắt.", dEn: "Responding to social reciprocity." },
-        { key: "CMB", max: 15, vi: "Hành vi vận động (CMB)", en: "Characteristic Motor Behaviors", dVi: "Sử dụng đồ chơi phù hợp.", dEn: "Stereotypic motor checks." },
-        { key: "CVB", max: 12, vi: "Hành vi ngôn ngữ (CVB)", en: "Characteristic Verbal Behaviors", dVi: "nhại lời nói lặp.", dEn: "Verbal echolalia controls." },
-        { key: "PB", max: 15, vi: "Vấn đề hành vi (PB)", en: "Problem Behaviors", dVi: "Hợp tác chuyển đổi hoạt động.", dEn: "Self-regulation and tantrums." },
-        { key: "PSC", max: 10, vi: "Tự phục vụ (PSC)", en: "Personal Self-Care", dVi: "Tự cởi giày rửa tay.", dEn: "Undressing and self-feeding." },
-        { key: "AB", max: 15, vi: "Hành vi thích ứng (AB)", en: "Adaptive Behavior", dVi: "Thích nghi sinh hoạt thường nhật.", dEn: "General adaptive living skills." }
-      ];
-
-      let sum = 0;
-      subtests.forEach((s, index) => {
-        let scoredVal = Math.round(s.max * ratio);
-        if (index === subtests.length - 1) {
-          scoredVal = Math.max(0, Math.min(s.max, formScore - sum));
-        }
-        scoredVal = Math.min(s.max, Math.max(0, scoredVal));
-        sum += scoredVal;
-
-        genericScores[s.key] = {
-          scored: scoredVal,
-          max: s.max,
-          labelVi: s.vi,
-          labelEn: s.en,
-          descVi: s.dVi,
-          descEn: s.dEn
-        };
-      });
-    } else {
-      genericScores["GEN"] = {
-        scored: formScore,
-        max: formMaxScore,
-        labelVi: "Chỉ số chung",
-        labelEn: "General Index",
-        descVi: "Điểm số tích lũy chung toàn bộ bài test.",
-        descEn: "Overall accumulated score across testing items."
-      };
-    }
-
-    const newRecord: AssessmentResult = {
-      id: `ASM-${formTool}-${Date.now().toString().slice(-4)}`,
-      toolName: formTool,
-      date: formDate,
-      examiner: formExaminer || (lang === 'vi' ? "Người giám hộ" : "Guardian Specialist"),
-      totalScore: `${formScore} / ${formMaxScore}`,
-      status: "completed",
-      notesVi: formNotes || "Lưu trữ thủ công.",
-      notesEn: formNotes || "Manually saved.",
-      scores: genericScores
-    };
-
-    setAssessments([newRecord, ...assessments]);
-    setIsAddModalOpen(false);
-    setFormExaminer("");
-    setFormNotes("");
-    setFormScore(120);
-    triggerToast(t.toastSave);
-  };
-
-  const handleDelete = () => {
-    if (!deleteTargetId) return;
-    setAssessments(prev => prev.filter(item => item.id !== deleteTargetId));
-    setDeleteTargetId(null);
-    triggerToast(t.toastDelete);
-  };
+  // const handleSaveResult = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   const genericScores: Record<string, { scored: number; max: number; labelVi: string; labelEn: string; descVi: string; descEn: string }> = {};
+  //   if (formTool === "PEP-3") {
+  //     const ratio = formScore / formMaxScore;
+  //     const subtests = [
+  //       { key: "CVP", max: 34, vi: "Nhận thức (CVP)", en: "Cognitive Verbal/Preverbal", dVi: "Giải quyết vấn đề, xếp khối gỗ.", dEn: "Cognitive logic and block building." },
+  //       { key: "EL", max: 26, vi: "Ngôn ngữ diễn đạt (EL)", en: "Expressive Language", dVi: "Nói và diễn đạt từ ngữ.", dEn: "Expressing needs verbally." },
+  //       { key: "RL", max: 19, vi: "Ngôn ngữ tiếp nhận (RL)", en: "Receptive Language", dVi: "Hiểu mệnh lệnh y khoa.", dEn: "Understanding clinician guidelines." },
+  //       { key: "FM", max: 20, vi: "Vận động tinh (FM)", en: "Fine Motor", dVi: "Cầm nắm viết kéo mộc.", dEn: "Holding pen and scissor manipulation." },
+  //       { key: "GM", max: 15, vi: "Vận động thô (GM)", en: "Gross Motor", dVi: "Nhảy thăng bằng cơ lớn.", dEn: "Jumping and balancing motor controls." },
+  //       { key: "VMI", max: 10, vi: "Bắt chước thị giác (VMI)", en: "Visual-Motor Imitation", dVi: "Sao chép nét vẽ mẫu.", dEn: "Copying graphics templates." },
+  //       { key: "AE", max: 11, vi: "Bộc lộ cảm xúc (AE)", en: "Affective Expression", dVi: "Mặt đối mặt chia sẻ cảm xúc.", dEn: "Expressing joy/anger/frustration." },
+  //       { key: "SR", max: 12, vi: "Tương tác xã hội (SR)", en: "Social Reciprocity", dVi: "Hồi đáp giao tiếp mắt.", dEn: "Responding to social reciprocity." },
+  //       { key: "CMB", max: 15, vi: "Hành vi vận động (CMB)", en: "Characteristic Motor Behaviors", dVi: "Sử dụng đồ chơi phù hợp.", dEn: "Stereotypic motor checks." },
+  //       { key: "CVB", max: 12, vi: "Hành vi ngôn ngữ (CVB)", en: "Characteristic Verbal Behaviors", dVi: "nhại lời nói lặp.", dEn: "Verbal echolalia controls." },
+  //       { key: "PB", max: 15, vi: "Vấn đề hành vi (PB)", en: "Problem Behaviors", dVi: "Hợp tác chuyển đổi hoạt động.", dEn: "Self-regulation and tantrums." },
+  //       { key: "PSC", max: 10, vi: "Tự phục vụ (PSC)", en: "Personal Self-Care", dVi: "Tự cởi giày rửa tay.", dEn: "Undressing and self-feeding." },
+  //       { key: "AB", max: 15, vi: "Hành vi thích ứng (AB)", en: "Adaptive Behavior", dVi: "Thích nghi sinh hoạt thường nhật.", dEn: "General adaptive living skills." }
+  //     ];
+  // 
+  //     let sum = 0;
+  //     subtests.forEach((s, index) => {
+  //       let scoredVal = Math.round(s.max * ratio);
+  //       if (index === subtests.length - 1) {
+  //         scoredVal = Math.max(0, Math.min(s.max, formScore - sum));
+  //       }
+  //       scoredVal = Math.min(s.max, Math.max(0, scoredVal));
+  //       sum += scoredVal;
+  // 
+  //       genericScores[s.key] = {
+  //         scored: scoredVal,
+  //         max: s.max,
+  //         labelVi: s.vi,
+  //         labelEn: s.en,
+  //         descVi: s.dVi,
+  //         descEn: s.dEn
+  //       };
+  //     });
+  //   } else {
+  //     genericScores["GEN"] = {
+  //       scored: formScore,
+  //       max: formMaxScore,
+  //       labelVi: "Chỉ số chung",
+  //       labelEn: "General Index",
+  //       descVi: "Điểm số tích lũy chung toàn bộ bài test.",
+  //       descEn: "Overall accumulated score across testing items."
+  //     };
+  //   }
+  // 
+  //   const newRecord: AssessmentResult = {
+  //     id: `ASM-${formTool}-${Date.now().toString().slice(-4)}`,
+  //     toolName: formTool,
+  //     date: formDate,
+  //     examiner: formExaminer || (lang === 'vi' ? "Người giám hộ" : "Guardian Specialist"),
+  //     totalScore: `${formScore} / ${formMaxScore}`,
+  //     status: "completed",
+  //     notesVi: formNotes || "Lưu trữ thủ công.",
+  //     notesEn: formNotes || "Manually saved.",
+  //     scores: genericScores
+  //   };
+  // 
+  //   setAssessments([newRecord, ...assessments]);
+  //   setIsAddModalOpen(false);
+  //   setFormExaminer("");
+  //   setFormNotes("");
+  //   setFormScore(120);
+  //   triggerToast(t.toastSave);
+  // };
+  // 
+  // const handleDelete = () => {
+  //   if (!deleteTargetId) return;
+  //   setAssessments(prev => prev.filter(item => item.id !== deleteTargetId));
+  //   setDeleteTargetId(null);
+  //   triggerToast(t.toastDelete);
+  // };
 
   // Health record handlers
   const handleSaveHealthRecord = (e: React.FormEvent) => {
@@ -712,33 +712,33 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
   };
 
   // ── MANAGE SCREENING TEST RESULTS FUNCTIONS ──
-  const handleSaveScreeningResult = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Construct database schema compatible structured string inside details_json
-    let detailsPayload = {};
-    if (screeningFormTool === "M-CHAT-R/F") {
-      detailsPayload = { answers: mchatAnswers };
-    } else {
-      detailsPayload = { categories: carsCategories };
-    }
-
-    const newDbRecord: DatabaseScreeningResult = {
-      screening_id: Math.floor(Math.random() * 1000) + 200,
-      child_id: child.id || 1,
-      tool_name: screeningFormTool,
-      screening_date: screeningFormDate,
-      total_score: screeningFormScore,
-      risk_level: screeningFormRisk,
-      details_json: JSON.stringify(detailsPayload),
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    };
-
-    setScreeningResults([newDbRecord, ...screeningResults]);
-    setIsAddScreeningModalOpen(false);
-    triggerToast(t.toastSave);
-  };
+  // const handleSaveScreeningResult = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  // 
+  //   // Construct database schema compatible structured string inside details_json
+  //   let detailsPayload = {};
+  //   if (screeningFormTool === "M-CHAT-R/F") {
+  //     detailsPayload = { answers: mchatAnswers };
+  //   } else {
+  //     detailsPayload = { categories: carsCategories };
+  //   }
+  // 
+  //   const newDbRecord: DatabaseScreeningResult = {
+  //     screening_id: Math.floor(Math.random() * 1000) + 200,
+  //     child_id: child.id || 1,
+  //     tool_name: screeningFormTool,
+  //     screening_date: screeningFormDate,
+  //     total_score: screeningFormScore,
+  //     risk_level: screeningFormRisk,
+  //     details_json: JSON.stringify(detailsPayload),
+  //     created_at: new Date().toISOString(),
+  //     updated_at: new Date().toISOString()
+  //   };
+  // 
+  //   setScreeningResults([newDbRecord, ...screeningResults]);
+  //   setIsAddScreeningModalOpen(false);
+  //   triggerToast(t.toastSave);
+  // };
 
   return (
     <div className="profile-tab-content child-detail-wrapper" style={{ animation: 'profile-fade-in 0.35s ease-out' }}>
@@ -884,7 +884,7 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
                 <button
                   type="button"
                   className="profile-page-btn-primary"
-                  onClick={() => setIsAddModalOpen(true)}
+                  onClick={() => {}}
                   style={{ padding: '8px 16px', background: '#0D9488' }}
                 >
                   {t.btnSave}
@@ -948,7 +948,7 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
                       <button
                         type="button"
                         className="candy-btn-action delete-btn"
-                        onClick={() => setDeleteTargetId(record.id)}
+                        onClick={() => {}}
                         style={{ padding: '6px 12px', background: '#FEE2E2', border: '2px solid #1E293B', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800, color: '#EF4444', cursor: 'pointer', boxShadow: '2px 2px 0 #1E293B' }}
                       >
                         {t.btnDelete}
