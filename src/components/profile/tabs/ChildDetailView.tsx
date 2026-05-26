@@ -445,7 +445,6 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
   // const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   // Health Modals state
-  const [selectedHealthRecord, setSelectedHealthRecord] = useState<HealthRecord | null>(null);
   const [editingHealthRecord, setEditingHealthRecord] = useState<HealthRecord | null>(null);
   const [isAddHealthModalOpen, setIsAddHealthModalOpen] = useState(false);
   const [deleteHealthTargetId, setDeleteHealthTargetId] = useState<string | null>(null);
@@ -709,6 +708,20 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
     setHealthRecords(prev => prev.filter(item => item.id !== deleteHealthTargetId));
     setDeleteHealthTargetId(null);
     triggerToast(t.toastHealthDeleted);
+  };
+
+  const handleDownloadHealthRecord = (record: HealthRecord) => {
+    const jsonStr = JSON.stringify(record, null, 2);
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${child.name.replace(/\s+/g, '_')}_health_${record.id}_${record.date}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    triggerToast(t.toastDownload + ` [Health JSON]`);
   };
 
   // ── MANAGE SCREENING TEST RESULTS FUNCTIONS ──
@@ -1067,6 +1080,9 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
                       <h3 style={{ margin: '0.15rem 0 0 0', fontWeight: 900, color: '#1E293B', fontSize: '1.15rem' }}>
                         {record.title}
                       </h3>
+                      <span style={{ display: 'block', marginTop: '0.3rem', fontSize: '0.75rem', color: '#475569', fontWeight: 800 }}>
+                        ID: {record.id}
+                      </span>
                     </div>
 
                     <div>
@@ -1080,17 +1096,17 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
                       <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'block' }}>📝 {t.healthFieldDescriptions}</span>
                       <p style={{ margin: '0.15rem 0 0 0', color: '#475569', fontSize: '0.8rem', fontWeight: 700, whiteSpace: 'normal', wordBreak: 'break-word', lineHeight: '1.4' }}>
                         {record.descriptions}
-                      </p>
+                      </p>                     
                     </div>
 
                     <div className="health-actions-layout" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                       <button
                         type="button"
-                        className="candy-btn-action view-btn"
-                        onClick={() => setSelectedHealthRecord(record)}
-                        style={{ padding: '6px 12px', background: '#F1F5F9', border: '2px solid #1E293B', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800, color: '#1E293B', cursor: 'pointer', boxShadow: '2px 2px 0 #1E293B' }}
+                        className="candy-btn-action download-btn"
+                        onClick={() => handleDownloadHealthRecord(record)}
+                        style={{ padding: '6px 12px', background: '#FEF08A', border: '2px solid #1E293B', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800, color: '#1E293B', cursor: 'pointer', boxShadow: '2px 2px 0 #1E293B' }}
                       >
-                        {t.btnViewDetails}
+                        {t.btnDownload}
                       </button>
                       <button
                         type="button"
@@ -1207,73 +1223,7 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
         </div>
       )}
 
-      {/* ── MODAL 4: VIEW HEALTH RECORD DETAIL ── */}
-      {selectedHealthRecord && (
-        <div className="profile-modal-overlay" onClick={() => setSelectedHealthRecord(null)}>
-          <div className="profile-admin-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '540px' }}>
-            <div className="profile-modal-header" style={{ background: '#0D9488', borderBottom: '3px solid #1E293B', padding: '1.25rem' }}>
-              <h3 className="profile-modal-title" style={{ color: '#FFF', fontWeight: 900 }}>{t.healthDetailTitle}</h3>
-              <button type="button" className="profile-modal-close-btn" onClick={() => setSelectedHealthRecord(null)} style={{ color: '#FFF' }}>×</button>
-            </div>
-            <div className="profile-modal-body" style={{ padding: '1.5rem' }}>
-              <div style={{ borderBottom: '2.5px dashed #CBD5E1', paddingBottom: '1rem', marginBottom: '1rem' }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0D9488' }}>
-                  ID: {selectedHealthRecord.id} | 📅 {selectedHealthRecord.date}
-                </span>
-                <h3 style={{ margin: '0.2rem 0 0 0', fontWeight: 900, color: '#1E293B', fontSize: '1.3rem' }}>
-                  {selectedHealthRecord.title}
-                </h3>
-              </div>
-
-              <div style={{ border: '2px solid #1E293B', borderRadius: '12px', overflow: 'hidden', marginBottom: '1.2rem' }}>
-                <div style={{ background: '#F1F5F9', borderBottom: '2px solid #1E293B', padding: '8px 12px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem' }}>
-                  📝 {t.healthFieldDescriptions}:
-                </div>
-                <div style={{ padding: '1rem', background: '#FFFDF5', fontSize: '0.88rem', color: '#334155', fontWeight: 700, lineHeight: '1.5' }}>
-                  {selectedHealthRecord.descriptions}
-                </div>
-              </div>
-
-              {/* Bổ sung hiển thị tệp đính kèm và đường dẫn URL */}
-              {selectedHealthRecord.fileUrl && (
-                <div style={{ marginTop: '1rem' }}>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block', marginBottom: '0.4rem' }}>
-                    📎 {lang === 'vi' ? 'Tài liệu đính kèm' : 'Attachment'} ({selectedHealthRecord.fileType.toUpperCase()}):
-                  </span>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', background: '#ECFDF5', border: '2px solid #10B981', borderRadius: '12px' }}>
-                    <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#065F46', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '280px' }} title={selectedHealthRecord.fileUrl}>
-                      📄 {selectedHealthRecord.fileUrl}
-                    </span>
-                    <a
-                      href={selectedHealthRecord.fileUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{
-                        padding: '4px 12px',
-                        background: '#FEF08A',
-                        border: '2px solid #1E293B',
-                        borderRadius: '8px',
-                        fontSize: '0.75rem',
-                        fontWeight: 800,
-                        color: '#1E293B',
-                        textDecoration: 'none',
-                        boxShadow: '1.5px 1.5px 0 #1E293B'
-                      }}
-                    >
-                      {t.btnDownload}
-                    </a>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="profile-modal-footer" style={{ borderTop: '2.5px solid #1E293B', background: '#F8FAFC' }}>
-              <button type="button" className="profile-page-btn-primary" onClick={() => setSelectedHealthRecord(null)} style={{ background: '#1E293B' }}>
-                {t.close}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      
 
       {/* ── MODAL: VIEW SCREENING RESULT DETAILS (details_json parsed representation) ── */}
       {selectedScreeningRecord && (
