@@ -148,8 +148,8 @@ const translations = {
     status: "Status",
     actions: "Actions",
     noResults: "No matching events found",
-    createTitle: "Establish New Event Schedule",
-    deleteTitle: "Cancel / Hide Event Schedule",
+    createTitle: "Create Event",
+    deleteTitle: "Delete Event",
     deleteConfirm: "Are you sure you want to cancel the event",
     deleteSub: "This will switch the status indicator to Cancelled and update records.",
     cancel: "Cancel",
@@ -305,7 +305,7 @@ export const CreateEventModal: React.FC<CreateEventModalProps> = ({ isOpen, clos
                 {/* Event Schedule info */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="form-group">
-                    <label style={{ color: '#1e293b', fontWeight: 600 }}>Ngày tổ chức *</label>
+                    <label style={{ color: '#1e293b', fontWeight: 600 }}>Date of the event *</label>
                     <input
                       type="date"
                       name="event_date"
@@ -1006,7 +1006,6 @@ export const ReadEventModal: React.FC<ReadEventModalProps> = ({ isOpen, closeMod
                   rel="noreferrer"
                   className="p-3 border border-indigo-100 bg-indigo-50/50 hover:bg-indigo-50 transition-colors rounded-lg flex items-start gap-2.5 cursor-pointer decoration-transparent outline-none group"
                 >
-                  <Video className="text-indigo-600 mt-0.5" size={18} />
                   <div className="flex-1">
                     <span className="text-indigo-500 text-[10px] uppercase font-bold tracking-wider flex items-center gap-1">
                       {t.formUrl}{': '}

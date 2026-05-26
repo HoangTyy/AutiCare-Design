@@ -270,7 +270,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
           labelEn: 'Diagnostics',
           icon: '🔍',
           items: [
-            { id: 'childrenDirectory', labelVi: 'Danh sách chẩn đoán', labelEn: 'Diagnosis Records' },
+            { id: 'childrenDirectory', labelVi: 'Danh sách chẩn đoán', labelEn: 'Manage Diagnoses' },
           ]
         }
       ];
@@ -346,7 +346,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
         labelEn: 'Diagnostics',
         icon: '🔍',
         items: [
-          { id: 'childrenDirectory', labelVi: 'Danh sách chẩn đoán', labelEn: 'Diagnosis Records' },
+          { id: 'childrenDirectory', labelVi: 'Danh sách chẩn đoán', labelEn: 'Manage Diagnoses' },
         ]
       },
        {

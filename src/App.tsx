@@ -14,7 +14,7 @@ import ParentSupportTicketsModal from './components/homepage/ParentSupportTicket
 import AllCentersPage from './components/homepage/AllCentersPage'
 import { CenterDetailClientPage } from './components/homepage/CenterDetailClientPage'
 import type { Center } from './components/dashboard/CenterDetailView'
-import QuizPage from './components/assessment/QuizPage'
+import QuizPage from './components/homepage/ScreeningTab'
 
 // Modular Landing Sections
 import HeroSection from './components/homepage/HeroSection'

@@ -359,7 +359,7 @@ const translations = {
     screeningColRisk: "Risk Category",
     screeningBtnSave: "Save Screening Result ➕",
     screeningEmpty: "No developmental screening results recorded for this child.",
-    screeningDetailTitle: "🔍 Screening Test Detail Analysis",
+    screeningDetailTitle: "🔍 Screening Test Details",
     screeningAddTitle: "➕ Save New Screening Result",
     screeningFormTotalScore: "Automatic score calculation",
     screeningFormRiskCalc: "Suggested risk classification",
