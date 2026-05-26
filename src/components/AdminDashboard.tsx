@@ -18,6 +18,7 @@ import type { Plan } from './dashboard/PlanDetailView';
 import ExercisesTab from './dashboard/ExercisesTab';
 import OverviewTab from './dashboard/OverviewTab';
 import EventsTab from './dashboard/EventsTab';
+import DiagnosisTab from './dashboard/DiagnosisTab';
 import StaffScheduleTab from './profile/staff/tabs/StaffScheduleTab';
 import AdminProfileTab from './dashboard/AdminProfileTab';
 import type { AdminProfile } from './dashboard/AdminProfileTab';
@@ -224,7 +225,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
       setExpandedGroups(['stats', 'scheduling', 'clinical']);
     } else {
       setActiveTab(prev => 
-        ['stats', 'appointments', 'schedule_staff', 'intervention', 'assessment'].includes(prev) 
+        ['stats', 'appointments', 'schedule_staff', 'intervention', 'assessment', 'childrenDirectory'].includes(prev) 
           ? 'overview' 
           : prev
       );
@@ -232,7 +233,50 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
     }
   }, [adminInfo.role]);
   const getMenuGroups = (): MenuGroup[] => {
-    if (adminInfo.role === 'doctor' || adminInfo.role === 'teacher') {
+    if (adminInfo.role === 'doctor') {
+      return [
+        {
+          id: 'stats',
+          labelVi: 'Báo cáo & Phân tích',
+          labelEn: 'Reports & Analytics',
+          icon: '📊',
+          items: [
+            { id: 'stats' as Tab, labelVi: 'Phân tích Thống kê', labelEn: 'Statistical Analysis' }
+          ]
+        },
+        {
+          id: 'scheduling',
+          labelVi: 'Quản lý Lịch hẹn',
+          labelEn: 'Appointments Scheduling',
+          icon: '📅',
+          items: [
+            { id: 'appointments' as Tab, labelVi: 'Lịch hẹn với Phụ huynh', labelEn: 'Appointments with Parents' },
+            { id: 'schedule_staff' as Tab, labelVi: 'Thời khóa biểu tuần', labelEn: 'Weekly Schedule' }
+          ]
+        },
+        {
+          id: 'clinical',
+          labelVi: 'Nghiệp vụ Lâm sàng',
+          labelEn: 'Clinical Intervention',
+          icon: '🩺',
+          items: [
+            { id: 'intervention' as Tab, labelVi: 'Hồ sơ Can thiệp', labelEn: 'Intervention Records' },
+            { id: 'assessment' as Tab, labelVi: 'Đánh giá Lâm sàng', labelEn: 'Clinical Assessment' }
+          ]
+        },
+        {
+          id: 'diagnosic',
+          labelVi: 'Chuẩn đoán',
+          labelEn: 'Diagnostics',
+          icon: '🔍',
+          items: [
+            { id: 'childrenDirectory', labelVi: 'Danh sách chẩn đoán', labelEn: 'Diagnosis Records' },
+          ]
+        }
+      ];
+    }
+
+    if (adminInfo.role === 'teacher') {
       return [
         {
           id: 'stats',
@@ -299,10 +343,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
       {
         id: 'diagnosic',
         labelVi: 'Chuẩn đoán',
-        labelEn: 'Diagnosic',
+        labelEn: 'Diagnostics',
         icon: '🔍',
         items: [
-          { id: 'childrenDirectory', labelVi: 'Danh sách trẻ em', labelEn: 'Children Directory' },
+          { id: 'childrenDirectory', labelVi: 'Danh sách chẩn đoán', labelEn: 'Diagnosis Records' },
         ]
       },
        {
@@ -493,7 +537,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
           />
         );
       case 'childrenDirectory':
-        // return <ChildrenDirectoryTab lang={lang}/>;
+        return adminInfo.role === 'doctor'
+          ? <DiagnosisTab lang={lang} />
+          : <div style={{ padding: '2rem', color: '#64748B' }}>{lang === 'vi' ? 'Chỉ Bác sĩ lâm sàng mới có thể truy cập mục này.' : 'Only Clinical Doctors can access this section.'}</div>;
       default:
         return <CentersTab lang={lang} centers={centers} onManageDetail={handleManageDetail} onUpdateCenters={setCenters} />;
     }
