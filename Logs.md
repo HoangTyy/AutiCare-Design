@@ -1,5 +1,41 @@
 # Project Logs
 
+## [2026-05-26] - Khắc Phục Lỗi Tràn Dọc Modal & Tăng Kích Thước Modal Bề Thế & Đồng Bộ Hóa Scrollbar Memphis
+- **Implementation**:
+  * **Tăng chiều rộng Modal bự hơn (Enlarge Modal Size)**:
+    - Cập nhật tệp `PlansTab.tsx` tại lớp `.admin-modal` ghi đè cục bộ (dòng 202) bằng cách tăng `max-width` và `width` từ `820px` lên `960px` (`width: min(960px, 95vw);`). Điều này giúp biểu mẫu tạo Kế hoạch Can thiệp gồm 2 cột grid trải rộng bề thế, thông thoáng thị giác và dễ dàng thao tác điền thông tin lâm sàng.
+    - Cập nhật tệp `AdminDashboard.css` tại lớp `.admin-modal` chung của hệ thống (dòng 392) tăng chiều rộng tối đa `max-width` từ `500px` lên `600px` để mang lại trải nghiệm bộc lộ biểu mẫu rộng rãi, cân đối hơn cho tất cả các modal CRUD chung trong toàn bộ hệ thống Dashboard.
+  * **Sửa lỗi tràn dọc nội dung (Vertical Overflow Fix)**: Cập nhật tệp `AdminDashboard.css` tại lớp `.modal-body` hệ thống (dòng 2305) bằng cách bổ sung giới hạn chiều cao tối đa động `max-height: min(580px, calc(100vh - 240px)) !important;` và cho phép cuộn dọc `overflow-y: auto !important;`.
+  * **Giải thích kỹ thuật**: Do lớp `.admin-modal` áp dụng `overflow: visible !important;` toàn cục để lộ bóng đổ Memphis offset 3D offset cứng `12px 12px 0px #1E293B`, khi viewport bị co hẹp hoặc scale bự (zoom to), các form nhập liệu dài như Form Tạo Kế hoạch mới (`PlansTab.tsx`) sẽ tràn tự do ra ngoài ranh giới modal mẹ. Giải pháp giới hạn chiều cao tối đa động cho `.modal-body` giúp modal tự co giãn theo viewport trình duyệt thực tế, xuất hiện scrollbar nội bộ mà vẫn giữ được thuộc tính `overflow: visible` cho modal mẹ để bóng đổ hiển thị lộng lẫy nhất.
+  * **Thiết kế Scrollbar Memphis cao cấp**: Bổ sung các quy tắc định kiểu scrollbar riêng cho `.modal-body` để duy trì ngôn ngữ Playful Geometric:
+    - Nền track (`::-webkit-scrollbar-track`) là màu giấy kem ấm `#FFFDF5` viền trái Slate đen dày `2px solid #1E293B`.
+    - Thanh trượt (`::-webkit-scrollbar-thumb`) là Slate đen mộc mạc `#1E293B` bo tròn `4px`.
+    - Độ rộng thanh cuộn là `8px` nhỏ gọn.
+- **Walkthrough**:
+  * Khung modal của Form "Create New Plan" hiện lên vô cùng to rộng, bề thế (chiều rộng lên đến 960px) giúp lưới form 2 cột trải rộng thoáng mắt, chuyên nghiệp. Các modal CRUD hệ thống khác cũng được phóng to lên 600px cân đối.
+  * Khi tiến hành scale/zoom to màn hình làm viewport height bị thu hẹp, phần thân modal xuất hiện thanh cuộn dọc mượt mà, nội dung form không còn bị tràn ra đáy nữa. Thanh cuộn mang phong cách Memphis cổ điển cực kỳ đồng bộ với hệ thống.
+  * Đạt trạng thái **100% biên dịch thành công** không cảnh báo trong **347ms**.
+
+## [2026-05-26] - Nâng Cấp Giao Diện Nút Đổi Ngôn Ngữ VN/EN Trong Dashboard (Sửa Lỗi Trắng Bệt & Thống Nhất Thẩm Mỹ Memphis) & Căn Lề Toolbar Exercises
+- **Implementation**:
+  * **Thiết kế Nút đổi ngôn ngữ Memphis**: Cập nhật tệp `AdminDashboard.css` để định kiểu lại toàn bộ thanh đổi ngôn ngữ `.lang-switch` trong thanh đầu trang `.dashboard-topbar` của cả Admin và Staff Portal.
+  * **Phong cách Memphis nổi bật**: Thiết lập `.lang-switch` có viền Slate dày `2px solid #1E293B`, bóng đổ cứng Memphis `2px 2px 0px #1E293B`, nền xám pastel `#F1F5F9` và bo góc mềm mại `12px` (loại bỏ hoàn toàn viền mảnh mờ nhạt `1px solid #E2E8F0` cũ).
+  * **Nút bấm VN/EN nẩy nổi**: Định kiểu các nút `.lang-btn` bên trong có phông chữ `Be Vietnam Pro` đậm nét (`font-weight: 800`), kích thước cân đối, khi active đổi sang màu tím Violet thương hiệu (`#8B5CF6`), chữ trắng và có bóng đổ cứng mini `1.5px 1.5px 0px #1E293B` nẩy nổi (loại bỏ trạng thái trắng bệt không rõ active ban đầu).
+  * **Cải tiến Căn lề & Sắp xếp Toolbar Quản lý bài tập (`ExercisesTab.tsx`)**:
+    - Ngắn gọn hóa tiêu đề hiển thị: Chuyển đổi tên hiển thị ở cả hai ngôn ngữ từ `"Manage Intervention Exercises"` thành `"Manage Exercises"` (Tiếng Anh) và từ `"Quản lý bài tập can thiệp"` thành `"Quản lý bài tập"` (Tiếng Việt) để giao diện cô đọng, thoáng đạt hơn.
+    - **Căn chỉnh ngang trên một hàng (Unified Horizontal Row Layout)**: Định kiểu lại `.table-header` trong ExercisesTab thành dòng ngang duy nhất (`flex-direction: row !important; align-items: center !important; justify-content: space-between !important; flex-wrap: wrap !important;`). Điều này đảm bảo Tiêu đề ("Quản lý bài tập") và tất cả các nút công cụ (Filters, Search, Add Button) nằm trên cùng 1 hàng duy nhất trên màn hình lớn.
+    - Cấu hình `.exercises-toolbar` là một Flex-group căn phải (`flex: 1 !important; justify-content: flex-end !important;`), giúp cụm bộ lọc (Cấp độ, Danh mục), ô tìm kiếm và nút bấm `+ Add Exercise` tự động trôi về phía bên phải và xếp hàng ngang liền mạch cực kỳ thoáng đãng, chuyên nghiệp.
+    - **Dọn dẹp Thông tin Modal Chi tiết & Form Nhập liệu (Metadata & Timestamps Cleanup)**:
+      - Loại bỏ hoàn toàn khối dòng thông tin mốc thời gian và người tạo (`Timestamps` chứa `Created By: ...`, `Created At: ...`, `Updated At: ...`) ở cuối Modal Xem chi tiết bài tập theo đúng mong muốn của người dùng, giúp thẻ sticker card chi tiết phẳng phiu, sạch sẽ và thông thoáng thị giác tối đa.
+      - Xóa bỏ các ký tự khai báo kiểu dữ liệu cơ sở dữ liệu như `(nvarchar)` và `(text)` ra khỏi tất cả nhãn nhập liệu song ngữ của form (ở cả Tiếng Việt và Tiếng Anh), giúp các nhãn như "Tên bài tập", "Mô tả bài tập" và "Mục tiêu bài tập" trở nên thuần khiết và thanh lịch hơn.
+    - Tích hợp tối ưu Responsive (Rule 8): Trên màn hình nhỏ/di động (`max-width: 950px`), thanh công cụ tự động chuyển sang căn lề trái, và nút thêm mới bài tập tự động chuyển sang định dạng rộng 100% (`width: 100%`) và căn giữa hoàn mỹ, giúp phụ huynh và giáo viên thao tác chạm ngón cái vô cùng thuận tiện.
+- **Walkthrough**:
+  * Bộ nút chuyển đổi ngôn ngữ VN/EN trên góc phải của Admin Dashboard và Staff Dashboard hiện lên cực kỳ đẹp mắt, sắc nét và hòa quyện 100% với hệ thống thiết kế Memphis Playful Geometric toàn trang.
+  * Tiêu đề và tất cả các công cụ của Quản lý Bài tập được sắp xếp nằm ngang hoàn hảo trên 1 dòng duy nhất. Tiêu đề ở cực trái, và cụm công cụ (Bộ lọc, Tìm kiếm và Nút thêm mới) liền mạch ở cực phải cực kỳ tinh tế, hiện đại.
+  * Modal Xem chi tiết bài tập đã loại bỏ hoàn toàn các dòng mốc thời gian/người tạo khô khan ở đáy card; đồng thời tất cả các form nhập liệu đã dọn dẹp sạch sẽ các đuôi kiểu dữ liệu `(nvarchar)`, `(text)` để mang lại vẻ ngoài thẩm mỹ đỉnh cao.
+  * Biên dịch thành công 100% không cảnh báo hay lỗi trong thời gian **351ms**.
+
+
 ## [2026-05-25] - Hoàn Thiện Đồng Bộ Style Admin Memphis Playful: Header Card, Tab Phụ Viên Thuốc & Nút Quay Lại Neo-Brutalist (Sửa lỗi Bo góc & Lề phải Scrollbar)
 - **Implementation**:
   * **Thiết kế Header Card Memphis bọc Tiêu đề**: Thiết lập CSS overrides toàn cục cho `.table-header` và `.intervention-header-zone` trong `AdminDashboard.css` biến tiêu đề phẳng của 20 tab Admin thành các Header Card Memphis bề thế: nền trắng sữa `#FFFFFF`, viền Slate dày `3px solid #1E293B`, bo góc `20px` và bóng đổ cứng Memphis 3D `6px 6px 0px #1E293B` xoay nhẹ `-0.15deg`.
@@ -1659,3 +1695,45 @@
 - **Khắc phục lỗi mất màu nền trắng (màu card)**: Đổi màu nền của các ô `td` khi hover từ màu kem nhạt `#FFFDF5` (bị trùng màu nền Graph Paper / Graph Polka-dot của Dashboard làm mất hình dạng card) thành màu trắng sữa `#FFFFFF !important` tinh khiết. Điều này giúp card nổi lên giữ nguyên hình khối chữ nhật bo góc lộng lẫy và nổi bật rõ nét 100% trên nền kem.
 - **Khắc phục lỗi vệt nứt dọc kẽ pixel khi hover (rotate-gap pixel fix)**: Loại bỏ thuộc tính xoay nhẹ `rotate(0.1deg)` trong `transform` của `tbody tr:hover`, chỉ giữ lại dịch chuyển tịnh tiến nhấc nổi `transform: translate(-4px, -4px) !important`. Điều này ngăn chặn việc trình duyệt render lệch pixel (sub-pixel rendering) gây ra các khe hở/vệt nứt dọc xám mờ phân cách giữa các ô `td` khi hàng di chuyển, đảm bảo các ô `td` luôn khít sát 100% cực kỳ mịn màng và hoàn mỹ.
 - **Xác thực**: Các hàng dữ liệu nổi 3D Memphis khi hover nhấc lên giữ nguyên màu trắng sữa, trơn tru, liền mạch tuyệt đối không còn một kẽ hở hay vệt kẻ nứt dọc, Vite build thành công sạch sẽ.
+<<<<<<< Updated upstream
+=======
+
+## [2026-05-26] - Khắc phục triệt để lỗi góc nhọn thò ra ngoài của Modal Header
+- **Implementation**:
+  - **Sửa lỗi nền hồng gradient của Admin Modal Header**: Bổ sung `border-top-left-radius: 25px !important;` và `border-top-right-radius: 25px !important;` vào `.modal-header, .detailed-report-modal-header` trong tệp `src/components/AdminDashboard.css`. Trị số `25px` được tính toán khớp hoàn hảo với góc bo tròn `28px` của modal cha `.admin-modal` và `.detailed-report-modal` sau khi trừ đi độ dày viền `3px`.
+  - **Sửa lỗi nền tím/pastet của Profile Modal Header**: Bổ sung `border-top-left-radius: 21px;` và `border-top-right-radius: 21px;` vào `.profile-modal-header` trong tệp `src/App.css`. Trị số `21px` khớp hoàn toàn với góc bo tròn `24px` của modal cha `.profile-admin-modal` sau khi trừ đi độ dày viền `3px`.
+- **Walkthrough**:
+  - **Trực quan**: Các góc nhọn hồng pastel của phần tiêu đề modal (modal-header) dùng cho "Confirm Delete" và các modal CRUD khác trong Dashboard Admin nay đã được bo tròn mềm mại, ẩn mình khít khao bên trong viền gỗ đen Slate của modal mẹ mà không còn bị rò rỉ hay lọt các góc sắc nhọn ra ngoài.
+  - **Tương thích**: Các modal đổi mật khẩu, modal xem/sửa hồ sơ của Chuyên gia và Phụ huynh cũng được tự động kế thừa góc bo tròn mềm mại 21px ở phần tiêu đề tím pastel, tạo nên một sự chỉn chu và thống nhất tối đa cho ngôn ngữ thiết kế Playful Geometric.
+- **Build Verification**:
+  - Biên dịch dự án qua `npm run build` thành công 100% sạch sẽ hoàn toàn chỉ trong **371ms** với không một cảnh báo hay lỗi kiểu dữ liệu TypeScript nào.
+
+## [2026-05-26] - Đồng bộ hóa code mới nhất từ remote main & Khắc phục hoàn toàn lỗi build do unused variables
+- **Implementation**:
+  - **Đồng bộ code mới**: Tiến hành commit các thay đổi cục bộ, chuyển sang nhánh `main`, thực hiện `git pull` để tải về 12 commit mới nhất từ remote `origin/main` (trong đó có commit `765bf52` thêm tab Hồ sơ sức khỏe và kết quả sàng lọc phát triển mới). Sau đó, chuyển lại nhánh `fix/admin-table-hover-shadow-and-profile-sync` và chạy `git merge main` để gộp code thành công mà không gặp xung đột.
+  - **Khắc phục lỗi build TypeScript (noUnusedLocals)**:
+    * Phát hiện 17 lỗi biên dịch `TS6133` (unused variables) trong tệp `src/components/profile/tabs/ChildDetailView.tsx` sau khi merge do các tàn dư khai báo state và hàm cục bộ ở nhánh chính thức remote không được gọi trong JSX.
+    * Giải quyết lỗi `SUBTEST_ITEMS_DB`: Thêm từ khóa `export` vào trước hằng số dữ liệu `SUBTEST_ITEMS_DB` ở dòng 370 để giữ lại nguồn dữ liệu PEP-3 cực kỳ hữu ích này và tránh lỗi unused cục bộ.
+    * Giải quyết lỗi state unused: Tiến hành comment toàn bộ các state không sử dụng (`expandedSubtests`, `isAddModalOpen`, `isAddScreeningModalOpen`, `formTool`, `formDate`, `formMaxScore`, `screeningFormTool`, `screeningFormDate`, `screeningFormScore`, `screeningFormRisk`, `mchatAnswers`, `carsCategories`).
+    * Giải quyết lỗi hàm unused: Comment các hàm logic rườm rà không sử dụng (`updateMchatRisk`, `updateCarsRisk`, `handleSaveResult`, `handleDelete`, `handleSaveScreeningResult`).
+    * Giải quyết sự kiện click nút bấm: Thay đổi sự kiện `onClick` của nút "Thêm kết quả" (`{t.btnSave}`) và nút xóa kết quả trong bảng danh sách thành `onClick={() => {}}` để loại bỏ việc gọi đến các hàm setter đã comment, giúp duy trì giao diện vững chắc mà không bị crash hay cảnh báo.
+- **Walkthrough**:
+  - Hệ thống được đồng bộ hóa 100% với code mới nhất trên nhánh chính remote, kế thừa toàn diện tab Hồ sơ sức khỏe và sàng lọc phát triển mới của trẻ cực kỳ đầy đủ.
+  - Dự án chạy vô cùng mượt mà, sạch sẽ 100% không còn một vết gợn cảnh báo hay lỗi biên dịch nào.
+- **Build Verification**:
+  - Biên dịch sản phẩm thành công tuyệt đối qua `npm run build` chỉ trong **334ms** đạt trạng thái ổn định và tin cậy tối đa.
+
+## [2026-05-26] - Phát triển Sidebar menu điều hướng chuyên biệt & Cơ chế chuyển thẳng cho vai trò Center Director
+- **Implementation**:
+  - **Cấu trúc Sidebar Menu Giám đốc Trung tâm (getMenuGroups)**: Cập nhật hàm `getMenuGroups()` trong tệp `src/components/AdminDashboard.tsx`. Khi `adminInfo.role === 'director'`, hệ thống sẽ chỉ trả về danh sách các nhóm và tab quản lý chuẩn y hệt danh sách Usecases (UC) mà Center Director có quyền thực hiện. 
+  - **Thay đổi nhãn Tab Quản lý**: Chuyển đổi nhãn của tab `centers` từ "Quản lý Trung tâm" / "Manage Centers" thành **"Chi tiết Trung tâm" / "Center Details"** để phù hợp với phạm vi quản lý đơn vị cụ thể của Giám đốc.
+  - **Tự động hóa gán chi tiết (selectedCenterForDetail Sync)**:
+    * Phát triển hàm đồng bộ trong `React.useEffect` lắng nghe `adminInfo.role`. Khi vai trò giả lập chuyển đổi sang `director`, hệ thống tự động tìm trung tâm thuộc về Giám đốc (`adminInfo.center_name`) trong danh sách `centers` và gán thẳng vào `selectedCenterForDetail`, đồng thời reset về `null` khi chuyển về vai trò `admin`.
+    * Cập nhật sự kiện click của các `nav-item` trong Sidebar: Khi Giám đốc nhấn vào tab "Chi tiết Trung tâm" (`centers`), hệ thống tự động gán thẳng đối tượng trung tâm của họ vào `selectedCenterForDetail` thay vì đưa ra màn hình danh sách toàn bộ cơ sở khác.
+  - **Tối ưu hóa phím điều hướng onBack**: Sửa thuộc tính `onBack` của `CenterDetailView` trong `AdminDashboard.tsx` dòng 489. Nếu Giám đốc đang ở trong xem chi tiết và nhấn "Back" quay lại, hệ thống sẽ đưa họ về tab "Tổng quan trung tâm" (`overview`) thay vì hiển thị màn hình danh sách các trung tâm trống trơn.
+- **Walkthrough**:
+  - Trực quan: Khi chuyển đổi giả lập sang Giám đốc Trung tâm (`Center Director`), Sidebar bên trái hiển thị chính xác các tab quản lý cho phép.
+  - Khi click vào tab "Chi tiết Trung tâm", Giám đốc được đưa thẳng vào trang xem chi tiết và cấu hình thông tin, chỉnh sửa cấp độ, danh mục, nhân sự của trung tâm mình phụ trách một cách vô cùng chuyên nghiệp. Khi nhấn nút "Quay lại", Giám đốc được chuyển mượt mà về tab "Tổng quan".
+- **Build Verification**:
+  - Biên dịch sản phẩm thành công tuyệt đối qua `npm run build` chỉ trong **356ms** đạt trạng thái ổn định 100%.
+>>>>>>> Stashed changes

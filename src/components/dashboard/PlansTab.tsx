@@ -200,8 +200,8 @@ const PlansTab: React.FC<PlansTabProps> = ({
         }
 
         .admin-modal {
-          max-width: 820px;
-          width: min(820px, 95vw);
+          max-width: 960px;
+          width: min(960px, 95vw);
         }
 
         .modal-form-grid {
@@ -398,12 +398,31 @@ const PlansTab: React.FC<PlansTabProps> = ({
 
                     <div className="form-group form-group-full">
                       <label>{t.formTool}</label>
-                      <input
-                        type="text"
+                      <select
                         value={formTool}
                         onChange={(e) => setFormTool(e.target.value)}
-                        spellCheck="false"
-                      />
+                        style={{
+                          width: '100%',
+                          padding: '0.75rem 1rem',
+                          borderRadius: '12px',
+                          border: '2px solid #1E293B',
+                          background: '#FFFFFF',
+                          fontFamily: '"Be Vietnam Pro", sans-serif',
+                          fontSize: '0.95rem',
+                          fontWeight: 700,
+                          color: '#1E293B',
+                          boxShadow: 'inset 2px 2px 0px rgba(0, 0, 0, 0.05)',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        <option value="">-- {lang === 'vi' ? 'Chọn công cụ đánh giá' : 'Select Assessment Tool'} --</option>
+                        <option value="PEP-3">PEP-3</option>
+                        <option value="M-CHAT-R/F">M-CHAT-R/F</option>
+                        <option value="CARS">CARS</option>
+                        <option value="ASQ-3">ASQ-3</option>
+                        <option value="GARS-3">GARS-3</option>
+                        <option value="Other">{lang === 'vi' ? 'Khác / Khác' : 'Other'}</option>
+                      </select>
                     </div>
 
                     <div className="form-group form-group-full">

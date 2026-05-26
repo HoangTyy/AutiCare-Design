@@ -389,7 +389,7 @@ html {
 .admin-modal {
   background: white;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   border-radius: 24px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   display: flex;
@@ -2302,6 +2302,23 @@ thead th:last-child {
 
 .modal-body {
   padding: 2rem !important;
+  max-height: min(580px, calc(100vh - 240px)) !important;
+  overflow-y: auto !important;
+}
+
+/* Custom Scrollbar Memphis cho modal-body để đồng bộ thẩm mỹ */
+.modal-body::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: #FFFDF5 !important;
+  border-left: 2px solid #1E293B !important;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: #1E293B !important;
+  border-radius: 4px !important;
 }
 
 .modal-footer {

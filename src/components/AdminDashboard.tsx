@@ -223,6 +223,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
       // Chỉ nhảy tab sang 'stats' nếu tab hiện tại không phải là 'adminProfile' (trang Hồ sơ)
       setActiveTab(prev => prev === 'adminProfile' ? 'adminProfile' : 'stats');
       setExpandedGroups(['stats', 'scheduling', 'clinical']);
+      setSelectedCenterForDetail(null);
     } else {
       setActiveTab(prev => 
         ['stats', 'appointments', 'schedule_staff', 'intervention', 'assessment', 'childrenDirectory'].includes(prev) 
@@ -230,8 +231,18 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
           : prev
       );
       setExpandedGroups(['dashboard', 'system', 'training', 'content']);
+
+      if (adminInfo.role === 'director') {
+        const myCenter = centers.find(c => c.name === adminInfo.center_name) || centers[0];
+        if (myCenter) {
+          setSelectedCenterForDetail(myCenter);
+        }
+      } else {
+        // Reset selected center when switching back to admin to allow managing centers list
+        setSelectedCenterForDetail(null);
+      }
     }
-  }, [adminInfo.role]);
+  }, [adminInfo.role, adminInfo.center_name, centers]);
   const getMenuGroups = (): MenuGroup[] => {
     if (adminInfo.role === 'doctor') {
       return [
@@ -305,6 +316,81 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
           items: [
             { id: 'intervention' as Tab, labelVi: 'Hồ sơ Can thiệp', labelEn: 'Intervention Records' },
             { id: 'assessment' as Tab, labelVi: 'Đánh giá Lâm sàng', labelEn: 'Clinical Assessment' }
+          ]
+        }
+      ];
+    }
+
+    if (adminInfo.role === 'director') {
+      return [
+        {
+          id: 'dashboard',
+          labelVi: 'Bảng điều khiển',
+          labelEn: 'Dashboard',
+          icon: '📊',
+          items: [
+            { id: 'overview', labelVi: 'Tổng quan trung tâm', labelEn: 'Center Overview' }
+          ]
+        },
+        {
+          id: 'system',
+          labelVi: 'Hệ thống',
+          labelEn: 'System',
+          icon: '⚙️',
+          items: [
+            { id: 'centers', labelVi: 'Chi tiết Trung tâm', labelEn: 'Center Details' },
+            { id: 'staffs', labelVi: 'Quản lý Nhân sự', labelEn: 'Manage Staffs' },
+          ]
+        },
+        {
+          id: 'scheduling',
+          labelVi: 'Lịch trình',
+          labelEn: 'Scheduling',
+          icon: '📅',
+          items: [
+            { id: 'schedule', labelVi: 'Quản lý Lịch trống', labelEn: 'Available Slots' },
+            { id: 'staffSchedule', labelVi: 'Lịch trình', labelEn: 'Schedule' },
+          ]
+        },
+        {
+          id: 'diagnosic',
+          labelVi: 'Chẩn đoán',
+          labelEn: 'Diagnostic',
+          icon: '🔍',
+          items: [
+            { id: 'childrenDirectory', labelVi: 'Danh sách trẻ em', labelEn: 'Children Directory' },
+          ]
+        },
+        {
+          id: 'training',
+          labelVi: 'Nội dung Huấn luyện',
+          labelEn: 'Training Content',
+          icon: '🧩',
+          items: [
+            { id: 'plans', labelVi: 'Kế hoạch Can thiệp', labelEn: 'Manage Plans' },
+            { id: 'exercises', labelVi: 'Quản lý Bài tập', labelEn: 'Manage Exercises' },
+            { id: 'events', labelVi: 'Quản lý sự kiện', labelEn: 'Manage Events' },
+            { id: 'feedbacks', labelVi: 'Đánh giá Kế hoạch', labelEn: 'Plan Feedbacks' },
+          ]
+        },
+        {
+          id: 'content',
+          labelVi: 'Truyền thông & CSKH',
+          labelEn: 'Communication & Support',
+          icon: '📰',
+          items: [
+            { id: 'blogs', labelVi: 'Quản lý Blog', labelEn: 'Manage Blogs' },
+            { id: 'notification', labelVi: 'Quản lý Thông báo', labelEn: 'Manage Notifications' },
+            { id: 'support', labelVi: 'Yêu cầu Hỗ trợ', labelEn: 'Support Tickets' },
+          ]
+        },
+        {
+          id: 'finance',
+          labelVi: 'Tài chính',
+          labelEn: 'Finance',
+          icon: '💰',
+          items: [
+            { id: 'invoices', labelVi: 'Quản lý Hóa đơn', labelEn: 'Manage Invoices' },
           ]
         }
       ];
@@ -444,7 +530,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
             <CenterDetailView
               lang={lang}
               center={selectedCenterForDetail}
-              onBack={() => setSelectedCenterForDetail(null)}
+              onBack={adminInfo.role === 'director' ? () => setActiveTab('overview') : () => setSelectedCenterForDetail(null)}
               onUpdateLevels={(newLevels) => handleUpdateCenterLevels(selectedCenterForDetail.id, newLevels)}
               onUpdateCategories={(newCats) => handleUpdateCenterCategories(selectedCenterForDetail.id, newCats)}
               onUpdateCenter={handleUpdateCenter}
@@ -579,7 +665,14 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
                       className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
                       onClick={() => {
                         setActiveTab(item.id);
-                        if (item.id !== 'centers') {
+                        if (item.id === 'centers') {
+                          if (adminInfo.role === 'director') {
+                            const myCenter = centers.find(c => c.name === adminInfo.center_name) || centers[0];
+                            if (myCenter) {
+                              setSelectedCenterForDetail(myCenter);
+                            }
+                          }
+                        } else {
                           setSelectedCenterForDetail(null);
                         }
                         if (item.id !== 'plans') {
