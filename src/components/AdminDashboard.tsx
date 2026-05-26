@@ -18,7 +18,7 @@ import type { Plan } from './dashboard/PlanDetailView';
 import ExercisesTab from './dashboard/ExercisesTab';
 import OverviewTab from './dashboard/OverviewTab';
 import EventsTab from './dashboard/EventsTab';
-import DiagnosisTab from './dashboard/DiagnosisTab';
+import DiagnosisTab from './dashboard/DiagnosesTab';
 import StaffScheduleTab from './profile/staff/tabs/StaffScheduleTab';
 import AdminProfileTab from './dashboard/AdminProfileTab';
 import type { AdminProfile } from './dashboard/AdminProfileTab';
