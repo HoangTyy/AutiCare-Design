@@ -14,6 +14,7 @@ import ParentSupportTicketsModal from './components/homepage/ParentSupportTicket
 import AllCentersPage from './components/homepage/AllCentersPage'
 import { CenterDetailClientPage } from './components/homepage/CenterDetailClientPage'
 import type { Center } from './components/dashboard/CenterDetailView'
+import QuizPage from './components/homepage/ScreeningTab'
 
 // Modular Landing Sections
 import HeroSection from './components/homepage/HeroSection'
@@ -29,7 +30,7 @@ import FloatingNav from './components/homepage/FloatingNav'
 import './App.css'
 
 type Language = 'vi' | 'en'
-type View = 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment' | 'profile' | 'centers' | 'staff-profile' | 'staff-dashboard' | 'center-detail'
+type View = 'landing' | 'admin' | 'designHomepage' | 'designAdmin' | 'assessment' | 'quiz' | 'profile' | 'centers' | 'staff-profile' | 'staff-dashboard' | 'center-detail'
 
 const translations = {
   vi: {
@@ -144,8 +145,8 @@ function App() {
   const [showParentInvoices, setShowParentInvoices] = useState(false)
   const [showSupportTickets, setShowSupportTickets] = useState(false)
   const [justBooked, setJustBooked] = useState(false)
-  const [showUnderDev, setShowUnderDev] = useState(false)
   const [selectedCenter, setSelectedCenter] = useState<Center | null>(null)
+  const [quizTarget, setQuizTarget] = useState<'mchat' | 'cars' | null>(null)
 
   // Core Mock Database State for Centers, their respective Levels, and Categories
   const [centers, setCenters] = useState<Center[]>([
@@ -530,7 +531,18 @@ function App() {
     )
   }
 
-
+  if (view === 'quiz') {
+    return (
+      <QuizPage
+        lang={lang}
+        quizId={quizTarget}
+        onBack={() => {
+          setQuizTarget(null);
+          setView('landing');
+        }}
+      />
+    )
+  }
 
   if (view === 'admin') {
     return (
@@ -696,7 +708,10 @@ function App() {
           id="hero" 
           t={t} 
           lang={lang} 
-          onStartAssessment={() => setShowUnderDev(true)} 
+          onQuizSelected={(quizId) => {
+            setQuizTarget(quizId);
+            setView('quiz');
+          }}
           onInvoiceGenerated={() => {
             setJustBooked(true);
             setTimeout(() => {
@@ -755,28 +770,6 @@ function App() {
         onClose={() => setShowSupportTickets(false)}
         lang={lang}
       />
-      {showUnderDev && (
-        <div className="experts-popup-overlay" onClick={() => setShowUnderDev(false)}>
-          <div className="profile-admin-modal appointment-ticket-card" onClick={(e) => e.stopPropagation()} style={{ width: 'min(480px, calc(100% - 2rem))', padding: '2rem', textAlign: 'center', background: '#FFFDF5', border: '3px solid #1E293B', borderRadius: '24px', boxShadow: '8px 8px 0px #1E293B', position: 'relative', zIndex: 9999 }}>
-            <span style={{ fontSize: '3.5rem' }}>🚀</span>
-            <h3 style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '1.8rem', margin: '1.2rem 0 0.6rem 0', color: '#1E293B' }}>
-              {lang === 'vi' ? 'Tính Năng Đang Phát Triển!' : 'Feature Under Development!'}
-            </h3>
-            <p style={{ fontFamily: 'Be Vietnam Pro, sans-serif', fontSize: '0.95rem', color: '#475569', lineHeight: '1.6', marginBottom: '1.8rem' }}>
-              {lang === 'vi' 
-                ? 'Hệ thống tự đánh giá PEP-3 dành cho Phụ huynh tại nhà đang được hoàn thiện. Vui lòng liên hệ Chuyên gia của trung tâm để thực hiện đánh giá lâm sàng trực tiếp cho bé!' 
-                : 'The PEP-3 self-assessment portal for Parents is under active development. Please contact our center specialists to conduct a direct clinical evaluation for your child!'}
-            </p>
-            <button 
-              className="ticket-close-candy" 
-              onClick={() => setShowUnderDev(false)}
-              style={{ margin: '0 auto', display: 'block', float: 'none', background: '#8B5CF6', color: 'white', border: '2.5px solid #1E293B', padding: '0.6rem 2rem', borderRadius: '999px', fontWeight: 800, fontSize: '0.95rem', boxShadow: '3px 3px 0px #1E293B', cursor: 'pointer' }}
-            >
-              {lang === 'vi' ? 'Đã hiểu và Đóng 🤝' : 'Got it & Close 🤝'}
-            </button>
-          </div>
-        </div>
-      )}
       <ThemeCustomizer view={view === 'center-detail' ? 'landing' : view as any} onDesignCode={() => setView('designHomepage')} />
     </div>
   )

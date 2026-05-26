@@ -142,14 +142,14 @@ const DiagnosisTab: React.FC<DiagnosisTabProps> = ({ lang }) => {
       searchPlaceholder: 'Search by child, tool or conclusion...',
       id: 'ID',
       child: 'Child Name',
-      date: 'Diagnosis Date',
-      place: 'Diagnosis Place',
+      date: 'Date',
+      place: 'Place',
       status: 'Status',
       actions: 'Actions',
       viewDetails: 'Details',
       addNew: 'Add Diagnosis',
       modalTitle: 'Diagnosis Details',
-      createTitle: 'Create New Diagnosis',
+      createTitle: 'Create Diagnosis',
       childName: 'Child Name',
       diagnosisDate: 'Diagnosis Date',
       diagnosisPlace: 'Diagnosis Place',
@@ -210,7 +210,7 @@ const DiagnosisTab: React.FC<DiagnosisTabProps> = ({ lang }) => {
       doctor_answers: formDoctorAnswers || '',
       diagnosis_content: formDiagnosisContent || 'No details provided',
       recommendation: formRecommendation || '',
-      confirmation_code: formConfirmationCode || `DX-${Date.now()}`,
+      confirmation_code:`DX-${Date.now()}`,
       evidence_file_url: formEvidenceFile ? URL.createObjectURL(formEvidenceFile) : '',
       diagnostic_date: formDate ? `${formDate}T09:00:00` : now,
       external_doctor_name: formExternalDoctorName || '',
@@ -411,16 +411,7 @@ const DiagnosisTab: React.FC<DiagnosisTabProps> = ({ lang }) => {
                       placeholder={t.conclusion}
                       rows={2}
                     />
-                  </div>
-                  <div className="form-group">
-                    <label>{t.confirmationCode}</label>
-                    <input
-                      type="text"
-                      value={formConfirmationCode}
-                      onChange={(e) => setFormConfirmationCode(e.target.value)}
-                      placeholder={t.confirmationCode}
-                    />
-                  </div>
+                  </div>                  
                   <div className="form-group">
                     <label>{t.evidenceUrl}</label>
                     <input
@@ -429,14 +420,6 @@ const DiagnosisTab: React.FC<DiagnosisTabProps> = ({ lang }) => {
                       onChange={(e) => setFormEvidenceFile(e.target.files?.[0] ?? null)}
                     />
                     {formEvidenceFile && <small>{formEvidenceFile.name}</small>}
-                  </div>
-                  <div className="form-group">
-                    <label>{t.status}</label>
-                    <select value={formStatus} onChange={(e) => setFormStatus(e.target.value as DiagnosisRecord['status'])}>
-                      <option value="Pending">Pending</option>
-                      <option value="Reviewed">Reviewed</option>
-                      <option value="Completed">Completed</option>
-                    </select>
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn-secondary" onClick={() => setIsCreateOpen(false)}>{t.cancel}</button>

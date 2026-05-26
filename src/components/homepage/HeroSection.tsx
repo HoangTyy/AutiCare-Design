@@ -8,12 +8,13 @@ interface HeroSectionProps {
   id: string;
   t: any;
   lang: string;
-  onStartAssessment: () => void;
+  onQuizSelected: (quizId: 'mchat' | 'cars') => void;
   onInvoiceGenerated?: () => void;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ id, t, lang, onStartAssessment, onInvoiceGenerated }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({ id, t, lang, onQuizSelected, onInvoiceGenerated }) => {
   const [showExperts, setShowExperts] = React.useState(false)
+  const [showAssessmentModal, setShowAssessmentModal] = React.useState(false)
   const [selectedExpert, setSelectedExpert] = React.useState<any | null>(null)
   
   // Custom Scheduling Flow States
@@ -157,7 +158,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ id, t, lang, onStartAssessmen
               tilt={10}
               padding="1.2rem 3rem"
               className="btn-tilt-lg glow-btn-primary"
-              onClick={onStartAssessment}
+              onClick={() => setShowAssessmentModal(true)}
             >
               {t.btnStartAssessment}
             </TiltButton>
@@ -191,6 +192,54 @@ const HeroSection: React.FC<HeroSectionProps> = ({ id, t, lang, onStartAssessmen
         </span>
         <span className="scroll-arrow" />
       </div>
+
+      {showAssessmentModal && (
+        <div className="experts-popup-overlay" onClick={() => setShowAssessmentModal(false)}>
+          <div className="experts-panel glass" onClick={(event) => event.stopPropagation()} style={{ maxWidth: '760px' }}>
+            <div className="experts-header">
+              <div>
+                <h3>{lang === 'vi' ? 'Chọn bộ công cụ đánh giá' : 'Choose an assessment tool'}</h3>
+                <p>{lang === 'vi' ? 'Hỗ trợ cha mẹ chọn bài kiểm tra phù hợp để sàng lọc hành vi và phát triển.' : 'Help parents choose the right screening tool for behavior and development.'}</p>
+              </div>
+              <button className="close-experts-btn" type="button" onClick={() => setShowAssessmentModal(false)}>
+                ×
+              </button>
+            </div>
+
+            <div style={{ display: 'grid', gap: '1rem' }}>
+              <div style={{ background: '#fff', borderRadius: '20px', border: '1px solid #E2E8F0', padding: '1.5rem' }}>
+                <h4 style={{ margin: '0 0 0.5rem', color: '#0F172A' }}>M-CHAT-R/F</h4>
+                <p style={{ margin: '0 0 1rem', color: '#475569' }}>{lang === 'vi' ? 'Bộ sàng lọc cha mẹ cho trẻ 16-30 tháng.' : 'A parent-report screening tool for toddlers aged 16 to 30 months.'}</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowAssessmentModal(false)
+                    onQuizSelected('mchat')
+                  }}
+                  style={{ border: 'none', background: '#8B5CF6', color: '#fff', padding: '0.9rem 1.5rem', borderRadius: '999px', cursor: 'pointer' }}
+                >
+                  {lang === 'vi' ? 'Bắt đầu M-CHAT-R/F' : 'Start M-CHAT-R/F'}
+                </button>
+              </div>
+
+              <div style={{ background: '#fff', borderRadius: '20px', border: '1px solid #E2E8F0', padding: '1.5rem' }}>
+                <h4 style={{ margin: '0 0 0.5rem', color: '#0F172A' }}>CARS</h4>
+                <p style={{ margin: '0 0 1rem', color: '#475569' }}>{lang === 'vi' ? 'Đánh giá hành vi dựa trên quan sát cho trẻ từ 2 tuổi trở lên.' : 'An observational behavior rating scale for children 2 years and older.'}</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowAssessmentModal(false)
+                    onQuizSelected('cars')
+                  }}
+                  style={{ border: 'none', background: '#8B5CF6', color: '#fff', padding: '0.9rem 1.5rem', borderRadius: '999px', cursor: 'pointer' }}
+                >
+                  {lang === 'vi' ? 'Bắt đầu CARS' : 'Start CARS'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showExperts && (
         <div className="experts-popup-overlay" onClick={() => setShowExperts(false)}>
