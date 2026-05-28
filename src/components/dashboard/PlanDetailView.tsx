@@ -289,6 +289,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
 
   // Selected phase for detailed view
   const [selectedPhase, setSelectedPhase] = useState<PlanPhase | null>(null);
+  const [phaseSearchTerm, setPhaseSearchTerm] = useState('');
 
   // Plan Modals State
   const [isEditPlanOpen, setIsEditPlanOpen] = useState(false);
@@ -327,6 +328,13 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
   const [phaseStartDate, setPhaseStartDate] = useState('');
   const [phaseEndDate, setPhaseEndDate] = useState('');
   const [phaseStatus, setPhaseStatus] = useState<'Active' | 'Inactive'>('Active');
+
+  const filteredPhases = plan.phases.filter(p => 
+    !p.is_deleted && 
+    (p.phase_name.toLowerCase().includes(phaseSearchTerm.toLowerCase()) ||
+     p.phase_type.toLowerCase().includes(phaseSearchTerm.toLowerCase()) ||
+     p.plan_phase_id.toString().includes(phaseSearchTerm))
+  );
 
   // Activity Modal State (Removed per user request)
 
@@ -872,6 +880,32 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
           margin-bottom: 1.5rem;
           border-bottom: 2px dashed #E2E8F0;
           padding-bottom: 1rem;
+          flex-wrap: wrap !important;
+          gap: 1rem !important;
+        }
+
+        .plan-detail-view-container .phase-section-actions {
+          display: flex !important;
+          gap: 12px !important;
+          align-items: center !important;
+          flex-wrap: wrap !important;
+        }
+
+        @media (max-width: 768px) {
+          .plan-detail-view-container .phase-section-actions {
+            width: 100% !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+          
+          .plan-detail-view-container .phase-section-actions .search-bar {
+            width: 100% !important;
+          }
+          
+          .plan-detail-view-container .phase-section-actions .add-btn {
+            width: 100% !important;
+            justify-content: center !important;
+          }
         }
 
         /* Synchronized System Primary Button (Candy Button style) */
@@ -1581,14 +1615,25 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                 <h3 className="phase-section-title">📊 {t.phasesTitle}</h3>
                 <p className="phase-section-subtitle">{t.phaseList}</p>
               </div>
-              <button className="add-btn" onClick={() => openPhaseModal('create')}>
-                + {t.addPhase}
-              </button>
+              <div className="phase-section-actions">
+                <div className="search-bar">
+                  <span className="search-icon">🔍</span>
+                  <input
+                    type="text"
+                    placeholder={lang === 'vi' ? 'Tìm kiếm giai đoạn...' : 'Search phases...'}
+                    value={phaseSearchTerm}
+                    onChange={(e) => setPhaseSearchTerm(e.target.value)}
+                  />
+                </div>
+                <button className="add-btn" onClick={() => openPhaseModal('create')}>
+                  + {t.addPhase}
+                </button>
+              </div>
             </div>
 
-            {plan.phases.filter(p => !p.is_deleted).length === 0 ? (
+            {filteredPhases.length === 0 ? (
               <div className="empty-state-box">
-                <p>{t.noPhases}</p>
+                <p>{phaseSearchTerm ? (lang === 'vi' ? 'Không tìm thấy kết quả phù hợp' : 'No matching phases found') : t.noPhases}</p>
               </div>
             ) : (
               <div className="table-responsive">
@@ -1605,7 +1650,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                     </tr>
                   </thead>
                   <tbody>
-                    {plan.phases.filter(p => !p.is_deleted).map((p) => (
+                    {filteredPhases.map((p) => (
                       <tr
                         key={p.plan_phase_id}
                         className="phase-row"

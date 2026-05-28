@@ -95,8 +95,6 @@ const DiagnosisTab: React.FC<DiagnosisTabProps> = ({ lang }) => {
   const [formDoctorAnswers, setFormDoctorAnswers] = useState('');
   const [formDiagnosisContent, setFormDiagnosisContent] = useState('');
   const [formRecommendation, setFormRecommendation] = useState('');
-  // @ts-ignore
-  const [formConfirmationCode, setFormConfirmationCode] = useState('');
   const [formEvidenceFile, setFormEvidenceFile] = useState<File | null>(null);
   const [formExternalDoctorName, setFormExternalDoctorName] = useState('');
   const [formConclusion, setFormConclusion] = useState('');
@@ -190,7 +188,6 @@ const DiagnosisTab: React.FC<DiagnosisTabProps> = ({ lang }) => {
     setFormDoctorAnswers('');
     setFormDiagnosisContent('');
     setFormRecommendation('');
-    setFormConfirmationCode('');
     setFormEvidenceFile(null);
     setFormExternalDoctorName('');
     setFormConclusion('');
