@@ -1,5 +1,17 @@
 # Project Logs
 
+## [2026-05-28] - Hợp nhất Hoàn thiện Luồng Nộp bài tập & Đánh giá Chuyên gia vào Modal Chi tiết Hoạt động (`PlanDetailView.tsx` & `AdminDashboard.tsx`)
+- **Tái cấu trúc luồng trạng thái hoạt động**:
+  - Hợp nhất toàn bộ hai modal nộp báo cáo (`isSubmitReportModalOpen`) và đánh giá báo cáo (`isEvaluateReportModalOpen`) cũ rời rạc vào trực tiếp bên trong **Modal Chi tiết Hoạt động** (`isActModalOpen` khi ở chế độ `actModalMode === 'view'`).
+  - Mở rộng kích thước chiều rộng của Modal Chi tiết Hoạt động khi ở chế độ xem lên **920px** (`width: actModalMode === 'view' ? '920px' : '600px'`) để hiển thị hoàn mỹ bố cục 2 cột Memphis Playful cân xứng, sắc nét.
+  - Phụ huynh có thể nộp Check-in bài tập với đầy đủ các trường `submitter_note`, `evidence_videos_json` (Base64), `submit_times` tăng dần và nút điền dữ liệu mẫu ma thuật `🪄`. Khi gửi, trạng thái chuyển sang **`Submitted` (Chờ Review)**.
+  - Chuyên gia thấy bài nộp mới nhất của trẻ, có thể viết nhận xét phản hồi `expert_feedback` và bấm Lưu. Khi Lưu, trạng thái hoạt động tự động chuyển về **`In Progress` (Đang thực hiện)** để phụ huynh có thể rèn luyện tiếp các đợt sau, đồng thời ghi lại vết lịch sử kẹp đôi hoàn chỉnh trên Timeline.
+  - Xóa bỏ hoàn toàn code JSX render và khai báo state của hai modal cũ dư thừa ở đáy file `PlanDetailView.tsx`, tối ưu hóa tài nguyên mã nguồn và làm sạch tệp tin.
+- **Khắc phục lỗi biên dịch JSX & TypeScript**:
+  - Sửa lỗi biên dịch nghiêm trọng do việc cắt ghép hỏng và rác code JSX lặp lại ở dòng con hiển thị danh sách hoạt động của mục tiêu can thiệp. Thiết lập cấu trúc JSX sạch sẽ, đóng thẻ `<button>` và thẻ lồng ghép chuẩn chỉnh 100%.
+  - Sửa đổi các giá trị trạng thái hoạt động mẫu bị khai báo sai `'Active'` thành `'In Progress'` trong dữ liệu khởi tạo của `AdminDashboard.tsx`, giải quyết triệt để các lỗi ép kiểu TypeScript.
+  - Đưa toàn bộ dự án đạt trạng thái **100% biên dịch thành công** Vite Production Build siêu sạch chỉ trong 381ms.
+
 ## [2026-05-28] - Tích hợp tính năng Nộp Báo cáo Tiến trình (Submit Report) & Đánh giá Báo cáo Hoạt động tại nhà (Evaluate Report) trong Kế hoạch Can thiệp (`PlanDetailView.tsx` & `AdminDashboard.tsx`)
 - **Tích hợp Cấu trúc Dữ liệu Tiến trình**:
   - Khai báo interface `ActivityProgressReport` chứa các thông tin báo cáo: mã báo cáo, mã hoạt động, ngày nộp, bằng chứng hình ảnh/video (base64/url), ghi chú của phụ huynh, trạng thái đánh giá (`Pending`/`Approved`/`Rejected`), nhận xét chuyên môn, ngày đánh giá và tên giáo viên đánh giá.

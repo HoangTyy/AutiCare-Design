@@ -123,28 +123,21 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
                   target_criteria: 'Trẻ nhìn mắt giáo viên 3-5 giây khi đưa mảnh ghép',
                   teaching_method: 'Giữ mảnh ghép gần tầm mắt, gọi tên trẻ. Đợi trẻ nhìn vào mắt mới đưa mảnh ghép.',
                   assignee_type: 'Teacher',
-                  status: 'Active',
-                  progress_reports: [
+                  status: 'Submitted',
+                  submissions: [
                     {
-                      report_id: 1,
-                      activity_id: 1,
+                      activity_submission_id: 1,
                       submission_date: '2026-05-27 19:45:00',
-                      media_type: 'image',
-                      media_url: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
-                      parent_note: 'Bé Khôi tối nay đã tự tay ghép được nửa bộ Lego nhỏ và khi tôi gọi tên, con đã nhìn thẳng vào mắt tôi tầm 4 giây để đòi thêm mảnh ghép tiếp theo. Đây là tiến bộ rất lớn!',
-                      status: 'Pending'
-                    },
+                      submitter_note: 'Bé Khôi tối nay đã tự tay ghép được nửa bộ Lego nhỏ và khi tôi gọi tên, con đã nhìn thẳng vào mắt tôi tầm 4 giây để đòi thêm mảnh ghép tiếp theo. Đây là tiến bộ rất lớn!',
+                      evidence_videos_json: '["https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"]',
+                      submit_times: 1
+                    }
+                  ],
+                  reviews: [
                     {
-                      report_id: 2,
-                      activity_id: 1,
-                      submission_date: '2026-05-25 15:30:00',
-                      media_type: 'image',
-                      media_url: 'https://images.unsplash.com/photo-1515488042361-404e9250afef?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
-                      parent_note: 'Khôi ghép Lego cùng mẹ chiều nay, giữ tương tác mắt được 3 giây khi mẹ đưa mảnh ghép.',
-                      status: 'Approved',
-                      teacher_feedback: 'Tuyệt vời! Phụ huynh tiếp tục áp dụng phương pháp trì hoãn đưa mảnh ghép này để tạo động lực giao tiếp cho con nhé. Khen ngợi con ngay khi con nhìn vào mắt.',
-                      evaluation_date: '2026-05-26 09:00:00',
-                      teacher_name: 'Cô giáo Minh Anh'
+                      submission_review_id: 1,
+                      expert_feedback: 'Lần thực hành Lego hôm 25/5 của con rất tốt, con đã giữ tương tác mắt 3 giây. Phụ huynh nên tiếp tục áp dụng khen thưởng mảnh Lego kịp thời nhé!',
+                      created_at: '2026-05-26 09:00:00'
                     }
                   ]
                 }
@@ -183,7 +176,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
                   target_criteria: 'Bắt chước đúng 3/5 âm thanh động vật quen thuộc',
                   teaching_method: 'Đưa thẻ hình lên ngang miệng, làm mẫu âm thanh (meo meo, gâu gâu...) rõ khẩu hình, khen ngợi ngay khi trẻ phát âm theo.',
                   assignee_type: 'Parent',
-                  status: 'Active'
+                  status: 'In Progress'
                 }
               ],
               created_at: '2026-05-01 08:35:00',
@@ -242,7 +235,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
                   target_criteria: 'Trẻ chấp nhận nghe trong 5 phút mà không tháo tai nghe',
                   teaching_method: 'Bật nhạc âm lượng nhỏ, tăng dần. Cùng chơi đất nặn để phân tán.',
                   assignee_type: 'Therapist',
-                  status: 'Active'
+                  status: 'In Progress'
                 }
               ],
             },
