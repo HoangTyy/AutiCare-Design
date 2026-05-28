@@ -2613,8 +2613,8 @@ thead th:last-child {
 }
 
 .obj-main-row:hover td {
-  transform: translate(-3px, -3px) !important;
-  box-shadow: 0px 7px 0px #1E293B !important; /* Bóng đổ đáy tịnh tiến mượt mà */
+  transform: none !important;
+  box-shadow: 0px 4px 0px #1E293B !important; /* Giữ bóng đổ mặc định, không tăng */
   background: #FFFDF5 !important;
 }
 
@@ -2623,14 +2623,14 @@ thead th:last-child {
 }
 
 .obj-main-row:hover td:last-child {
-  box-shadow: 7px 7px 0px #1E293B !important; /* Chỉ riêng ô cuối tăng shadow chéo */
+  box-shadow: 4px 4px 0px #1E293B !important; /* Giữ nguyên shadow mặc định */
 }
 
 .obj-main-row.active td {
   background: #FFFBEB !important;
   border-color: #1E293B !important;
-  transform: translate(-1px, -1px) !important;
-  box-shadow: 0px 5px 0px #1E293B !important;
+  transform: none !important;
+  box-shadow: 0px 4px 0px #1E293B !important;
 }
 
 .obj-main-row.active td:first-child {
@@ -2638,21 +2638,27 @@ thead th:last-child {
 }
 
 .obj-main-row.active td:last-child {
-  box-shadow: 5px 5px 0px #1E293B !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
 }
 
 /* Style for expanded Sub Activity table row wrapper */
-.activity-row-expanded td {
+.activity-row-expanded td,
+.activity-row-expanded td:first-child,
+.activity-row-expanded td:last-child {
   padding: 0px 12px 24px 12px !important;
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
+  transform: none !important;
 }
 
-.activity-row-expanded:hover td {
+.activity-row-expanded:hover td,
+.activity-row-expanded:hover td:first-child,
+.activity-row-expanded:hover td:last-child {
   transform: none !important;
   box-shadow: none !important;
   background: transparent !important;
+  border: none !important;
 }
 
 .activity-section-wrapper {
@@ -2735,8 +2741,8 @@ thead th:last-child {
 }
 
 .activity-sub-table tbody tr:hover td {
-  transform: translate(-2px, -2px) !important;
-  box-shadow: 0px 5px 0px #1E293B !important; /* Hover nẩy shadow đáy */
+  transform: none !important;
+  box-shadow: 0px 3px 0px #1E293B !important; /* Giữ bóng đổ mặc định, không tăng */
   background: #FFFDF5 !important;
 }
 
@@ -2745,7 +2751,7 @@ thead th:last-child {
 }
 
 .activity-sub-table tbody tr:hover td:last-child {
-  box-shadow: 5px 5px 0px #1E293B !important;
+  box-shadow: 3px 3px 0px #1E293B !important; /* Giữ nguyên shadow mặc định */
 }
 
 

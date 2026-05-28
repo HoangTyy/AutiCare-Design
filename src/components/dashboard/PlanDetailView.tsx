@@ -294,6 +294,64 @@ const translations = {
   }
 };
 
+const renderEvidenceLink = (mediaUrl: string, lang: 'vi' | 'en') => {
+  if (!mediaUrl) return null;
+  return (
+    <div className="media-preview-container" style={{ 
+      width: '100%', 
+      padding: '12px 16px', 
+      border: '2.5px solid #1E293B', 
+      borderRadius: '14px', 
+      background: '#FFFDF5',
+      boxShadow: '3px 3px 0px #1E293B',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: '12px',
+      boxSizing: 'border-box'
+    }}>
+      <div style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#64748B', display: 'block', marginBottom: '2px' }}>
+          🔗 {lang === 'vi' ? 'Liên kết video bằng chứng:' : 'Evidence Video Link:'}
+        </span>
+        <a 
+          href={mediaUrl} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          style={{ fontSize: '0.85rem', fontWeight: 700, color: '#8B5CF6', textDecoration: 'underline', wordBreak: 'break-all' }}
+        >
+          {mediaUrl}
+        </a>
+      </div>
+      <a
+        href={mediaUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn-primary"
+        style={{ 
+          background: '#8B5CF6', 
+          border: '2px solid #1E293B', 
+          borderRadius: '8px',
+          padding: '6px 14px', 
+          fontSize: '0.78rem', 
+          fontWeight: 800, 
+          cursor: 'pointer',
+          boxShadow: '2px 2px 0px #1E293B', 
+          fontFamily: '"Be Vietnam Pro", sans-serif',
+          textDecoration: 'none',
+          color: '#FFFFFF',
+          whiteSpace: 'nowrap',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '4px'
+        }}
+      >
+        <span>{lang === 'vi' ? 'Mở liên kết' : 'Open Link'}</span> 🚀
+      </a>
+    </div>
+  );
+};
+
 const PlanDetailView: React.FC<PlanDetailViewProps> = ({
   lang,
   plan,
@@ -306,6 +364,11 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
   // Selected phase for detailed view
   const [selectedPhase, setSelectedPhase] = useState<PlanPhase | null>(null);
   const [phaseSearchTerm, setPhaseSearchTerm] = useState('');
+
+  // Selected activity for flat detailed page view
+  const [selectedActivity, setSelectedActivity] = useState<ObjectiveActivity | null>(null);
+  // @ts-ignore
+  const [selectedParentObjId, setSelectedParentObjId] = useState<number | null>(null);
 
   // Role Simulator State
   const [currentSimulatorRole, setCurrentSimulatorRole] = useState<'Teacher' | 'Parent'>('Teacher');
@@ -550,6 +613,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
     const targetAct = updatedPhases.flatMap(p => p.objectives).flatMap(o => o.activities || []).find(a => a.activity_id === activeActivityForReport.activity_id);
     if (targetAct) {
       setActiveActivityForReport(targetAct);
+      if (selectedActivity) setSelectedActivity(targetAct); // Đồng bộ trang chi tiết hoạt động
     }
 
     onUpdatePlan({ ...plan, phases: updatedPhases });
@@ -593,6 +657,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
     const targetAct = updatedPhases.flatMap(p => p.objectives).flatMap(o => o.activities || []).find(a => a.activity_id === activeActivityForReport.activity_id);
     if (targetAct) {
       setActiveActivityForReport(targetAct);
+      if (selectedActivity) setSelectedActivity(targetAct); // Đồng bộ trang chi tiết hoạt động
     }
 
     onUpdatePlan({ ...plan, phases: updatedPhases });
@@ -602,6 +667,22 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
 
   // Objective Handlers
   const openActModal = (mode: 'create' | 'update' | 'delete' | 'view', objId: number, act: ObjectiveActivity | null = null) => {
+    // Khi mode === 'view', chuyển sang trang chi tiết hoạt động mới (không mở modal)
+    if (mode === 'view' && act) {
+      setSelectedActivity(act);
+      setSelectedParentObjId(objId);
+      setActiveActivityForReport(act);
+      setReportMediaFile('');
+      setReportParentNote('');
+      setEvalFeedback('');
+      setActName(act.activity_name);
+      setActFrequency(act.frequency || '');
+      setActAssigneeType(act.assignee_type || 'Parent');
+      setActTeachingMethod(act.teaching_method || '');
+      setActTargetCriteria(act.target_criteria || '');
+      return; // Dừng, không mở modal
+    }
+
     setActModalMode(mode);
     setActiveObjId(objId);
     if (act) {
@@ -610,7 +691,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
       setReportParentNote('');
       setEvalFeedback('');
     }
-    if (act && (mode === 'update' || mode === 'delete' || mode === 'view')) {
+    if (act && (mode === 'update' || mode === 'delete')) {
       setActiveActId(act.activity_id);
       setActName(act.activity_name);
       setActDesc(act.description);
@@ -692,6 +773,557 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
     alert(t.success);
     setIsObjModalOpen(false);
   };
+
+  // ============================================================================================
+  // TRANG CHI TIẾT HOẠT ĐỘNG MỚI (FLAT VIEW 100% VIEWPORT)
+  // Render khi selectedPhase && selectedActivity thay vì mở modal
+  // ============================================================================================
+  if (selectedPhase && selectedActivity) {
+    return (
+      <div className="dashboard-content-area plan-detail-view-container">
+        <style>{`
+          .activity-detail-page {
+            font-family: "Be Vietnam Pro", sans-serif;
+            color: #1E293B;
+          }
+          .activity-detail-page .adp-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 12px;
+          }
+          .activity-detail-page .adp-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 999px;
+            border: 3px solid #1E293B;
+            background: #FFFFFF;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 0.88rem;
+            font-family: "Be Vietnam Pro", sans-serif;
+            color: #1E293B;
+            box-shadow: 3px 3px 0px #1E293B;
+            transition: all 0.15s ease;
+          }
+          .activity-detail-page .adp-back-btn:hover {
+            background: #F1F5F9;
+            box-shadow: 2px 2px 0px #1E293B;
+          }
+          .activity-detail-page .adp-back-btn:active {
+            transform: translateY(2px);
+            box-shadow: 1px 1px 0px #1E293B;
+          }
+          .activity-detail-page .adp-header-card {
+            background: #FFFFFF;
+            border: 3px solid #1E293B;
+            border-radius: 20px;
+            padding: 18px 24px;
+            box-shadow: 6px 6px 0px #1E293B;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+          }
+          .activity-detail-page .adp-header-card h2 {
+            margin: 0;
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: #1E293B;
+          }
+          .activity-detail-page .adp-header-card .adp-subtitle {
+            margin: 4px 0 0 0;
+            font-size: 0.88rem;
+            color: #64748B;
+            font-weight: 600;
+          }
+          .activity-detail-page .adp-two-col {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 24px;
+            align-items: stretch;
+            margin-bottom: 2.5rem;
+          }
+          @media (max-width: 900px) {
+            .activity-detail-page .adp-two-col {
+              grid-template-columns: 1fr;
+            }
+          }
+          .activity-detail-page .adp-card {
+            background: #FFFFFF;
+            border: 3px solid #1E293B;
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 5px 5px 0px #1E293B;
+            display: flex;
+            flex-direction: column;
+          }
+          .activity-detail-page .adp-card.warm {
+            background: #FFFDF5;
+          }
+          .activity-detail-page .adp-card-title {
+            margin: 0 0 14px 0;
+            font-size: 1.05rem;
+            font-weight: 900;
+            color: #1E293B;
+            border-bottom: 2.5px solid #1E293B;
+            padding-bottom: 8px;
+          }
+          .activity-detail-page .adp-info-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 12px;
+          }
+          .activity-detail-page .adp-info-label {
+            font-size: 0.78rem;
+            color: #64748B;
+            font-weight: 700;
+            text-transform: uppercase;
+          }
+          .activity-detail-page .adp-info-value {
+            font-size: 0.92rem;
+            color: #1E293B;
+            font-weight: 700;
+            background: #F8FAFC;
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 8px 12px;
+          }
+          .activity-detail-page .adp-info-value.textarea-like {
+            white-space: pre-wrap;
+            font-weight: 500;
+            line-height: 1.55;
+          }
+          .activity-detail-page .adp-timeline-section {
+            margin-top: 0;
+          }
+          .activity-detail-page .adp-timeline-title {
+            font-weight: 900;
+            color: #1E293B;
+            margin-bottom: 16px;
+            border-bottom: 2.5px solid #1E293B;
+            padding-bottom: 8px;
+            font-size: 1.05rem;
+          }
+          .activity-detail-page .adp-timeline-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 16px;
+            background: #FFFFFF;
+            border: 2.5px solid #1E293B;
+            border-radius: 16px;
+            box-shadow: 4px 4px 0px #1E293B;
+            margin-bottom: 16px;
+          }
+          .activity-detail-page .adp-timeline-item .tl-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          .activity-detail-page .adp-timeline-item .tl-attempt {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #8B5CF6;
+          }
+          .activity-detail-page .adp-timeline-item .tl-date {
+            font-size: 0.78rem;
+            color: #64748B;
+            font-weight: 500;
+          }
+          .activity-detail-page .adp-timeline-item .tl-note {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #0F172A;
+            font-style: italic;
+            background: #F8FAFC;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1.5px solid #E2E8F0;
+          }
+          .activity-detail-page .adp-timeline-item .tl-review {
+            margin-top: 4px;
+            padding: 12px;
+            background: #F0FDF4;
+            border-radius: 12px;
+            border: 1.5px solid #DCFCE7;
+          }
+          .activity-detail-page .adp-timeline-item .tl-review-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.78rem;
+            color: #166534;
+            font-weight: 800;
+            margin-bottom: 4px;
+          }
+          .activity-detail-page .adp-timeline-item .tl-review p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #1E293B;
+            font-style: italic;
+            font-weight: 500;
+          }
+          .activity-detail-page .adp-timeline-item .tl-pending {
+            margin-top: 4px;
+            padding: 10px 14px;
+            background: #FFFBEB;
+            border-radius: 12px;
+            border: 1.5px solid #FEF3C7;
+            color: #B45309;
+            font-size: 0.78rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+          }
+          .activity-detail-page .adp-empty-timeline {
+            text-align: center;
+            padding: 28px;
+            background: #F8FAFC;
+            border: 2px dashed #CBD5E1;
+            border-radius: 18px;
+            color: #94A3B8;
+            font-size: 0.88rem;
+          }
+          @media (max-width: 768px) {
+            .activity-detail-page .adp-nav {
+              flex-direction: column;
+              align-items: stretch;
+            }
+            .activity-detail-page .adp-header-card {
+              flex-direction: column;
+              align-items: flex-start;
+            }
+          }
+        `}</style>
+
+        <div className="activity-detail-page">
+          {/* NAVIGATION */}
+          <div className="adp-nav">
+            <button
+              className="adp-back-btn"
+              onClick={() => {
+                setSelectedActivity(null);
+                setSelectedParentObjId(null);
+              }}
+            >
+              ← {lang === 'vi' ? 'Quay lại Giai đoạn' : 'Back to Phase'}
+            </button>
+
+            {/* Role Simulator Widget */}
+            <div className="role-simulator-widget">
+              <span className="widget-label">{lang === 'vi' ? 'Vai trò:' : 'Role:'}</span>
+              <div className="simulator-btn-group">
+                <button
+                  type="button"
+                  className={`simulator-btn ${currentSimulatorRole === 'Teacher' ? 'active' : ''}`}
+                  onClick={() => setCurrentSimulatorRole('Teacher')}
+                >
+                  🩺 {lang === 'vi' ? 'Chuyên gia' : 'Specialist'}
+                </button>
+                <button
+                  type="button"
+                  className={`simulator-btn ${currentSimulatorRole === 'Parent' ? 'active' : ''}`}
+                  onClick={() => setCurrentSimulatorRole('Parent')}
+                >
+                  🏠 {lang === 'vi' ? 'Phụ huynh' : 'Parent'}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* HEADER CARD */}
+          <div className="adp-header-card">
+            <div>
+              <h2>👁️ {selectedActivity.activity_name}</h2>
+              <p className="adp-subtitle">
+                {lang === 'vi'
+                  ? 'Xem chi tiết hướng dẫn thao tác, nộp báo cáo thực hành tại nhà và đánh giá chuyên môn từ Chuyên gia.'
+                  : 'View detailed instructions, submit practice reports and receive expert clinical feedback.'}
+              </p>
+            </div>
+            <span
+              className={`report-badge ${(selectedActivity.status || 'In Progress') === 'Submitted' ? 'pending' : 'approved'}`}
+              style={{
+                backgroundColor: (selectedActivity.status || 'In Progress') === 'Submitted' ? '#FEF3C7' : '#E2E8F0',
+                color: (selectedActivity.status || 'In Progress') === 'Submitted' ? '#D97706' : '#475569',
+                borderColor: '#1E293B',
+                borderWidth: '2.5px',
+                borderStyle: 'solid',
+                fontSize: '0.82rem',
+                padding: '5px 14px',
+                boxShadow: '2px 2px 0px #1E293B'
+              }}
+            >
+              {(selectedActivity.status || 'In Progress') === 'Submitted'
+                ? (lang === 'vi' ? '⏳ Chờ Review' : '⏳ Submitted')
+                : (lang === 'vi' ? '🏃 Đang thực hiện' : '🏃 In Progress')}
+            </span>
+          </div>
+
+          {/* TWO COLUMN LAYOUT */}
+          <div className="adp-two-col">
+            {/* CỘT TRÁI: THÔNG TIN HOẠT ĐỘNG */}
+            <div className="adp-card">
+              <h4 className="adp-card-title">🎯 {lang === 'vi' ? 'Thông tin hoạt động' : 'Activity Details'}</h4>
+
+              <div className="adp-info-row">
+                <span className="adp-info-label">{lang === 'vi' ? 'Tên bài tập' : 'Activity Name'}</span>
+                <div className="adp-info-value" style={{ fontWeight: 800 }}>{actName || '—'}</div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div className="adp-info-row">
+                  <span className="adp-info-label">{lang === 'vi' ? 'Tần suất' : 'Frequency'}</span>
+                  <div className="adp-info-value">{actFrequency || '—'}</div>
+                </div>
+                <div className="adp-info-row">
+                  <span className="adp-info-label">{lang === 'vi' ? 'Người thực hiện' : 'Assignee'}</span>
+                  <div className="adp-info-value">{actAssigneeType || '—'}</div>
+                </div>
+              </div>
+
+              <div className="adp-info-row">
+                <span className="adp-info-label">{lang === 'vi' ? 'Phương pháp giảng dạy' : 'Teaching Method'}</span>
+                <div className="adp-info-value textarea-like">{actTeachingMethod || '—'}</div>
+              </div>
+
+              <div className="adp-info-row">
+                <span className="adp-info-label">{lang === 'vi' ? 'Tiêu chí đạt' : 'Target Criteria'}</span>
+                <div className="adp-info-value">{actTargetCriteria || '—'}</div>
+              </div>
+            </div>
+
+            {/* CỘT PHẢI: TIẾN TRÌNH & TƯƠNG TÁC */}
+            <div className="adp-card warm">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', borderBottom: '2.5px solid #1E293B', paddingBottom: '8px' }}>
+                <h4 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 900, color: '#1E293B' }}>
+                  📈 {lang === 'vi' ? 'Tiến trình & Tương tác' : 'Practice & Review'}
+                </h4>
+                <span
+                  className={`report-badge ${(selectedActivity.status || 'In Progress') === 'Submitted' ? 'pending' : 'approved'}`}
+                  style={{
+                    backgroundColor: (selectedActivity.status || 'In Progress') === 'Submitted' ? '#FEF3C7' : '#F1F5F9',
+                    color: (selectedActivity.status || 'In Progress') === 'Submitted' ? '#D97706' : '#475569',
+                    borderColor: '#1E293B', borderWidth: '2px', borderStyle: 'solid', fontSize: '0.75rem'
+                  }}
+                >
+                  {(selectedActivity.status || 'In Progress') === 'Submitted'
+                    ? (lang === 'vi' ? '⏳ Chờ Review' : '⏳ Submitted')
+                    : (lang === 'vi' ? '🏃 Đang thực hiện' : '🏃 In Progress')}
+                </span>
+              </div>
+
+              {/* LUỒNG PHỤ HUYNH */}
+              {currentSimulatorRole === 'Parent' && (
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <form onSubmit={handleSaveSubmission} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <strong style={{ fontSize: '0.88rem', color: '#1E293B' }}>
+                        📤 {lang === 'vi' ? 'Nộp bài tập thực hành mới' : 'Submit Practice Check-in'}
+                      </strong>
+                      <button
+                        type="button"
+                        style={{
+                          background: '#FBBF24', border: '2px solid #1E293B', borderRadius: '8px',
+                          padding: '3px 10px', fontSize: '0.72rem', fontWeight: 800, cursor: 'pointer',
+                          boxShadow: '1.5px 1.5px 0px #1E293B', fontFamily: '"Be Vietnam Pro", sans-serif'
+                        }}
+                        onClick={() => {
+                          setReportMediaFile('https://www.youtube.com/watch?v=9tGZ8tW48zU');
+                          setReportParentNote(lang === 'vi'
+                            ? 'Bé hôm nay tự tay xếp Lego rất tập trung. Khi ba gọi tên để trao mảnh ghép Lego mới, bé đã chủ động nhìn vào mắt ba khoảng 4 giây liên tiếp và mỉm cười rất ngoan ạ!'
+                            : 'Today he assembled Lego very cooperatively. When called to receive a new piece, he actively maintained eye contact for about 4 seconds and smiled.');
+                        }}
+                      >
+                        🪄 {lang === 'vi' ? 'Dữ liệu mẫu' : 'Fill Demo'}
+                      </button>
+                    </div>
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569' }}>
+                        🔗 {lang === 'vi' ? 'Liên kết video/hình ảnh bằng chứng' : 'Video/Image Evidence Link'}
+                      </label>
+                      <input
+                        type="url"
+                        required
+                        value={reportMediaFile}
+                        onChange={e => setReportMediaFile(e.target.value)}
+                        placeholder={lang === 'vi' ? "Ví dụ: link Google Drive, OneDrive, YouTube..." : "E.g., Google Drive, OneDrive, YouTube link..."}
+                        style={{ border: '2.5px solid #1E293B', borderRadius: '10px', padding: '8px 10px', fontSize: '0.85rem', fontFamily: 'inherit', fontWeight: 500, width: '100%', boxSizing: 'border-box' }}
+                      />
+                    </div>
+
+                    {reportMediaFile && (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569' }}>
+                            📺 {lang === 'vi' ? 'Xem trước liên kết:' : 'Link Preview:'}
+                          </span>
+                          <button
+                            type="button"
+                            style={{ background: '#EF4444', color: 'white', border: '1.5px solid #1E293B', borderRadius: '6px', padding: '2px 8px', fontSize: '0.7rem', fontWeight: 800, cursor: 'pointer' }}
+                            onClick={() => setReportMediaFile('')}
+                          >
+                            {lang === 'vi' ? 'Xóa' : 'Remove'}
+                          </button>
+                        </div>
+                        {renderEvidenceLink(reportMediaFile, lang)}
+                      </div>
+                    )}
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569' }}>✍️ {lang === 'vi' ? 'Nhật ký rèn luyện của ba mẹ' : 'Parent Practice Notes'}</label>
+                      <textarea
+                        required rows={3} value={reportParentNote} onChange={e => setReportParentNote(e.target.value)}
+                        placeholder={lang === 'vi' ? 'Ghi nhận phản ứng hoặc khó khăn của con khi rèn luyện...' : 'Describe how the child responded during the session...'}
+                        style={{ border: '2.5px solid #1E293B', borderRadius: '10px', padding: '8px 10px', fontSize: '0.85rem', fontFamily: 'inherit', fontWeight: 500, width: '100%', boxSizing: 'border-box', resize: 'none' }}
+                      />
+                    </div>
+
+                    <button type="submit" className="btn-primary" style={{ background: '#8B5CF6', padding: '10px 18px', fontSize: '0.88rem', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '12px', fontWeight: 800 }}>
+                      🚀 {lang === 'vi' ? 'Gửi bài tập thực hành' : 'Submit Practice Check-in'}
+                    </button>
+                  </form>
+                </div>
+              )}
+
+              {/* LUỒNG CHUYÊN GIA */}
+              {currentSimulatorRole === 'Teacher' && (
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                  {(selectedActivity.status || 'In Progress') === 'Submitted' && selectedActivity.submissions && selectedActivity.submissions.length > 0 ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', flex: 1 }}>
+                      {(() => {
+                        const subsList = selectedActivity.submissions || [];
+                        const lastSub = subsList[subsList.length - 1];
+                        const lastImages = lastSub.evidence_videos_json ? JSON.parse(lastSub.evidence_videos_json) : [];
+                        return (
+                          <>
+                            <div style={{ background: '#FFFFFF', padding: '12px', borderRadius: '14px', border: '2.5px solid #1E293B', fontSize: '0.85rem' }}>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                                <span style={{ fontWeight: 800, color: '#475569' }}>📥 {lang === 'vi' ? `Bài nộp mới nhất (Lần ${lastSub.submit_times})` : `Latest Submission (Times ${lastSub.submit_times})`}</span>
+                                <span style={{ fontSize: '0.75rem', color: '#94A3B8' }}>{lastSub.submission_date}</span>
+                              </div>
+                              <p style={{ margin: '0 0 8px 0', fontStyle: 'italic', color: '#0F172A' }}>"{lastSub.submitter_note}"</p>
+                              {lastImages.length > 0 && (
+                                <div style={{ marginTop: '8px' }}>
+                                  {renderEvidenceLink(lastImages[0], lang)}
+                                </div>
+                              )}
+                            </div>
+
+                            <div style={{ borderTop: '2.5px dashed #CBD5E1', paddingTop: '10px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                              <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#1E293B' }}>✍️ {lang === 'vi' ? 'Nhận xét chuyên môn & Hướng dẫn (Review)' : 'Expert Feedback & Review'}</label>
+                              <textarea
+                                required rows={3} value={evalFeedback} onChange={e => setEvalFeedback(e.target.value)}
+                                placeholder={lang === 'vi' ? 'Nhập phản hồi chuyên môn, định hướng trị liệu cho phụ huynh...' : 'Write clinical recommendations for parents...'}
+                                style={{ border: '2.5px solid #1E293B', borderRadius: '10px', padding: '8px 10px', fontSize: '0.85rem', fontFamily: 'inherit', fontWeight: 500, width: '100%', boxSizing: 'border-box', resize: 'none' }}
+                              />
+                              <button
+                                type="button" className="btn-primary"
+                                style={{ background: '#FBBF24', color: '#1E293B', fontWeight: 800, padding: '10px 18px', fontSize: '0.88rem', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '12px' }}
+                                onClick={() => handleSaveReview(lastSub.activity_submission_id)}
+                              >
+                                💾 {lang === 'vi' ? 'Gửi đánh giá chuyên môn' : 'Submit Review'}
+                              </button>
+                            </div>
+                          </>
+                        );
+                      })()}
+                    </div>
+                  ) : (
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: '28px', background: '#FFFFFF', borderRadius: '14px', border: '2.5px dashed #CBD5E1' }}>
+                      <span style={{ fontSize: '2.2rem', marginBottom: '10px' }}>⏳</span>
+                      <strong style={{ fontSize: '0.9rem', color: '#475569' }}>
+                        {lang === 'vi' ? 'Chưa có bài nộp mới cần Review' : 'No new submissions to review'}
+                      </strong>
+                      <span style={{ fontSize: '0.8rem', color: '#94A3B8', marginTop: '6px' }}>
+                        {lang === 'vi' ? 'Khi phụ huynh gửi bài thực hành mới tại nhà, bạn sẽ thấy bài nộp và form chấm điểm tại đây.' : 'Form will open as soon as parents submit practice records.'}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* TIMELINE LỊCH SỬ THỰC HÀNH & ĐÁNH GIÁ */}
+          <div className="adp-card adp-timeline-section" style={{ boxShadow: '5px 5px 0px #1E293B' }}>
+            <h4 className="adp-timeline-title">📋 {lang === 'vi' ? 'Lịch sử rèn luyện & Đánh giá' : 'Practice & Review Timeline'}</h4>
+
+            {(!selectedActivity.submissions || selectedActivity.submissions.length === 0) ? (
+              <div className="adp-empty-timeline">
+                {lang === 'vi' ? 'Chưa có lịch sử rèn luyện nào được ghi nhận.' : 'No practice history has been recorded yet.'}
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {(selectedActivity.submissions || []).slice().reverse().map((sub) => {
+                  const matchingReview = (selectedActivity.reviews || []).find(r => r.submission_review_id === sub.activity_submission_id);
+                  const images = sub.evidence_videos_json ? JSON.parse(sub.evidence_videos_json) : [];
+                  return (
+                    <div key={sub.activity_submission_id} className="adp-timeline-item">
+                      <div className="tl-header">
+                        <span className="tl-attempt">
+                          📥 {lang === 'vi' ? `Lần thực hành ${sub.submit_times}` : `Practice Attempt ${sub.submit_times}`}
+                        </span>
+                        <span className="tl-date">📅 {sub.submission_date}</span>
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        <div>
+                          <strong style={{ fontSize: '0.78rem', color: '#475569', display: 'block', marginBottom: '4px' }}>
+                            💬 {lang === 'vi' ? 'Ba mẹ ghi chú:' : 'Parent Note:'}
+                          </strong>
+                          <p className="tl-note">"{sub.submitter_note}"</p>
+                        </div>
+                        {images.length > 0 && (
+                          <div>
+                            <strong style={{ fontSize: '0.78rem', color: '#475569', display: 'block', marginBottom: '4px' }}>
+                              📷 {lang === 'vi' ? 'Bằng chứng thực tế:' : 'Evidence:'}
+                            </strong>
+                            {renderEvidenceLink(images[0], lang)}
+                          </div>
+                        )}
+                      </div>
+
+                      {matchingReview ? (
+                        <div className="tl-review">
+                          <div className="tl-review-header">
+                            <span>🩺 {lang === 'vi' ? 'Chuyên gia phản hồi (Review):' : 'Expert Clinical Feedback:'}</span>
+                            <span>{matchingReview.created_at}</span>
+                          </div>
+                          <p>"{matchingReview.expert_feedback}"</p>
+                        </div>
+                      ) : (
+                        <div className="tl-pending">
+                          <span>⏳</span>
+                          <span>{lang === 'vi' ? 'Đang chờ Chuyên gia đánh giá (Review)' : 'Awaiting clinical review from expert'}</span>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Toast */}
+        {toastMessage && (
+          <div className="profile-toast-floating" style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 9999, background: '#34D399', color: '#FFFFFF', fontWeight: 800, padding: '12px 24px', borderRadius: '14px', border: '3px solid #1E293B', boxShadow: '5px 5px 0px #1E293B', fontSize: '0.9rem', fontFamily: '"Be Vietnam Pro", sans-serif' }}>
+            {toastMessage}
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard-content-area plan-detail-view-container">
@@ -2096,6 +2728,29 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                         >
                           <div className="phase-actions-container">
                             <button
+                              type="button"
+                              className="edit-btn-v2"
+                              style={{
+                                background: '#8B5CF6',
+                                color: '#FFFFFF',
+                                borderColor: '#1E293B',
+                                boxShadow: '2px 2px 0px #1E293B'
+                              }}
+                              title={lang === 'vi' ? 'Cuộn nhanh đến Mục tiêu' : 'Scroll to Objectives'}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedPhase(p);
+                                setTimeout(() => {
+                                  const el = document.getElementById('objectives-section-block');
+                                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }, 150);
+                              }}
+                            >
+                              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2zm0-4H7V7h10v2zm0 8H7v-2h10v2z" />
+                              </svg>
+                            </button>
+                            <button
                               className="edit-btn-v2"
                               title={t.editPhase}
                               onClick={() => openPhaseModal('update', p)}
@@ -2201,7 +2856,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
             </div>
 
             {/* CARD 2: MANAGE OBJECTIVES */}
-            <div className="phase-detail-card">
+            <div id="objectives-section-block" className="phase-detail-card" style={{ marginTop: '3.5rem' }}>
               {/* Section Objectives */}
               <div className="objectives-section">
                 <div 
@@ -2399,6 +3054,8 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                                           <tbody>
                                             {activities.filter(a => !a.is_deleted).map((act, index) => {
                                               const subs = act.submissions || [];
+                                              const reviews = act.reviews || [];
+                                              const hasReviews = reviews.length > 0;
                                               const currentStatus = act.status === 'Submitted' ? 'Submitted' : 'In Progress';
                                               const submitTimes = subs.length > 0 ? Math.max(...subs.map(s => s.submit_times)) : 0;
                                               return (
@@ -2412,21 +3069,49 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                                                   </td>
                                                   <td>
                                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-start' }}>
-                                                      <span 
-                                                        className={`report-badge ${currentStatus === 'Submitted' ? 'pending' : 'approved'}`}
-                                                        style={{ 
-                                                          backgroundColor: currentStatus === 'Submitted' ? '#FEF3C7' : '#E2E8F0',
-                                                          color: currentStatus === 'Submitted' ? '#B45309' : '#334155',
-                                                          borderColor: '#1E293B',
-                                                          borderWidth: '2px',
-                                                          borderStyle: 'solid',
-                                                          boxShadow: '1.5px 1.5px 0px #1E293B'
-                                                        }}
-                                                      >
-                                                        {currentStatus === 'Submitted' 
-                                                          ? (lang === 'vi' ? '⏳ Chờ Review' : '⏳ Submitted')
-                                                          : (lang === 'vi' ? '🏃 Đang thực hiện' : '🏃 In Progress')}
-                                                      </span>
+                                                      {hasReviews ? (
+                                                        <span 
+                                                          className="report-badge approved"
+                                                          style={{ 
+                                                            backgroundColor: '#D1FAE5',
+                                                            color: '#065F46',
+                                                            borderColor: '#1E293B',
+                                                            borderWidth: '2px',
+                                                            borderStyle: 'solid',
+                                                            boxShadow: '1.5px 1.5px 0px #1E293B'
+                                                          }}
+                                                        >
+                                                          {lang === 'vi' ? '✅ Đã Review' : '✅ Reviewed'}
+                                                        </span>
+                                                      ) : currentStatus === 'Submitted' ? (
+                                                        <span 
+                                                          className="report-badge pending"
+                                                          style={{ 
+                                                            backgroundColor: '#FEF3C7',
+                                                            color: '#B45309',
+                                                            borderColor: '#1E293B',
+                                                            borderWidth: '2px',
+                                                            borderStyle: 'solid',
+                                                            boxShadow: '1.5px 1.5px 0px #1E293B'
+                                                          }}
+                                                        >
+                                                          {lang === 'vi' ? '⏳ Chờ Review' : '⏳ Submitted'}
+                                                        </span>
+                                                      ) : (
+                                                        <span 
+                                                          className="report-badge progress"
+                                                          style={{ 
+                                                            backgroundColor: '#E2E8F0',
+                                                            color: '#334155',
+                                                            borderColor: '#1E293B',
+                                                            borderWidth: '2px',
+                                                            borderStyle: 'solid',
+                                                            boxShadow: '1.5px 1.5px 0px #1E293B'
+                                                          }}
+                                                        >
+                                                          {lang === 'vi' ? '🏃 Đang thực hiện' : '🏃 In Progress'}
+                                                        </span>
+                                                      )}
                                                       {submitTimes > 0 && (
                                                         <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#1E293B' }}>
                                                           📥 {lang === 'vi' ? `Đã nộp: ${submitTimes} lần` : `Submitted: ${submitTimes} times`}
@@ -2438,24 +3123,19 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                                                     <div style={{ display: 'flex', gap: '6px', justifyContent: 'flex-end', alignItems: 'center' }}>
                                                       <button 
                                                         type="button"
-                                                        className="report-action-btn evaluate"
+                                                        className="edit-btn-v2"
+                                                        title={currentStatus === 'Submitted' && !hasReviews && currentSimulatorRole === 'Teacher' 
+                                                              ? (lang === 'vi' ? 'Review ngay' : 'Review') 
+                                                              : (lang === 'vi' ? 'Chi tiết' : 'Details')}
                                                         style={{
-                                                          background: currentStatus === 'Submitted' && currentSimulatorRole === 'Teacher' ? '#FBBF24 !important' : '#FFFFFF !important',
-                                                          color: '#1E293B !important',
-                                                          borderColor: '#1E293B !important',
-                                                          fontWeight: 800,
-                                                          display: 'inline-flex',
-                                                          alignItems: 'center',
-                                                          gap: '4px'
+                                                          background: currentStatus === 'Submitted' && !hasReviews && currentSimulatorRole === 'Teacher' ? '#FBBF24' : undefined,
+                                                          color: currentStatus === 'Submitted' && !hasReviews && currentSimulatorRole === 'Teacher' ? '#1E293B' : undefined
                                                         }}
                                                         onClick={() => openActModal('view', obj.objective_id, act)}
                                                       >
                                                         <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
                                                           <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
                                                         </svg>
-                                                        {currentStatus === 'Submitted' && currentSimulatorRole === 'Teacher' 
-                                                              ? (lang === 'vi' ? 'Review ngay' : 'Review') 
-                                                              : (lang === 'vi' ? 'Details' : 'Details')}
                                                       </button>
                                                       
                                                       {currentSimulatorRole === 'Teacher' && (

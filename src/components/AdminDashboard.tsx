@@ -129,7 +129,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
                       activity_submission_id: 1,
                       submission_date: '2026-05-27 19:45:00',
                       submitter_note: 'Bé Khôi tối nay đã tự tay ghép được nửa bộ Lego nhỏ và khi tôi gọi tên, con đã nhìn thẳng vào mắt tôi tầm 4 giây để đòi thêm mảnh ghép tiếp theo. Đây là tiến bộ rất lớn!',
-                      evidence_videos_json: '["https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"]',
+                      evidence_videos_json: '["https://www.youtube.com/watch?v=9tGZ8tW48zU"]',
                       submit_times: 1
                     }
                   ],
@@ -140,6 +140,92 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
                       created_at: '2026-05-26 09:00:00'
                     }
                   ]
+                },
+                {
+                  activity_id: 101,
+                  plan_phase_id: 1,
+                  activity_name: 'Luyện nói từ đơn qua Flashcard con vật (Completed - Chờ Review)',
+                  description: 'Sử dụng các flashcard hình ảnh con vật quen thuộc để hướng dẫn trẻ nói từ đơn tương ứng và duy trì tương tác.',
+                  duration: '20 phút / buổi',
+                  frequency: 'Mỗi ngày',
+                  target_criteria: 'Trẻ phát âm rõ từ đơn và duy trì sự tập trung',
+                  teaching_method: 'Đưa thẻ flashcard ngang tầm mắt, phát âm rõ ràng và đợi trẻ lặp lại âm thanh.',
+                  assignee_type: 'Parent',
+                  status: 'Submitted',
+                  submissions: [
+                    {
+                      activity_submission_id: 101,
+                      submission_date: '2026-05-28 10:30:00',
+                      submitter_note: 'Hôm nay bé Khôi đã cố gắng phát âm theo ba từ "mèo", "chó". Bé bắt chước khá nhanh và cười vui vẻ. Rất mong chuyên gia đánh giá và cho thêm hướng dẫn!',
+                      evidence_videos_json: '["https://www.youtube.com/watch?v=dQw4w9WgXcQ"]',
+                      submit_times: 1
+                    }
+                  ],
+                  reviews: []
+                },
+                {
+                  activity_id: 102,
+                  plan_phase_id: 1,
+                  activity_name: 'Xúc thìa tự ăn bằng đất nặn mô phỏng (Đã Review)',
+                  description: 'Hướng dẫn trẻ cầm thìa và xúc các viên đất nặn tròn nhỏ bỏ vào bát nhựa để cải thiện cơ tay và sự phối hợp tay mắt.',
+                  duration: '15 phút / buổi',
+                  frequency: '5 lần / tuần',
+                  target_criteria: 'Trẻ xúc thành công 5 viên đất nặn không rơi ra ngoài',
+                  teaching_method: 'Cầm tay trẻ hướng dẫn thao tác xúc ban đầu, sau đó để trẻ tự thực hiện và khen thưởng bằng lời nói.',
+                  assignee_type: 'Parent',
+                  status: 'Submitted',
+                  submissions: [
+                    {
+                      activity_submission_id: 102,
+                      submission_date: '2026-05-28 14:00:00',
+                      submitter_note: 'Bé đã biết cầm thìa chắc chắn hơn và xúc được 6 viên đất nặn bỏ vào bát mà không làm rơi hạt nào!',
+                      evidence_videos_json: '["https://www.youtube.com/watch?v=9tGZ8tW48zU"]',
+                      submit_times: 1
+                    }
+                  ],
+                  reviews: [
+                    {
+                      submission_review_id: 102,
+                      expert_feedback: 'Tuyệt vời! Cơ tay của bé đã tiến bộ vượt bậc. Ba mẹ có thể chuyển dần sang cho bé xúc cơm thật với hạt cơm dẻo để bé quen dần nhé.',
+                      created_at: '2026-05-28 15:30:00'
+                    }
+                  ]
+                },
+                {
+                  activity_id: 103,
+                  plan_phase_id: 1,
+                  activity_name: 'Chỉ ngón trỏ để yêu cầu đồ chơi yêu thích (Đang thực hiện - Chưa nộp báo cáo)',
+                  description: 'Đặt đồ chơi yêu thích của trẻ (ô tô, khủng long) ngoài tầm với nhưng trong tầm mắt. Khích lệ trẻ chỉ ngón trỏ hướng về đồ chơi trước khi trao cho trẻ.',
+                  duration: '15 phút / buổi',
+                  frequency: 'Hàng ngày',
+                  target_criteria: 'Trẻ chủ động chỉ ngón trỏ hướng về phía đồ chơi mình muốn tối thiểu 3 lần trong ngày',
+                  teaching_method: 'Chỉ mẫu ngón trỏ, hỏi trẻ "Con muốn cái nào? Chỉ cho ba/mẹ xem nào". Đợi trẻ chỉ ngón trỏ mới đưa đồ chơi và khen ngợi.',
+                  assignee_type: 'Parent',
+                  status: 'In Progress',
+                  submissions: [],
+                  reviews: []
+                },
+                {
+                  activity_id: 104,
+                  plan_phase_id: 1,
+                  activity_name: 'Thổi bong bóng xà phòng luân phiên lượt (Phụ huynh đã nộp - Chờ Review)',
+                  description: 'Thổi bong bóng để thu hút sự chú ý. Tạm dừng thổi, đậy nắp lọ lại và đợi trẻ chủ động giao tiếp (bằng lời nói "thổi" hoặc cử chỉ chạm tay) để yêu cầu tiếp tục lượt chơi.',
+                  duration: '20 phút / buổi',
+                  frequency: '4 lần / tuần',
+                  target_criteria: 'Trẻ biết chờ đợi đến lượt và chủ động phát âm hoặc ra ký hiệu để yêu cầu tiếp tục hoạt động',
+                  teaching_method: 'Thổi bong bóng 1 lượt, sau đó cất đi. Nói với trẻ "Đến lượt ai nào?". Đợi trẻ tương tác bằng mắt và phát âm đòi thổi tiếp mới tiếp tục thổi.',
+                  assignee_type: 'Parent',
+                  status: 'Submitted',
+                  submissions: [
+                    {
+                      activity_submission_id: 104,
+                      submission_date: '2026-05-28 17:40:00',
+                      submitter_note: 'Bé Khôi tối nay chơi thổi bong bóng rất vui. Khi tôi dừng lại và hỏi "Đến lượt ai nào?", bé đã chủ động chạm vào tay tôi và nói "thổi thổi" rất rõ ràng. Video ghi lại toàn bộ tiến trình này ạ!',
+                      evidence_videos_json: '["https://www.youtube.com/watch?v=9tGZ8tW48zU"]',
+                      submit_times: 1
+                    }
+                  ],
+                  reviews: []
                 }
               ],
                created_at: '2026-05-01 08:35:00',
@@ -236,6 +322,56 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
                   teaching_method: 'Bật nhạc âm lượng nhỏ, tăng dần. Cùng chơi đất nặn để phân tán.',
                   assignee_type: 'Therapist',
                   status: 'In Progress'
+                },
+                {
+                  activity_id: 301,
+                  plan_phase_id: 3,
+                  activity_name: 'Tập đeo tai nghe chống ồn bảo vệ tai (Completed - Chờ Review)',
+                  description: 'Hướng dẫn trẻ cách tự đeo tai nghe chống ồn bảo vệ tai khi có tiếng ồn lớn.',
+                  duration: '15 phút / buổi',
+                  frequency: 'Hàng ngày',
+                  target_criteria: 'Trẻ đeo tai nghe trong 10 phút liên tục khi có tiếng ồn máy xay',
+                  teaching_method: 'Bật tiếng ồn giả lập âm lượng từ nhỏ đến vừa, hướng dẫn trẻ tự đeo tai nghe và khen thưởng.',
+                  assignee_type: 'Parent',
+                  status: 'Submitted',
+                  submissions: [
+                    {
+                      activity_submission_id: 301,
+                      submission_date: '2026-05-28 16:00:00',
+                      submitter_note: 'Bé Nam đã chịu tự đeo tai nghe khi tôi bật máy xay sinh tố và đeo được hơn 10 phút. Bé không khóc thét như mọi lần nữa ạ!',
+                      evidence_videos_json: '["https://www.youtube.com/watch?v=dQw4w9WgXcQ"]',
+                      submit_times: 1
+                    }
+                  ],
+                  reviews: []
+                },
+                {
+                  activity_id: 302,
+                  plan_phase_id: 3,
+                  activity_name: 'Luyện thăng bằng đi bộ trên vạch kẻ thẳng (Đã Review)',
+                  description: 'Giúp trẻ rèn luyện khả năng thăng bằng tiền đình bằng cách đi bộ trên vạch kẻ màu vàng.',
+                  duration: '20 phút / buổi',
+                  frequency: '4 lần / tuần',
+                  target_criteria: 'Trẻ tự đi hết vạch kẻ 3 mét mà không bị bước chệch ra ngoài',
+                  teaching_method: 'Giáo viên đi mẫu trước, sau đó cho trẻ đi bộ giữ thăng bằng giang tay, hỗ trợ đỡ vai trẻ nếu cần.',
+                  assignee_type: 'Teacher',
+                  status: 'Submitted',
+                  submissions: [
+                    {
+                      activity_submission_id: 302,
+                      submission_date: '2026-05-28 11:20:00',
+                      submitter_note: 'Bé Nam đi rất vững chãi, chỉ chệch hướng 1 lần nhẹ ở đoạn rẽ cuối. Bé đã biết tự giang hai tay để thăng bằng.',
+                      evidence_videos_json: '["https://www.youtube.com/watch?v=9tGZ8tW48zU"]',
+                      submit_times: 1
+                    }
+                  ],
+                  reviews: [
+                    {
+                      submission_review_id: 302,
+                      expert_feedback: 'Tiến bộ xuất sắc! Thăng bằng của con đã tốt hơn rất nhiều. Buổi tới giáo viên có thể tăng độ khó bằng cách cho con đi bộ giữ thăng bằng đầu kẹp gối hơi nhé.',
+                      created_at: '2026-05-28 13:00:00'
+                    }
+                  ]
                 }
               ],
             },
