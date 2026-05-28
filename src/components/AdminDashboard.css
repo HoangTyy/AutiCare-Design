@@ -2263,6 +2263,8 @@ thead th:last-child {
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
+  border-top-left-radius: 25px !important;
+  border-top-right-radius: 25px !important;
 }
 
 .modal-header h3, .detailed-report-modal-header h3 {

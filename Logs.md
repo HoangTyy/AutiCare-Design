@@ -1,5 +1,32 @@
 # Project Logs
 
+## [2026-05-28] - Tích hợp ô Tìm kiếm (Search) cho phần Quản lý Giai đoạn kế hoạch (`PlanDetailView.tsx`) & Bỏ thu nhỏ modal Tạo/Sửa & Căn giữa modal Xóa Kế hoạch Can thiệp (`PlansTab.tsx`) & Sửa lỗi TS6133
+- **Tích hợp ô Tìm kiếm cho Quản lý Giai đoạn kế hoạch**:
+  - Khai báo state `phaseSearchTerm` và bộ lọc logic `filteredPhases` trong component `PlanDetailView.tsx`.
+  - Hỗ trợ tìm kiếm thông minh và real-time theo Tên giai đoạn (`phase_name`), Phương pháp trị liệu (`phase_type`) và Mã Giai đoạn (`plan_phase_id`).
+  - Thiết kế ô tìm kiếm Memphis pill-shape sang trọng (`.search-bar`) tích hợp trực tiếp cạnh nút thêm mới trong thanh công cụ Giai đoạn. Ô tìm kiếm tự động kế thừa viền đen Slate dày, bóng đổ 3D nẩy nổi nẩy mượt mà và font chữ `Be Vietnam Pro` đậm nét.
+  - Tích hợp tối ưu hiển thị Responsive (Rule 8): Khi co nhỏ màn hình di động (< 768px), ô tìm kiếm và nút bấm tự động xếp chồng dạng cột dọc rộng 100%, căn lề cân đối, mang lại trải nghiệm chạm ngón cái mượt mà.
+  - Thiết lập cơ chế Empty State thông minh: Hiển thị thông báo tiếng Việt/Anh phù hợp khi bộ lọc tìm kiếm không khớp bất kỳ kết quả nào (`"Không tìm thấy kết quả phù hợp" / "No matching phases found"`).
+- **Khắc phục lỗi thu nhỏ modal và scroll trên Kế hoạch Can thiệp**:
+  - Thêm quy tắc CSS overrides cục bộ trong `PlansTab.tsx` nhắm vào `.modal-overlay`, `.admin-modal`, `.modal-header` và `.modal-body` bên trong `.plans-tab-container`.
+  - Cấu hình `.modal-body` có `max-height: none !important;` và `overflow-y: visible !important;` nhằm vô hiệu hóa hoàn toàn scrollbar dọc nội bộ và loại bỏ hành vi co giãn giới hạn chiều cao của modal. Toàn bộ 8 trường thông tin chi tiết của form Kế hoạch Can thiệp hiện giờ hiển thị đầy đủ ngay lập tức trên màn hình mà không bị che khuất.
+  - **Khắc phục lỗi tràn chân nội dung (Start Date, End Date, Cancel, Create) khỏi Modal**: Cấu hình `.plans-tab-container .admin-modal` có `max-height: none !important;` để loại bỏ giới hạn chiều cao `90vh` của hệ thống. Nhờ đó, modal mẹ tự động co giãn nở trọn vẹn theo chiều dọc của toàn bộ form nội dung, ôm khít hoàn hảo các nút bấm ở đáy và loại bỏ triệt để hiện tượng nội dung thò lò ra ngoài viền đáy.
+  - **Khắc phục lỗi phần trên cùng chưa bo góc**: Bổ sung bo góc tròn cho `.modal-header` cục bộ (`border-top-left-radius: 25px !important; border-top-right-radius: 25px !important;`). Giải quyết triệt để lỗi màu nền gradient của header bị tràn che khuất góc bo tròn của modal mẹ, khôi phục giao diện bo góc tròn hoàn mỹ khít khao bên trong khung Slate đen của AutiCare.
+  - Cấu hình `.modal-overlay.modal-edit-mode` có `overflow-y: auto !important;` và `align-items: flex-start !important;` kèm `padding: 2.5rem 1rem !important;` cho phép người dùng cuộn mượt mờ toàn bộ hộp thoại modal trượt từ dưới lên trên nền mờ tối của overlay nếu chiều cao modal Tạo/Sửa vượt quá chiều cao viewport. Đây là chuẩn thiết kế UI/UX cao cấp cho các form biểu mẫu dài.
+  - Xóa bỏ 2 thẻ `div` form-group trống bị dư thừa ở giữa `formName` và `formTool` để dồn bố cục lưới 2 cột khít khao, gọn gàng và cân đối nhất.
+- **Căn giữa hoàn hảo & Thu gọn Modal Xác nhận Xóa (Delete Plan)**:
+  - Tích hợp class động cho `modal-overlay` và `admin-modal` dựa trên `modalMode` (`modalMode === 'delete' ? 'modal-delete-mode' : 'modal-edit-mode'` và `modalMode === 'delete' ? 'delete-admin-modal' : ''`).
+  - Định kiểu riêng `.modal-delete-mode` có `align-items: center !important;` và `overflow-y: hidden !important;` giúp modal xác nhận xóa luôn nằm ngay chính giữa màn hình một cách cân đối và hoàn mỹ.
+  - Định kiểu riêng `.delete-admin-modal` có chiều rộng tối đa thu nhỏ về `520px` (`width: min(520px, 90vw) !important;`) để vừa vặn, nhỏ nhắn và cân xứng với nội dung cảnh báo ngắn, loại bỏ hoàn toàn cảm giác modal bị bè to thô kệch.
+- **Sửa lỗi góc nhọn phần trên cho TOÀN BỘ Modal hệ thống (`AdminDashboard.css`)**:
+  - Cập nhật định nghĩa CSS cho `.modal-header` và `.detailed-report-modal-header` chung của hệ thống trong `AdminDashboard.css`.
+  - Tích hợp thuộc tính bo góc tròn trên (`border-top-left-radius: 25px !important; border-top-right-radius: 25px !important;`).
+  - Khắc phục triệt để lỗi màu nền gradient pastel của header bị tràn đè lên che khuất góc bo cong `28px` của modal mẹ `.admin-modal` trên toàn bộ hệ thống (bao gồm modal chỉnh sửa thông tin trung tâm, nhân viên, bài tập, blogs, và kế hoạch). Đảm bảo tất cả các popup modal khi hiện ra đều có bốn góc bo tròn hoàn hảo, khít khao và đồng bộ với triết lý thiết kế Playful Geometric mượt mà.
+- **Sửa lỗi TypeScript TS6133 (strict unused variables) trên hệ thống**:
+  - Khắc phục lỗi khai báo nhưng không sử dụng biến `formConfirmationCode` trong `DiagnosesTab.tsx`.
+  - Khắc phục lỗi khai báo nhưng không sử dụng biến `submitted` trong `ScreeningTab.tsx`.
+  - Đưa dự án đạt trạng thái **100% biên dịch thành công** không lỗi hay cảnh báo.
+
 ## [2026-05-26] - Khắc Phục Lỗi Tràn Dọc Modal & Tăng Kích Thước Modal Bề Thế & Đồng Bộ Hóa Scrollbar Memphis
 - **Implementation**:
   * **Tăng chiều rộng Modal bự hơn (Enlarge Modal Size)**:

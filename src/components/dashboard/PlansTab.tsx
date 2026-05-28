@@ -199,9 +199,20 @@ const PlansTab: React.FC<PlansTabProps> = ({
           font-family: "Be Vietnam Pro", sans-serif;
         }
 
-        .admin-modal {
-          max-width: 960px;
-          width: min(960px, 95vw);
+        .plans-tab-container .admin-modal {
+          max-width: 960px !important;
+          width: min(960px, 95vw) !important;
+          max-height: none !important;
+        }
+
+        .plans-tab-container .admin-modal.delete-admin-modal {
+          max-width: 520px !important;
+          width: min(520px, 90vw) !important;
+        }
+
+        .plans-tab-container .modal-header {
+          border-top-left-radius: 25px !important;
+          border-top-right-radius: 25px !important;
         }
 
         .modal-form-grid {
@@ -252,6 +263,28 @@ const PlansTab: React.FC<PlansTabProps> = ({
           .modal-form-grid {
             grid-template-columns: 1fr;
           }
+        }
+
+        /* Bỏ thu nhỏ modal & scroll, hiện đầy đủ các trường cho Tạo/Sửa */
+        .plans-tab-container .modal-overlay.modal-edit-mode {
+          overflow-y: auto !important;
+          align-items: flex-start !important;
+          padding: 2.5rem 1rem !important;
+          display: flex !important;
+        }
+
+        /* Modal xác nhận xóa ngắn: Căn giữa màn hình hoàn hảo */
+        .plans-tab-container .modal-overlay.modal-delete-mode {
+          overflow-y: hidden !important;
+          align-items: center !important;
+          padding: 1rem !important;
+          display: flex !important;
+        }
+
+        .plans-tab-container .modal-body {
+          max-height: none !important;
+          overflow-y: visible !important;
+          padding-right: 2rem !important;
         }
       `}</style>
 
@@ -353,8 +386,8 @@ const PlansTab: React.FC<PlansTabProps> = ({
 
       {/* POPUP MODAL */}
       {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="admin-modal animate-in">
+        <div className={`modal-overlay ${modalMode === 'delete' ? 'modal-delete-mode' : 'modal-edit-mode'}`}>
+          <div className={`admin-modal animate-in ${modalMode === 'delete' ? 'delete-admin-modal' : ''}`}>
             <div className="modal-header">
               <h3>
                 {modalMode === 'create' && t.createTitle}
@@ -388,12 +421,6 @@ const PlansTab: React.FC<PlansTabProps> = ({
                         onChange={(e) => setFormName(e.target.value)}
                         spellCheck="false"
                       />
-                    </div>
-
-                    <div className="form-group">
-                    </div>
-
-                    <div className="form-group">
                     </div>
 
                     <div className="form-group form-group-full">
