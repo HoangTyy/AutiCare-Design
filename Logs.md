@@ -1,5 +1,32 @@
 # Project Logs
 
+## [2026-05-28] - Tích hợp tính năng Nộp Báo cáo Tiến trình (Submit Report) & Đánh giá Báo cáo Hoạt động tại nhà (Evaluate Report) trong Kế hoạch Can thiệp (`PlanDetailView.tsx` & `AdminDashboard.tsx`)
+- **Tích hợp Cấu trúc Dữ liệu Tiến trình**:
+  - Khai báo interface `ActivityProgressReport` chứa các thông tin báo cáo: mã báo cáo, mã hoạt động, ngày nộp, bằng chứng hình ảnh/video (base64/url), ghi chú của phụ huynh, trạng thái đánh giá (`Pending`/`Approved`/`Rejected`), nhận xét chuyên môn, ngày đánh giá và tên giáo viên đánh giá.
+  - Cập nhật interface `ObjectiveActivity` thêm thuộc tính tùy chọn `progress_reports?: ActivityProgressReport[]`.
+  - Bổ sung dữ liệu mẫu y khoa thực tế cho hoạt động `Ghép tranh Lego tìm kiếm tương tác mắt` (ID: 1) của Khôi trong `AdminDashboard.tsx` gồm 1 báo cáo trạng thái `Pending` (Chờ duyệt) và 1 báo cáo trạng thái `Approved` (Đạt) kèm theo nhận xét chuyên môn mẫu, giúp kiểm thử tính năng ngay lập tức khi tải trang.
+- **Tích hợp Bộ Giả lập Vai trò (Role Simulator Widget)**:
+  - Thiết kế một thanh chuyển đổi vai trò Memphis pill-switch cực kỳ nẩy nổi ở đầu trang chi tiết kế hoạch (`PlanDetailView.tsx`) cho phép chuyển đổi nhanh real-time giữa `🩺 Chuyên gia` (Specialist) và `🏠 Phụ huynh` (Parent).
+  - Tự động thay đổi giao diện, quyền hạn hiển thị và các nút tương tác tương ứng theo vai trò đang giả lập để dễ dàng kiểm thử toàn bộ luồng nghiệp vụ trên cùng 1 trang.
+- **Cập nhật Bảng Hoạt động con (`activity-sub-table`)**:
+  - Tăng colSpan dòng phụ lên 6 cột, bổ sung cột **"Báo cáo tiến trình" (Progress Reports)** vào bảng hoạt động.
+  - Phụ huynh sẽ thấy nút Candy **"Nộp báo cáo 📤"** cho từng hoạt động.
+  - Giáo viên sẽ thấy huy hiệu nhấp nháy màu hổ phách báo số lượng báo cáo chờ duyệt (ví dụ: `⏳ 1 Chờ duyệt`) và nút Candy **"Xem lịch sử / Xem & Đánh giá 🩺"**.
+  - Hiển thị danh sách các badge trạng thái báo cáo (`Approved`/`Rejected`/`Pending`) nẩy nổi Memphis bên trên nút hành động để cha mẹ và giáo viên nắm bắt lịch sử thực hành nhanh trong 1 giây.
+- **Modal Nộp báo cáo tiến trình (Submit Report Modal - Phụ huynh)**:
+  - Thiết kế uploader Memphis thô ráp dashed, cho phép kéo thả/nhấp chọn tải tệp hình ảnh/video từ thiết bị của phụ huynh (FileReader chuyển đổi sang Base64 thời gian thực).
+  - Tích hợp nút ma thuật **"Sử dụng dữ liệu mẫu 🪄"** tự động điền sẵn hình ảnh chơi xếp hình mẫu và ghi chú phản ứng của bé Khôi khi giao tiếp mắt, giúp chạy thử và demo nhanh chóng mà không cần tệp thật.
+  - Lưu báo cáo mới dưới trạng thái `Pending`, cập nhật state cha và bắn Toast Memphis xanh ngọc nổi 3D (`.profile-toast-floating`) cực kỳ lộng lẫy báo thành công.
+- **Modal Đánh giá báo cáo (Evaluate Report Modal - Giáo viên)**:
+  - Hiển thị danh sách lịch sử nộp báo cáo sắp xếp theo thời gian mới nhất lên đầu, bọc trong các thẻ sticker card Memphis viền Slate đen dày, bóng đổ 3D.
+  - Cho phép giáo viên xem bằng chứng thực tế (ảnh/video), đọc lời nhắn của phụ huynh.
+  - Nếu báo cáo đang ở trạng thái `Pending`, hiển thị bộ 2 nút Candy chấm điểm: **"Đạt (Approved) 👍"** (Xanh ngọc `#10B981`) và **"Chưa Đạt (Rejected) 👎"** (Đỏ cam `#EF4444`) cùng trường nhập nhận xét chuyên môn và nút lưu đánh giá.
+  - Lưu kết quả đánh giá, ghi nhận ngày chấm và tên giáo viên, cập nhật state cha và bắn Toast Memphis báo thành công.
+- **Đồng bộ hóa State & Tối ưu Responsive**:
+  - Mọi thao tác nộp báo cáo và chấm điểm đều cập nhật đồng bộ 100% thời gian thực lên state `plans` của `AdminDashboard.tsx` qua callback `onUpdatePlanProps`.
+  - Tối ưu hiển thị responsive mượt mà cho các modal uploader dài (đặt `max-height: none` cho modal-body và để cả modal cuộn tự nhiên hoặc cuộn scrollbar Memphis chuyên biệt). Thanh giả lập vai trò tự động dồn dọc rộng 100% trên điện thoại hẹp.
+  - Dự án **biên dịch thành công 100% sạch sẽ không lỗi** trong 454ms.
+
 ## [2026-05-28] - Tích hợp ô Tìm kiếm (Search) cho phần Quản lý Giai đoạn kế hoạch (`PlanDetailView.tsx`) & Bỏ thu nhỏ modal Tạo/Sửa & Căn giữa modal Xóa Kế hoạch Can thiệp (`PlansTab.tsx`) & Sửa lỗi TS6133
 - **Tích hợp ô Tìm kiếm cho Quản lý Giai đoạn kế hoạch**:
   - Khai báo state `phaseSearchTerm` và bộ lọc logic `filteredPhases` trong component `PlanDetailView.tsx`.

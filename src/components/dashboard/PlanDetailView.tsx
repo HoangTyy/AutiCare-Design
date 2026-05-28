@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
 
+export interface ActivityProgressReport {
+  report_id: number;
+  activity_id: number;
+  submission_date: string;
+  media_url?: string;
+  media_type?: 'image' | 'video';
+  parent_note?: string;
+  status: 'Pending' | 'Approved' | 'Rejected';
+  teacher_feedback?: string;
+  evaluation_date?: string;
+  teacher_name?: string;
+}
+
 export interface ObjectiveActivity {
   activity_id: number;
   plan_phase_id: number;
@@ -12,6 +25,7 @@ export interface ObjectiveActivity {
   assignee_type?: string;
   is_deleted?: boolean;
   status: 'Active' | 'Inactive';
+  progress_reports?: ActivityProgressReport[];
 }
 
 export interface PhaseObjective {
@@ -291,6 +305,33 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
   const [selectedPhase, setSelectedPhase] = useState<PlanPhase | null>(null);
   const [phaseSearchTerm, setPhaseSearchTerm] = useState('');
 
+  // Role Simulator State
+  const [currentSimulatorRole, setCurrentSimulatorRole] = useState<'Teacher' | 'Parent'>('Teacher');
+
+  // Activity Progress Reports State
+  const [isSubmitReportModalOpen, setIsSubmitReportModalOpen] = useState(false);
+  const [isEvaluateReportModalOpen, setIsEvaluateReportModalOpen] = useState(false);
+  const [activeActivityForReport, setActiveActivityForReport] = useState<ObjectiveActivity | null>(null);
+  
+  // Submit Report Fields
+  const [reportMediaFile, setReportMediaFile] = useState<string>(''); // Base64
+  const [reportParentNote, setReportParentNote] = useState('');
+  const [reportMediaType, setReportMediaType] = useState<'image' | 'video'>('image');
+
+  // Evaluate Report Fields
+  const [activeReportForEval, setActiveReportForEval] = useState<ActivityProgressReport | null>(null);
+  const [evalStatus, setEvalStatus] = useState<'Approved' | 'Rejected'>('Approved');
+  const [evalFeedback, setEvalFeedback] = useState('');
+
+  // Toast State
+  const [toastMessage, setToastMessage] = useState('');
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage('');
+    }, 3000);
+  };
+
   // Plan Modals State
   const [isEditPlanOpen, setIsEditPlanOpen] = useState(false);
   const [isDeletePlanOpen, setIsDeletePlanOpen] = useState(false);
@@ -475,6 +516,103 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
   };
 
   // Activity Handlers (Removed per user request)
+  const openSubmitReportModal = (act: ObjectiveActivity) => {
+    setActiveActivityForReport(act);
+    setReportMediaFile('');
+    setReportParentNote('');
+    setReportMediaType('image');
+    setIsSubmitReportModalOpen(true);
+  };
+
+  const openEvaluateReportModal = (act: ObjectiveActivity) => {
+    setActiveActivityForReport(act);
+    const pending = (act.progress_reports || []).find(r => r.status === 'Pending');
+    if (pending) {
+      setActiveReportForEval(pending);
+      setEvalStatus('Approved');
+      setEvalFeedback('');
+    } else {
+      setActiveReportForEval(null);
+    }
+    setIsEvaluateReportModalOpen(true);
+  };
+
+  const handleSaveReport = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!activeActivityForReport) return;
+    
+    const reports = activeActivityForReport.progress_reports || [];
+    const newReportId = reports.length > 0 ? Math.max(...reports.map(r => r.report_id)) + 1 : 1;
+    
+    const newReport: ActivityProgressReport = {
+      report_id: newReportId,
+      activity_id: activeActivityForReport.activity_id,
+      submission_date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+      media_url: reportMediaFile || undefined,
+      media_type: reportMediaType,
+      parent_note: reportParentNote,
+      status: 'Pending'
+    };
+
+    const updatedPhases = plan.phases.map(phase => {
+      const updatedObjectives = phase.objectives.map(obj => {
+        const updatedActs = (obj.activities || []).map(act => {
+          if (act.activity_id === activeActivityForReport.activity_id) {
+            return {
+              ...act,
+              progress_reports: [...(act.progress_reports || []), newReport]
+            };
+          }
+          return act;
+        });
+        return { ...obj, activities: updatedActs };
+      });
+      return { ...phase, objectives: updatedObjectives };
+    });
+
+    onUpdatePlan({ ...plan, phases: updatedPhases });
+    showToast(lang === 'vi' ? '✨ Đã nộp báo cáo tiến trình thành công!' : '✨ Progress report submitted successfully!');
+    setIsSubmitReportModalOpen(false);
+  };
+
+  const handleSaveEvaluation = (reportId: number) => {
+    if (!activeActivityForReport) return;
+
+    const updatedPhases = plan.phases.map(phase => {
+      const updatedObjectives = phase.objectives.map(obj => {
+        const updatedActs = (obj.activities || []).map(act => {
+          if (act.activity_id === activeActivityForReport.activity_id) {
+            const updatedReports = (act.progress_reports || []).map(rep => {
+              if (rep.report_id === reportId) {
+                return {
+                  ...rep,
+                  status: evalStatus,
+                  teacher_feedback: evalFeedback,
+                  evaluation_date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+                  teacher_name: lang === 'vi' ? 'Cô giáo Minh Anh' : 'Teacher Minh Anh'
+                };
+              }
+              return rep;
+            });
+            return { ...act, progress_reports: updatedReports };
+          }
+          return act;
+        });
+        return { ...obj, activities: updatedActs };
+      });
+      return { ...phase, objectives: updatedObjectives };
+    });
+
+    const targetAct = updatedPhases.flatMap(p => p.objectives).flatMap(o => o.activities || []).find(a => a.activity_id === activeActivityForReport.activity_id);
+    if (targetAct) {
+      setActiveActivityForReport(targetAct);
+      const nextPending = (targetAct.progress_reports || []).find(r => r.status === 'Pending');
+      setActiveReportForEval(nextPending || null);
+    }
+
+    onUpdatePlan({ ...plan, phases: updatedPhases });
+    showToast(lang === 'vi' ? '✨ Lưu đánh giá tiến trình thành công!' : '✨ Evaluation saved successfully!');
+  };
 
   // Objective Handlers
   const openActModal = (mode: 'create' | 'update' | 'delete' | 'view', objId: number, act: ObjectiveActivity | null = null) => {
@@ -802,10 +940,270 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
           transition: all 0.15s ease;
         }
 
-        .admin-theme-root .plan-detail-view-container .delete-detail-btn-v2:hover,
-        .plan-detail-view-container .delete-detail-btn-v2:hover {
-          background: #FEF2F2 !important;
-          border-color: #EF4444 !important;
+
+        /* ========================================================================= */
+        /* ROLE SIMULATOR WIDGET (Memphis Playful Geometric Style) */
+        /* ========================================================================= */
+        .plan-detail-view-container .role-simulator-widget {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          background: #FFFDF5 !important;
+          border: 3px solid #1E293B !important;
+          padding: 6px 14px;
+          border-radius: 16px;
+          box-shadow: 4px 4px 0px #1E293B;
+          margin: 0 1rem;
+          transition: all 0.2s ease;
+        }
+
+        .plan-detail-view-container .role-simulator-widget .widget-label {
+          font-size: 0.8rem;
+          font-weight: 800;
+          color: #1E293B;
+          text-transform: uppercase;
+          white-space: nowrap;
+        }
+
+        .plan-detail-view-container .role-simulator-widget .simulator-btn-group {
+          display: flex;
+          gap: 6px;
+        }
+
+        .plan-detail-view-container .role-simulator-widget .simulator-btn {
+          background: #FFFFFF;
+          border: 2px solid #1E293B;
+          font-family: "Be Vietnam Pro", sans-serif;
+          font-size: 0.8rem;
+          font-weight: 800;
+          padding: 6px 14px;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          color: #475569;
+        }
+
+        .plan-detail-view-container .role-simulator-widget .simulator-btn.active {
+          background: #8B5CF6 !important;
+          color: #FFFFFF !important;
+          box-shadow: 2px 2px 0px #1E293B;
+          transform: translate(-2px, -2px);
+        }
+
+        .plan-detail-view-container .role-simulator-widget .simulator-btn:not(.active):hover {
+          background: #F1F5F9 !important;
+          transform: translateY(-1px);
+        }
+
+        /* Responsive Simulator Widget */
+        @media (max-width: 950px) {
+          .plan-detail-view-container .detail-navigation {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 12px !important;
+          }
+          .plan-detail-view-container .role-simulator-widget {
+            margin: 0 !important;
+            justify-content: space-between;
+          }
+        }
+
+        /* ========================================================================= */
+        /* PROGRESS REPORTS STYLES & MODALS */
+        /* ========================================================================= */
+        .plan-detail-view-container .report-badge {
+          display: inline-flex;
+          align-items: center;
+          padding: 3px 8px;
+          border-radius: 8px;
+          border: 2px solid #1E293B;
+          font-size: 0.75rem;
+          font-weight: 800;
+          box-shadow: 2px 2px 0px #1E293B;
+        }
+        
+        .plan-detail-view-container .report-badge.approved {
+          background: #D1FAE5 !important;
+          color: #065F46 !important;
+        }
+        
+        .plan-detail-view-container .report-badge.rejected {
+          background: #FEE2E2 !important;
+          color: #991B1B !important;
+        }
+        
+        .plan-detail-view-container .report-badge.pending {
+          background: #FEF3C7 !important;
+          color: #92400E !important;
+          animation: pulse-border 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse-border {
+          0% { box-shadow: 2px 2px 0px #1E293B; }
+          50% { box-shadow: 2px 2px 8px #F59E0B; }
+          100% { box-shadow: 2px 2px 0px #1E293B; }
+        }
+
+        /* Memphis Candy Buttons for Reports */
+        .plan-detail-view-container .report-action-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-family: "Be Vietnam Pro", sans-serif;
+          font-size: 0.75rem;
+          font-weight: 800;
+          padding: 6px 12px;
+          border-radius: 10px;
+          border: 2px solid #1E293B;
+          cursor: pointer;
+          transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          box-shadow: 2px 2px 0px #1E293B;
+        }
+
+        .plan-detail-view-container .report-action-btn.submit {
+          background: #8B5CF6 !important;
+          color: #FFFFFF !important;
+        }
+
+        .plan-detail-view-container .report-action-btn.submit:hover {
+          background: #7C3AED !important;
+          transform: translate(-2px, -2px);
+          box-shadow: 4px 4px 0px #1E293B;
+        }
+
+        .plan-detail-view-container .report-action-btn.evaluate {
+          background: #FFFFFF !important;
+          color: #1E293B !important;
+        }
+
+        .plan-detail-view-container .report-action-btn.evaluate:hover {
+          background: #FFFDF5 !important;
+          transform: translate(-2px, -2px);
+          box-shadow: 4px 4px 0px #1E293B;
+        }
+
+        /* Media Upload & Preview Memphis Style */
+        .plan-detail-view-container .memphis-uploader {
+          background: #FFFDF5;
+          border: 3px dashed #1E293B;
+          border-radius: 16px;
+          padding: 24px;
+          text-align: center;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+        }
+
+        .plan-detail-view-container .memphis-uploader:hover {
+          background: #FDFBF7;
+          border-color: #8B5CF6;
+        }
+
+        .plan-detail-view-container .media-preview-container {
+          border: 3px solid #1E293B;
+          border-radius: 16px;
+          overflow: hidden;
+          background: #FFFFFF;
+          box-shadow: 6px 6px 0px #1E293B;
+          position: relative;
+          width: 100%;
+          max-height: 240px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .plan-detail-view-container .media-preview-img {
+          width: 100%;
+          height: auto;
+          max-height: 240px;
+          object-fit: contain;
+        }
+
+        .plan-detail-view-container .btn-remove-media {
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          background: #EF4444 !important;
+          color: #FFFFFF !important;
+          border: 2px solid #1E293B !important;
+          border-radius: 50% !important;
+          width: 28px !important;
+          height: 28px !important;
+          padding: 0 !important;
+          display: flex !important;
+          justify-content: center !important;
+          align-items: center !important;
+          cursor: pointer !important;
+          box-shadow: 2px 2px 0px #1E293B !important;
+          font-weight: bold;
+        }
+
+        /* Evaluate Candy Buttons Selector */
+        .plan-detail-view-container .eval-status-selector {
+          display: flex;
+          gap: 12px;
+          margin-bottom: 12px;
+        }
+
+        .plan-detail-view-container .eval-status-btn {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          font-family: "Be Vietnam Pro", sans-serif;
+          font-size: 0.85rem;
+          font-weight: 800;
+          padding: 10px 16px;
+          border-radius: 12px;
+          border: 3px solid #1E293B;
+          cursor: pointer;
+          transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          box-shadow: 2px 2px 0px #1E293B;
+        }
+
+        .plan-detail-view-container .eval-status-btn.approved {
+          background: #FFFFFF;
+          color: #065F46;
+        }
+
+        .plan-detail-view-container .eval-status-btn.approved.active {
+          background: #10B981 !important;
+          color: #FFFFFF !important;
+          box-shadow: 4px 4px 0px #1E293B;
+          transform: translate(-2px, -2px);
+        }
+
+        .plan-detail-view-container .eval-status-btn.rejected {
+          background: #FFFFFF;
+          color: #991B1B;
+        }
+
+        .plan-detail-view-container .eval-status-btn.rejected.active {
+          background: #EF4444 !important;
+          color: #FFFFFF !important;
+          box-shadow: 4px 4px 0px #1E293B;
+          transform: translate(-2px, -2px);
+        }
+
+        /* Report Item Card in History List */
+        .plan-detail-view-container .report-item-card {
+          background: #FFFFFF;
+          border: 3px solid #1E293B;
+          border-radius: 16px;
+          padding: 16px;
+          margin-bottom: 16px;
+          box-shadow: 4px 4px 0px #1E293B;
+          transition: transform 0.2s ease;
+        }
+
+        .plan-detail-view-container .report-item-card:hover {
+          transform: translateY(-2px);
         }
 
         /* Profile Card & Info Grid */
@@ -1514,6 +1912,27 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
           {t.backBtn}
         </button>
 
+        {/* ROLE SIMULATOR WIDGET */}
+        <div className="role-simulator-widget">
+          <span className="widget-label">🎭 {lang === 'vi' ? 'Giả lập vai trò:' : 'Role Simulator:'}</span>
+          <div className="simulator-btn-group">
+            <button 
+              type="button"
+              className={`simulator-btn ${currentSimulatorRole === 'Teacher' ? 'active' : ''}`}
+              onClick={() => setCurrentSimulatorRole('Teacher')}
+            >
+              🩺 {lang === 'vi' ? 'Chuyên gia' : 'Specialist'}
+            </button>
+            <button 
+              type="button"
+              className={`simulator-btn ${currentSimulatorRole === 'Parent' ? 'active' : ''}`}
+              onClick={() => setCurrentSimulatorRole('Parent')}
+            >
+              🏠 {lang === 'vi' ? 'Phụ huynh' : 'Parent'}
+            </button>
+          </div>
+        </div>
+
         {!selectedPhase && (
           <div className="detail-action-group">
             <button className="edit-detail-btn-v2" onClick={() => setIsEditPlanOpen(true)}>
@@ -1891,7 +2310,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                               {/* Dòng phụ hiển thị danh sách Activity (Chỉ render khi dòng này được mở) */}
                               {isExpanded && (
                                 <tr style={{ backgroundColor: '#F8FAFC' }}>
-                                  <td colSpan={5} style={{ borderBottom: '1px solid #E2E8F0' }}>
+                                  <td colSpan={6} style={{ borderBottom: '1px solid #E2E8F0' }}>
                                     <div className="activity-section-wrapper" style={{ animation: 'fadeIn 0.2s ease-out', padding: '12px' }}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
                                           <h5 style={{ margin: 0, fontSize: '0.9rem', color: '#1E293B' }}>{(t as any).actListTitle || 'Danh sách Hoạt động'}</h5>
@@ -1913,36 +2332,94 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                                               <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>{(t as any).actMethodCol || 'PP Giảng dạy'}</th>
                                               <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>{(t as any).actCriteria || 'Tiêu chí'}</th>
                                               <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>{(t as any).actAssigneeCol || 'Thực hiện'}</th>
+                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>{lang === 'vi' ? 'Báo cáo Tiến trình' : 'Progress Reports'}</th>
                                               <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textAlign: 'right', textTransform: 'uppercase' }}>{(t as any).actActions || 'Thao tác'}</th>
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            {activities.filter(a => !a.is_deleted).map((act, index) => (
-                                              <tr key={act.activity_id || index} style={{ borderBottom: '1px solid #E2E8F0', color: '#475569' }}>
-                                                <td style={{ padding: '0.6rem 0.8rem', fontWeight: '600', color: '#0F172A' }}>{act.activity_name}</td>
-                                                <td style={{ padding: '0.6rem 0.8rem' }}>{act.frequency}</td>
-                                                <td style={{ padding: '0.6rem 0.8rem', whiteSpace: 'pre-wrap' }}>{act.teaching_method}</td>
-                                                <td style={{ padding: '0.6rem 0.8rem' }}>{act.target_criteria}</td>
-                                                <td style={{ padding: '0.6rem 0.8rem' }}>
-                                                  <span style={{ padding: '2px 8px', borderRadius: '4px', background: '#E2E8F0', fontSize: '0.75rem', fontWeight: 600 }}>{act.assignee_type}</span>
-                                                </td>
-                                                <td style={{ padding: '0.6rem 0.8rem', textAlign: 'right' }}>
-                                                  <div style={{ display: 'flex', gap: '4px', justifyContent: 'flex-end' }}>
-                                                    <button className="edit-btn-v2" title="Details" onClick={() => openActModal('view', obj.objective_id, act)}>
-                                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                                                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-                                                      </svg>
-                                                    </button>
-                                                    <button className="edit-btn-v2" onClick={() => openActModal('update', obj.objective_id, act)}>
-                                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" /></svg>
-                                                    </button>
-                                                    <button className="delete-btn-v2" onClick={() => openActModal('delete', obj.objective_id, act)}>
-                                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" /></svg>
-                                                    </button>
-                                                  </div>
-                                                </td>
-                                              </tr>
-                                            ))}
+                                            {activities.filter(a => !a.is_deleted).map((act, index) => {
+                                              const reports = act.progress_reports || [];
+                                              const pendingReports = reports.filter(r => r.status === 'Pending');
+                                              return (
+                                                <tr key={act.activity_id || index} style={{ borderBottom: '1px solid #E2E8F0', color: '#475569' }}>
+                                                  <td style={{ padding: '0.6rem 0.8rem', fontWeight: '600', color: '#0F172A' }}>{act.activity_name}</td>
+                                                  <td style={{ padding: '0.6rem 0.8rem' }}>{act.frequency}</td>
+                                                  <td style={{ padding: '0.6rem 0.8rem', whiteSpace: 'pre-wrap' }}>{act.teaching_method}</td>
+                                                  <td style={{ padding: '0.6rem 0.8rem' }}>{act.target_criteria}</td>
+                                                  <td style={{ padding: '0.6rem 0.8rem' }}>
+                                                    <span style={{ padding: '2px 8px', borderRadius: '4px', background: '#E2E8F0', fontSize: '0.75rem', fontWeight: 600 }}>{act.assignee_type}</span>
+                                                  </td>
+                                                  <td style={{ padding: '0.6rem 0.8rem' }}>
+                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'flex-start' }}>
+                                                      {reports.length > 0 && (
+                                                        <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', marginBottom: '4px' }}>
+                                                          {reports.map((r, i) => (
+                                                            <span 
+                                                              key={r.report_id || i} 
+                                                              className={`report-badge ${r.status.toLowerCase()}`}
+                                                              title={r.parent_note}
+                                                            >
+                                                              {r.status === 'Approved' ? (lang === 'vi' ? 'Đạt' : 'Approved') : 
+                                                               r.status === 'Rejected' ? (lang === 'vi' ? 'Chưa Đạt' : 'Rejected') : 
+                                                               (lang === 'vi' ? 'Chờ duyệt' : 'Pending')}
+                                                            </span>
+                                                          ))}
+                                                        </div>
+                                                      )}
+                                                      {currentSimulatorRole === 'Parent' ? (
+                                                        <button 
+                                                          type="button"
+                                                          className="report-action-btn submit"
+                                                          onClick={() => openSubmitReportModal(act)}
+                                                        >
+                                                          📤 {lang === 'vi' ? 'Nộp báo cáo' : 'Submit Report'}
+                                                        </button>
+                                                      ) : (
+                                                        <>
+                                                          {pendingReports.length > 0 ? (
+                                                            <button 
+                                                              type="button"
+                                                              className="report-action-btn evaluate"
+                                                              style={{ borderColor: '#F59E0B', background: '#FFFBEB' }}
+                                                              onClick={() => openEvaluateReportModal(act)}
+                                                            >
+                                                              ⏳ {lang === 'vi' ? `${pendingReports.length} Chờ duyệt` : `${pendingReports.length} Pending`}
+                                                            </button>
+                                                          ) : reports.length > 0 ? (
+                                                            <button 
+                                                              type="button"
+                                                              className="report-action-btn evaluate"
+                                                              onClick={() => openEvaluateReportModal(act)}
+                                                            >
+                                                              👁️ {lang === 'vi' ? 'Xem lịch sử' : 'View History'}
+                                                            </button>
+                                                          ) : (
+                                                            <span style={{ fontSize: '0.75rem', color: '#94A3B8', fontStyle: 'italic' }}>
+                                                              {lang === 'vi' ? 'Chưa có báo cáo' : 'No reports yet'}
+                                                            </span>
+                                                          )}
+                                                        </>
+                                                      )}
+                                                    </div>
+                                                  </td>
+                                                  <td style={{ padding: '0.6rem 0.8rem', textAlign: 'right' }}>
+                                                    <div style={{ display: 'flex', gap: '4px', justifyContent: 'flex-end' }}>
+                                                      <button className="edit-btn-v2" title="Details" onClick={() => openActModal('view', obj.objective_id, act)}>
+                                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                                          <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                                                        </svg>
+                                                      </button>
+                                                      <button className="edit-btn-v2" onClick={() => openActModal('update', obj.objective_id, act)}>
+                                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" /></svg>
+                                                      </button>
+                                                      <button className="delete-btn-v2" onClick={() => openActModal('delete', obj.objective_id, act)}>
+                                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" /></svg>
+                                                      </button>
+                                                    </div>
+                                                  </td>
+                                                </tr>
+                                              );
+                                            })}
                                           </tbody>
                                         </table>
                                       )}
@@ -1966,6 +2443,270 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
       {/* ========================================================================= */}
       {/* MODALS SECTION */}
       {/* ========================================================================= */}
+
+      {/* SUBMIT REPORT MODAL (Phụ huynh nộp báo cáo) */}
+      {isSubmitReportModalOpen && activeActivityForReport && (
+        <div className="modal-overlay" onClick={() => setIsSubmitReportModalOpen(false)}>
+          <div className="admin-modal animate-in" style={{ maxWidth: '600px', width: 'min(600px, 95vw)', maxHeight: 'none' }} onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>📤 {lang === 'vi' ? 'Nộp báo cáo tiến trình' : 'Submit Progress Report'}</h3>
+              <button type="button" className="close-modal" onClick={() => setIsSubmitReportModalOpen(false)}>×</button>
+            </div>
+            <form onSubmit={handleSaveReport}>
+              <div className="modal-body" style={{ maxHeight: 'none', overflowY: 'visible' }}>
+                <div style={{ marginBottom: '16px', padding: '12px', background: '#F8FAFC', borderRadius: '12px', border: '2px solid #E2E8F0' }}>
+                  <div style={{ fontWeight: 800, color: '#0F172A', marginBottom: '4px' }}>🎯 {activeActivityForReport.activity_name}</div>
+                  <div style={{ fontSize: '0.8rem', color: '#475569' }}>🔍 <strong>{lang === 'vi' ? 'Tiêu chí đạt:' : 'Target Criteria:'}</strong> {activeActivityForReport.target_criteria}</div>
+                </div>
+
+                <div className="modal-form">
+                  <div className="form-group form-group-full">
+                    <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                      <span>📸 {lang === 'vi' ? 'Hình ảnh / Video thực hành' : 'Media Upload (Image/Video)'}</span>
+                      <button 
+                        type="button" 
+                        style={{
+                          background: '#FBBF24',
+                          border: '2px solid #1E293B',
+                          borderRadius: '8px',
+                          padding: '2px 10px',
+                          fontSize: '0.75rem',
+                          fontWeight: 800,
+                          cursor: 'pointer',
+                          boxShadow: '2px 2px 0px #1E293B',
+                          fontFamily: '"Be Vietnam Pro", sans-serif',
+                          transition: 'all 0.15s ease'
+                        }}
+                        onClick={() => {
+                          setReportMediaFile('https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3');
+                          setReportMediaType('image');
+                          setReportParentNote(lang === 'vi' 
+                            ? 'Bé hôm nay tự tay xếp Lego rất tập trung. Khi ba gọi tên để trao mảnh ghép Lego mới, bé đã chủ động nhìn vào mắt ba khoảng 4 giây liên tiếp và mỉm cười rất ngoan ạ!' 
+                            : 'Today he assembled Lego very cooperatively. When called to receive a new piece, he actively maintained eye contact for about 4 seconds and smiled.');
+                        }}
+                      >
+                        🪄 {lang === 'vi' ? 'Sử dụng dữ liệu mẫu' : 'Use Demo Data'}
+                      </button>
+                    </label>
+
+                    {reportMediaFile ? (
+                      <div className="media-preview-container animate-in">
+                        {reportMediaType === 'image' ? (
+                          <img src={reportMediaFile} alt="Preview" className="media-preview-img" />
+                        ) : (
+                          <video src={reportMediaFile} controls className="media-preview-img" />
+                        )}
+                        <button 
+                          type="button" 
+                          className="btn-remove-media" 
+                          onClick={() => setReportMediaFile('')}
+                          title="Remove media"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ) : (
+                      <div 
+                        className="memphis-uploader"
+                        onClick={() => {
+                          const input = document.createElement('input');
+                          input.type = 'file';
+                          input.accept = 'image/*,video/*';
+                          input.onchange = (e: any) => {
+                            const file = e.target.files[0];
+                            if (file) {
+                              setReportMediaType(file.type.startsWith('video') ? 'video' : 'image');
+                              const reader = new FileReader();
+                              reader.onload = (uploadEvent: any) => {
+                                setReportMediaFile(uploadEvent.target.result);
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          };
+                          input.click();
+                        }}
+                      >
+                        <span style={{ fontSize: '2.5rem' }}>📷</span>
+                        <span style={{ fontWeight: 800, color: '#1E293B', fontSize: '0.9rem' }}>
+                          {lang === 'vi' ? 'Nhấp để tải lên Hình ảnh / Video' : 'Click to Upload Image / Video'}
+                        </span>
+                        <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
+                          {lang === 'vi' ? 'Hỗ trợ các tệp ảnh hoặc video từ thiết bị của bạn' : 'Supports standard image and video files'}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="form-group form-group-full">
+                    <label>✍️ {lang === 'vi' ? 'Nhật ký / Ghi chú của phụ huynh' : 'Parent Note / Feedback'}</label>
+                    <textarea 
+                      required
+                      rows={3} 
+                      value={reportParentNote}
+                      onChange={e => setReportParentNote(e.target.value)}
+                      placeholder={lang === 'vi' ? 'Nhập ghi chú chi tiết về phản ứng hành vi của bé khi thực hành...' : 'Describe how the child responded during the activity...'}
+                      style={{ border: '2px solid #1E293B', borderRadius: '10px', padding: '10px', fontWeight: 500, fontFamily: 'inherit', width: '100%', boxSizing: 'border-box' }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn-secondary" onClick={() => setIsSubmitReportModalOpen(false)}>
+                  {t.cancel}
+                </button>
+                <button type="submit" className="btn-primary" style={{ background: '#8B5CF6' }}>
+                  🚀 {lang === 'vi' ? 'Gửi báo cáo' : 'Submit Report'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* EVALUATE REPORT MODAL (Giáo viên xem và đánh giá báo cáo) */}
+      {isEvaluateReportModalOpen && activeActivityForReport && (
+        <div className="modal-overlay" onClick={() => setIsEvaluateReportModalOpen(false)}>
+          <div className="admin-modal animate-in" style={{ maxWidth: '720px', width: 'min(720px, 95vw)', maxHeight: 'none' }} onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>🩺 {lang === 'vi' ? 'Đánh giá tiến trình thực hành' : 'Evaluate Practice Progress'}</h3>
+              <button type="button" className="close-modal" onClick={() => setIsEvaluateReportModalOpen(false)}>×</button>
+            </div>
+            <div className="modal-body" style={{ maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' }}>
+              <div style={{ marginBottom: '20px', padding: '14px', background: '#F8FAFC', borderRadius: '16px', border: '3px solid #1E293B', boxShadow: '4px 4px 0px #1E293B' }}>
+                <div style={{ fontWeight: 900, color: '#0F172A', fontSize: '1rem', marginBottom: '6px' }}>🎯 {activeActivityForReport.activity_name}</div>
+                <div style={{ fontSize: '0.85rem', color: '#334155', marginBottom: '4px' }}>📝 <strong>{lang === 'vi' ? 'Phương pháp giảng dạy:' : 'Teaching Method:'}</strong> {activeActivityForReport.teaching_method}</div>
+                <div style={{ fontSize: '0.85rem', color: '#334155' }}>🔍 <strong>{lang === 'vi' ? 'Tiêu chí đánh giá:' : 'Target Criteria:'}</strong> {activeActivityForReport.target_criteria}</div>
+              </div>
+
+              <h4 style={{ fontWeight: 800, color: '#1E293B', marginBottom: '12px', borderBottom: '2px dashed #1E293B', paddingBottom: '6px' }}>
+                📋 {lang === 'vi' ? 'Lịch sử báo cáo tiến trình' : 'Progress Report History'}
+              </h4>
+
+              {(activeActivityForReport.progress_reports || []).length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '30px', background: '#FFFDF5', border: '2px dashed #CBD5E1', borderRadius: '16px', color: '#94A3B8' }}>
+                  {lang === 'vi' ? 'Chưa có báo cáo nào được nộp.' : 'No reports have been submitted yet.'}
+                </div>
+              ) : (
+                <div>
+                  {(activeActivityForReport.progress_reports || []).slice().reverse().map((report) => (
+                    <div key={report.report_id} className="report-item-card animate-in">
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B' }}>
+                          📅 {lang === 'vi' ? 'Thời gian nộp:' : 'Submitted:'} {report.submission_date}
+                        </span>
+                        <span className={`report-badge ${report.status.toLowerCase()}`}>
+                          {report.status === 'Approved' ? (lang === 'vi' ? '👍 Đạt' : 'Approved') : 
+                           report.status === 'Rejected' ? (lang === 'vi' ? '👎 Chưa Đạt' : 'Rejected') : 
+                           (lang === 'vi' ? '⏳ Chờ duyệt' : 'Pending')}
+                        </span>
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: report.media_url ? '1fr 1fr' : '1fr', gap: '16px', marginBottom: '14px' }}>
+                        <div>
+                          <strong style={{ display: 'block', fontSize: '0.8rem', color: '#475569', marginBottom: '4px' }}>
+                            💬 {lang === 'vi' ? 'Ghi nhận của Phụ huynh:' : 'Parent Note:'}
+                          </strong>
+                          <p style={{ margin: 0, fontSize: '0.85rem', color: '#0F172A', background: '#F8FAFC', padding: '10px', borderRadius: '8px', border: '1.5px solid #E2E8F0', fontStyle: 'italic' }}>
+                            "{report.parent_note}"
+                          </p>
+                        </div>
+                        {report.media_url && (
+                          <div>
+                            <strong style={{ display: 'block', fontSize: '0.8rem', color: '#475569', marginBottom: '4px' }}>
+                              📷 {lang === 'vi' ? 'Bằng chứng thực tế:' : 'Evidence:'}
+                            </strong>
+                            <div className="media-preview-container" style={{ border: '3px solid #1E293B', maxHeight: '150px' }}>
+                              {report.media_type === 'image' ? (
+                                <img src={report.media_url} alt="Evidence" style={{ maxHeight: '150px', objectFit: 'contain', width: '100%' }} />
+                              ) : (
+                                <video src={report.media_url} controls style={{ maxHeight: '150px', objectFit: 'contain', width: '100%' }} />
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* KHU VỰC ĐÁNH GIÁ CỦA GIÁO VIÊN */}
+                      {report.status === 'Pending' && activeReportForEval?.report_id === report.report_id ? (
+                        <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '2px dashed #E2E8F0' }}>
+                          <strong style={{ display: 'block', fontSize: '0.8rem', color: '#1E293B', marginBottom: '8px' }}>
+                            🩺 {lang === 'vi' ? 'Đánh giá & Phản hồi chuyên môn của Giáo viên' : 'Teacher Evaluation & Feedback'}
+                          </strong>
+                          
+                          <div className="eval-status-selector">
+                            <button 
+                              type="button"
+                              className={`eval-status-btn approved ${evalStatus === 'Approved' ? 'active' : ''}`}
+                              onClick={() => setEvalStatus('Approved')}
+                            >
+                              👍 {lang === 'vi' ? 'Đạt (Approved)' : 'Approved'}
+                            </button>
+                            <button 
+                              type="button"
+                              className={`eval-status-btn rejected ${evalStatus === 'Rejected' ? 'active' : ''}`}
+                              onClick={() => setEvalStatus('Rejected')}
+                            >
+                              👎 {lang === 'vi' ? 'Chưa Đạt (Rejected)' : 'Rejected'}
+                            </button>
+                          </div>
+
+                          <div className="form-group form-group-full" style={{ marginBottom: '12px' }}>
+                            <label style={{ fontSize: '0.8rem', color: '#475569' }}>✍️ {lang === 'vi' ? 'Nhận xét chuyên môn / Hướng dẫn thêm' : 'Clinical Feedback & Recommendations'}</label>
+                            <textarea 
+                              required
+                              rows={2} 
+                              value={evalFeedback}
+                              onChange={e => setEvalFeedback(e.target.value)}
+                              placeholder={lang === 'vi' ? 'Viết nhận xét chuyên môn để động viên trẻ và định hướng phụ huynh...' : 'Write clinical feedback and notes for the parent...'}
+                              style={{ border: '2px solid #1E293B', borderRadius: '10px', padding: '8px', fontSize: '0.85rem', fontFamily: 'inherit', fontWeight: 500, width: '100%', boxSizing: 'border-box' }}
+                            />
+                          </div>
+
+                          <div style={{ textAlign: 'right' }}>
+                            <button 
+                              type="button" 
+                              className="btn-primary" 
+                              style={{ padding: '0.5rem 1.5rem', fontSize: '0.8rem' }}
+                              onClick={() => handleSaveEvaluation(report.report_id)}
+                            >
+                              💾 {lang === 'vi' ? 'Lưu kết quả đánh giá' : 'Save Evaluation'}
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        (report.status === 'Approved' || report.status === 'Rejected') && (
+                          <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '2px dashed #E2E8F0', background: '#F0FDF4', padding: '12px', borderRadius: '10px', border: '1.5px solid #DCFCE7' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: '#166534', fontWeight: 800, marginBottom: '6px' }}>
+                              <span>🩺 {lang === 'vi' ? 'Đánh giá chuyên môn' : 'Clinical Evaluation'} ({report.teacher_name})</span>
+                              <span>📅 {report.evaluation_date}</span>
+                            </div>
+                            <p style={{ margin: 0, fontSize: '0.85rem', color: '#1E293B', fontStyle: 'italic', fontWeight: 500 }}>
+                              "{report.teacher_feedback || (lang === 'vi' ? 'Không có nhận xét thêm.' : 'No additional comments.')}"
+                            </p>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="modal-body-scroll-bar-custom" style={{ display: 'none' }}></div>
+            <div className="modal-footer">
+              <button type="button" className="btn-primary" onClick={() => setIsEvaluateReportModalOpen(false)}>
+                {lang === 'vi' ? 'Đóng cửa sổ' : 'Close'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TOAST SUCCESS NOTIFICATION */}
+      {toastMessage && (
+        <div className="profile-toast-floating animate-in" style={{ animation: 'bounceIn 0.3s ease-out' }}>
+          {toastMessage}
+        </div>
+      )}
 
       {/* EDIT PLAN MODAL */}
       {isEditPlanOpen && (
