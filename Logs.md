@@ -1,6 +1,68 @@
 # Project Logs
 
+## [2026-05-28] - Chuyển đổi Bằng chứng thực hành sang Liên kết video Chung (Generic Video Link) & Thêm Nút mở tab mới
+- **Loại bỏ trình phát video cố định**:
+  - Loại bỏ hoàn toàn iframe nhúng trình phát YouTube (`getYouTubeId` & `renderEvidenceMedia`) cồng kềnh.
+  - Sửa đổi cơ chế nộp bằng chứng sang liên kết video chung bất kỳ (Google Drive, OneDrive, YouTube, Dropbox...).
+- **Xây dựng Hàm hiển thị Liên kết Memphis 3D (`renderEvidenceLink`)**:
+  - Hiển thị liên kết nộp bài một cách thẩm mỹ dưới dạng một card Memphis bo góc màu kem, viền Slate 2.5px, bóng đổ cứng 3px.
+  - Tích hợp một Candy Button **"Mở liên kết" / "Open Link"** màu tím Violet nẩy nổi Memphis cho phép người dùng nhấp mở trực tiếp liên kết bằng chứng trong một tab mới cực kỳ tiện lợi.
+- **Cập nhật Giao diện & Form song ngữ**:
+  - Cập nhật nhãn và placeholder trong form Phụ huynh và phần xem của Chuyên gia sang "Liên kết video/hình ảnh bằng chứng" và hỗ trợ placeholder gợi ý link Drive.
+- **Xác thực và Biên dịch thành công**:
+  - Chạy biên dịch sản phẩm `npm run build` cục bộ thành công 100% sạch lỗi chỉ trong **418ms**.
+
+## [2026-05-28] - Bổ sung Dữ liệu mẫu Hoạt động Can thiệp (Intervention Activities) Đa trạng thái cho Nguyễn Minh Khôi
+- **Bổ sung 2 Hoạt động mẫu thực tế chuyên sâu**:
+  - Thêm hoạt động `activity_id: 103` (`Chỉ ngón trỏ để yêu cầu đồ chơi yêu thích`) ở trạng thái `In Progress` với submissions và reviews trống, nhằm giúp Phụ huynh dễ dàng trải nghiệm quy trình **Submit activity progress report** (nộp link video YouTube và viết nhật ký rèn luyện).
+  - Thêm hoạt động `activity_id: 104` (`Thổi bong bóng xà phòng luân phiên lượt`) ở trạng thái `Submitted` có sẵn bài nộp video YouTube và ghi chú của phụ huynh, chưa có đánh giá chuyên môn, nhằm giúp Giáo viên thực hiện chức năng **Evaluate activity report** (nhận xét chuyên môn, đánh giá Đạt/Chưa đạt).
+- **Đồng bộ hóa 100% thuộc tính**:
+  - Thiết lập đầy đủ các thuộc tính của hoạt động bao gồm: Exercise, Frequency, Teaching Method, Criteria, Assignee, Status & Submissions, Actions.
+- **Xác thực và Biên dịch cục bộ thành công**:
+  - Chạy biên dịch sản phẩm `npm run build` cục bộ thành công 100% sạch lỗi chỉ trong **368ms**.
+
+## [2026-05-28] - Phẳng hóa Bảng Dữ liệu Memphis & Chuyển đổi Chi tiết Hoạt động sang Trang hiển thị Mới 100% Viewport
+- **Phẳng hóa hoàn toàn hiệu ứng hover bảng dữ liệu**:
+  - Loại bỏ `transform: translate(-3px, -3px)` khi hover hàng mục tiêu (`.obj-main-row:hover td`) trong `AdminDashboard.css`. Thiết lập `transform: none !important` để bảng hoàn toàn phẳng lặng, kiên cố.
+  - Loại bỏ `transform: translate(-2px, -2px)` khi hover hàng hoạt động con (`.activity-sub-table tbody tr:hover td`). Giữ nguyên bóng đổ mặc định không tăng kích thước khi hover.
+  - Loại bỏ `transform: translate(-1px, -1px)` trạng thái active mở rộng dòng (`.obj-main-row.active td`). Shadow giữ cố định `4px 4px 0px`.
+  - Giữ lại hiệu ứng đổi màu nền nhẹ sang kem `#FFFDF5` và vệt lề trái Violet `#8B5CF6` khi hover để nhận biết dòng đang trỏ chuột mà không gây cảm giác rung lắc.
+- **Đồng bộ hóa toàn bộ nút thao tác (Actions) chỉ hiển thị Icon SVG**:
+  - Nút xem chi tiết hoạt động con (`.report-action-btn evaluate`) đã bị loại bỏ hoàn toàn chữ `"Review ngay" / "Details"`. Thay thế bằng class `edit-btn-v2` đồng bộ chỉ chứa duy nhất icon SVG con mắt `👁️`.
+  - Khi trạng thái `Submitted` + vai trò `Teacher`, nút hiển thị nền vàng `#FBBF24` nổi bật thu hút sự chú ý chuyên gia. Tooltip (`title`) cung cấp mô tả rõ ràng bằng cả 2 ngôn ngữ.
+  - Tất cả các nút detail, edit, delete ở cả bảng mục tiêu và bảng hoạt động con giờ 100% đồng bộ chỉ hiển thị icon SVG gọn gàng.
+- **Chuyển đổi Chi tiết Hoạt động (Activity Detail) từ Modal sang Trang hiển thị Mới 100% viewport**:
+  - Khai báo 2 state mới `selectedActivity` và `selectedParentObjId` quản lý định tuyến cục bộ 3 cấp: Phase List → Phase Details → Activity Detail Page.
+  - Cập nhật hàm `openActModal`: Khi `mode === 'view'`, gán state `selectedActivity`, reset tất cả form fields, và `return` sớm (chặn mở modal hoàn toàn).
+  - Đồng bộ `selectedActivity` thời gian thực trong hàm `handleSaveSubmission` và `handleSaveReview` để UI trang chi tiết tự cập nhật ngay khi phụ huynh nộp bài hoặc chuyên gia đánh giá.
+  - Thiết kế trang Activity Detail Page (`activity-detail-page`) hoàn toàn mới:
+    - **Nút quay lại pill-shape Memphis**: Viền Slate đen 3px, bóng đổ cứng 3px, font Be Vietnam Pro 800, quay về Phase Details khi click.
+    - **Header Card Memphis**: Tiêu đề lớn viền Slate, bóng đổ 6px, badge trạng thái Memphis Submitted/In Progress.
+    - **Bố cục 2 cột Grid**: Cột trái thông tin hoạt động (tên, tần suất, assignee, phương pháp, tiêu chí đạt) khung Memphis trắng. Cột phải nền kem ấm `#FFFDF5` chứa form nộp bài (Phụ huynh) hoặc form Review chuyên môn (Chuyên gia) tùy theo vai trò simulator.
+    - **Timeline lịch sử rèn luyện & Đánh giá**: Card Memphis viền Slate 2.5px, bóng đổ 4px, hiển thị toàn bộ lịch sử kẹp đôi submission-review thông thoáng 100% chiều rộng trang.
+    - **Responsive hoàn hảo**: Grid 2 cột tự chuyển 1 cột dưới 900px, navigation dồn dọc dưới 768px.
+    - **Widget Role Simulator**: Tích hợp trực tiếp trên thanh navigation trang mới, cho phép đổi vai trò thời gian thực.
+    - **Toast notification Memphis**: Thông báo thành công xanh ngọc nổi cố định góc dưới phải.
+- **Xác thực và Biên dịch cục bộ thành công**:
+  - Chạy biên dịch sản phẩm `npm run build` cục bộ thành công 100% sạch lỗi chỉ trong **370ms**. Không tự ý chạy git push.
+
+## [2026-05-28] - Tách biệt Giao diện: Chia đôi cụm Phase Details & Objectives Độc lập Vững chãi với Cuộn Mượt Shortcut
+- **Tách biệt giao diện thành 2 cụm trên dưới độc lập**:
+  - Không nhồi nhét hay bọc lồng mập mờ, trang xem chi tiết giai đoạn kế hoạch (`PlanDetailView.tsx`) được tái cấu trúc thành **2 cụm to, rõ rệt, hiển thị đồng thời** từ trên xuống dưới theo đúng yêu cầu thực tế:
+    - **Cụm trên / Phase Details**: Hiển thị Card thông tin tổng quan giai đoạn (Phase Overview) gọn gàng.
+    - **Cụm dưới / Intervention Objectives**: Hiển thị Card quản lý mục tiêu 📝 `Manage Objectives` cùng các bảng con và timeline.
+  - Tách biệt khoảng cách giữa 2 cụm cực kỳ thông thoáng bằng thuộc tính `marginTop: '3.5rem'` cho Card 2, giúp các shadow offset Memphis của cả 2 Card không bị va chạm hay xô lệch.
+- **Tích hợp phím tắt cuộn mượt (Smooth Scroll Shortcut) siêu tiện lợi**:
+  - Khi click vào dòng Phase bất kỳ trên danh sách chính: Mở trang chi tiết Phase bình thường (hiển thị cả 2 cụm đồng thời từ đầu trang).
+  - Thêm một nút tắt chuyên biệt **"🎯 Mục tiêu"** màu tím Violet Memphis (`#8B5CF6`) có bóng đổ nẩy nổi trong cột Actions của mỗi dòng Phase. 
+  - Khi click nút 🎯 này, hệ thống sẽ mở trang chi tiết Phase và **tự động cuộn trang (scroll) trơn tru, mượt mà** thẳng xuống khối Objectives bên dưới bằng API `scrollIntoView({ behavior: 'smooth' })` thông qua ID định danh `#objectives-section-block`.
+- **Xác thực và Biên dịch cục bộ thành công**:
+  - Chạy biên dịch sản phẩm `npm run build` cục bộ thành công 100% sạch lỗi chỉ trong **422ms**. Không tự ý chạy git push theo đúng yêu cầu mới nhất của người dùng.
+
 ## [2026-05-28] - Tinh chỉnh Thẩm mỹ Memphis: Khắc phục Bóng đổ Không đều & Triệt tiêu Sọc dọc Đen trong Bảng Mục tiêu & Hoạt động
+- **Khắc phục lỗi trùng 2 khung viền & shadow lồng nhau (Double border leak)**:
+  - Sửa lỗi thẻ `<td colSpan={5}>` của dòng phụ mở rộng `.activity-row-expanded` vô tình bị áp dụng các rule CSS `tbody td:first-child` và `tbody td:last-child` toàn cục do có độ ưu tiên (specificity) cao hơn, tự vẽ ra thêm 1 khung viền đen và shadow thô kệch bọc bên ngoài.
+  - Giải pháp: Chỉ định rõ ràng các selector `.activity-row-expanded td:first-child` và `.activity-row-expanded td:last-child` trong CSS để ghi đè tuyệt đối và triệt tiêu hoàn toàn khung viền & shadow rò rỉ từ bảng cha, trả lại giao diện sạch bóng 100%, chỉ có duy nhất 1 card hoạt động màu vàng kem Memphis cực đẹp và gọn gàng.
 - **Triệt tiêu 100% các vạch sọc dọc đen thô cứng ở tbody**:
   - Tái cấu trúc thuộc tính bóng đổ của hàng `.obj-main-row td` và `.activity-sub-table tbody td`. Thay thế bóng đổ chéo đồng loạt trên từng ô bằng **Shadow Định hướng**: Các ô ở giữa chỉ đổ bóng dọc hướng xuống dưới (`box-shadow: 0px 4px 0px #1E293B` cho bảng lớn, `0px 3px 0px #1E293B` cho bảng con), và chỉ riêng ô cuối cùng `:last-child` mới đổ bóng chéo sang phải và đáy.
   - Sự thay đổi này giúp dải bóng đổ dưới đáy hàng liên tục chạy dài mịn màng không răng cưa, đồng thời triệt tiêu hoàn toàn bóng đổ ngang chen vào giữa các cột, diệt tận gốc các sọc dọc đen thô cứng.
@@ -1854,3 +1916,33 @@
 - **AdminDashboard.tsx**:
   - Đã bổ sung các trường dữ liệu còn thiếu (`frequency`, `target_criteria`, `teaching_method`, `assignee_type`) vào danh sách dữ liệu mẫu (mock data).
   - Kết quả: Các cột dữ liệu trên bảng "Danh sách Hoạt động" đã được điền đầy đủ nội dung, không còn bị trống như trong ảnh.
+
+### 2026-05-28: Bổ sung Hoạt động mẫu & Chuyển đổi bằng chứng nộp bài sang liên kết YouTube
+- **AdminDashboard.tsx**:
+  - Bổ sung 2 hoạt động can thiệp mẫu chất lượng cao vào danh sách hoạt động của Giai đoạn 1:
+    - Hoạt động 101: "Luyện nói từ đơn qua Flashcard con vật" ở trạng thái **Completed (Đã nộp bài) & Đang chờ Review** (có submissions chứa video YouTube, reviews rỗng).
+    - Hoạt động 102: "Xúc thìa tự ăn bằng đất nặn mô phỏng" ở trạng thái **Đã Review xong** (có submissions chứa video YouTube và reviews đã được chấm điểm, nhận xét chi tiết bởi chuyên gia).
+- **PlanDetailView.tsx**:
+  - Tích hợp 2 hàm helper `getYouTubeId` và `renderEvidenceMedia` để phát hiện và nhúng mượt mà trình phát video iframe YouTube từ mọi định dạng URL YouTube, có hỗ trợ tương thích ngược cho ảnh tĩnh (Base64/Unsplash).
+  - Thay đổi widget nộp bài thực hành của Phụ huynh từ uploader ảnh/video sang ô nhập URL liên kết YouTube và tích hợp trình xem trước (live preview) video YouTube ngay khi nhập cực kỳ sinh động.
+  - Cập nhật nút **Dữ liệu mẫu (Fill Demo)** để tự động điền video YouTube thực tế kèm ghi chú đáng yêu cho phụ huynh kiểm thử nhanh.
+  - Đồng bộ hiển thị iframe YouTube trong cả giao diện nhận xét của Chuyên gia (Teacher view) và Timeline lịch sử tập luyện ở đáy trang.
+- **Xác thực**:
+  - Biên dịch production build thành công 100% sạch lỗi chỉ trong **389ms**!
+
+### 2026-05-28: Nâng cấp hiển thị trạng thái Đã Review cho Hoạt động can thiệp
+- **PlanDetailView.tsx**:
+  - Thêm logic kiểm tra trạng thái đánh giá `hasReviews` động dựa trên mảng `act.reviews`.
+  - Thiết kế và tích hợp thêm badge **✅ Đã Review** / **✅ Reviewed** màu xanh Mint ngọt ngào (`#D1FAE5`) bên cạnh 2 trạng thái cũ là *⏳ Chờ Review* (vàng) và *🏃 Đang thực hiện* (xám).
+  - Tối ưu hóa điều kiện đổi nền nút detail (biểu tượng con mắt 👁️) sang màu vàng `#FBBF24` của Giáo viên: nút chỉ chuyển sang màu vàng cảnh báo khi hoạt động có trạng thái là `Submitted` VÀ đồng thời **chưa có nhận xét nào** (`!hasReviews`). Nếu đã được đánh giá rồi, nút sẽ tự động chuyển về trạng thái phẳng tĩnh thông thường để giảm tải thị giác cho Chuyên gia.
+- **Xác thực**:
+  - Biên dịch sản phẩm thành công tuyệt đối qua `npm run build` chỉ trong **484ms** đạt trạng thái ổn định 100%!
+
+### 2026-05-28: Đồng bộ Hoạt động mẫu cho Kế hoạch can thiệp 2 (Trần Đức Nam)
+- **AdminDashboard.tsx**:
+  - Bổ sung 2 hoạt động can thiệp mẫu chất lượng cao vào danh sách hoạt động của Kế hoạch 2 (Trần Đức Nam) tại Giai đoạn 1 mục tiêu 3:
+    - Hoạt động 301: "Tập đeo tai nghe chống ồn bảo vệ tai" ở trạng thái **Completed (Đã nộp bài) & Đang chờ Review** (có submissions chứa video YouTube, reviews rỗng).
+    - Hoạt động 302: "Luyện thăng bằng đi bộ trên vạch kẻ thẳng" ở trạng thái **Đã Review xong** (có submissions chứa video YouTube và reviews đã được đánh giá, nhận xét chi tiết bởi Giáo viên).
+  - Điều này giúp người dùng kiểm thử tính năng nhúng video YouTube và hệ thống 3 badge trạng thái động trực quan trên cả hai Kế hoạch can thiệp mẫu có sẵn.
+- **Xác thực**:
+  - Biên dịch sản phẩm thành công tuyệt đối qua `npm run build` chỉ trong **410ms** đạt trạng thái ổn định 100%!
