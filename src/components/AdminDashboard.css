@@ -2178,11 +2178,11 @@ thead th {
   letter-spacing: 0.5px !important;
   padding: 0.85rem 1.5rem !important; /* Padding tinh tế */
   background: #F1F5F9 !important; /* Nền xám Slate nhạt sạch sẽ tạo tương phản tốt với dòng td trắng */
-  border-top: 2px solid #1E293B !important;
-  border-bottom: 2px solid #1E293B !important;
+  border-top: 3px solid #1E293B !important;
+  border-bottom: 3px solid #1E293B !important;
   border-left: none !important;
   border-right: none !important;
-  box-shadow: 4px 4px 0px #1E293B !important; /* Bóng đổ lệch phải + đáy nối liền mạch 100% không vết nứt */
+  box-shadow: none !important; /* Loại bỏ hoàn toàn box-shadow ngang để triệt tiêu sọc dọc thô cứng */
   vertical-align: middle !important;
 }
 
@@ -2545,7 +2545,7 @@ thead th:last-child {
 /* Custom styles for Objectives Table in PlanDetailView */
 .objectives-table-wrapper {
   background: transparent !important;
-  padding: 8px 0px !important;
+  padding: 8px 14px 16px 8px !important; /* Thêm padding đệm phải (14px) và đáy (16px) chống cắt shadow */
   overflow: visible !important;
 }
 
@@ -2564,8 +2564,25 @@ thead th:last-child {
   letter-spacing: 0.05em !important;
   color: #475569 !important;
   font-weight: 800 !important;
-  border: none !important;
-  background: transparent !important;
+  background: #F1F5F9 !important; /* Đồng bộ nền xám Slate nhẹ nhàng */
+  border-top: 3px solid #1E293B !important;
+  border-bottom: 3px solid #1E293B !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: none !important;
+  vertical-align: middle !important;
+}
+
+.objectives-table thead th:first-child {
+  border-left: 3px solid #1E293B !important;
+  border-top-left-radius: 12px !important;
+  border-bottom-left-radius: 12px !important;
+}
+
+.objectives-table thead th:last-child {
+  border-right: 3px solid #1E293B !important;
+  border-top-right-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
 }
 
 .obj-main-row td {
@@ -2573,7 +2590,7 @@ thead th:last-child {
   border-top: 2.5px solid #1E293B !important;
   border-bottom: 2.5px solid #1E293B !important;
   background: #FFFFFF !important;
-  box-shadow: 4px 4px 0px #1E293B !important;
+  box-shadow: 0px 4px 0px #1E293B !important; /* Bóng đổ định hướng thẳng xuống dưới, triệt tiêu vệt sọc dọc */
   transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
   vertical-align: middle !important;
   color: #1E293B !important;
@@ -2592,11 +2609,12 @@ thead th:last-child {
   border-right: 2.5px solid #1E293B !important;
   border-top-right-radius: 16px !important;
   border-bottom-right-radius: 16px !important;
+  box-shadow: 4px 4px 0px #1E293B !important; /* Chỉ riêng ô cuối cùng mới đổ bóng chéo sang phải */
 }
 
 .obj-main-row:hover td {
   transform: translate(-3px, -3px) !important;
-  box-shadow: 7px 7px 0px #1E293B !important;
+  box-shadow: 0px 7px 0px #1E293B !important; /* Bóng đổ đáy tịnh tiến mượt mà */
   background: #FFFDF5 !important;
 }
 
@@ -2604,20 +2622,28 @@ thead th:last-child {
   border-left: 5px solid #8B5CF6 !important;
 }
 
+.obj-main-row:hover td:last-child {
+  box-shadow: 7px 7px 0px #1E293B !important; /* Chỉ riêng ô cuối tăng shadow chéo */
+}
+
 .obj-main-row.active td {
   background: #FFFBEB !important;
   border-color: #1E293B !important;
   transform: translate(-1px, -1px) !important;
-  box-shadow: 5px 5px 0px #1E293B !important;
+  box-shadow: 0px 5px 0px #1E293B !important;
 }
 
 .obj-main-row.active td:first-child {
-  border-left: 5px solid #F59E0B !important; /* Amber border when expanded */
+  border-left: 5px solid #F59E0B !important; /* Lề trái màu Amber khi active */
+}
+
+.obj-main-row.active td:last-child {
+  box-shadow: 5px 5px 0px #1E293B !important;
 }
 
 /* Style for expanded Sub Activity table row wrapper */
 .activity-row-expanded td {
-  padding: 4px 8px 20px 8px !important;
+  padding: 0px 12px 24px 12px !important;
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
@@ -2628,4 +2654,98 @@ thead th:last-child {
   box-shadow: none !important;
   background: transparent !important;
 }
+
+.activity-section-wrapper {
+  background: #FFFDF5 !important;
+  border: 3px solid #1E293B !important;
+  border-radius: 20px !important;
+  box-shadow: 6px 6px 0px #1E293B !important;
+  padding: 20px 20px 24px 20px !important; /* Tăng padding đáy để chứa shadow của dòng hoạt động cuối */
+  margin-top: -6px !important;
+  overflow: visible !important;
+}
+
+/* Style for expanded Sub Activity table */
+.activity-sub-table {
+  border-collapse: separate !important;
+  border-spacing: 0 10px !important;
+  width: 100% !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+.activity-sub-table thead th {
+  padding: 0.6rem 0.8rem !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #475569 !important;
+  font-weight: 850 !important;
+  background: #F1F5F9 !important; /* Đồng bộ nền xám Slate nhẹ nhàng */
+  border-top: 3px solid #1E293B !important;
+  border-bottom: 3px solid #1E293B !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: none !important;
+  vertical-align: middle !important;
+}
+
+.activity-sub-table thead th:first-child {
+  border-left: 3px solid #1E293B !important;
+  border-top-left-radius: 12px !important;
+  border-bottom-left-radius: 12px !important;
+}
+
+.activity-sub-table thead th:last-child {
+  border-right: 3px solid #1E293B !important;
+  border-top-right-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
+}
+
+.activity-sub-table tbody tr {
+  background: transparent !important;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.activity-sub-table tbody td {
+  padding: 1rem 1.1rem !important;
+  border-top: 2.5px solid #1E293B !important;
+  border-bottom: 2.5px solid #1E293B !important;
+  background: #FFFFFF !important;
+  box-shadow: 0px 3px 0px #1E293B !important; /* Đổ bóng dọc hướng xuống, triệt tiêu vệt sọc dọc trong bảng con */
+  vertical-align: middle !important;
+  color: #334155 !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+}
+
+.activity-sub-table tbody td:first-child {
+  border-left: 2.5px solid #1E293B !important;
+  border-top-left-radius: 12px !important;
+  border-bottom-left-radius: 12px !important;
+}
+
+.activity-sub-table tbody td:last-child {
+  border-right: 2.5px solid #1E293B !important;
+  border-top-right-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
+  box-shadow: 3px 3px 0px #1E293B !important; /* Chỉ riêng ô cuối cùng mới đổ bóng chéo sang phải */
+}
+
+.activity-sub-table tbody tr:hover td {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 0px 5px 0px #1E293B !important; /* Hover nẩy shadow đáy */
+  background: #FFFDF5 !important;
+}
+
+.activity-sub-table tbody tr:hover td:first-child {
+  border-left: 4px solid #8B5CF6 !important; /* Nổi tím Violet */
+}
+
+.activity-sub-table tbody tr:hover td:last-child {
+  box-shadow: 5px 5px 0px #1E293B !important;
+}
+
 

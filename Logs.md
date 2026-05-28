@@ -1,5 +1,18 @@
 # Project Logs
 
+## [2026-05-28] - Tinh chỉnh Thẩm mỹ Memphis: Khắc phục Bóng đổ Không đều & Triệt tiêu Sọc dọc Đen trong Bảng Mục tiêu & Hoạt động
+- **Triệt tiêu 100% các vạch sọc dọc đen thô cứng ở tbody**:
+  - Tái cấu trúc thuộc tính bóng đổ của hàng `.obj-main-row td` và `.activity-sub-table tbody td`. Thay thế bóng đổ chéo đồng loạt trên từng ô bằng **Shadow Định hướng**: Các ô ở giữa chỉ đổ bóng dọc hướng xuống dưới (`box-shadow: 0px 4px 0px #1E293B` cho bảng lớn, `0px 3px 0px #1E293B` cho bảng con), và chỉ riêng ô cuối cùng `:last-child` mới đổ bóng chéo sang phải và đáy.
+  - Sự thay đổi này giúp dải bóng đổ dưới đáy hàng liên tục chạy dài mịn màng không răng cưa, đồng thời triệt tiêu hoàn toàn bóng đổ ngang chen vào giữa các cột, diệt tận gốc các sọc dọc đen thô cứng.
+- **Bọc viền khung thead Memphis phẳng**:
+  - Cấu hình thead th của cả bảng chính và bảng hoạt động con thành một dải băng liền mạch viền Slate đen dày dặn: viền trên/dưới `3px solid #1E293B`, cột đầu tiên có viền trái và bo góc trái, cột cuối cùng có viền phải và bo góc phải.
+  - Các cột ở giữa có `border-left: none` và `border-right: none`, triệt tiêu hoàn toàn sọc dọc và mang lại diện mạo Memphis phẳng sang trọng 100%.
+- **Chống shadow bị cắt cụt bằng Padding Đệm (Shadow Buffer)**:
+  - Thêm padding đệm ở cạnh phải và dưới đáy của wrapper `.objectives-table-wrapper` (`padding: 8px 14px 16px 8px !important;`) để bảo vệ bóng đổ của các dòng khỏi bị container cuộn ngang (`overflow-x: auto`) cắt cụt khi rê chuột (hover) nâng nổi `translate(-3px, -3px)`.
+  - Tăng padding đáy cho `.activity-section-wrapper` màu vàng kem thành `24px` để chứa trọn vẹn dải shadow đáy của dòng hoạt động con dưới cùng.
+- **Xác thực và Build thành công**:
+  - Đã chạy biên dịch production thành công 100% sạch lỗi chỉ trong **438ms**.
+
 ## [2026-05-28] - Đồng bộ hóa Thẩm mỹ Memphis 3D & Nẩy nổi cho Giao diện Quản lý Mục tiêu Can thiệp (`PlanDetailView.tsx` & `AdminDashboard.css`)
 - **Thiết kế lại cụm `📝 Manage objectives`**:
   - Chuyển đổi thanh tiêu đề Pane mục tiêu con thành một **Header Card Memphis thu nhỏ** lộng lẫy: nền trắng sữa `#FFFFFF`, viền Slate dày `3px solid #1E293B`, bo góc `16px`, bóng đổ Memphis 3D `4px 4px 0px #1E293B` xoay nhẹ, tạo cảm giác vô cùng chắc chắn và đồng bộ với Header Card của trang chính.

@@ -2384,16 +2384,16 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                                           {lang === 'vi' ? 'Chưa có hoạt động nào được lập cho mục tiêu này.' : 'No activities planned for this objective.'}
                                         </div>
                                       ) : (
-                                        <table className="activity-sub-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem', backgroundColor: '#ffffff', borderRadius: '6px', overflow: 'hidden', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
+                                        <table className="activity-sub-table">
                                           <thead>
-                                            <tr style={{ backgroundColor: '#EDF2F7', borderBottom: '1px solid #CBD5E1', color: '#4A5568', textAlign: 'left' }}>
-                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>{(t as any).actExercise || 'Bài tập'}</th>
-                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>{(t as any).actFreq || 'Tần suất'}</th>
-                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>{(t as any).actMethodCol || 'PP Giảng dạy'}</th>
-                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>{(t as any).actCriteria || 'Tiêu chí'}</th>
-                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>{(t as any).actAssigneeCol || 'Thực hiện'}</th>
-                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>{lang === 'vi' ? 'Trạng thái & Bài nộp' : 'Status & Submissions'}</th>
-                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textAlign: 'right', textTransform: 'uppercase' }}>{(t as any).actActions || 'Thao tác'}</th>
+                                            <tr>
+                                              <th>{(t as any).actExercise || 'Bài tập'}</th>
+                                              <th>{(t as any).actFreq || 'Tần suất'}</th>
+                                              <th>{(t as any).actMethodCol || 'PP Giảng dạy'}</th>
+                                              <th>{(t as any).actCriteria || 'Tiêu chí'}</th>
+                                              <th>{(t as any).actAssigneeCol || 'Thực hiện'}</th>
+                                              <th>{lang === 'vi' ? 'Trạng thái & Bài nộp' : 'Status & Submissions'}</th>
+                                              <th style={{ textAlign: 'right' }}>{(t as any).actActions || 'Thao tác'}</th>
                                             </tr>
                                           </thead>
                                           <tbody>
@@ -2402,24 +2402,25 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                                               const currentStatus = act.status === 'Submitted' ? 'Submitted' : 'In Progress';
                                               const submitTimes = subs.length > 0 ? Math.max(...subs.map(s => s.submit_times)) : 0;
                                               return (
-                                                <tr key={act.activity_id || index} style={{ borderBottom: '1px solid #E2E8F0', color: '#475569' }}>
-                                                  <td style={{ padding: '0.6rem 0.8rem', fontWeight: '600', color: '#0F172A' }}>{act.activity_name}</td>
-                                                  <td style={{ padding: '0.6rem 0.8rem' }}>{act.frequency}</td>
-                                                  <td style={{ padding: '0.6rem 0.8rem', whiteSpace: 'pre-wrap' }}>{act.teaching_method}</td>
-                                                  <td style={{ padding: '0.6rem 0.8rem' }}>{act.target_criteria}</td>
-                                                  <td style={{ padding: '0.6rem 0.8rem' }}>
-                                                    <span style={{ padding: '2px 8px', borderRadius: '4px', background: '#E2E8F0', fontSize: '0.75rem', fontWeight: 600 }}>{act.assignee_type}</span>
+                                                <tr key={act.activity_id || index}>
+                                                  <td style={{ color: '#0F172A' }}>{act.activity_name}</td>
+                                                  <td>{act.frequency}</td>
+                                                  <td style={{ whiteSpace: 'pre-wrap' }}>{act.teaching_method}</td>
+                                                  <td>{act.target_criteria}</td>
+                                                  <td>
+                                                    <span style={{ padding: '2px 8px', borderRadius: '4px', background: '#E2E8F0', fontSize: '0.75rem', fontWeight: 700 }}>{act.assignee_type}</span>
                                                   </td>
-                                                  <td style={{ padding: '0.6rem 0.8rem' }}>
+                                                  <td>
                                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-start' }}>
                                                       <span 
                                                         className={`report-badge ${currentStatus === 'Submitted' ? 'pending' : 'approved'}`}
                                                         style={{ 
-                                                          backgroundColor: currentStatus === 'Submitted' ? '#FEF3C7' : '#F1F5F9',
-                                                          color: currentStatus === 'Submitted' ? '#D97706' : '#475569',
+                                                          backgroundColor: currentStatus === 'Submitted' ? '#FEF3C7' : '#E2E8F0',
+                                                          color: currentStatus === 'Submitted' ? '#B45309' : '#334155',
                                                           borderColor: '#1E293B',
                                                           borderWidth: '2px',
-                                                          borderStyle: 'solid'
+                                                          borderStyle: 'solid',
+                                                          boxShadow: '1.5px 1.5px 0px #1E293B'
                                                         }}
                                                       >
                                                         {currentStatus === 'Submitted' 
@@ -2433,7 +2434,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                                                       )}
                                                     </div>
                                                   </td>
-                                                  <td style={{ padding: '0.6rem 0.8rem', textAlign: 'right' }}>
+                                                  <td>
                                                     <div style={{ display: 'flex', gap: '6px', justifyContent: 'flex-end', alignItems: 'center' }}>
                                                       <button 
                                                         type="button"
@@ -2442,13 +2443,19 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                                                           background: currentStatus === 'Submitted' && currentSimulatorRole === 'Teacher' ? '#FBBF24 !important' : '#FFFFFF !important',
                                                           color: '#1E293B !important',
                                                           borderColor: '#1E293B !important',
-                                                          fontWeight: 800
+                                                          fontWeight: 800,
+                                                          display: 'inline-flex',
+                                                          alignItems: 'center',
+                                                          gap: '4px'
                                                         }}
                                                         onClick={() => openActModal('view', obj.objective_id, act)}
                                                       >
-                                                        👁️ {currentStatus === 'Submitted' && currentSimulatorRole === 'Teacher' 
+                                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                                          <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                                                        </svg>
+                                                        {currentStatus === 'Submitted' && currentSimulatorRole === 'Teacher' 
                                                               ? (lang === 'vi' ? 'Review ngay' : 'Review') 
-                                                              : (lang === 'vi' ? 'Chi tiết & Tương tác' : 'Details')}
+                                                              : (lang === 'vi' ? 'Details' : 'Details')}
                                                       </button>
                                                       
                                                       {currentSimulatorRole === 'Teacher' && (
