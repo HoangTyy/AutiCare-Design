@@ -6,6 +6,11 @@ export interface ObjectiveActivity {
   activity_name: string;
   description: string;
   duration: string;
+  frequency?: string;
+  target_criteria?: string;
+  teaching_method?: string;
+  assignee_type?: string;
+  is_deleted?: boolean;
   status: 'Active' | 'Inactive';
 }
 
@@ -138,6 +143,24 @@ const translations = {
     createActTitle: "Thêm hoạt động mới",
     editActTitle: "Cập nhật hoạt động",
     confirmDeleteAct: "Xóa hoạt động này?",
+    deleteActSub: "Hành động này sẽ xóa hoạt động và không thể khôi phục.",
+    actListTitle: "Danh sách Hoạt động",
+    actExercise: "Bài tập",
+    actFreq: "Tần suất",
+    actMethodCol: "PP Giảng dạy",
+    actAssigneeCol: "Thực hiện",
+    actCriteria: "Tiêu chí đạt",
+    actActions: "Thao tác",
+    actDetailsTitle: "Chi tiết Hoạt động",
+    actDetailsSubtitle: "Xem chi tiết hướng dẫn thao tác, công cụ cần chuẩn bị cho một Hoạt động can thiệp cụ thể.",
+    editAct: "Cập nhật Hoạt động",
+    actNamePlaceholder: "Nhập tên bài tập...",
+    actFreqPlaceholder: "Ví dụ: 3 lần/tuần",
+    actMethodPlaceholder: "Hướng dẫn chi tiết...",
+    actCriteriaPlaceholder: "Tiêu chí để đánh giá trẻ đạt",
+    roleParent: "Phụ huynh (Parent)",
+    roleTeacher: "Giáo viên (Teacher)",
+    roleTherapist: "Chuyên viên (Therapist)",
 
     // CRUD Objective
     objTitle: "Quản lý mục tiêu hành vi",
@@ -224,6 +247,24 @@ const translations = {
     createActTitle: "Create New Activity",
     editActTitle: "Update Activity",
     confirmDeleteAct: "Delete this activity?",
+    deleteActSub: "This action cannot be undone and will permanently delete this item.",
+    actListTitle: "Activities List",
+    actExercise: "Exercise",
+    actFreq: "Frequency",
+    actMethodCol: "Teaching Method",
+    actAssigneeCol: "Assignee",
+    actCriteria: "Criteria",
+    actActions: "Actions",
+    actDetailsTitle: "Activity Details",
+    actDetailsSubtitle: "View detailed instructions and prepared tools for a specific intervention activity.",
+    editAct: "Update Activity",
+    actNamePlaceholder: "Enter exercise name...",
+    actFreqPlaceholder: "E.g., 3 times/week",
+    actMethodPlaceholder: "Detailed instructions...",
+    actCriteriaPlaceholder: "Target criteria to evaluate the child",
+    roleParent: "Parent",
+    roleTeacher: "Teacher",
+    roleTherapist: "Therapist",
 
     // CRUD Objective
     objTitle: "Manage objectives",
@@ -291,6 +332,21 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
 
   // Objective Modal State
   const [isObjModalOpen, setIsObjModalOpen] = useState(false);
+  const [isActModalOpen, setIsActModalOpen] = useState(false);
+  const [actModalMode, setActModalMode] = useState<'create' | 'update' | 'delete' | 'view'>('create');
+  const [actName, setActName] = useState('');
+  // @ts-ignore
+  const [actDesc, setActDesc] = useState('');
+  // @ts-ignore
+  const [actDuration, setActDuration] = useState('');
+  const [actFrequency, setActFrequency] = useState('');
+  const [actAssigneeType, setActAssigneeType] = useState('Parent');
+  const [actTeachingMethod, setActTeachingMethod] = useState('');
+  const [actTargetCriteria, setActTargetCriteria] = useState('');
+  // @ts-ignore
+  const [activeObjId, setActiveObjId] = useState<number | null>(null);
+  // @ts-ignore
+  const [activeActId, setActiveActId] = useState<number | null>(null);
   const [objModalMode, setObjModalMode] = useState<'create' | 'update' | 'delete' | 'view'>('create');
   const [selectedObj, setSelectedObj] = useState<PhaseObjective | null>(null);
   const [objName, setObjName] = useState('');
@@ -413,6 +469,37 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
   // Activity Handlers (Removed per user request)
 
   // Objective Handlers
+  const openActModal = (mode: 'create' | 'update' | 'delete' | 'view', objId: number, act: ObjectiveActivity | null = null) => {
+    setActModalMode(mode);
+    setActiveObjId(objId);
+    if (act && (mode === 'update' || mode === 'delete' || mode === 'view')) {
+      setActiveActId(act.activity_id);
+      setActName(act.activity_name);
+      setActDesc(act.description);
+      setActDuration(act.duration);
+      setActFrequency(act.frequency || '');
+      setActAssigneeType(act.assignee_type || 'Parent');
+      setActTeachingMethod(act.teaching_method || '');
+      setActTargetCriteria(act.target_criteria || '');
+    } else {
+      setActiveActId(null);
+      setActName('');
+      setActDesc('');
+      setActDuration('');
+      setActFrequency('');
+      setActAssigneeType('Parent');
+      setActTeachingMethod('');
+      setActTargetCriteria('');
+    }
+    setIsActModalOpen(true);
+  };
+
+  const handleSaveAct = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert(t.success || 'Success');
+    setIsActModalOpen(false);
+  };
+
   const openObjModal = (mode: 'create' | 'update' | 'delete' | 'view', obj: PhaseObjective | null = null) => {
     setObjModalMode(mode);
     setSelectedObj(obj);
@@ -1759,29 +1846,56 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                               {/* Dòng phụ hiển thị danh sách Activity (Chỉ render khi dòng này được mở) */}
                               {isExpanded && (
                                 <tr style={{ backgroundColor: '#F8FAFC' }}>
-                                  <td colSpan={4} style={{ borderBottom: '1px solid #E2E8F0' }}>
-                                    <div className="activity-section-wrapper" style={{ animation: 'fadeIn 0.2s ease-out' }}>
+                                  <td colSpan={5} style={{ borderBottom: '1px solid #E2E8F0' }}>
+                                    <div className="activity-section-wrapper" style={{ animation: 'fadeIn 0.2s ease-out', padding: '12px' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                                          <h5 style={{ margin: 0, fontSize: '0.9rem', color: '#1E293B' }}>{(t as any).actListTitle || 'Danh sách Hoạt động'}</h5>
+                                          <button className="btn-primary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }} onClick={() => openActModal('create', obj.objective_id)}>
+                                            + {(t as any).addAct || 'Thêm Hoạt động'}
+                                          </button>
+                                        </div>
 
-                                      {activities.length === 0 ? (
+                                      {activities.filter(a => !a.is_deleted).length === 0 ? (
                                         <p style={{ margin: 0, color: '#94A3B8', fontSize: '0.85rem' }}>
                                           {'No activity found.'}
                                         </p>
                                       ) : (
                                         <table className="activity-sub-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem', backgroundColor: '#ffffff', borderRadius: '6px', overflow: 'hidden', boxShadow: '0 1px 2px rgba(0,0,0,0.02)' }}>
                                           <thead>
-                                            <tr style={{ backgroundColor: '#EDF2F7', borderBottom: '1px solid #CBD5E1', color: '#4A5568' }}>
-                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', width: '20%' }}>{'Frequency'}</th>
-                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', width: '40%' }}>{'Descriptions'}</th>
-                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', width: '20%' }}>{'Satus'}</th>
-                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', width: '40%' }}>{'Actions'}</th>
+                                            <tr style={{ backgroundColor: '#EDF2F7', borderBottom: '1px solid #CBD5E1', color: '#4A5568', textAlign: 'left' }}>
+                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>{(t as any).actExercise || 'Bài tập'}</th>
+                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>{(t as any).actFreq || 'Tần suất'}</th>
+                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>{(t as any).actMethodCol || 'PP Giảng dạy'}</th>
+                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>{(t as any).actCriteria || 'Tiêu chí'}</th>
+                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textTransform: 'uppercase' }}>{(t as any).actAssigneeCol || 'Thực hiện'}</th>
+                                              <th style={{ padding: '0.6rem 0.8rem', fontWeight: '600', textAlign: 'right', textTransform: 'uppercase' }}>{(t as any).actActions || 'Thao tác'}</th>
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            {activities.map((act, index) => (
+                                            {activities.filter(a => !a.is_deleted).map((act, index) => (
                                               <tr key={act.activity_id || index} style={{ borderBottom: '1px solid #E2E8F0', color: '#475569' }}>
-                                                <td style={{ padding: '0.6rem 0.8rem', fontWeight: '500' }}>{act.activity_name}</td>
-                                                <td style={{ padding: '0.6rem 0.8rem', whiteSpace: 'pre-wrap' }}>{act.description}</td>
-                                                <td style={{ padding: '0.6rem 0.8rem', whiteSpace: 'pre-wrap' }}>{act.status}</td>
+                                                <td style={{ padding: '0.6rem 0.8rem', fontWeight: '600', color: '#0F172A' }}>{act.activity_name}</td>
+                                                <td style={{ padding: '0.6rem 0.8rem' }}>{act.frequency}</td>
+                                                <td style={{ padding: '0.6rem 0.8rem', whiteSpace: 'pre-wrap' }}>{act.teaching_method}</td>
+                                                <td style={{ padding: '0.6rem 0.8rem' }}>{act.target_criteria}</td>
+                                                <td style={{ padding: '0.6rem 0.8rem' }}>
+                                                  <span style={{ padding: '2px 8px', borderRadius: '4px', background: '#E2E8F0', fontSize: '0.75rem', fontWeight: 600 }}>{act.assignee_type}</span>
+                                                </td>
+                                                <td style={{ padding: '0.6rem 0.8rem', textAlign: 'right' }}>
+                                                  <div style={{ display: 'flex', gap: '4px', justifyContent: 'flex-end' }}>
+                                                    <button className="edit-btn-v2" title="Details" onClick={() => openActModal('view', obj.objective_id, act)}>
+                                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                                                      </svg>
+                                                    </button>
+                                                    <button className="edit-btn-v2" onClick={() => openActModal('update', obj.objective_id, act)}>
+                                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" /></svg>
+                                                    </button>
+                                                    <button className="delete-btn-v2" onClick={() => openActModal('delete', obj.objective_id, act)}>
+                                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" /></svg>
+                                                    </button>
+                                                  </div>
+                                                </td>
                                               </tr>
                                             ))}
                                           </tbody>
@@ -1959,7 +2073,101 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
 
       {/* CRUD ACTIVITY MODAL (Removed per user request) */}
 
-      {isObjModalOpen && (
+            {/* ACTIVITY MODAL */}
+      {isActModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsActModalOpen(false)}>
+          <div className="admin-modal animate-in" onClick={(e) => e.stopPropagation()} style={{ width: '600px', maxWidth: '90%' }}>
+            <div className="modal-header">
+              <h3>
+                {actModalMode === 'create' && `✨ ${(t as any).addAct || 'Thêm Hoạt động'}`}
+                {actModalMode === 'update' && `📝 ${(t as any).editAct || 'Cập nhật Hoạt động'}`}
+                {actModalMode === 'delete' && `⚠️ ${(t as any).confirmDeleteAct || 'Xóa Hoạt động'}`}
+                {actModalMode === 'view' && `👁️ ${(t as any).actDetailsTitle || 'Chi tiết Hoạt động'}`}
+              </h3>
+              <button className="close-modal" onClick={() => setIsActModalOpen(false)}>×</button>
+            </div>
+
+            <form onSubmit={actModalMode === 'view' ? (e) => e.preventDefault() : handleSaveAct}>
+              <div className="modal-body">
+                {actModalMode === 'view' ? (
+                  <div className="modal-body">
+                    <p style={{ color: '#64748B', fontSize: '0.9rem', marginBottom: '16px' }}>
+                      {(t as any).actDetailsSubtitle || 'Xem chi tiết hướng dẫn thao tác, công cụ cần chuẩn bị cho một Hoạt động can thiệp cụ thể.'}
+                    </p>
+                    <div className="modal-flex-col" style={{ pointerEvents: 'none' }}>
+                      <div className="form-group form-group-full">
+                        <label>{(t as any).actName || 'Tên bài tập'}</label>
+                        <input type="text" readOnly value={actName || ''} style={{ backgroundColor: '#F8FAFC', color: '#1E293B', fontWeight: 600 }} />
+                      </div>
+                      <div style={{display: 'flex', gap: '12px'}}>
+                        <div className="form-group" style={{flex: 1}}>
+                          <label>{(t as any).actFreq || 'Tần suất'}</label>
+                          <input type="text" readOnly value={actFrequency || ''} style={{ backgroundColor: '#F8FAFC', color: '#1E293B' }} />
+                        </div>
+                        <div className="form-group" style={{flex: 1}}>
+                          <label>{(t as any).actAssigneeCol || 'Thực hiện'}</label>
+                          <input type="text" readOnly value={actAssigneeType || ''} style={{ backgroundColor: '#F8FAFC', color: '#1E293B' }} />
+                        </div>
+                      </div>
+                      <div className="form-group form-group-full">
+                        <label>{(t as any).actMethodCol || 'Phương pháp giảng dạy'}</label>
+                        <textarea rows={3} readOnly value={actTeachingMethod || ''} style={{ backgroundColor: '#F8FAFC', color: '#1E293B' }} />
+                      </div>
+                      <div className="form-group form-group-full">
+                        <label>{(t as any).actCriteria || 'Tiêu chí đạt'}</label>
+                        <input type="text" readOnly value={actTargetCriteria || ''} style={{ backgroundColor: '#F8FAFC', color: '#1E293B' }} />
+                      </div>
+                    </div>
+                  </div>
+                ) : actModalMode === 'delete' ? (
+                  <div className="delete-confirm">
+                    <p>{(t as any).deleteActSub || 'Hành động này sẽ xóa hoạt động và không thể khôi phục.'}</p>
+                  </div>
+                ) : (
+                  <div className="modal-form modal-form-grid">
+                    <div className="form-group form-group-full">
+                      <label>{(t as any).actName || 'Tên bài tập (từ Thư viện)'}</label>
+                      <input required type="text" value={actName} onChange={e => setActName(e.target.value)} placeholder={(t as any).actNamePlaceholder || 'Nhập tên bài tập...'} spellCheck="false" />
+                    </div>
+                    <div className="form-group">
+                      <label>{(t as any).actFreq || 'Tần suất'}</label>
+                      <input required type="text" value={actFrequency} onChange={e => setActFrequency(e.target.value)} placeholder={(t as any).actFreqPlaceholder || 'Ví dụ: 3 lần/tuần'} spellCheck="false" />
+                    </div>
+                    <div className="form-group">
+                      <label>{(t as any).actAssigneeCol || 'Người thực hiện'}</label>
+                      <select required value={actAssigneeType} onChange={e => setActAssigneeType(e.target.value)} style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontFamily: '"Be Vietnam Pro", sans-serif' }}>
+                        <option value="Parent">{(t as any).roleParent || 'Phụ huynh'}</option>
+                        <option value="Teacher">{(t as any).roleTeacher || 'Giáo viên'}</option>
+                        <option value="Therapist">{(t as any).roleTherapist || 'Chuyên viên'}</option>
+                      </select>
+                    </div>
+                    <div className="form-group form-group-full">
+                      <label>{(t as any).actMethodCol || 'Phương pháp giảng dạy'}</label>
+                      <textarea rows={3} required value={actTeachingMethod} onChange={e => setActTeachingMethod(e.target.value)} placeholder={(t as any).actMethodPlaceholder || 'Hướng dẫn chi tiết...'} spellCheck="false" />
+                    </div>
+                    <div className="form-group form-group-full">
+                      <label>{(t as any).actCriteria || 'Tiêu chí đạt'}</label>
+                      <input required type="text" value={actTargetCriteria} onChange={e => setActTargetCriteria(e.target.value)} placeholder={(t as any).actCriteriaPlaceholder || 'Tiêu chí để đánh giá trẻ đạt'} spellCheck="false" />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="modal-footer">
+                <button type="button" className={actModalMode === 'view' ? "btn-primary" : "btn-secondary"} onClick={() => setIsActModalOpen(false)}>
+                  {actModalMode === 'view' ? (lang === 'vi' ? 'Đóng' : 'Close') : t.cancel}
+                </button>
+                {actModalMode !== 'view' && (
+                  <button type="submit" className={`btn-primary ${actModalMode === 'delete' ? 'btn-danger' : ''}`}>
+                    {actModalMode === 'delete' ? t.confirmDelete : (actModalMode === 'create' ? t.create : t.save)}
+                  </button>
+                )}
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+{isObjModalOpen && (
         <div className="modal-overlay" onClick={() => setIsObjModalOpen(false)}>
           <div className="admin-modal animate-in" onClick={(e) => e.stopPropagation()}>
 

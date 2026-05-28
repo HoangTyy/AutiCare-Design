@@ -87,6 +87,7 @@ const childOptions = [
 
 const QuizPage: React.FC<QuizPageProps> = ({ lang, quizId, onBack }) => {
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
+  // @ts-ignore
   const [submitted, setSubmitted] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
