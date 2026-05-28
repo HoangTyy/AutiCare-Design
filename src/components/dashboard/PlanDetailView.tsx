@@ -2204,9 +2204,36 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
             <div className="phase-detail-card">
               {/* Section Objectives */}
               <div className="objectives-section">
-                <div className="section-pane-header" style={{ marginBottom: '1.2rem', borderBottom: '2px dashed #E2E8F0', paddingBottom: '0.75rem' }}>
-                  <h4 className="section-pane-title" style={{ fontSize: '1.25rem' }}>📝 {t.objTitle || 'Manage Objectives'}</h4>
-                  <button className="add-btn" onClick={() => openObjModal('create')}>
+                <div 
+                  className="section-pane-header" 
+                  style={{ 
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '1.5rem', 
+                    padding: '14px 20px',
+                    background: '#FFFFFF',
+                    border: '3px solid #1E293B',
+                    borderRadius: '16px',
+                    boxShadow: '4px 4px 0px #1E293B'
+                  }}
+                >
+                  <h4 className="section-pane-title" style={{ fontSize: '1.15rem', fontWeight: 900, color: '#1E293B', margin: 0 }}>
+                    📝 {t.objTitle || 'Manage Objectives'}
+                  </h4>
+                  <button 
+                    className="add-btn" 
+                    onClick={() => openObjModal('create')}
+                    style={{
+                      height: 'auto',
+                      padding: '6px 14px',
+                      fontSize: '0.8rem',
+                      fontWeight: 800,
+                      boxShadow: '2.5px 2.5px 0px #1E293B',
+                      background: '#8B5CF6',
+                      borderColor: '#1E293B'
+                    }}
+                  >
                     + {t.addObj || 'Add Objective'}
                   </button>
                 </div>
@@ -2216,21 +2243,21 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                     <p>{t.noObj}</p>
                   </div>
                 ) : (
-                  <div className="table-responsive-v2" style={{ overflowX: 'auto', background: '#fff', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-                    <table className="objectives-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                  <div className="objectives-table-wrapper" style={{ overflowX: 'auto' }}>
+                    <table className="objectives-table">
                       <thead>
-                        <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '2px solid #E2E8F0' }}>
-                          <th style={{ padding: '1rem', width: '5%' }}></th>
-                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569', width: '50%', textAlign: 'left' }}>
+                        <tr>
+                          <th style={{ width: '8%', textAlign: 'center' }}></th>
+                          <th style={{ width: '47%', textAlign: 'left' }}>
                             {t.objName || 'Tên mục tiêu'}
                           </th>
-                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569', width: '15%', textAlign: 'center' }}>
+                          <th style={{ width: '15%', textAlign: 'center' }}>
                             {'Target'}
                           </th>
-                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569', width: '15%', textAlign: 'center' }}>
+                          <th style={{ width: '15%', textAlign: 'center' }}>
                             {'Status'}
                           </th>
-                          <th style={{ padding: '1rem', fontWeight: '600', color: '#475569', width: '15%', textAlign: 'center' }}>
+                          <th style={{ width: '15%', textAlign: 'center' }}>
                             {'Actions'}
                           </th>
                         </tr>
@@ -2246,30 +2273,60 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                               {/* Dòng chính chứa Objective */}
                               <tr
                                 className={`obj-main-row ${isExpanded ? 'active' : ''}`}
-                                style={{ borderBottom: '1px solid #E2E8F0', cursor: 'pointer', transition: 'background 0.2s' }}
+                                style={{ cursor: 'pointer' }}
                                 onClick={() => toggleExpandRow(obj.objective_id)}
                               >
                                 {/* Mũi tên chỉ trạng thái đóng/mở */}
-                                <td style={{ padding: '1rem', textAlign: 'center', color: '#64748B' }}>
-                                  <span style={{ display: 'inline-block', transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
-                                    ▶
-                                  </span>
+                                <td style={{ textAlign: 'center' }}>
+                                  <div 
+                                    style={{
+                                      width: '28px',
+                                      height: '28px',
+                                      borderRadius: '50%',
+                                      border: '2px solid #1E293B',
+                                      background: isExpanded ? '#8B5CF6' : '#FFFFFF',
+                                      color: isExpanded ? '#FFFFFF' : '#1E293B',
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      boxShadow: '2px 2px 0px #1E293B',
+                                      transition: 'all 0.2s ease',
+                                      transform: isExpanded ? 'scale(1.05)' : 'scale(1)',
+                                      margin: '0 auto'
+                                    }}
+                                  >
+                                    <span style={{ display: 'inline-block', fontSize: '0.65rem', transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                                      ▶
+                                    </span>
+                                  </div>
                                 </td>
-                                <td style={{ padding: '1rem', fontWeight: '500', color: '#1E293B' }}>
+                                <td style={{ color: '#1E293B' }}>
                                   {obj.objective_name}
                                 </td>
-                                <td style={{ padding: '1rem', textAlign: 'center' }}>
+                                <td style={{ textAlign: 'center' }}>
                                   <span className="item-card-tag duration" style={{ display: 'inline-block', padding: '0.25rem 0.5rem', background: '#F1F5F9', borderRadius: '4px', fontSize: '0.85rem' }}>
                                     {obj.target_date}
                                   </span>
                                 </td>
-                                <td style={{ padding: '1rem', textAlign: 'center' }}>
-                                  <span className="item-card-tag duration" style={{ display: 'inline-block', padding: '0.25rem 0.5rem', background: '#F1F5F9', borderRadius: '4px', fontSize: '0.85rem' }}>
-                                    {obj.status}
+                                <td style={{ textAlign: 'center' }}>
+                                  <span 
+                                    className={`report-badge ${obj.status === 'Completed' ? 'approved' : 'pending'}`}
+                                    style={{
+                                      backgroundColor: obj.status === 'Completed' ? '#D1FAE5' : '#FEF9C3',
+                                      color: obj.status === 'Completed' ? '#065F46' : '#854D0E',
+                                      borderColor: '#1E293B',
+                                      borderWidth: '2.5px',
+                                      borderStyle: 'solid',
+                                      fontSize: '0.75rem',
+                                      padding: '4px 10px',
+                                      boxShadow: '1.5px 1.5px 0px #1E293B'
+                                    }}
+                                  >
+                                    {obj.status === 'Completed' ? (lang === 'vi' ? '👍 Hoàn thành' : 'Completed') : (lang === 'vi' ? '⏳ Đang thực hiện' : 'In process')}
                                   </span>
                                 </td>
                                 {/* Cột Action chặn sụp đổ dòng khi click nút bấm (stopPropagation) */}
-                                <td style={{ padding: '1rem', textAlign: 'right' }} onClick={(e) => e.stopPropagation()}>
+                                <td style={{ textAlign: 'right' }} onClick={(e) => e.stopPropagation()}>
                                   <div className="item-card-actions" style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
                                     <button className="edit-btn-v2" 
                                     title={'details'}
@@ -2302,8 +2359,8 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
 
                               {/* Dòng phụ hiển thị danh sách Activity (Chỉ render khi dòng này được mở) */}
                               {isExpanded && (
-                                <tr style={{ backgroundColor: '#F8FAFC' }}>
-                                  <td colSpan={6} style={{ borderBottom: '1px solid #E2E8F0' }}>
+                                <tr className="activity-row-expanded">
+                                  <td colSpan={5}>
                                     <div className="activity-section-wrapper" style={{ animation: 'fadeIn 0.2s ease-out', padding: '12px' }}>
                                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
                                         <h5 style={{ margin: 0, fontSize: '0.9rem', color: '#1E293B', fontWeight: '800' }}>

@@ -2542,8 +2542,90 @@ thead th:last-child {
   transform: translateY(1px) !important;
   box-shadow: 1px 1px 0px #1E293B !important;
 }
+/* Custom styles for Objectives Table in PlanDetailView */
+.objectives-table-wrapper {
+  background: transparent !important;
+  padding: 8px 0px !important;
+  overflow: visible !important;
+}
 
+.objectives-table {
+  border-collapse: separate !important;
+  border-spacing: 0 12px !important;
+  width: 100% !important;
+  overflow: visible !important;
+}
 
+.objectives-table thead th {
+  padding: 0.75rem 1rem !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-size: 0.8rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #475569 !important;
+  font-weight: 800 !important;
+  border: none !important;
+  background: transparent !important;
+}
 
+.obj-main-row td {
+  padding: 1.1rem 1.25rem !important;
+  border-top: 2.5px solid #1E293B !important;
+  border-bottom: 2.5px solid #1E293B !important;
+  background: #FFFFFF !important;
+  box-shadow: 4px 4px 0px #1E293B !important;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  vertical-align: middle !important;
+  color: #1E293B !important;
+  font-family: 'Be Vietnam Pro', sans-serif !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+}
 
+.obj-main-row td:first-child {
+  border-left: 2.5px solid #1E293B !important;
+  border-top-left-radius: 16px !important;
+  border-bottom-left-radius: 16px !important;
+}
+
+.obj-main-row td:last-child {
+  border-right: 2.5px solid #1E293B !important;
+  border-top-right-radius: 16px !important;
+  border-bottom-right-radius: 16px !important;
+}
+
+.obj-main-row:hover td {
+  transform: translate(-3px, -3px) !important;
+  box-shadow: 7px 7px 0px #1E293B !important;
+  background: #FFFDF5 !important;
+}
+
+.obj-main-row:hover td:first-child {
+  border-left: 5px solid #8B5CF6 !important;
+}
+
+.obj-main-row.active td {
+  background: #FFFBEB !important;
+  border-color: #1E293B !important;
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 5px 5px 0px #1E293B !important;
+}
+
+.obj-main-row.active td:first-child {
+  border-left: 5px solid #F59E0B !important; /* Amber border when expanded */
+}
+
+/* Style for expanded Sub Activity table row wrapper */
+.activity-row-expanded td {
+  padding: 4px 8px 20px 8px !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.activity-row-expanded:hover td {
+  transform: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
 

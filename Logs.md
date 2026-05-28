@@ -1,5 +1,19 @@
 # Project Logs
 
+## [2026-05-28] - Đồng bộ hóa Thẩm mỹ Memphis 3D & Nẩy nổi cho Giao diện Quản lý Mục tiêu Can thiệp (`PlanDetailView.tsx` & `AdminDashboard.css`)
+- **Thiết kế lại cụm `📝 Manage objectives`**:
+  - Chuyển đổi thanh tiêu đề Pane mục tiêu con thành một **Header Card Memphis thu nhỏ** lộng lẫy: nền trắng sữa `#FFFFFF`, viền Slate dày `3px solid #1E293B`, bo góc `16px`, bóng đổ Memphis 3D `4px 4px 0px #1E293B` xoay nhẹ, tạo cảm giác vô cùng chắc chắn và đồng bộ với Header Card của trang chính.
+  - Tối ưu hóa Candy Button thêm mới mục tiêu can thiệp `+ Add Objective` có viền Slate đen dày, bóng đổ nẩy bounce và màu tím Violet thương hiệu ngọt ngào.
+- **Memphis-hóa Bảng Objectives thành Floating Rows 3D**:
+  - Bọc bảng Objectives trong wrapper mới `.objectives-table-wrapper` có `overflow: visible` cho phép bóng đổ thò ra tự nhiên và bảng `.objectives-table` có `border-collapse: separate` kết hợp khoảng giãn cách dòng nổi `border-spacing: 0 12px` bồng bềnh.
+  - Định kiểu dòng chính `.obj-main-row` có viền Slate dày `2.5px solid #1E293B`, nền trắng, bóng đổ 3D offset `4px`. Khi rê chuột (hover) hàng dữ liệu sẽ nẩy lên elastic `translate(-3px, -3px)`, bóng đổ kéo dãn ra `7px`, và hiện vệt màu tím Violet thương hiệu `#8B5CF6` cực kỳ cá tính ở lề bên trái. Khi dòng được mở rộng (active), đổi nền sang màu kem ngọt ngào và lề trái chuyển màu hổ phách `Amber` nổi bật.
+  - Tái thiết kế nút mở rộng dòng `▶` thành một **Sticker Circle Button Memphis mini** hình tròn tự động chuyển màu tím Violet, chữ trắng và nẩy elastic scale nhẹ khi dòng được mở rộng.
+  - Đồng bộ hóa các badge Status (`In process` / `Completed`) thành các huy hiệu Memphis có viền đen Slate dày dặn, bóng đổ 3D mini và màu nền pastel bắt mắt.
+- **Tối ưu hóa hàng phụ mở rộng (`activity-row-expanded`)**:
+  - Thiết lập hàng phụ chứa bảng hoạt động con không thừa kế kiểu dáng td của dòng chính, loại bỏ hoàn toàn viền Slate và bóng đổ để thẻ bọc card `.activity-section-wrapper` màu vàng kem dịu mắt bên trong được bộc lộ trọn vẹn và gọn gàng nhất.
+  - Sửa lỗi lệch cột bằng cách thiết lập `colSpan={5}` khớp chính xác 100% với số lượng cột thực tế của bảng.
+  - Dự án được biên dịch production thành công **100% sạch lỗi** chỉ trong **435ms**.
+
 ## [2026-05-28] - Hợp nhất Hoàn thiện Luồng Nộp bài tập & Đánh giá Chuyên gia vào Modal Chi tiết Hoạt động (`PlanDetailView.tsx` & `AdminDashboard.tsx`)
 - **Tái cấu trúc luồng trạng thái hoạt động**:
   - Hợp nhất toàn bộ hai modal nộp báo cáo (`isSubmitReportModalOpen`) và đánh giá báo cáo (`isEvaluateReportModalOpen`) cũ rời rạc vào trực tiếp bên trong **Modal Chi tiết Hoạt động** (`isActModalOpen` khi ở chế độ `actModalMode === 'view'`).
