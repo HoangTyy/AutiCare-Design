@@ -119,6 +119,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
                   activity_name: 'Ghép tranh Lego tìm kiếm tương tác mắt',
                   description: 'Giáo viên cầm mảnh Lego đặt ngang tầm mắt để thu hút sự chú ý của trẻ, khi trẻ nhìn vào mắt giáo viên thì trao mảnh ghép.',
                   duration: '30 phút / buổi',
+                  frequency: '3 lần / tuần',
+                  target_criteria: 'Trẻ nhìn mắt giáo viên 3-5 giây khi đưa mảnh ghép',
+                  teaching_method: 'Giữ mảnh ghép gần tầm mắt, gọi tên trẻ. Đợi trẻ nhìn vào mắt mới đưa mảnh ghép.',
+                  assignee_type: 'Teacher',
                   status: 'Active'
                 }
               ],
@@ -152,6 +156,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
                   activity_name: 'Gọi tên con vật qua thẻ hình ảnh',
                   description: 'Sử dụng các thẻ tranh ảnh sắc nét để hướng dẫn trẻ phát âm các từ đơn.',
                   duration: '45 phút / buổi',
+                  frequency: 'Mỗi ngày 15 phút',
+                  target_criteria: 'Bắt chước đúng 3/5 âm thanh động vật quen thuộc',
+                  teaching_method: 'Đưa thẻ hình lên ngang miệng, làm mẫu âm thanh (meo meo, gâu gâu...) rõ khẩu hình, khen ngợi ngay khi trẻ phát âm theo.',
+                  assignee_type: 'Parent',
                   status: 'Active'
                 }
               ],
@@ -207,6 +215,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
                   activity_name: 'Nghe nhạc êm dịu kết hợp chơi đất nặn',
                   description: 'Giúp trẻ làm quen với các tần số âm thanh khác nhau trong môi trường thư giãn.',
                   duration: '40 phút / buổi',
+                  frequency: '3 lần / tuần',
+                  target_criteria: 'Trẻ chấp nhận nghe trong 5 phút mà không tháo tai nghe',
+                  teaching_method: 'Bật nhạc âm lượng nhỏ, tăng dần. Cùng chơi đất nặn để phân tán.',
+                  assignee_type: 'Therapist',
                   status: 'Active'
                 }
               ],
