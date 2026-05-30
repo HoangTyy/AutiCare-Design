@@ -208,13 +208,14 @@ const StaffsTab: React.FC<StaffsTabProps> = ({ lang }) => {
     const term = searchTerm.toLowerCase();
 
     return (
-      staff.staffId.toLowerCase().includes(term) ||
-      staff.fullName.toLowerCase().includes(term) ||
-      staff.staffType.toLowerCase().includes(term) ||
-      staff.email.toLowerCase().includes(term) ||
-      staff.phoneNumber.toLowerCase().includes(term) ||
-      staff.centerName.toLowerCase().includes(term) ||
-      staff.username.toLowerCase().includes(term)
+      staff.status !== 'Inactive' &&
+      (staff.staffId.toLowerCase().includes(term) ||
+        staff.fullName.toLowerCase().includes(term) ||
+        staff.staffType.toLowerCase().includes(term) ||
+        staff.email.toLowerCase().includes(term) ||
+        staff.phoneNumber.toLowerCase().includes(term) ||
+        staff.centerName.toLowerCase().includes(term) ||
+        staff.username.toLowerCase().includes(term))
     );
   });
 

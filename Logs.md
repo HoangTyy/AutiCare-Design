@@ -1,5 +1,130 @@
 # Project Logs
 
+## [2026-05-30] - Nang cap Parent/Child quick linking va rut gon language switch
+- **Implementation**:
+  - Cap nhat `src/components/dashboard/ParentsTab.tsx`: trong Update Parent bo sung 2 tuy chon bang tieng Anh. Tuy chon `Already have a child profile? Add child to this parent` hien truong `Child ID`, lookup thong tin child va khi save se gan child do ve parent dang update. Tuy chon `Need to create a child quickly?` hien form tao nhanh child va khi save se tao child moi voi parent hien tai.
+  - Bo sung nut Ban/Unban cho Parent list, dung style/action modal giong Staffs: parent `Active` co the ban, parent `Banned` co the unban ve `Active`.
+  - Cap nhat `src/components/dashboard/ChildrenTab.tsx`: Create Child co checkbox `No parent yet? Create now`; khi tick se hien form tao parent nhanh, bam `Create parent` se tao parent va tu dien `Parent ID`, sau do bam nut tao cuoi modal moi tao child.
+  - Sap xep lai form Children theo dung thu tu moi: Details/Update gom dong 1 `Child ID & Child Name`, dong 2 `Date of Birth & Sex`, dong 3 `Child Status`, dong 4 `Parent ID & Parent Name`, dong 5 `Address`, dong 6 `Parent Job`, dong 7 `Created At & Updated At`. Create gom `Child Name & Date of Birth`, `Sex`, `Parent ID & Parent Name`, `Parent Job`, `Address`.
+  - Chinh Sex trong View Details hien chi la text Male/Female; trong Update/Create radio button khong con khung bao ngoai.
+  - Rut gon language switch trong `src/components/AdminDashboard.tsx` va `src/components/AdminDashboard.css` ve 2 nut ngan gon `VI` / `EN`.
+- **Walkthrough**:
+  - Update Parent co the gan child co san bang Child ID hoac tao nhanh child moi cho parent.
+  - Create Child co the tao nhanh parent truoc, parent moi sinh ra se duoc gan vao truong Parent ID cua child.
+  - Parent co the Ban/Unban tu list Manage Parents; language switch topbar hien ngan gon VI/EN.
+- **Build Verification**:
+  - Da chay `npm.cmd run build` thanh cong. Vite chi canh bao chunk lon hon 500 kB sau minify, khong phai loi bien dich.
+
+## [2026-05-30] - Bo sung Manage Children va lien ket Parent Details
+- **Implementation**:
+  - Tao moi `src/components/dashboard/ChildrenTab.tsx` thanh tab rieng cho Manage Children, hien thi theo cung pattern table/modal CRUD cua `ParentsTab`.
+  - Tao `src/components/dashboard/familyData.ts` de dung chung kieu du lieu va mock state `Parent`/`Child`, giup `ParentsTab` va `ChildrenTab` doc chung nguon du lieu trong Admin Dashboard.
+  - Cap nhat `src/components/AdminDashboard.tsx`: them state `parents`, `children`, them menu `Manage Children` trong nhom `System` ngay duoi `Manage Parents`, mo rong union `Tab` voi `children`, import va render `ChildrenTab`.
+  - View list cua Children hien cac cot: `Child ID`, `Child Name`, `Sex`, `Parent Name`, `Status`, `Created At`, `Updated At`.
+  - Form details/create/update cua Children gom: `Child ID` read-only khi update/detail, `Child Name`, `Date of Birth`, `Sex` radio button Male/Female, `Status` read-only khi update/detail, `Created At`, `Updated At`, `Parent ID`, `Parent Name`, `Address`, `Parent Job`.
+  - Khi nhap `Parent ID`, form Children tu lookup va hien `Parent Name`, `Address`, `Parent Job` dang read-only; create khong hien cac truong he thong `Child ID`, `Status`, `Created At`, `Updated At`.
+  - Cap nhat `ParentsTab`: view details cua Parent hien them Children list cua parent, khong lap lai thong tin parent. Cot action cua moi child co nut mui ten `v` de xo ra thong tin details cua child va nut `^` de thu lai.
+  - Cap nhat Staffs/Parents/Children list de an ban ghi co status `Inactive`.
+- **Walkthrough**:
+  - Vao Dashboard -> System -> Manage Children de CRUD ho so tre.
+  - Trong form Create/Update Child, nhap `Parent ID` hop le se tu dien `Parent Name`, `Address`, `Parent Job` o cac o chi doc.
+  - Vao Manage Parents -> xem details cua mot parent de thay danh sach children active cua parent; bam mui ten ben phai tung child de xem/thu details.
+- **Build Verification**:
+  - Da chay `npm.cmd run build` thanh cong. Vite chi canh bao chunk lon hon 500 kB sau minify, khong phai loi bien dich.
+
+## [2026-05-30] - Tinh chinh nut doi ngon ngu Dashboard ro rang hon
+- **Implementation**:
+  - Cap nhat khu vuc doi ngon ngu trong `src/components/AdminDashboard.tsx` tu 2 nut nho `VN/EN` thanh segmented control rieng `admin-lang-switch`.
+  - Bo sung nhan ngu canh `Ngon ngu` / `Language`, moi lua chon hien code `VI` / `EN` kem ten ngon ngu `Tieng Viet` / `English`, co `aria-pressed` de trang thai active ro rang hon.
+  - Them CSS trong `src/components/AdminDashboard.css` cho khung doi ngon ngu co vien Slate 3px, shadow Memphis, nen active vang Amber, cham trang thai xanh va hover lift nhe.
+  - Bo sung responsive cho topbar: duoi 1100px topbar xuong dong gon hon; duoi 640px language switch full width va rut gon ten ngon ngu de tranh vo layout.
+- **Walkthrough**:
+  - Trong Admin Dashboard, nut doi ngon ngu o topbar nay hien nhu mot bo chon co nhan, nguoi dung nhin ro ngon ngu dang active va bam chuyen VI/EN truc tiep.
+- **Build Verification**:
+  - Da chay `npm.cmd run build` thanh cong. Vite chi canh bao chunk lon hon 500 kB sau minify, khong phai loi bien dich.
+
+## [2026-05-30] - Bo sung Manage Parents trong Admin Dashboard
+- **Implementation**:
+  - Tao moi `src/components/dashboard/ParentsTab.tsx` thanh tab rieng cho chuc nang Manage Parents, giu dung cau truc tach file cua Dashboard va dung lai ngon ngu thiet ke table/modal CRUD giong `StaffsTab`.
+  - Them menu `Manage Parents` vao nhom `System`, nam ngay ben duoi `Manage Staffs` cho ca role Admin va Center Director trong `src/components/AdminDashboard.tsx`.
+  - Mo rong union `Tab` voi gia tri `parents`, import `ParentsTab` va them case render `parents` trong `renderActiveTab`.
+  - View list cua Parent hien dung cac cot: `Parent ID`, `Full Name`, `Email`, `Created At`, `Updated At`, `Status`, kem cac nut view/edit/delete theo style icon action Memphis hien co.
+  - View details/update hien cac truong: `Parent ID`, `Username`, `Full Name`, `Email`, `Phone Number`, `Job`, `Address`, `Created At`, `Updated At`; cac truong he thong `Parent ID`, `Username`, `Created At`, `Updated At` la read-only. Create chi hien cac truong nguoi dung duoc nhap: `Full Name`, `Email`, `Phone Number`, `Job`, `Address`.
+  - `Address` dung `textarea` nhieu dong; Create tu sinh `Parent ID`, `Username`, `Created At`, `Updated At` va status mac dinh `Active`; Update giu nguyen `Parent ID`/`Username`/`Created At` va cap nhat `Updated At`.
+- **Walkthrough**:
+  - Vao Admin Dashboard -> System -> Manage Parents de xem danh sach phu huynh.
+  - Bam Add Parent de tao moi; bam icon mat de xem detail read-only; bam icon but chi de update cac thong tin cho phep chinh; bam icon thung rac de xoa co confirm modal.
+- **Build Verification**:
+  - Da chay `npm.cmd run build` thanh cong. Vite chi canh bao chunk lon hon 500 kB sau minify, khong phai loi bien dich.
+
+## [2026-05-30] - Tinh gon Verify Email va them Resend OTP countdown
+- **Implementation**:
+  - Cap nhat trang `verifyEmail` trong `src/components/auth/AuthModal.tsx`, loai bo ky hieu `@` va 3 dong trang tri ben duoi de man hinh chi con noi dung chinh: `OTP code*`, khung nhap OTP, nut `Verify` va dong resend OTP.
+  - Bo sung dong tieng Anh `Did not receive the OTP? Click here to resend` ben duoi nut Verify, giu copy trong `authCopy` de Auth Modal van di theo he thong song ngu hien co.
+  - Them state `otpCooldown` va `nextOtpCooldown`: lan nhan resend dau tien khoa 30 giay, moi lan tiep theo tang them 30 giay (60s, 90s...). Khi dang cooldown, nut resend bi disable va hien dong dem nguoc `Resend available in Xs`.
+  - Cap nhat `src/App.css`: xoa style khong con dung cho `.auth-step-icon` va `.auth-step-lines`, them style cho `.auth-resend-block`, `.auth-resend-link`, `.auth-otp-countdown` de dong resend can giua, ro rang va co transition nhe.
+- **Walkthrough**:
+  - Luong moi: `Sign up/Forgot password -> Verify email nhap OTP -> Verify -> Reset password`.
+  - Trong Verify Email, nguoi dung co the bam resend OTP; lan dau cho 30 giay, sau moi lan bam thanh cong thoi gian cho tang them 30 giay.
+- **Build Verification**:
+  - Da chay `npm.cmd run build` thanh cong. Vite chi canh bao chunk lon hon 500 kB sau minify, khong phai loi bien dich.
+
+## [2026-05-30] - Bo sung truong OTP bat buoc cho Verify Email
+- **Implementation**:
+  - Cap nhat trang `verifyEmail` trong `src/components/auth/AuthModal.tsx` tu sticker card chi co nut Verify thanh form xac minh co truong `OTP code*` / `Ma OTP*`.
+  - Truong OTP dung `inputMode="numeric"`, `autoComplete="one-time-code"`, `maxLength={6}` va `required` de nguoi dung bat buoc nhap ma truoc khi tiep tuc.
+  - Sau khi submit form Verify hop le, `handleSubmit` chuyen mode tu `verifyEmail` sang `resetPassword`.
+  - Bo sung placeholder song ngu cho OTP trong `authCopy`, va CSS `.auth-otp-field input` can giua noi dung, tang co chu nhe va letter spacing de ma OTP de doc hon.
+- **Walkthrough**:
+  - Luong moi: `Sign up/Forgot password -> Verify email nhap OTP -> Verify -> Reset password`.
+  - Trang Reset password van giu 2 truong `New password*` va `Confirm password*`, sau khi reset quay ve Sign in.
+- **Build Verification**:
+  - Da chay `npm.cmd run build` thanh cong. Vite chi canh bao chunk lon hon 500 kB sau minify, khong phai loi bien dich.
+
+## [2026-05-30] - Bo sung luong Verify Email va Reset Password trong AuthModal
+- **Implementation**:
+  - Mo rong `AuthMode` trong `src/components/auth/AuthModal.tsx` thanh 5 buoc: `signIn`, `signUp`, `forgot`, `verifyEmail`, `resetPassword`.
+  - Sau khi nguoi dung nhan nut Sign up, form Sign up validate cac truong required roi chuyen sang trang `Verify email` trong modal.
+  - Doi trang forgot tu tieu de `Reset password` thanh `Forgot password` / `Quen mat khau`; doi nut `Send reset link` thanh `Send email` / `Gui email`.
+  - Sau khi nhan `Send email` o forgot password, modal chuyen sang trang `Verify email`.
+  - Trang `Verify email` co sticker card minh hoa email va nut `Verify`; nhan `Verify` chuyen sang trang `Reset password`.
+  - Trang `Reset password` gom 2 truong `New password*` va `Confirm password*`, dau `*` dung chung component `RequiredMark` mau do. Sau khi nhan nut `Reset password`, modal quay ve `Sign in`.
+  - Them CSS trong `src/App.css` cho `.auth-step-card`, `.auth-step-icon`, `.auth-step-lines`, `.auth-reset-form` va animation `auth-step-pop` de giu trai nghiem Memphis muot.
+- **Walkthrough**:
+  - Luong dang ky moi: `Sign up -> Verify email -> Reset password -> Sign in`.
+  - Luong quen mat khau moi: `Forgot password -> Send email -> Verify email -> Reset password -> Sign in`.
+  - Sign in va Sign up layout truoc do van duoc giu nguyen; cac trang verify/reset dung chung poster va animation slip hien co.
+- **Build Verification**:
+  - Da chay `npm.cmd run build` thanh cong. Vite chi canh bao chunk lon hon 500 kB sau minify, khong phai loi bien dich.
+
+## [2026-05-30] - Tinh chinh AuthModal Sign up theo layout 5 dong va dao cot poster/form
+- **Implementation**:
+  - Sap xep lai form Sign up trong `src/components/auth/AuthModal.tsx` theo dung yeu cau: Dong 1 `User name` & `Full name`, Dong 2 `Password` & `Confirm password`, Dong 3 `Email` & `Phone Number`, Dong 4 `Job`, Dong 5 `Address`.
+  - Tach dau bat buoc `*` thanh component `RequiredMark`, gan class `auth-required-mark` va to mau do `#DC2626` de nguoi dung nhin ro cac truong bat buoc.
+  - Chuyen truong `Address` tu input mot dong sang `textarea` nhieu dong, giu placeholder song ngu va autocomplete dia chi.
+  - Cap nhat `src/App.css` voi grid-area rieng cho tung truong Sign up, khoa chac vi tri tung dong tren desktop va chuyen thanh 1 cot tren mobile.
+  - Bo sung transition/focus motion cho input/textarea, them animation `auth-zone-slide-left` va `auth-poster-slide-right` de khi vao Sign up thi form nam ben trai, poster nam ben phai; Sign in van giu poster trai va form phai.
+- **Walkthrough**:
+  - O che do Sign in, modal tiep tuc hien anh/poster ben trai va form dang nhap ben phai nhu cu.
+  - Khi bam Register sang Sign up, bo cuc duoc dao nguoc: form dang ky truot sang ben trai, poster chuyen sang ben phai, tao cam giac chuyen canh ro rang hon.
+  - Cac truong bat buoc co dau sao do rieng, Address co vung nhap nhieu dong de phu hop noi dung dia chi dai.
+- **Build Verification**:
+  - Da chay `npm.cmd run build` thanh cong. Vite van canh bao chunk lon hon 500 kB sau minify, khong phai loi bien dich.
+
+## [2026-05-30] - Cap nhat AuthModal Sign up day du 8 truong thong tin
+- **Implementation**:
+  - Cap nhat `src/components/auth/AuthModal.tsx` de che do Sign up hien thi dung thu tu 8 truong: `username*`, `password*`, `confirm password*`, `email*`, `phone number*`, `full name*`, `address`, `job`.
+  - Bo sung ban dich song ngu Viet/Anh cho cac nhan moi: Username/Ten dang nhap, Phone number/So dien thoai, Address/Dia chi, Job/Nghe nghiep va cac placeholder tuong ung.
+  - Gan `required` cho 6 truong bat buoc co dau `*`, giu `address` va `job` la truong tuy chon.
+  - Them class `auth-signup-form` trong `src/App.css` de form dang ky chia 2 cot tren desktop, nut submit chiem tron hang cuoi, va tu dong chuyen ve 1 cot tren mobile.
+- **Walkthrough**:
+  - Khi nguoi dung mo Auth Modal va chuyen sang Sign up, giao dien hien thi form dang ky gon hon voi 2 cot, giu phong cach neo-brutalist/Memphis hien co cua AutiCare.
+  - Tren man hinh nho, cac truong Sign up xep doc 1 cot de tranh tran chu, dam bao de nhap lieu bang dien thoai.
+  - Luong Sign in va Forgot password khong thay doi; tai khoan demo phu huynh van duoc dien san o che do Sign in.
+- **Build Verification**:
+  - Lenh `npm run build` bi chan boi PowerShell Execution Policy khi goi `npm.ps1`.
+  - Da chay thay the bang `npm.cmd run build` va build thanh cong. Vite canh bao chunk lon hon 500 kB sau minify, khong phai loi bien dich.
+
 ## [2026-05-28] - Chuyển đổi Bằng chứng thực hành sang Liên kết video Chung (Generic Video Link) & Thêm Nút mở tab mới
 - **Loại bỏ trình phát video cố định**:
   - Loại bỏ hoàn toàn iframe nhúng trình phát YouTube (`getYouTubeId` & `renderEvidenceMedia`) cồng kềnh.
@@ -1946,3 +2071,47 @@
   - Điều này giúp người dùng kiểm thử tính năng nhúng video YouTube và hệ thống 3 badge trạng thái động trực quan trên cả hai Kế hoạch can thiệp mẫu có sẵn.
 - **Xác thực**:
   - Biên dịch sản phẩm thành công tuyệt đối qua `npm run build` chỉ trong **410ms** đạt trạng thái ổn định 100%!
+## 2026-05-30 - Cập nhật Manage Parents/Children theo bố cục popup hai cột
+- **Implementation**:
+  - Cập nhật `ParentsTab.tsx`: popup View Details và Update Parent chuyển sang bố cục hai cột, cột trái là form thông tin phụ huynh, cột phải là Children List mà parent đang quản lý. Children List giữ cơ chế xổ/thu chi tiết child bằng nút mũi tên.
+  - Bổ sung trong Update Parent chức năng tạo nhanh nhiều child cùng lúc: người dùng có thể thêm nhiều bản nháp child, nhập tên/ngày sinh/giới tính cho từng child, rồi lưu parent để tạo đồng loạt và tự gán `parentId` hiện tại.
+  - Giữ chức năng gán child có sẵn bằng Child ID trong Update Parent; khi lưu sẽ cập nhật child đó sang parent hiện tại.
+  - Đồng bộ icon trong popup confirm: Confirm Delete dùng icon thùng rác, Confirm Ban/Unban dùng icon khóa/mở khóa cùng phong cách với action button trên bảng.
+  - Tinh chỉnh hiệu ứng radio Male/Female trong `ParentsTab.tsx` và `ChildrenTab.tsx`: loại bỏ khung radio nặng, dùng layout inline gọn, accent tím rõ trạng thái chọn.
+  - Cập nhật `AdminDashboard.css` cho icon confirm dạng SVG căn giữa, đồng thời giữ nút chuyển ngôn ngữ dashboard dạng ngắn VI/EN.
+- **Walkthrough**:
+  - Vào Dashboard > System > Manage Parents, mở View hoặc Update một parent: phần Children List nằm ở cột phải popup, không còn nằm dưới form.
+  - Trong Update Parent, tick "Need to create a child quickly?", nhập child đầu tiên, bấm "+ Add another child" để thêm nhiều child, rồi bấm Save Changes để tạo tất cả child và gán cho parent đang chỉnh sửa.
+  - Mở confirm Delete/Ban/Unban parent: icon trong popup trùng ý nghĩa với icon hành động ở bảng, giúp nhận diện thao tác rõ hơn.
+  - Vào Manage Children hoặc form tạo nhanh child trong Update Parent: nhóm radio Male/Female hiển thị gọn, không còn khung viền lớn gây nặng giao diện.
+- **Build Verification**:
+  - Đã chạy `npm.cmd run build` thành công. Vite chỉ cảnh báo chunk JavaScript lớn hơn 500 kB sau minify.
+## 2026-05-30 - Dong bo Sex select va Children Profiles homepage voi Manage Children
+- **Implementation**:
+  - Cap nhat kieu du lieu `Child.sex` trong `src/components/dashboard/familyData.ts` de ho tro 3 gia tri: `Male`, `Female`, `Other`.
+  - Chuyen truong Sex trong `src/components/dashboard/ChildrenTab.tsx` tu radio sang select gom `Male`, `Female`, `Other` cho ca create va update; view details van hien thi gia tri dang readonly.
+  - Cap nhat `src/components/dashboard/ParentsTab.tsx`: tao nhanh child trong Update Parent cung dung select `Male/Female/Other`; danh sach children cua parent hien thi dung nhan `Other`.
+  - Thiet ke lai `src/components/profile/tabs/ChildrenTab.tsx` cua homepage/profile portal de dong bo truong voi Manage Children: `Child ID`, `Child Name`, `Date of Birth`, `Sex`, `Status`, `Parent ID`, `Parent Name`, `Address`, `Parent Job`, `Created At`, `Updated At`.
+  - Form Add Child Profile tren homepage duoc sap xep theo workflow Manage Children: `Child Name & Date of Birth`, `Sex`, `Parent ID & Parent Name`, `Parent Job`, `Address`; parent name/job/address tu dong hien thi theo Parent ID mau.
+  - Cap nhat `ChildDetailView.tsx` de nhan du lieu child theo schema moi ma van giu alias tuong thich voi cac phan danh gia/suc khoe cu.
+- **Walkthrough**:
+  - Vao Dashboard > System > Manage Children, mo create/update child va chon Sex bang dropdown `Male/Female/Other`.
+  - Vao Dashboard > System > Manage Parents > Update Parent, tick tao nhanh child va chon Sex bang dropdown moi cho tung child draft.
+  - Vao Homepage/Profile > Children Profiles, card ho so tre hien thi theo dung bo truong cua Manage Children; khi tao moi child, thong tin parent duoc preview theo Parent ID.
+- **Build Verification**:
+  - Da chay `npm.cmd run build` thanh cong. Vite chi canh bao chunk JavaScript lon hon 500 kB sau minify.
+## 2026-05-30 - Dieu chinh Children Profiles homepage theo list/detail va them CRUD
+- **Implementation**:
+  - Cap nhat `src/components/profile/tabs/ChildrenTab.tsx` de dua Children Profiles ve lai cam giac giao dien card cu: co ma ho so o header, avatar chu cai, ten child lon, cac dong thong tin dang list gon.
+  - View list tren card chi hien cac truong khop Manage Children list: `Child ID`, `Child Name`, `Sex`, `Parent Name`, `Child Status`, `Created At`, `Updated At`.
+  - Create New Child trong homepage da bo toan bo phan nhap/xem thong tin phu huynh. Form create chi con `Child Name`, `Date of Birth`, `Sex`; parent mock mac dinh duoc gan ngam de detail van co du lieu.
+  - Bo sung chuc nang Edit Child ngay tren card: cho sua `Child Name`, `Date of Birth`, `Sex`, va `Child Status`, dong thoi cap nhat `Updated At`.
+  - Bo sung chuc nang Delete Child ngay tren card voi confirm popup gon, xoa child khoi danh sach hien tai.
+  - Cap nhat `ChildDetailView.tsx` de sidebar detail hien them cac truong chi tiet cua Manage Children: `Child Status`, `Parent ID`, `Parent Name`, `Address`, `Parent Job`, `Created At`, `Updated At`.
+- **Walkthrough**:
+  - Vao Homepage/Profile > Children Profiles: danh sach tre hien theo card cu, nhung noi dung chi la cac truong cua view list.
+  - Bam Add Child Profile: popup tao moi khong con bat ky truong phu huynh nao.
+  - Bam Edit tren card de cap nhat thong tin child; bam Delete de mo confirm xoa child.
+  - Bam Detailed Profile de xem bo thong tin day du cua view details children trong sidebar ben trai.
+- **Build Verification**:
+  - Da chay `npm.cmd run build` thanh cong. Vite chi canh bao chunk JavaScript lon hon 500 kB sau minify.

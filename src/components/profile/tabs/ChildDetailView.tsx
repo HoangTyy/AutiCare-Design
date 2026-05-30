@@ -428,6 +428,12 @@ export const SUBTEST_ITEMS_DB: Record<string, Array<{ id: string; activityVi: st
 
 const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }) => {
   const t = translations[lang];
+  const childDisplayName = child.childName || child.name;
+  const childDisplayId = child.childId || child.id;
+  const childDisplayDob = child.dateOfBirth || child.dob;
+  const childDisplaySex = child.sex || (child.gender === 'male' ? 'Male' : child.gender === 'female' ? 'Female' : 'Other');
+  const childDisplaySexLabel =
+    childDisplaySex === 'Male' ? t.male : childDisplaySex === 'Female' ? t.female : 'Other';
 
   // Tab State
   const [activeSubTab, setActiveSubTab] = useState<'progress' | 'assessments' | 'health' | 'screening' | 'iep' | 'schedule'>('progress');
@@ -768,30 +774,50 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
         <div className="profile-sticker-card child-bio-sidebar-card" style={{ border: '3px solid #1E293B', padding: '1.5rem', background: '#FFFDF5', height: 'fit-content' }}>
           <div className="bio-card-header" style={{ textAlign: 'center', borderBottom: '2.5px dashed #CBD5E1', paddingBottom: '1.25rem', marginBottom: '1.25rem' }}>
             <div className="avatar-huge" style={{ fontSize: '4.5rem', marginBottom: '0.5rem' }}>{child.avatar}</div>
-            <h2 className="bio-child-name" style={{ margin: '0.2rem 0', color: '#1E293B', fontWeight: 900, fontSize: '1.6rem' }}>{child.name}</h2>
-            <span className="bio-child-id" style={{ background: '#1E293B', color: '#FFF', padding: '2px 10px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 700 }}>{child.id}</span>
+            <h2 className="bio-child-name" style={{ margin: '0.2rem 0', color: '#1E293B', fontWeight: 900, fontSize: '1.6rem' }}>{childDisplayName}</h2>
+            <span className="bio-child-id" style={{ background: '#1E293B', color: '#FFF', padding: '2px 10px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 700 }}>{childDisplayId}</span>
           </div>
 
           <div className="bio-card-details" style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
             <div className="bio-row" style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>
               <span className="bio-label" style={{ color: '#64748B', fontWeight: 700 }}>📅 {t.dob}:</span>
-              <span className="bio-val" style={{ color: '#1E293B', fontWeight: 800 }}>{child.dob}</span>
+              <span className="bio-val" style={{ color: '#1E293B', fontWeight: 800 }}>{childDisplayDob}</span>
             </div>
             <div className="bio-row" style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>
               <span className="bio-label" style={{ color: '#64748B', fontWeight: 700 }}>⚧ {t.gender}:</span>
               <span className="bio-val" style={{ color: '#1E293B', fontWeight: 800 }}>
-                {child.gender === 'male' ? t.male : t.female}
+                {childDisplaySexLabel}
               </span>
             </div>
             <div className="bio-row" style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #F1F5F9', paddingBottom: '0.5rem' }}>
-              <span className="bio-label" style={{ color: '#64748B', fontWeight: 700 }}>⚡ {t.level}:</span>
-              <span className={`level-badge level-${child.level}`} style={{ fontWeight: 800 }}>
-                {child.level === 'mild' ? (lang === 'vi' ? 'Nhẹ (Mức 1)' : 'Mild (Lvl 1)') : (lang === 'vi' ? 'Trung bình (Mức 2)' : 'Moderate (Lvl 2)')}
+              <span className="bio-label" style={{ color: '#64748B', fontWeight: 700 }}>Child Status:</span>
+              <span className={`level-badge level-${(child.status || 'Active').toLowerCase()}`} style={{ fontWeight: 800 }}>
+                {child.status || 'Active'}
               </span>
             </div>
             <div className="bio-row" style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span className="bio-label" style={{ color: '#64748B', fontWeight: 700 }}>🩺 {t.diagnosticDate}:</span>
-              <span className="bio-val font-highlight" style={{ color: '#0D9488', fontWeight: 800 }}>{child.lastAssessed}</span>
+              <span className="bio-label" style={{ color: '#64748B', fontWeight: 700 }}>Updated At:</span>
+              <span className="bio-val font-highlight" style={{ color: '#0D9488', fontWeight: 800 }}>{child.updatedAt || child.lastAssessed}</span>
+            </div>
+            <div className="bio-row" style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #F1F5F9', paddingTop: '0.5rem' }}>
+              <span className="bio-label" style={{ color: '#64748B', fontWeight: 700 }}>Parent ID:</span>
+              <span className="bio-val" style={{ color: '#1E293B', fontWeight: 800 }}>{child.parentId || '-'}</span>
+            </div>
+            <div className="bio-row" style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span className="bio-label" style={{ color: '#64748B', fontWeight: 700 }}>Parent Name:</span>
+              <span className="bio-val" style={{ color: '#1E293B', fontWeight: 800, textAlign: 'right' }}>{child.parentName || '-'}</span>
+            </div>
+            <div className="bio-row" style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span className="bio-label" style={{ color: '#64748B', fontWeight: 700 }}>Address:</span>
+              <span className="bio-val" style={{ color: '#1E293B', fontWeight: 800, textAlign: 'right' }}>{child.address || '-'}</span>
+            </div>
+            <div className="bio-row" style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span className="bio-label" style={{ color: '#64748B', fontWeight: 700 }}>Parent Job:</span>
+              <span className="bio-val" style={{ color: '#1E293B', fontWeight: 800 }}>{child.parentJob || '-'}</span>
+            </div>
+            <div className="bio-row" style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <span className="bio-label" style={{ color: '#64748B', fontWeight: 700 }}>Created At:</span>
+              <span className="bio-val" style={{ color: '#1E293B', fontWeight: 800 }}>{child.createdAt || '-'}</span>
             </div>
           </div>
         </div>

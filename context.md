@@ -17,12 +17,25 @@
   - **Cụm dưới / Intervention Objectives**: Hiển thị Card quản lý mục tiêu 📝 `Manage Objectives` cùng các bảng con và timeline.
   Hai cụm được tách rời khoảng cách cực kỳ thông thoáng và kiên cố bằng thuộc tính `marginTop: '3.5rem'` cho Card 2, giúp các bóng đổ Memphis 3D của cả 2 khối không bị giao thoa hay chồng chéo. Đồng thời, danh sách các Giai đoạn (Phases) bên ngoài được tích hợp thêm **Phím tắt cuộn nhanh chuyên biệt 🎯** màu tím Violet Memphis tuyệt đẹp trong cột Actions. Click vào dòng Phase bất kỳ sẽ mở trang chi tiết Phase và hiển thị từ đầu trang bình thường, còn click vào nút tắt **🎯** sẽ mở trang chi tiết Phase và **tự động cuộn trang (scroll) trơn tru, mượt mà** thẳng xuống khối Objectives bên dưới bằng API `scrollIntoView({ behavior: 'smooth' })` thông qua ID định danh `#objectives-section-block`, giúp phụ huynh và chuyên gia tiết kiệm tối đa thời gian thao tác lâm sàng.
 - **Decoupled Modularity (Rule 10)**: High-maintainability split-file architecture where each operational tab is a separate `.tsx` component under `src/components/dashboard/`.
+- **Dashboard Language Switch**: Nut doi ngon ngu trong Admin Dashboard topbar hien duoc rut gon thanh segmented control `.admin-lang-switch` voi 2 nut ngan gon `VI` / `EN`. Trang thai active dung nen vang Amber, vien Slate va shadow Memphis nhe de nhin ro nhung khong chiem qua nhieu dien tich topbar.
+- **Admin System Manage Parents**: Admin Dashboard hien co them tab rieng `ParentsTab.tsx` trong nhom menu `System`, nam ngay duoi `Manage Staffs` cho ca Admin va Center Director. Tab nay dung ngon ngu giao dien table/modal CRUD dong bo voi `StaffsTab`: header card, search bar, nut Add, data table, action icons view/edit/delete/ban va modal Memphis 2 cot responsive. View list cua Parent gom cac cot `Parent ID`, `Full Name`, `Email`, `Created At`, `Updated At`, `Status`. View details va update gom `Parent ID`, `Username`, `Full Name`, `Email`, `Phone Number`, `Job`, `Address`, `Created At`, `Updated At`; cac truong he thong `Parent ID`, `Username`, `Created At`, `Updated At` chi doc trong update/detail. Create khong hien `Parent ID`, `Username`, `Created At`, `Updated At`; he thong tu sinh `Parent ID`, `Username` theo email/full name, ngay tao/cap nhat va status `Active`. Truong `Address` dung `textarea` nhieu dong, di theo style form modal hien co. Update Parent co them 2 quick flow bang tieng Anh: `Already have a child profile? Add child to this parent` de nhap `Child ID`, xem thong tin child va gan child do ve parent; `Need to create a child quickly?` de tao nhanh child moi gan truc tiep cho parent hien tai. Parent list co them Ban/Unban modal giong Staffs; Ban chuyen parent sang `Banned`, Unban dua ve `Active`.
+- **Admin System Manage Children & Parent Details Linkage**: Admin Dashboard co them tab rieng `ChildrenTab.tsx` trong nhom menu `System`, nam ngay duoi `Manage Parents`. Du lieu Parent/Child duoc dung chung qua `familyData.ts` va state duoc nang len `AdminDashboard.tsx`, giup `ParentsTab` va `ChildrenTab` dong bo voi nhau trong cung session. View list Children gom `Child ID`, `Child Name`, `Sex`, `Parent Name`, `Status`, `Created At`, `Updated At`; danh sach Staffs/Parents/Children deu an ban ghi `Inactive`. Form details/update Children sap theo dung dong nghiep vu: dong 1 `Child ID & Child Name`, dong 2 `Date of Birth & Sex`, dong 3 `Child Status` full width, dong 4 `Parent ID & Parent Name`, dong 5 `Address`, dong 6 `Parent Job` full width, dong 7 `Created At & Updated At`. Create Children sap theo: dong 1 `Child Name & Date of Birth`, dong 2 `Sex`, dong 3 `Parent ID & Parent Name`, dong 4 `Parent Job`, dong 5 `Address`. Sex o View Details hien text Male/Female, Update/Create dung radio khong co khung bao ngoai. Khi nhap `Parent ID`, he thong lookup Parent va tu hien `Parent Name`, `Address`, `Parent Job` dang read-only. Create Child co quick flow `No parent yet? Create now`, cho nhap thong tin parent va bam `Create parent` de tao parent truoc, sau do bam nut tao child cuoi modal moi tao child. Parent Details trong `ParentsTab` co them Children list cua parent, khong lap lai thong tin parent; moi dong child co nut mui ten `v` ben phai de xo child details (khong hien lai thong tin parent) va `^` de thu gon.
 - **Center Ownership Data Model**: Exercise Levels and Exercise Categories belong entirely to individual Centers, supporting custom tailored configurations per Early Intervention facility.
 
 ## Technology Stack
 - **Frontend**: React (Vite) + TypeScript.
 - **Typography**: Titan One (Logo), Fredoka (UI), Inter (System), Be Vietnam Pro (Default body font for highly legible Vietnamese content).
 - **i18n**: Custom state-based translation dictionary (VN/EN) integrated reactively inside every tab.
+
+## Auth Modal Design Context
+- **AuthModal.tsx** hien la modal xac thuc dung chung tren Landing Page, ho tro 3 che do `signIn`, `signUp`, `forgot` voi animation slip forward/backward va poster phong cach neo-brutalist/Memphis.
+- **Bo cuc Sign in/Sign up dao chieu co transition**: Che do Sign in giu bo cuc poster ben trai, form ben phai. Khi chuyen sang Sign up, `.auth-modal-shell.auth-mode-signUp` dao nguoc lai thanh form dang ky ben trai va poster ben phai, ket hop animation `auth-zone-slide-left` va `auth-poster-slide-right` de tao cam giac chuyen canh muot.
+- **Sign up form 5 dong**: Form Sign up dung `auth-signup-form` voi grid-area co dinh: Dong 1 `User name` & `Full name`, Dong 2 `Password` & `Confirm password`, Dong 3 `Email` & `Phone Number`, Dong 4 `Job`, Dong 5 `Address`. Nut submit chiem tron hang cuoi.
+- **Required marker ro rang**: Dau `*` khong con nam chung trong chuoi label ma duoc tach thanh component `RequiredMark`, class `auth-required-mark`, mau do `#DC2626`, giup nguoi dung nhan biet truong bat buoc. Cac truong bat buoc van gan HTML `required`.
+- **Address textarea**: Truong `Address` hien dung `textarea` nhieu dong, co style dong bo voi input Memphis, focus vang va shadow day hon. `Job` va `Address` la cac truong tuy chon.
+- **Verify Email & Reset Password Flow**: Auth Modal hien ho tro them 2 trang noi bo `verifyEmail` va `resetPassword`. Luong dang ky: `signUp -> verifyEmail -> resetPassword -> signIn`. Luong quen mat khau: `forgot -> verifyEmail -> resetPassword -> signIn`. Trang forgot hien dung tieu de `Forgot password` va nut `Send email`; sau khi gui email se sang verify email. Trang verify email dung `.auth-step-card` tinh gon, khong con sticker `@` hay 3 dong trang tri, chi giu noi dung chinh gom truong `OTP code*` / `Ma OTP*` bat buoc (`inputMode="numeric"`, `autoComplete="one-time-code"`, `maxLength={6}`), nut `Verify`, va dong tieng Anh `Did not receive the OTP? Click here to resend` nam ben duoi. Nut resend OTP co bo dem nguoc noi bo: lan dau khoa 30 giay, moi lan resend tiep theo tang them 30 giay (60s, 90s...), hien `Resend available in Xs` trong luc cho va disable thao tac resend. Sau khi submit OTP se sang reset password. Trang reset password gom `New password*` va `Confirm password*`, dau sao bat buoc mau do dung chung `RequiredMark`.
+- **Song ngu Viet/Anh va responsive**: Tat ca label/placeholder moi nam trong `authCopy` de nut chuyen ngon ngu hien co tiep tuc hoat dong. Desktop hien grid 2 cot theo tung dong nghiep vu; mobile override ve 1 cot theo dung thu tu de tranh vo khung.
+- **Tinh tuong thich**: Luong Sign in va Forgot password khong bi thay doi; email/password demo phu huynh van chi duoc dien san trong Sign in. CSS moi chi tac dong vao cac class Auth Modal hien co va khong tach khoi Design Lab.
 
 ## Key Modules
 1. **Landing Page**: Redesigned header with Nav Links (Left), Neon Logo (Center), and Minimalist Icons (Right). Redesigned homepage with high-end, elegant light warm cream (#FFF8F0) background, 3D WebGL Three.js interactive floating particle sphere (ThreeBackground.tsx), six snap-scrollable desktop sections (Hero, Categories Bento Grid, Glowing Reviews, Statistic About Counters, **Centers Network Cards**, Gradient CTA Banner), developers and Mentor footer, and a custom right-floating glassmorphic section nav indicator (FloatingNav.tsx). **CentersSection.tsx** hiển thị danh sách 3 trung tâm AutiCare dạng neo-brutalism card grid (3 cột desktop, 2 cột tablet, 1 cột mobile), mỗi card gồm accent bar gradient, icon building, tên + trạng thái (pulse animation), địa chỉ/SĐT/email, thông tin tỉnh thành ở footer (đã loại bỏ mã trung tâm), hover lift effect.
@@ -692,3 +705,70 @@ Hệ thống AutiCare đã tích hợp hoàn hảo 3 phân hệ thống kê tr�
   * **Nhấc Nổi Dòng Bảng Tịnh Tiến Chuẩn Xác (Pixel-Perfect Hover & Card Color Preservation)**:
     - **Bảo toàn Màu nền Card Trắng**: Gán cứng `background: #FFFFFF !important` cho các ô `td` khi hover thay vì đổi thành màu kem nhạt `#FFFDF5`. Điều này giúp dòng bảng khi nổi lên luôn giữ vững màu trắng sữa tinh khiết, tạo độ tương phản cực kỳ sắc nét trên nền Graph Paper / Graph Polka-dot của Dashboard mà không bao giờ bị "mất màu card".
     - **Triệt tiêu Kẽ nứt Pixel dọc (Sub-pixel rendering alignment)**: Loại bỏ hoàn toàn thuộc tính xoay nhẹ `rotate(0.1deg)` trong `transform` khi hover, chuyển sang cơ chế dịch chuyển tịnh tiến pixel-perfect `transform: translate(-4px, -4px) !important`. Giải pháp này ngăn chặn triệt để hiện tượng trình duyệt vẽ lệch pixel (sub-pixel misalignment) làm lộ các khe hở hay vệt nứt dọc xám mờ phân tách giữa các ô `td` kề nhau khi di chuyển, đảm bảo toàn bộ dòng bảng nổi luôn khít sát, trơn tru và liền mạch 100% về mặt thị giác.
+# Cập nhật thiết kế 2026-05-30 - Manage Parents/Children
+
+## Implementation
+- Dashboard System hiện có chuỗi quản trị gia đình gồm Manage Parents và Manage Children, dùng chung dữ liệu `parents`/`children` được giữ ở `AdminDashboard.tsx` để thao tác từ hai tab có thể đồng bộ ngay trong phiên thiết kế.
+- `ParentsTab.tsx` dùng popup CRUD theo phong cách Neo-brutalist/Memphis của dashboard: viền Slate dày, nền trắng/kem, shadow offset cứng và các action icon nhất quán.
+- Popup View Details và Update Parent có bố cục hai cột trên desktop:
+  - Cột trái: form parent và các thao tác update.
+  - Cột phải: Children List của parent, có bộ đếm, trạng thái, và nút mũi tên để xổ/thu chi tiết child.
+- Trên màn hình nhỏ, popup parent tự chuyển về một cột để đảm bảo responsive.
+- Update Parent hỗ trợ hai luồng quản lý child nhanh:
+  - Gán child có sẵn bằng Child ID, preview thông tin child trước khi lưu.
+  - Tạo nhanh nhiều child cùng lúc bằng danh sách bản nháp, mỗi bản nháp gồm child name, date of birth và sex. Khi lưu, hệ thống tự tạo Child ID tiếp theo và gán `parentId` của parent hiện tại.
+- `ChildrenTab.tsx` giữ layout create/update/details theo thứ tự nghiệp vụ đã chốt; nhóm Sex hiển thị inline, không đóng khung lớn ở view/update để giao diện nhẹ và dễ đọc hơn.
+- Confirm popup cho delete/ban/unban dùng SVG icon đúng ngữ cảnh: thùng rác cho delete, khóa/mở khóa cho ban/unban. Icon trong popup đồng bộ với action icon trên bảng.
+- Nút chuyển ngôn ngữ dashboard dùng dạng ngắn VI/EN, kích thước compact, có hover/active state rõ ràng và hỗ trợ i18n hiện có.
+
+## Walkthrough
+- Người dùng vào Dashboard > System > Manage Parents để xem danh sách parent đang hoạt động/bị khóa, các parent inactive bị ẩn khỏi list.
+- Khi mở View Details hoặc Update Parent, children mà parent quản lý nằm ngay bên phải popup để người vận hành đối chiếu trong lúc xem/chỉnh thông tin parent.
+- Trong Update Parent, người vận hành có thể tick tạo child nhanh, thêm nhiều dòng child bằng nút "+ Add another child", sau đó lưu parent để tạo đồng loạt.
+- Khi cần khóa/mở khóa hoặc xóa parent, popup confirm hiển thị icon hành động rõ nghĩa trước khi người dùng xác nhận.
+# Cập nhật thiết kế 2026-05-30 - Sex Select & Homepage Children Profiles
+
+## Implementation
+- Schema `Child.sex` của phần quản trị gia đình hỗ trợ ba giá trị chuẩn: `Male`, `Female`, `Other`.
+- Trong Dashboard > Manage Children, trường `Sex` trong create/update dùng dropdown select thay vì radio để người dùng chọn nhanh giữa `Male`, `Female`, `Other`; view details hiển thị readonly.
+- Trong Dashboard > Manage Parents > Update Parent, phần tạo nhanh nhiều child cũng dùng dropdown `Male/Female/Other` cho từng child draft để đồng bộ với Manage Children.
+- Trang Homepage/Profile > Children Profiles được chỉnh lại theo cùng bộ trường với Manage Children:
+  - `Child ID`
+  - `Child Name`
+  - `Date of Birth`
+  - `Sex`
+  - `Child Status`
+  - `Parent ID`
+  - `Parent Name`
+  - `Address`
+  - `Parent Job`
+  - `Created At`
+  - `Updated At`
+- Form tạo hồ sơ trẻ ở homepage/profile portal đi theo flow giống create child trong dashboard: nhập `Child Name`, `Date of Birth`, chọn `Sex`, nhập `Parent ID`, sau đó `Parent Name`, `Parent Job`, `Address` tự hiển thị từ parent mock data.
+- `ChildDetailView` tiếp tục nhận được child profile mới nhờ alias `childId/name`, `childName/name`, `dateOfBirth/dob`, giúp các phân hệ assessment và health record cũ không bị gãy giao diện.
+
+## Walkthrough
+- Người dùng ở dashboard có thể tạo/cập nhật child với Sex là `Male`, `Female` hoặc `Other`.
+- Người dùng ở homepage/profile portal thấy Children Profiles theo đúng cấu trúc Manage Children, không còn layout cũ dựa trên autism level/last assessed trong card danh sách.
+- Khi bấm Detailed Profile, phần chi tiết vẫn mở bình thường và dùng thông tin child schema mới ở header.
+# Cập nhật thiết kế 2026-05-30 - Homepage Children Profiles List/Detail CRUD
+
+## Implementation
+- Trang Homepage/Profile > Children Profiles được đưa về cảm giác card cũ: mỗi child là một sticker card có mã hồ sơ ở header, avatar chữ cái, tên child nổi bật, footer có các nút thao tác.
+- Nội dung card list chỉ hiển thị đúng nhóm trường giống view list của Manage Children:
+  - `Child ID`
+  - `Child Name`
+  - `Sex`
+  - `Parent Name`
+  - `Child Status`
+  - `Created At`
+  - `Updated At`
+- Popup Create New Child trên homepage đã bỏ toàn bộ phần phụ huynh. Form tạo mới chỉ còn `Child Name`, `Date of Birth`, `Sex`; parent mock mặc định được gán ngầm để màn hình detail vẫn có dữ liệu parent đọc được.
+- Bổ sung Edit Child trực tiếp trên card. Edit cho phép cập nhật `Child Name`, `Date of Birth`, `Sex`, `Child Status`; khi lưu tự cập nhật `Updated At`.
+- Bổ sung Delete Child trực tiếp trên card với confirm popup đơn giản.
+- `ChildDetailView` giữ các tab assessment/health/screening hiện có, nhưng sidebar thông tin child được bổ sung các field của view details Manage Children gồm `Child Status`, `Parent ID`, `Parent Name`, `Address`, `Parent Job`, `Created At`, `Updated At`.
+
+## Walkthrough
+- Người dùng ở Children Profiles nhìn thấy danh sách trẻ theo card quen thuộc, nhưng dữ liệu list không còn lẫn các field detail dài.
+- Khi tạo child mới, người dùng chỉ nhập thông tin của child, không cần thao tác với parent.
+- Khi cần chỉnh sửa hoặc xóa, mỗi card có nút Edit/Delete riêng; Detailed Profile vẫn mở trang chi tiết đầy đủ.
