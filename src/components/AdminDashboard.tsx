@@ -3,6 +3,9 @@ import CentersTab from './dashboard/CentersTab';
 import CenterDetailView from './dashboard/CenterDetailView';
 import type { Center } from './dashboard/CenterDetailView';
 import StaffsTab from './dashboard/StaffsTab';
+import ParentsTab from './dashboard/ParentsTab';
+import ChildrenTab from './dashboard/ChildrenTab';
+import { initialChildren, initialParents } from './dashboard/familyData';
 import BlogsTab from './dashboard/BlogsTab';
 import InvoicesTab from './dashboard/InvoicesTab';
 import SupportTicketsTab from './dashboard/SupportTicketsTab';
@@ -30,7 +33,7 @@ import StaffInterventionTab from './profile/staff/tabs/StaffInterventionTab';
 import ToolAssessmentPage from './assessment/ToolAssessmentPage';
 import ThemeCustomizer from './ThemeCustomizer';
 
-type Tab = 'overview' | 'centers' | 'staffs' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks' | 'events' | 'staffSchedule' | 'childrenDirectory' | 'adminProfile' | 'stats' | 'appointments' | 'schedule_staff' | 'intervention' | 'assessment';
+type Tab = 'overview' | 'centers' | 'staffs' | 'parents' | 'children' | 'objectives' | 'blogs' | 'notification' | 'plans' | 'schedule' | 'exercises' | 'invoices' | 'support' | 'feedbacks' | 'events' | 'staffSchedule' | 'childrenDirectory' | 'adminProfile' | 'stats' | 'appointments' | 'schedule_staff' | 'intervention' | 'assessment';
 
 interface AdminDashboardProps {
   lang: 'vi' | 'en';
@@ -60,6 +63,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
   const [expandedGroups, setExpandedGroups] = useState<string[]>(['dashboard', 'system', 'training', 'content']);
   const [selectedCenterForDetail, setSelectedCenterForDetail] = useState<Center | null>(null);
   const [selectedPlanForDetail, setSelectedPlanForDetail] = useState<Plan | null>(null);
+  const [parents, setParents] = useState(initialParents);
+  const [children, setChildren] = useState(initialChildren);
   
   const [adminInfo, setAdminInfo] = useState<AdminProfile>({
     username: 'auticare_admin',
@@ -504,6 +509,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
           items: [
             { id: 'centers', labelVi: 'Chi tiết Trung tâm', labelEn: 'Center Details' },
             { id: 'staffs', labelVi: 'Quản lý Nhân sự', labelEn: 'Manage Staffs' },
+            { id: 'parents', labelVi: 'Quản lý Phụ huynh', labelEn: 'Manage Parents' },
+            { id: 'children', labelVi: 'Quản lý Trẻ em', labelEn: 'Manage Children' },
           ]
         },
         {
@@ -578,6 +585,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
         items: [
           { id: 'centers', labelVi: 'Quản lý Trung tâm', labelEn: 'Manage Centers' },
           { id: 'staffs', labelVi: 'Quản lý Nhân sự', labelEn: 'Manage Staffs' },
+          { id: 'parents', labelVi: 'Quản lý Phụ huynh', labelEn: 'Manage Parents' },
+          { id: 'children', labelVi: 'Quản lý Trẻ em', labelEn: 'Manage Children' },
         ]
       },
       {
@@ -740,6 +749,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
         );
       case 'staffs':
         return <StaffsTab lang={lang} />;
+      case 'parents':
+        return <ParentsTab lang={lang} parents={parents} setParents={setParents} children={children} setChildren={setChildren} />;
+      case 'children':
+        return <ChildrenTab lang={lang} parents={parents} setParents={setParents} children={children} setChildren={setChildren} />;
       case 'events':
         return <EventsTab lang={lang} />;
       case 'blogs':
@@ -918,9 +931,23 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ lang, setLang, onBack: 
             >
               ← {lang === 'vi' ? 'Quay lại Homepage' : 'Back to Homepage'}
             </a>
-            <div className="lang-switch" style={{ background: '#F1F5F9', border: '1px solid #E2E8F0', padding: '2px' }}>
-              <button className={`lang-btn ${lang === 'vi' ? 'active' : ''}`} onClick={() => setLang('vi')}>VN</button>
-              <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</button>
+            <div className="admin-lang-switch" aria-label={lang === 'vi' ? 'Chuyen ngon ngu' : 'Change language'}>
+              <button
+                className={`admin-lang-btn ${lang === 'vi' ? 'active' : ''}`}
+                type="button"
+                aria-pressed={lang === 'vi'}
+                onClick={() => setLang('vi')}
+              >
+                VI
+              </button>
+              <button
+                className={`admin-lang-btn ${lang === 'en' ? 'active' : ''}`}
+                type="button"
+                aria-pressed={lang === 'en'}
+                onClick={() => setLang('en')}
+              >
+                EN
+              </button>
             </div>
             <button className="icon-btn" title="Notifications" onClick={() => setActiveTab('notification')}>🔔</button>
             {onDesignCode && (
