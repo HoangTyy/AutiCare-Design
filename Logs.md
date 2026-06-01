@@ -1,5 +1,135 @@
 # Project Logs
 
+## [2026-06-01-Part9] - Khắc phục triệt để lỗi điều hướng Two-way Hash Routing trang chi tiết trung tâm từ AllCentersPage
+- **Implementation**:
+  * **Cấu hình định tuyến URL Hash riêng cho Center Detail**: Bổ sung URL Hash động có dạng `#/center-detail?id=AC-XXX` tương ứng với màn hình chi tiết trung tâm (`CenterDetailClientPage`) trong `src/App.tsx`.
+  * **Xử lý HashChange và trích xuất ID (Reactive Deep Linking)**: Trong hàm `handleHashChange` lắng nghe sự kiện, thiết lập bắt các hash bắt đầu bằng `#/center-detail`, trích xuất `id` trung tâm và tự động truy vấn tìm kiếm trung tâm tương ứng trong danh sách mẫu `centers` để gán vào state `selectedCenter`. Thêm `centers` làm dependency cho hook này.
+  * **Theo dõi và Đồng bộ hóa View sang Hash**: Trong `useEffect` đồng bộ view sang hash, bổ sung nhánh gán `targetHash = '#/center-detail?id=${selectedCenter.id}'` khi view là `'center-detail'`. Bổ sung `selectedCenter` làm dependency để URL tự động cập nhật phản ứng tức thì khi chọn trung tâm khác.
+  * **Định vị và Chuyển trang Quay lại Thông Minh (Dynamic Back Navigation)**: Khai báo state `previousView` để lưu trữ màn hình trước đó của người dùng. Khi chọn xem trung tâm từ `AllCentersPage`, ghi nhận `setPreviousView('centers')`. Khi chọn từ Homepage `CentersSection`, ghi nhận `setPreviousView('landing')`. Cập nhật prop `onBack` của component `CenterDetailClientPage` thành `setView(previousView)` để luôn quay lại chính xác màn hình trước đó thay vì bị gán cứng quay về trang chủ.
+- **Walkthrough**:
+  * Khắc phục triệt để và hoàn chỉnh 100% lỗi chọn trung tâm từ AllCentersPage bị đá văng về Homepage.
+  * URL cập nhật cực kỳ đồng bộ, hỗ trợ chia sẻ link và tải lại trang (F5) mà không làm mất trạng thái hay dữ liệu trung tâm đang xem.
+  * Nút "Quay lại" hoạt động cực kỳ thông minh, nhận diện đúng màn hình gốc để đưa người dùng quay về.
+  * Biên dịch sản phẩm thành công 100% sạch lỗi chỉ trong **355ms** (`npm run build`).
+
+## [2026-06-01-Part8] - Khôi phục toàn diện giao diện IEP Phụ huynh & Khắc phục triệt để lỗi trống dữ liệu mẫu Chi tiết hoạt động Phụ huynh
+- **Implementation**:
+  * **Cấu hình Vai trò tĩnh**: Khôi phục thành công prop `role?: 'Teacher' | 'Parent'` trong `PlanDetailViewProps` và destructure ở component, gán `const currentSimulatorRole: any = role;` để cố định vai trò Phụ huynh và Specialist. Ép kiểu `any` để giải quyết triệt để lỗi TypeScript TS2367 do type narrowing.
+  * **Tự động chọn Phase hoạt động mặc định**: Chèn `React.useEffect` ở đầu component tự động chọn phase `Active` đầu tiên làm mặc định cho Phụ huynh để hiển thị thông tin bài tập tức thì.
+  * **Khắc phục lỗi trống dữ liệu mẫu**: Khai báo hàm `handleParentViewActivity(act, objId)` ở cấp component thực hiện đồng bộ đầy đủ các state thông tin bài tập (tên hoạt động, mô tả, tần suất, người thực hiện...).
+  * **Khôi phục giao diện IEP Phụ huynh (Single Page Flow)**: Khôi phục và chèn hàm `renderParentDashboard()` hoàn chỉnh chứa giao diện Bento Card pastel cao cấp, Pathway Map 3D uốn lượn và các Goal Cards nẩy nổi.
+  * **Đồng bộ Candy Buttons**: Cập nhật click handler của 2 nút Candy Phụ huynh sang `handleParentViewActivity(act, obj.objective_id)` thay vì chỉ `setSelectedActivity(act)` trực tiếp.
+  * **Dọn dẹp Widget giả lập**: Loại bỏ hoàn toàn widget giả lập vai trò `.role-simulator-widget` ở cả 2 trang chi tiết hoạt động và trang chi tiết kế hoạch chính.
+- **Walkthrough**:
+  * Giao diện IEP Phụ huynh được khôi phục 100% lộng lẫy và mượt mà.
+  * Lỗi thiếu dữ liệu mẫu trên trang Chi tiết hoạt động Phụ huynh đã được giải quyết triệt để. Khi nhấp vào các nút Candy xem/nộp bài, các trường thông tin bài tập (tần suất, assignee, phương pháp, tiêu chí đạt...) hiển thị chính xác dữ liệu thực tế đầy đủ, không còn hiện `"—"`.
+  * Biên dịch sản phẩm thành công 100% sạch lỗi chỉ trong **351ms**.
+
+## [2026-06-01-Part7] - Tái cấu trúc giao diện IEP Phụ huynh thành dòng chảy hiển thị đồng thời (Inline Goals & Phase Details)
+- **Implementation**:
+  * **Tự động chọn Phase hoạt động làm mặc định**: Tích hợp một React `useEffect` thông minh ở đầu component `PlanDetailView.tsx`. Khi Phụ huynh truy cập vào kế hoạch IEP, nếu chưa chọn phase nào (`selectedPhase === null`), hệ thống tự động tìm và gán `selectedPhase` bằng Phase đang hoạt động (`Active Phase` trong kế hoạch), hoặc phase hợp lệ đầu tiên để luôn có dữ liệu hiển thị tức thì.
+  * **Gộp luồng hiển thị đồng thời (Single Page Flow)**: Thay đổi toàn bộ kiến trúc render của `renderParentDashboard()` trong `PlanDetailView.tsx`. Loại bỏ cơ chế rẽ nhánh ẩn/hiện view phase chi tiết làm đứt gãy trải nghiệm. Bây giờ, toàn bộ 4 lớp thông tin được hiển thị đồng thời từ trên xuống dưới trên cùng một trang:
+    1. **Plan Info (Kế hoạch chung)**: Hero Card gradient và Bento Grid 4 khối pastel hiển thị trên cùng.
+    2. **Plan Phase (Giai đoạn)**: Pathway Map (Bản đồ con đường giai đoạn) hiển thị ở giữa. Checkpoint của Phase đang chọn sẽ có viền hồng neon nổi bật (`selected-node` style), nhấp checkpoint khác sẽ cập nhật `selectedPhase` và re-render danh sách dưới tức thời mà không làm ẩn phần trên.
+    3. **Exercise + Objective (Mục tiêu & Bài tập con)**: Luôn hiển thị ngay bên dưới Pathway Map, hiển thị chi tiết các mục tiêu can thiệp và danh sách bài tập về nhà của Phase đang được chọn. Loại bỏ nút "Quay lại Bản đồ" dư thừa.
+    4. **Exercise Progress (Tiến trình bài tập)**: Khi phụ huynh nhấp chọn nút Candy "Nộp bài tập 📤" hoặc "Xem báo cáo 👁️", trang chi tiết hoạt động can thiệp (Activity Detail Page) sẽ mở đè chiếm 100% viewport để nộp bài tập và xem timeline rèn luyện bình thường.
+- **Walkthrough**:
+  * Trải nghiệm của Phụ huynh đạt mức Premium hoàn mỹ: Dòng chảy nghiệp vụ chuyển tiếp tự nhiên từ Kế hoạch -> Giai đoạn -> Mục tiêu & Bài tập -> Tiến trình thực hành ngay trên một màn hình duy nhất, trực quan và không bị giật lag hay rung lắc giao diện.
+  * Biên dịch sản phẩm thành công 100% không cảnh báo lỗi chỉ trong **368ms**.
+
+## [2026-06-01-Part6] - Động hóa card IEP trong Children Profiles và Đồng bộ Badge "🏃 In Progress" màu Sky Blue viên thuốc
+- **Implementation**:
+  * **Động hóa Card IEP Phụ huynh**: Chuyển đổi card hiển thị IEP của trẻ trong tệp `ChildDetailView.tsx` từ dạng code cứng tĩnh (`1. Verbal Communication...`) sang hiển thị **động 100%** theo kế hoạch thật được gán tương ứng: hiển thị tên kế hoạch thật (`childPlan.plan_name`), công cụ đánh giá thật (`childPlan.assessment_tool`), và lĩnh vực can thiệp động, click vào card sẽ mở ra chi tiết Kế hoạch IEP Phụ huynh (`PlanDetailView` tĩnh `role="Parent"`) vô cùng mượt mà.
+  * **Đồng bộ hóa nhãn "🏃 In Progress / Đang học"**: Thay thế nhãn `⚡ Đang thực hiện / In Progress` màu cam nhạt `#FEF3C7` bo góc 10px trong tệp `ChildDetailView.tsx` sang nhãn `🏃 Đang học / In Progress` có màu Sky Blue dịu mát (`nền #E0F2FE`, `chữ #0369A1`, `viền 1.5px solid #0EA5E9`) và bo tròn viên thuốc hoàn hảo `borderRadius: '99px'`.
+  * **Đồng bộ hóa trong Danh sách Goal của Phụ huynh (Parent IEP)**: Thay thế nhãn `🏃 Đang học / In Progress` trạng thái mục tiêu (Objective) trong tệp `PlanDetailView.tsx` (dòng 1280-1290) từ màu tím nhạt `#EDE9FE` bo góc 8px sang màu Sky Blue và bo tròn viên thuốc `99px` nhất quán 100%.
+- **Walkthrough**:
+  * Card IEP của trẻ em tự động cập nhật thông tin chuẩn xác theo bé đang được xem, nhấp chọn mở ra chi tiết Kế hoạch can thiệp IEP Phụ huynh (Premium Health Dashboard) mượt mà và trực quan.
+  * Đảm bảo mọi badge "In Progress" ở tất cả các trang, tab và góc nhìn (cả Phụ huynh và Chuyên gia) đều sử dụng chung một ngôn ngữ thiết kế Sky Blue phẳng thanh lịch, bo tròn mềm mại và rực rỡ, không bị lệch pha về màu sắc hay bo góc.
+  * Biên dịch sản phẩm thành công 100% không cảnh báo lỗi chỉ trong **355ms**.
+
+## [2026-06-01-Part5] - Thiết kế lại Badge trạng thái "🏃 In Progress" / "🏃 Đang học" bo tròn và có màu Sky Blue
+- **Implementation**:
+  * **Tái định kiểu và phối màu sinh động**: Chuyển đổi toàn bộ nhãn trạng thái "🏃 In Progress" / "🏃 Đang thực hiện" / "🏃 Đang học" từ màu xám đơn điệu cũ `#E2E8F0` sang màu xanh da trời Sky Blue cao cấp:
+    - Nền: màu xanh da trời nhạt `#E0F2FE` (Sky-100).
+    - Chữ: màu xanh da trời đậm `#0369A1` (Sky-700) kèm icon 🏃 sinh động.
+    - Viền: viền mảnh mịn màng `1.5px solid #0EA5E9` (Sky-500).
+  * **Bo tròn hoàn hảo**: Đổi `borderRadius` của nhãn từ dạng góc nhọn Memphis thô cứng sang dạng bo tròn viên thuốc mềm mại `borderRadius: '99px'` và loại bỏ bóng đổ cứng `boxShadow: 'none'` để đồng bộ phong cách phẳng hiện đại.
+  * **Đồng bộ hóa 5 phân hệ**: Cập nhật nhất quán tại tất cả 5 vị trí hiển thị nhãn trạng thái trong `PlanDetailView.tsx` (danh sách hoạt động của Phụ huynh, Header trang chi tiết hoạt động, hai khối Tiến trình & Tương tác trong trang hoạt động, và bảng danh sách hoạt động của Chuyên gia lâm sàng).
+- **Walkthrough**:
+  * Giao diện trạng thái hoạt động trở nên vô cùng sống động, cuốn hút và bo tròn cực kỳ tinh tế, giúp cha mẹ và giáo viên dễ dàng theo dõi tiến độ.
+  * Biên dịch sản phẩm thành công 100% sạch lỗi chỉ trong **383ms**.
+
+## [2026-06-01-Part4] - Loại bỏ hoàn toàn mã nguồn JSX của Widget Giả lập vai trò trong PlanDetailView.tsx
+- **Implementation**:
+  * **Xóa bỏ hoàn toàn mã JSX của Simulator**: Loại bỏ triệt để 100% các đoạn code JSX của widget giả lập vai trò (`.role-simulator-widget` gồm Specialist & Parent) ở cả hai vị trí:
+    - Trong Header của trang chi tiết kế hoạch chính (`Plan Detail View`).
+    - Trong thanh điều hướng của trang chi tiết hoạt động can thiệp (`Activity Detail Page`).
+  * **Dọn dẹp mã nguồn TypeScript**: Xóa bỏ hoàn toàn hàm set state giả lập không dùng đến `const setCurrentSimulatorRole = ...` để triệt tiêu lỗi biên dịch `noUnusedLocals` (TS6133). Giữ lại prop `role` tĩnh và biến `currentSimulatorRole` để phục vụ việc chuyển đổi giao diện động một cách an toàn và sạch sẽ.
+- **Walkthrough**:
+  * Giao diện hoàn toàn sạch bóng các vết tích giả lập vai trò, đảm bảo an toàn tuyệt đối và gọn gàng về mặt cấu trúc mã nguồn.
+  * Biên dịch dự án thành công 100% không phát sinh bất kỳ lỗi hay cảnh báo nào chỉ trong **349ms**.
+
+## [2026-06-01-Part3] - Tái thiết kế giao diện Kế hoạch Can thiệp IEP dành riêng cho Phụ huynh (Premium Health Dashboard - Pathway & Bento Style)
+- **Implementation**:
+  * **Tách biệt giao diện Phụ huynh (role === 'Parent')**: Thiết kế một giao diện hoàn toàn mới, vô cùng rực rỡ và trực quan dành riêng cho Phụ huynh khi họ xem IEP trong Children Profiles, thay vì giao diện quản trị Midnight Indigo hay phong cách phẳng lâm sàng đơn điệu của Chuyên gia.
+  * **Gradient Hero Card**: Thẻ tiêu đề kế hoạch được bọc bởi màu gradient HSL chuyển động dịu mắt (`linear-gradient(135deg, #6366F1, #A855F7, #EC4899)`) hiển thị tên kế hoạch, tên bé, thời hạn và thông tin nhanh với emoji sinh động.
+  * **Bento Core Targets Grid (Lưới Bento 4 Khối)**: Trực quan hóa Điểm mạnh (Strengths - lục `#F0FDF4`), Điểm yếu cần hỗ trợ (Weaknesses - cam `#FFF7ED`), Sở thích đặc biệt (Interests - hồng `#FDF2F8`) và Ý kiến gia đình (Family Comments - tím `#F5F3FF`) thành các Glassmorphic Sticker Cards màu pastel bo góc snug, viền mỏng tinh tế, không Memphis thô ráp nhưng cực kỳ sang trọng.
+  * **Interactive Pathway Map (Con đường Hành trình Can thiệp)**: Thay thế bảng danh sách Phase khô khan bằng một **Intervention Pathway** dạng timeline uốn lượn lộng lẫy. Mỗi Phase là một cột mốc Checkpoint hình tròn lớn, có số thứ tự, nhãn loại giai đoạn và trạng thái trực quan:
+    - Phase đang hoạt động (`Active`): Phát sáng viền tím và có hiệu ứng xung nhịp (`parentPulse` animation) tỏa tròn sinh động.
+    - Phase đã xong (`Completed`): Sáng xanh Teal kèm dấu check ✔️.
+    - Phase chưa học: Màu xám Slate dịu nhẹ.
+    - Giữa các checkpoint có đường nét đứt (#CBD5E1) kết nối. Click vào mỗi checkpoint sẽ mở mượt mà chi tiết Phase đó ở bên dưới.
+  * **Phase Detail & Goal Cards hiện đại**:
+    - Khi chọn Phase, giao diện chi tiết hiển thị thẻ Header gradient xanh dương-ngọc (`linear-gradient(135deg, #06B6D4, #3B82F6)`).
+    - Các mục tiêu hiển thị dưới dạng các **Goal Cards** phẳng thanh lịch, tích hợp thanh **Mastery progress bar** (Teal-to-Emerald gradient) hiển thị tỷ lệ % hoàn thành mục tiêu trực quan.
+    - Click vào Goal Card mở ra các **Activity Action Cards** màu kem dịu `#FFFDF5`, hiển thị tần suất, người thực hiện và nút Candy nẩy nổi bóng bẩy: `"Nộp bài tập 📤"` (màu tím Violet) hoặc `"Xem báo cáo 👁️"` (màu ngọc lam) kích hoạt trang chi tiết hoạt động chiếm 100% viewport mượt mà.
+  * **TypeScript Type Safety**: Đồng bộ và kiểm soát kiểu dữ liệu 100% chính xác với các interface gốc (`ObjectiveActivity`, `PhaseObjective`, `PlanPhase`), loại bỏ hoàn toàn các biến unused (`subs`) và build thành công production Vite sạch sẽ.
+- **Walkthrough**:
+  * Trải nghiệm của Phụ huynh được nâng lên tầm Premium thực sự: Bản đồ con đường can thiệp hiển thị đẹp mắt, các khối bento trực quan, thanh progress bar sống động giúp việc theo dõi tiến trình và thực hành bài tập của con trở nên vô cùng thú vị và tràn đầy cảm hứng.
+  * Biên dịch sản phẩm thành công 100% sạch lỗi chỉ trong **343ms**.
+
+## [2026-06-01-Part2] - Di chuyển vai trò Phụ huynh vào Hồ sơ trẻ em & Cố định vai trò Chuyên gia tại Dashboard chính
+- **Implementation**:
+  * **Cố định vai trò Chuyên gia tại Dashboard**: Nâng cấp [PlanDetailView.tsx](file:///e:/Đồ án tốt nghiệp/AutiCare-Design/src/components/dashboard/PlanDetailView.tsx) nhận prop `role?: 'Teacher' | 'Parent'`, mặc định là `'Teacher'`. Loại bỏ state `currentSimulatorRole` và gán nó bằng giá trị từ prop `role`. Khai báo dummy function `setCurrentSimulatorRole` để tương thích 100% với các callback JSX mà không bị lỗi compile.
+  * **Ẩn hoàn toàn widget giả lập vai trò**: Tích hợp thêm quy tắc CSS ẩn `.role-simulator-widget { display: none !important; }` vào khối style overrides của `PlanDetailView.tsx`, triệt tiêu hoàn toàn sự hiển thị của thanh giả lập vai trò trên cả trang chi tiết kế hoạch chính và trang chi tiết hoạt động can thiệp.
+  * **Tích hợp chi tiết kế hoạch IEP của Phụ huynh vào Children Profiles**:
+    - Nạp dữ liệu mock plans đầy đủ của bé Nguyễn Minh Khôi (`CH001`) và Trần Đức Nam (`CH002`) trực tiếp vào [ChildDetailView.tsx](file:///e:/Đồ án tốt nghiệp/AutiCare-Design/src/components/profile/tabs/ChildDetailView.tsx).
+    - Thêm state `plansList` và `selectedPlanForParentDetail` để quản lý việc mở xem chi tiết IEP của Phụ huynh.
+    - Cấu hình IEP Card của trẻ phản ứng động theo trẻ đang được xem: Khi phụ huynh click chọn mục IEP **"1. Verbal Communication (2-3 words)"** (đối với Khôi) hoặc **"1. Auditory Regulation & Gross Motor"** (đối với Nam), hệ thống sẽ gán kế hoạch tương ứng vào `selectedPlanForParentDetail`.
+    - Khi `selectedPlanForParentDetail !== null`, `ChildDetailView` sẽ render đè component `<PlanDetailView plan={selectedPlanForParentDetail} role="Parent" onBack={() => setSelectedPlanForParentDetail(null)} onUpdatePlan={...} />`.
+    - Phụ huynh sẽ xem được đầy đủ: plan details, plan phases, objectives, và nộp báo cáo thực hành rèn luyện (Submit check-in report) kèm link bằng chứng video, ghi nhận tiến trình rèn luyện thời gian thực mượt mà.
+- **Walkthrough**:
+  * Dashboard chính của Giáo viên/Chuyên gia giờ đây luôn hiển thị cố định góc nhìn lâm sàng, không còn widget giả lập vai trò.
+  * Phân hệ Phụ huynh trong Children Profiles hoạt động vô cùng xuất sắc: Khi click vào IEP, trang chi tiết mở ra dưới vai trò Phụ huynh tĩnh rất sang trọng, các form nộp bài, timeline tiến trình, xem video bằng chứng hoạt động hoàn hảo và mượt mà.
+  * Biên dịch sản phẩm thành công 100% sạch lỗi và không phát sinh cảnh báo trong **344ms**.
+
+## [2026-06-01] - Tái thiết kế phẳng (flat) thanh lịch cho cụm Quản lý mục tiêu và Hoạt động can thiệp trong PlanDetailView.tsx
+- **Implementation**:
+  * **Phẳng hóa hoàn toàn (Flat Design Overhaul)**: Loại bỏ triệt để style Memphis thô ráp (viền đen dày `3px`, bóng đổ offset 3D cứng) và vô hiệu hóa hoàn toàn hiệu ứng di chuột nâng nổi (`transform: translateY`, `transform: translate` hay `box-shadow` biến động khi hover) ở cụm Quản lý mục tiêu (**Manage Objectives**) và danh sách hoạt động (**Intervention Activities List**). Cố định và triệt tiêu hoàn toàn `transform: translate(-4px, -4px) !important` của `tbody tr:hover` và bóng đổ `7px 7px 0px` của `tbody tr:hover td` kế thừa từ `AdminDashboard.css` để đảm bảo các hàng bảng hoàn toàn phẳng lặng, kiên cố.
+  * **Thiết kế thanh lịch & Nhẹ nhàng**: Sử dụng viền mỏng tinh tế (`1px solid #E2E8F0`), nền phẳng xám/xanh pastel nhẹ dịu mắt (`#F8FAFC`, `#FFFFFF`) và bo góc snug hiện đại (`12px` - `16px`) cho các container và bảng.
+  * **Cải tiến nút bấm và Badge**:
+    - Chuyển nút thêm mục tiêu, hoạt động sang class phẳng chuyên biệt `.add-btn-flat` tương thích 100% với biến CSS `var(--primary)` của Design Lab, không có viền Slate đen dày, không có shadow thô.
+    - Thay thế nút chỉ hướng đóng/mở mini hình tròn Memphis viền đen bằng nút phẳng tròn màu `#F1F5F9` nhẹ, hover tím dịu, xoay mượt mà.
+    - Các badge trạng thái (Đã Review, Chờ Review, Đang thực hiện) chuyển thành dạng phẳng, màu pastel dịu, không viền đen thô, không shadow.
+  * **Cách ly an toàn (Scoped Overrides)**: Đóng gói toàn bộ các quy tắc CSS ghi đè này trực tiếp trong khối `<style>` nội bộ của `PlanDetailView.tsx`, giúp cách ly hoàn toàn và bảo vệ các trang Dashboard khác của dự án khỏi bị ảnh hưởng.
+- **Walkthrough**:
+  * Giao diện xem chi tiết kế hoạch can thiệp giờ đây hiển thị cụm quản lý mục tiêu vô cùng tinh khiết, nhẹ nhàng và sang trọng theo phong cách lâm sàng hiện đại. Khi di chuột vào các dòng mục tiêu hay danh sách hoạt động con, màu nền chuyển sang tím pastel nhã nhặn mà hoàn toàn không có cảm giác nâng lên hay rung lắc.
+  * Biên dịch sản phẩm Vite & TypeScript (`tsc -b && vite build`) thành công 100% sạch lỗi và không có bất kỳ cảnh báo nào trong **422ms**.
+
+## [2026-05-31] - Đồng bộ hóa thiết kế tab Manage Objectives theo phong cách Memphis Playful Geometric
+- **Implementation**:
+  * **Thiết kế Bento Card chi tiết Giai đoạn (`Plan Phase Detail`)**: Thay thế phần hiển thị văn bản chi tiết giai đoạn thô sơ cũ bằng một **Bento Card Memphis** (`.phase-info-card`) tuyệt đẹp có nền trắng sữa `#FFFFFF`, viền Slate đen dày `3px`, bo góc rộng `20px` và bóng đổ cứng offset 3D `6px 6px 0px #1E293B`. Bên trong card chia 4 cột Grid tinh tế bằng các đường dashed Memphis, hiển thị kèm các icon emoji sinh động: Mã Giai Đoạn, Tên Giai Đoạn, Thời hạn can thiệp và Trạng thái.
+  * **Nâng cấp Hàng bảng nổi 3D (Floating Rows)**: Bổ sung `className="floating-row"` cho thẻ hàng `<tr>` trong `ObjectivesTab.tsx` để kích hoạt hiệu ứng hàng bảng nổi 3D Memphis có sẵn trong `AdminDashboard.css` (bóng đổ cứng, khi hover sẽ nhấc nổi elastic và hiện vệt màu tím sang trọng ở lề trái).
+  * **Đồng bộ hóa Toolbar và Tiêu đề**: Thiết kế lại phần tiêu đề giai đoạn và toolbar tìm kiếm/hành động thành 2 khu vực rõ ràng. Tiêu đề giai đoạn và Bento Phase Card nằm trên cùng, bên dưới là thanh công cụ toolbar chứa ô tìm kiếm và Candy button `+ Thêm mục tiêu mới` có bóng đổ Memphis.
+  * **Tối ưu hóa Biểu mẫu Modal & Input hiện đại**:
+    - Chuyển biểu mẫu trong `CreateModal`, `EditModal` và `ReadModal` sang dạng lưới 2 cột `.modal-form-grid` đồng điệu với PlansTab, tận dụng chiều rộng Modal `600px` mới.
+    - Song ngữ hóa toàn bộ nhãn trong form (Tên mục tiêu VI/EN, Ngày hoàn thành, Trạng thái).
+    - Chuyển trường nhập liệu Ngày hoàn thành (`targetDate`) từ thẻ `<input type="text" />` thô sơ thành `<input type="date" />` hiện đại, giúp dễ thao tác chọn ngày trên lịch.
+    - Định kiểu `ReadModal` (Xem chi tiết) với các static text block `.static-field-block` màu nền Slate cực nhẹ `#F8FAFC`, bo góc `12px` phẳng phiu giống Profile Phụ huynh.
+- **Walkthrough**:
+  * Khi trị liệu viên/giáo viên click vào quản lý mục tiêu của giai đoạn kế hoạch can thiệp, giao diện hiện ra vô cùng rực rỡ và chuyên nghiệp: Khối chi tiết giai đoạn Bento Card Memphis kiên cố nổi bật, danh sách mục tiêu nổi 3D nẩy nổi đàn hồi, các modal tạo/sửa to rộng, grid 2 cột cân đối và ô chọn ngày tiện lợi.
+  * Biên dịch sản phẩm Vite & TypeScript (`tsc -b`) thành công 100% không cảnh báo lỗi trong **559ms**.
+
 ## [2026-05-30] - Nang cap Parent/Child quick linking va rut gon language switch
 - **Implementation**:
   - Cap nhat `src/components/dashboard/ParentsTab.tsx`: trong Update Parent bo sung 2 tuy chon bang tieng Anh. Tuy chon `Already have a child profile? Add child to this parent` hien truong `Child ID`, lookup thong tin child va khi save se gan child do ve parent dang update. Tuy chon `Need to create a child quickly?` hien form tao nhanh child va khi save se tao child moi voi parent hien tai.

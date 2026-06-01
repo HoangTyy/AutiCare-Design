@@ -147,6 +147,7 @@ function App() {
   const [justBooked, setJustBooked] = useState(false)
   const [selectedCenter, setSelectedCenter] = useState<Center | null>(null)
   const [quizTarget, setQuizTarget] = useState<'mchat' | 'cars' | null>(null)
+  const [previousView, setPreviousView] = useState<View>('landing')
 
   // Core Mock Database State for Centers, their respective Levels, and Categories
   const [centers, setCenters] = useState<Center[]>([
@@ -366,6 +367,16 @@ function App() {
         targetView = 'staff-dashboard';
       } else if (hash === '#/centers') {
         targetView = 'centers';
+      } else if (hash.startsWith('#/center-detail')) {
+        targetView = 'center-detail';
+        const parts = hash.split('?id=');
+        const centerId = parts.length > 1 ? parts[1] : null;
+        if (centerId) {
+          const found = centers.find(c => c.id === centerId);
+          if (found) {
+            setSelectedCenter(found as any);
+          }
+        }
       } else if (hash === '#/design-homepage') {
         targetView = 'designHomepage';
       } else if (hash === '#/design-admin') {
@@ -382,7 +393,7 @@ function App() {
     return () => {
       window.removeEventListener('hashchange', handleHashChange);
     };
-  }, []);
+  }, [centers]);
 
   // Update hash when view changes programmatically
   useEffect(() => {
@@ -392,13 +403,14 @@ function App() {
     else if (view === 'staff-profile') targetHash = '#/staff-profile';
     else if (view === 'staff-dashboard') targetHash = '#/dashboard/staff';
     else if (view === 'centers') targetHash = '#/centers';
+    else if (view === 'center-detail' && selectedCenter) targetHash = `#/center-detail?id=${selectedCenter.id}`;
     else if (view === 'designHomepage') targetHash = '#/design-homepage';
     else if (view === 'designAdmin') targetHash = '#/design-admin';
 
     if (window.location.hash !== targetHash) {
       window.location.hash = targetHash;
     }
-  }, [view]);
+  }, [view, selectedCenter]);
 
   // Section Tracking IntersectionObserver for active indicators
   useEffect(() => {
@@ -508,6 +520,7 @@ function App() {
         onBack={() => setView('landing')}
         onSelectCenter={(c) => {
           setSelectedCenter(c as any);
+          setPreviousView('centers');
           setView('center-detail');
         }}
       />
@@ -520,7 +533,7 @@ function App() {
         lang={lang}
         setLang={setLang}
         center={selectedCenter}
-        onBack={() => setView('landing')}
+        onBack={() => setView(previousView)}
         onInvoiceGenerated={() => {
           setJustBooked(true);
           setTimeout(() => {
@@ -735,6 +748,7 @@ function App() {
           onViewMoreCenters={() => setView('centers')} 
           onSelectCenter={(c) => {
             setSelectedCenter(c as any);
+            setPreviousView('landing');
             setView('center-detail');
           }}
         />

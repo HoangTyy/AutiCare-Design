@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PlanDetailView from '../../dashboard/PlanDetailView';
+import type { Plan } from '../../dashboard/PlanDetailView';
 
 interface ChildDetailViewProps {
   child: any;
@@ -170,6 +172,310 @@ const INITIAL_SCREENING_RESULTS: DatabaseScreeningResult[] = [
     }),
     created_at: "2026-05-20T16:00:00.000Z",
     updated_at: "2026-05-20T16:00:00.000Z"
+  }
+];
+
+const INITIAL_PLANS: Plan[] = [
+  {
+    plan_id: 1,
+    plan_name: 'Kế hoạch can thiệp sớm hành vi & giao tiếp - Nguyễn Minh Khôi',
+    academic_year: '2026-2027',
+    assessment_tool: 'CARS-2 (Thang đánh giá mức độ tự kỷ ở trẻ em)',
+    child_strengths: 'Có khả năng nhận biết hình ảnh nhanh, thích các trò chơi xếp hình Lego, phản xạ tốt với âm thanh nhạc cụ.',
+    child_weaknesses: 'Chưa nói được câu dài, thiếu giao tiếp mắt chủ động, thường la hét khi không vừa ý.',
+    child_interests: 'Xếp hình Lego, nghe nhạc thiếu nhi, xem phim hoạt hình Pororo.',
+    family_feedback: 'Mong muốn con cải thiện khả năng giao tiếp mắt và tự phục vụ cơ bản.',
+    start_date: '2026-05-01',
+    end_date: '2026-11-01',
+    status: 'Active',
+    center_staff_id: 1,
+    child_id: 1,
+    created_at: '2026-05-01 08:30:00',
+    updated_at: '2026-05-01 08:30:00',
+    phases: [
+      {
+        plan_phase_id: 1,
+        plan_id: 1,
+        phase_name: 'Giai đoạn 1: Thiết lập giao tiếp mắt và cử chỉ cơ bản',
+        phase_type: 'PECS & ABA',
+        start_date: '2026-05-01',
+        end_date: '2026-07-31',
+        status: 'Active',
+        is_deleted: false,
+        created_at: '2026-05-01 08:30:00',
+        updated_at: '2026-05-01 08:30:00',
+        objectives: [
+          {
+            objective_id: 1,
+            plan_phase_id: 1,
+            objective_name: 'Duy trì giao tiếp mắt tối thiểu 3 giây',
+            target_date: '2026-05-01 08:30:0',
+            status: 'Completed',
+            created_at: '2026-05-01 08:35:00',
+            updated_at: '2026-05-01 08:35:00',
+            activities: [
+              {
+                activity_id: 1,
+                plan_phase_id: 1,
+                activity_name: 'Ghép tranh Lego tìm kiếm tương tác mắt',
+                description: 'Giáo viên cầm mảnh Lego đặt ngang tầm mắt để thu hút sự chú ý của trẻ, khi trẻ nhìn vào mắt giáo viên thì trao mảnh ghép.',
+                duration: '30 phút / buổi',
+                frequency: '3 lần / tuần',
+                target_criteria: 'Trẻ nhìn mắt giáo viên 3-5 giây khi đưa mảnh ghép',
+                teaching_method: 'Giữ mảnh ghép gần tầm mắt, gọi tên trẻ. Đợi trẻ nhìn vào mắt mới đưa mảnh ghép.',
+                assignee_type: 'Teacher',
+                status: 'Submitted',
+                submissions: [
+                  {
+                    activity_submission_id: 1,
+                    submission_date: '2026-05-27 19:45:00',
+                    submitter_note: 'Bé Khôi tối nay đã tự tay ghép được nửa bộ Lego nhỏ và khi tôi gọi tên, con đã nhìn thẳng vào mắt tôi tầm 4 giây để đòi thêm mảnh ghép tiếp theo. Đây là tiến bộ rất lớn!',
+                    evidence_videos_json: '["https://www.youtube.com/watch?v=9tGZ8tW48zU"]',
+                    submit_times: 1
+                  }
+                ],
+                reviews: [
+                  {
+                    submission_review_id: 1,
+                    expert_feedback: 'Lần thực hành Lego hôm 25/5 của con rất tốt, con đã giữ tương tác mắt 3 giây. Phụ huynh nên tiếp tục áp dụng khen thưởng mảnh Lego kịp thời nhé!',
+                    created_at: '2026-05-26 09:00:00'
+                  }
+                ]
+              },
+              {
+                activity_id: 101,
+                plan_phase_id: 1,
+                activity_name: 'Luyện nói từ đơn qua Flashcard con vật (Completed - Chờ Review)',
+                description: 'Sử dụng các flashcard hình ảnh con vật quen thuộc để hướng dẫn trẻ nói từ đơn tương ứng và duy trì tương tác.',
+                duration: '20 phút / buổi',
+                frequency: 'Mỗi ngày',
+                target_criteria: 'Trẻ phát âm rõ từ đơn và duy trì sự tập trung',
+                teaching_method: 'Đưa thẻ flashcard ngang tầm mắt, phát âm rõ ràng và đợi trẻ lặp lại âm thanh.',
+                assignee_type: 'Parent',
+                status: 'Submitted',
+                submissions: [
+                  {
+                    activity_submission_id: 101,
+                    submission_date: '2026-05-28 10:30:00',
+                    submitter_note: 'Hôm nay bé Khôi đã cố gắng phát âm theo ba từ "mèo", "chó". Bé bắt chước khá nhanh và cười vui vẻ. Rất mong chuyên gia đánh giá và cho thêm hướng dẫn!',
+                    evidence_videos_json: '["https://www.youtube.com/watch?v=dQw4w9WgXcQ"]',
+                    submit_times: 1
+                  }
+                ],
+                reviews: []
+              },
+              {
+                activity_id: 102,
+                plan_phase_id: 1,
+                activity_name: 'Xúc thìa tự ăn bằng đất nặn mô phỏng (Đã Review)',
+                description: 'Hướng dẫn trẻ cầm thìa và xúc các viên đất nặn tròn nhỏ bỏ vào bát nhựa để cải thiện cơ tay và sự phối hợp tay mắt.',
+                duration: '15 phút / buổi',
+                frequency: '5 lần / tuần',
+                target_criteria: 'Trẻ xúc thành công 5 viên đất nặn không rơi ra ngoài',
+                teaching_method: 'Cầm tay trẻ hướng dẫn thao tác xúc ban đầu, sau đó để trẻ tự thực hiện và khen thưởng bằng lời nói.',
+                assignee_type: 'Parent',
+                status: 'Submitted',
+                submissions: [
+                  {
+                    activity_submission_id: 102,
+                    submission_date: '2026-05-28 14:00:00',
+                    submitter_note: 'Bé đã biết cầm thìa chắc chắn hơn và xúc được 6 viên đất nặn bỏ vào bát mà không làm rơi hạt nào!',
+                    evidence_videos_json: '["https://www.youtube.com/watch?v=9tGZ8tW48zU"]',
+                    submit_times: 1
+                  }
+                ],
+                reviews: [
+                  {
+                    submission_review_id: 102,
+                    expert_feedback: 'Tuyệt vời! Cơ tay của bé đã tiến bộ vượt bậc. Ba mẹ có thể chuyển dần sang cho bé xúc cơm thật với hạt cơm dẻo để bé quen dần nhé.',
+                    created_at: '2026-05-28 15:30:00'
+                  }
+                ]
+              },
+              {
+                activity_id: 103,
+                plan_phase_id: 1,
+                activity_name: 'Chỉ ngón trỏ để yêu cầu đồ chơi yêu thích (Đang thực hiện - Chưa nộp báo cáo)',
+                description: 'Đặt đồ chơi yêu thích của trẻ (ô tô, khủng long) ngoài tầm với nhưng trong tầm mắt. Khích lệ trẻ chỉ ngón trỏ hướng về đồ chơi trước khi trao cho trẻ.',
+                duration: '15 phút / buổi',
+                frequency: 'Hàng ngày',
+                target_criteria: 'Trẻ chủ động chỉ ngón trỏ hướng về phía đồ chơi mình muốn tối thiểu 3 lần trong ngày',
+                teaching_method: 'Chỉ mẫu ngón trỏ, hỏi trẻ "Con muốn cái nào? Chỉ cho ba/mẹ xem nào". Đợi trẻ chỉ ngón trỏ mới đưa đồ chơi và khen ngợi.',
+                assignee_type: 'Parent',
+                status: 'In Progress',
+                submissions: [],
+                reviews: []
+              },
+              {
+                activity_id: 104,
+                plan_phase_id: 1,
+                activity_name: 'Thổi bong bóng xà phòng luân phiên lượt (Phụ huynh đã nộp - Chờ Review)',
+                description: 'Thổi bong bóng để thu hút sự chú ý. Tạm dừng thổi, đậy nắp lọ lại và đợi trẻ chủ động giao tiếp (bằng lời nói "thổi" hoặc cử chỉ chạm tay) để yêu cầu tiếp tục lượt chơi.',
+                duration: '20 phút / buổi',
+                frequency: '4 lần / tuần',
+                target_criteria: 'Trẻ biết chờ đợi đến lượt và chủ động phát âm hoặc ra ký hiệu để yêu cầu tiếp tục hoạt động',
+                teaching_method: 'Thổi bong bóng 1 lượt, sau đó cất đi. Nói với trẻ "Đến lượt ai nào?". Đợi trẻ tương tác bằng mắt và phát âm đòi thổi tiếp mới tiếp tục thổi.',
+                assignee_type: 'Parent',
+                status: 'Submitted',
+                submissions: [
+                  {
+                    activity_submission_id: 104,
+                    submission_date: '2026-05-28 17:40:00',
+                    submitter_note: 'Bé Khôi tối nay chơi thổi bong bóng rất vui. Khi tôi dừng lại và hỏi "Đến lượt ai nào?", bé đã chủ động chạm vào tay tôi và nói "thổi thổi" rất rõ ràng. Video ghi lại toàn bộ tiến trình này ạ!',
+                    evidence_videos_json: '["https://www.youtube.com/watch?v=9tGZ8tW48zU"]',
+                    submit_times: 1
+                  }
+                ],
+                reviews: []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        plan_phase_id: 2,
+        plan_id: 1,
+        phase_name: 'Giai đoạn 2: Phát triển ngôn ngữ nói đơn từ và câu ngắn',
+        phase_type: 'TEACCH',
+        start_date: '2026-08-01',
+        end_date: '2026-10-31',
+        status: 'Active',
+        is_deleted: false,
+        created_at: '2026-05-01 08:35:00',
+        updated_at: '2026-05-01 08:35:00',
+        objectives: [
+          {
+            objective_id: 2,
+            plan_phase_id: 2,
+            objective_name: 'Phát âm chính xác 10 từ đơn cơ bản',
+            target_date: '2026-11-07',
+            status: 'Completed',
+            created_at: '2026-05-01 08:35:00',
+            updated_at: '2026-05-01 08:35:00',
+            activities: [
+              {
+                activity_id: 2,
+                plan_phase_id: 2,
+                activity_name: 'Gọi tên con vật qua thẻ hình ảnh',
+                description: 'Sử dụng các thẻ tranh ảnh sắc nét để hướng dẫn trẻ phát âm các từ đơn.',
+                duration: '45 phút / buổi',
+                frequency: 'Mỗi ngày 15 phút',
+                target_criteria: 'Bắt chước đúng 3/5 âm thanh động vật quen thuộc',
+                teaching_method: 'Đưa thẻ hình lên ngang miệng, làm mẫu âm thanh (meo meo, gâu gâu...) rõ khẩu hình, khen ngợi ngay khi trẻ phát âm theo.',
+                assignee_type: 'Parent',
+                status: 'In Progress'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    plan_id: 2,
+    plan_name: 'Kế hoạch can thiệp điều hòa giác quan & tự phục vụ - Trần Đức Nam',
+    academic_year: '2026-2027',
+    assessment_tool: 'Sensory Profile 2 (Hồ sơ giác quan trẻ em)',
+    child_strengths: 'Thể chất tốt, thích vận động leo trèo, hợp tác tốt với giáo viên nam.',
+    child_weaknesses: 'Nhạy cảm quá mức với tiếng ồn lớn, gặp khó khăn khi cầm thìa tự xúc ăn.',
+    child_interests: 'Chơi bóng, xích đu, chơi với nước.',
+    family_feedback: 'Gia đình muốn hỗ trợ con tự cầm thìa ăn cơm và giảm bớt cơn bùng nổ khi gặp tiếng ồn.',
+    start_date: '2026-05-10',
+    end_date: '2026-11-10',
+    status: 'Active',
+    center_staff_id: 2,
+    child_id: 2,
+    created_at: '2026-05-10 09:00:00',
+    updated_at: '2026-05-10 09:00:00',
+    phases: [
+      {
+        plan_phase_id: 3,
+        plan_id: 2,
+        phase_name: 'Giai đoạn 1: Điều hòa cảm giác thính giác và vận động thô',
+        phase_type: 'Sensory Integration',
+        start_date: '2026-05-10',
+        end_date: '2026-08-10',
+        status: 'Active',
+        is_deleted: false,
+        created_at: '2026-05-10 09:00:00',
+        updated_at: '2026-05-10 09:00:00',
+        objectives: [
+          {
+            objective_id: 3,
+            plan_phase_id: 3,
+            objective_name: 'Chấp nhận đeo tai nghe chống ồn',
+            target_date: 'Nhẫn nại tối thiểu 10 phút',
+            status: 'In process',
+            created_at: '2026-05-01 08:35:00',
+            updated_at: '2026-05-01 08:35:00',
+            activities: [
+              {
+                activity_id: 3,
+                plan_phase_id: 3,
+                activity_name: 'Nghe nhạc êm dịu kết hợp chơi đất nặn',
+                description: 'Giúp trẻ làm quen với các tần số âm thanh khác nhau trong môi trường thư giãn.',
+                duration: '40 phút / buổi',
+                frequency: '3 lần / tuần',
+                target_criteria: 'Trẻ chấp nhận nghe trong 5 phút mà không tháo tai nghe',
+                teaching_method: 'Bật nhạc âm lượng nhỏ, tăng dần. Cùng chơi đất nặn để phân tán.',
+                assignee_type: 'Therapist',
+                status: 'In Progress'
+              },
+              {
+                activity_id: 301,
+                plan_phase_id: 3,
+                activity_name: 'Tập đeo tai nghe chống ồn bảo vệ tai (Completed - Chờ Review)',
+                description: 'Hướng dẫn trẻ cách tự đeo tai nghe chống ồn bảo vệ tai khi có tiếng ồn lớn.',
+                duration: '15 phút / buổi',
+                frequency: 'Hàng ngày',
+                target_criteria: 'Trẻ đeo tai nghe trong 10 phút liên tục khi có tiếng ồn máy xay',
+                teaching_method: 'Bật tiếng ồn giả lập âm lượng từ nhỏ đến vừa, hướng dẫn trẻ tự đeo tai nghe và khen thưởng.',
+                assignee_type: 'Parent',
+                status: 'Submitted',
+                submissions: [
+                  {
+                    activity_submission_id: 301,
+                    submission_date: '2026-05-28 16:00:00',
+                    submitter_note: 'Bé Nam đã chịu tự đeo tai nghe khi tôi bật máy xay sinh tố và đeo được hơn 10 phút. Bé không khóc thét như mọi lần nữa ạ!',
+                    evidence_videos_json: '["https://www.youtube.com/watch?v=dQw4w9WgXcQ"]',
+                    submit_times: 1
+                  }
+                ],
+                reviews: []
+              },
+              {
+                activity_id: 302,
+                plan_phase_id: 3,
+                activity_name: 'Luyện thăng bằng đi bộ trên vạch kẻ thẳng (Đã Review)',
+                description: 'Giúp trẻ rèn luyện khả năng thăng bằng tiền đình bằng cách đi bộ trên vạch kẻ màu vàng.',
+                duration: '20 phút / buổi',
+                frequency: '4 lần / tuần',
+                target_criteria: 'Trẻ tự đi hết vạch kẻ 3 mét mà không bị bước chệch ra ngoài',
+                teaching_method: 'Giáo viên đi mẫu trước, sau đó cho trẻ đi bộ giữ thăng bằng giang tay, hỗ trợ đỡ vai trẻ nếu cần.',
+                assignee_type: 'Teacher',
+                status: 'Submitted',
+                submissions: [
+                  {
+                    activity_submission_id: 302,
+                    submission_date: '2026-05-28 11:20:00',
+                    submitter_note: 'Bé Nam đi rất vững chãi, chỉ chệch hướng 1 lần nhẹ ở đoạn rẽ cuối. Bé đã biết tự giang hai tay để thăng bằng.',
+                    evidence_videos_json: '["https://www.youtube.com/watch?v=9tGZ8tW48zU"]',
+                    submit_times: 1
+                  }
+                ],
+                reviews: [
+                  {
+                    submission_review_id: 302,
+                    expert_feedback: 'Tiến bộ xuất sắc! Thăng bằng của con đã tốt hơn rất nhiều. Buổi tới giáo viên có thể tăng độ khó bằng cách cho con đi bộ giữ thăng bằng đầu kẹp gối hơi nhé.',
+                    created_at: '2026-05-28 13:00:00'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ];
 
@@ -443,6 +749,8 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
   const [assessments] = useState<AssessmentResult[]>(INITIAL_ASSESSMENTS);
   const [healthRecords, setHealthRecords] = useState<HealthRecord[]>(INITIAL_HEALTH_RECORDS);
   const [screeningResults] = useState<DatabaseScreeningResult[]>(INITIAL_SCREENING_RESULTS);
+  const [plansList, setPlansList] = useState<Plan[]>(INITIAL_PLANS);
+  const [selectedPlanForParentDetail, setSelectedPlanForParentDetail] = useState<Plan | null>(null);
   // const [expandedSubtests, setExpandedSubtests] = useState<Record<string, boolean>>({});
 
   // Modals state
@@ -745,6 +1053,25 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
   //   setIsAddScreeningModalOpen(false);
   //   triggerToast(t.toastSave);
   // };
+
+  if (selectedPlanForParentDetail) {
+    return (
+      <div style={{ animation: 'profile-fade-in 0.25s ease-out' }}>
+        <PlanDetailView
+          lang={lang}
+          plan={selectedPlanForParentDetail}
+          role="Parent"
+          onBack={() => setSelectedPlanForParentDetail(null)}
+          onUpdatePlan={(updatedPlan) => {
+            setPlansList(prev => prev.map(p => p.plan_id === updatedPlan.plan_id ? updatedPlan : p));
+            setSelectedPlanForParentDetail(updatedPlan);
+            triggerToast(lang === 'vi' ? '📤 Đã nộp báo cáo tiến trình thành công!' : '📤 Progress report submitted successfully!');
+          }}
+          onDeletePlan={() => {}}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="profile-tab-content child-detail-wrapper" style={{ animation: 'profile-fade-in 0.35s ease-out' }}>
@@ -1156,15 +1483,56 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
-                <div style={{ border: '2.5px solid #1E293B', borderRadius: '16px', padding: '1.2rem', background: '#FFFDF5', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '4px 4px 0 #1E293B' }}>
-                  <div>
-                    <h4 style={{ margin: 0, fontWeight: 900, color: '#1E293B', fontSize: '1.05rem' }}>1. {lang === 'vi' ? 'Giao tiếp chủ động bằng lời (2-3 từ)' : 'Verbal Communication (2-3 words)'}</h4>
-                    <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700 }}>{lang === 'vi' ? 'Lĩnh vực: Ngôn ngữ diễn đạt' : 'Domain: Expressive Language'}</span>
-                  </div>
-                  <span style={{ background: '#FEF3C7', color: '#D97706', padding: '4px 10px', borderRadius: '10px', fontSize: '0.75rem', fontWeight: 800, border: '1.5px solid #D97706' }}>
-                    ⚡ {lang === 'vi' ? 'Đang thực hiện' : 'In Progress'}
-                  </span>
-                </div>
+                {(() => {
+                  const planId = childDisplayId === 'CH001' ? 1 : 2;
+                  const childPlan = plansList.find(p => p.plan_id === planId) || plansList[0];
+                  
+                  return (
+                    <div 
+                      style={{ 
+                        border: '2.5px solid #1E293B', 
+                        borderRadius: '16px', 
+                        padding: '1.2rem', 
+                        background: '#FFFDF5', 
+                        display: 'flex', 
+                        justifyContent: 'space-between', 
+                        alignItems: 'center', 
+                        boxShadow: '4px 4px 0 #1E293B',
+                        cursor: 'pointer',
+                        transition: 'transform 0.15s ease, box-shadow 0.15s ease'
+                      }}
+                      className="profile-iep-item-card"
+                      onClick={() => setSelectedPlanForParentDetail(childPlan)}
+                    >
+                      <div>
+                        <h4 style={{ margin: 0, fontWeight: 900, color: '#1E293B', fontSize: '1.05rem', lineHeight: '1.4' }}>
+                          {childPlan.plan_name}
+                        </h4>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginTop: '6px' }}>
+                          <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 800 }}>
+                            🎯 {lang === 'vi' ? 'Công cụ đánh giá:' : 'Assessment Tool:'} {childPlan.assessment_tool}
+                          </span>
+                          <span style={{ fontSize: '0.75rem', color: '#8B5CF6', fontWeight: 800 }}>
+                            📂 {lang === 'vi' ? `Lĩnh vực: ${childDisplayId === 'CH001' ? 'Ngôn ngữ diễn đạt' : 'Điều hòa giác quan'}` : `Domain: ${childDisplayId === 'CH001' ? 'Expressive Language' : 'Sensory Integration'}`}
+                          </span>
+                        </div>
+                      </div>
+                      <span style={{ 
+                        background: '#E0F2FE', 
+                        color: '#0369A1', 
+                        padding: '4px 10px', 
+                        borderRadius: '99px', 
+                        fontSize: '0.75rem', 
+                        fontWeight: 800, 
+                        border: '1.5px solid #0EA5E9',
+                        marginLeft: '12px',
+                        whiteSpace: 'nowrap'
+                      }}>
+                        🏃 {lang === 'vi' ? 'Đang học' : 'In Progress'}
+                      </span>
+                    </div>
+                  );
+                })()}
               </div>
             </div>
           )}
