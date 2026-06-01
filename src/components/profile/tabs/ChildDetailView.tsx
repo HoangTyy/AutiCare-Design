@@ -751,7 +751,7 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
   const [screeningResults] = useState<DatabaseScreeningResult[]>(INITIAL_SCREENING_RESULTS);
   const [plansList, setPlansList] = useState<Plan[]>(INITIAL_PLANS);
   const [selectedPlanForParentDetail, setSelectedPlanForParentDetail] = useState<Plan | null>(null);
-  // const [expandedSubtests, setExpandedSubtests] = useState<Record<string, boolean>>({});
+  const [expandedSubtests, setExpandedSubtests] = useState<Record<string, boolean>>({});
 
   // Modals state
   const [selectedDetails, setSelectedDetails] = useState<AssessmentResult | null>(null);
@@ -1579,20 +1579,202 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
               <button type="button" className="profile-modal-close-btn" onClick={() => setSelectedDetails(null)} style={{ color: '#FFF' }}>×</button>
             </div>
             <div className="profile-modal-body" style={{ padding: '1.5rem' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', background: '#F8FAFC', padding: '1rem', borderRadius: '16px', border: '2.5px solid #1E293B' }}>
+              
+              {/* 1. Thông tin chung */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', background: '#F8FAFC', padding: '1rem', borderRadius: '16px', border: '2.5px solid #1E293B', marginBottom: '1.5rem' }}>
                 <div>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>👶 Trẻ đánh giá:</span>
-                  <span style={{ fontWeight: 800, color: '#1E293B' }}>{child.name}</span>
+                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>👶 {lang === 'vi' ? 'Trẻ đánh giá:' : 'Patient:'}</span>
+                  <span style={{ fontWeight: 800, color: '#1E293B' }}>{childDisplayName}</span>
                 </div>
                 <div>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>📅 Ngày thực hiện:</span>
+                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>📅 {lang === 'vi' ? 'Ngày thực hiện:' : 'Date:'}</span>
                   <span style={{ fontWeight: 800, color: '#1E293B' }}>{selectedDetails.date}</span>
                 </div>
                 <div>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>👩‍⚕️ Người đánh giá:</span>
+                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>👩‍⚕️ {lang === 'vi' ? 'Người đánh giá:' : 'Examiner:'}</span>
                   <span style={{ fontWeight: 800, color: '#1E293B' }}>{selectedDetails.examiner}</span>
                 </div>
               </div>
+
+              {/* 2. Bảng phân rã các tiểu test lâm sàng (nếu có dữ liệu scores) */}
+              {selectedDetails.scores && (
+                <>
+                  <h4 style={{ margin: '1.5rem 0 1rem 0', fontWeight: 900, color: '#1E293B', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.2rem', fontFamily: 'Be Vietnam Pro, sans-serif' }}>
+                    📊 {lang === 'vi' ? 'Phân rã 100% chỉ số tiểu test lâm sàng:' : '100% Clinical Subtests Breakdown:'}
+                  </h4>
+                  <div className="pep3-detail-table-wrapper">
+                    <table>
+                      <thead>
+                        <tr style={{ background: '#F8FAFC' }}>
+                          <th style={{ padding: '12px 16px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem' }}>
+                            {t.subtestCol || (lang === 'vi' ? 'Tiểu test lâm sàng' : 'Clinical Subtest')}
+                          </th>
+                          <th style={{ padding: '12px 16px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem', textAlign: 'center' }}>
+                            {t.scoredCol || (lang === 'vi' ? 'Điểm số đạt' : 'Score')}
+                          </th>
+                          <th style={{ padding: '12px 16px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem', textAlign: 'center' }}>
+                            {t.maxCol || (lang === 'vi' ? 'Điểm tối đa' : 'Max')}
+                          </th>
+                          <th style={{ padding: '12px 16px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem' }}>
+                            {t.percentCol || (lang === 'vi' ? 'Tỷ lệ phát triển' : 'Progress Rate')}
+                          </th>
+                          <th style={{ padding: '12px 16px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem' }}>
+                            {t.descCol || (lang === 'vi' ? 'Đặc tả lâm sàng y học' : 'Clinical Medical Description')}
+                          </th>
+                          <th style={{ padding: '12px 16px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem', textAlign: 'center' }}>
+                            {lang === 'vi' ? 'Chi tiết' : 'Details'}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {Object.entries(selectedDetails.scores).map(([code, scoreData]) => {
+                          const percent = Math.round((scoreData.scored / scoreData.max) * 100);
+                          const isExpanded = !!expandedSubtests[code];
+                          return (
+                            <React.Fragment key={code}>
+                              <tr className="pep3-table-main-row">
+                                <td style={{ padding: '14px 16px', fontWeight: 800, color: '#1E293B', fontSize: '0.9rem' }}>
+                                  {lang === 'vi' ? scoreData.labelVi : scoreData.labelEn}
+                                </td>
+                                <td style={{ padding: '14px 16px', fontWeight: 900, color: '#0D9488', fontSize: '1rem', textAlign: 'center' }}>
+                                  {scoreData.scored}
+                                </td>
+                                <td style={{ padding: '14px 16px', fontWeight: 800, color: '#475569', fontSize: '0.9rem', textAlign: 'center' }}>
+                                  {scoreData.max}
+                                </td>
+                                <td style={{ padding: '14px 16px' }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: '130px' }}>
+                                    <div style={{ width: '80px', height: '8px', background: '#E2E8F0', border: '1px solid #1E293B', borderRadius: '4px', overflow: 'hidden' }}>
+                                      <div style={{ width: `${percent}%`, height: '100%', background: 'linear-gradient(90deg, #F97316, #EA580C)', transition: 'width 0.3s ease' }} />
+                                    </div>
+                                    <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#1E293B' }}>{percent}%</span>
+                                  </div>
+                                </td>
+                                <td style={{ padding: '14px 16px', color: '#475569', fontSize: '0.8rem', fontWeight: 700, maxWidth: '280px', lineHeight: '1.45', whiteSpace: 'normal', wordBreak: 'break-word' }}>
+                                  {lang === 'vi' ? scoreData.descVi : scoreData.descEn}
+                                </td>
+                                <td style={{ padding: '14px 16px', textAlign: 'center' }}>
+                                  <button
+                                    type="button"
+                                    className="candy-btn-action"
+                                    onClick={() => setExpandedSubtests(prev => ({ ...prev, [code]: !prev[code] }))}
+                                    style={{
+                                      padding: '5px 12px',
+                                      background: '#0D9488',
+                                      border: '2px solid #1E293B',
+                                      borderRadius: '8px',
+                                      fontSize: '0.75rem',
+                                      fontWeight: 800,
+                                      color: '#FFF',
+                                      cursor: 'pointer',
+                                      boxShadow: '1.5px 1.5px 0 #1E293B',
+                                      whiteSpace: 'nowrap'
+                                    }}
+                                  >
+                                    {isExpanded 
+                                      ? (lang === 'vi' ? 'Ẩn bớt 🔍' : 'Hide items 🔍')
+                                      : (lang === 'vi' ? 'Xem mục 🔍' : 'View items 🔍')
+                                    }
+                                  </button>
+                                </td>
+                              </tr>
+                              
+                              {/* Accordion detail subtest items */}
+                              {isExpanded && (
+                                <tr>
+                                  <td colSpan={6} style={{ padding: '0 16px 16px 16px', background: '#F8FAFC' }}>
+                                    <div className="subtest-accordion-panel">
+                                      <h5 style={{ margin: '0 0 10px 0', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem', fontFamily: 'Be Vietnam Pro, sans-serif' }}>
+                                        📝 {lang === 'vi' ? `Chi tiết bài tập kiểm thử của tiểu test ${code}:` : `Diagnostic test items detail of subtest ${code}:`}
+                                      </h5>
+                                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                                        {SUBTEST_ITEMS_DB[code] && SUBTEST_ITEMS_DB[code].length > 0 ? (
+                                          SUBTEST_ITEMS_DB[code].map((item) => (
+                                            <div 
+                                              key={item.id} 
+                                              className="subtest-item-sticker-card"
+                                              style={{
+                                                background: '#FFFFFF',
+                                                border: '2px solid #1E293B',
+                                                borderRadius: '12px',
+                                                padding: '10px 14px',
+                                                boxShadow: '3px 3px 0 #1E293B',
+                                                display: 'grid',
+                                                gridTemplateColumns: '1fr auto',
+                                                gap: '1rem',
+                                                alignItems: 'center'
+                                              }}
+                                            >
+                                              <div>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                                                  <span style={{ fontSize: '0.68rem', fontWeight: 900, color: '#0D9488', background: '#E6F4F1', padding: '1px 6px', borderRadius: '4px', border: '1.5px solid #0D9488' }}>
+                                                    {item.id}
+                                                  </span>
+                                                  <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#1E293B', fontFamily: 'Be Vietnam Pro, sans-serif' }}>
+                                                    {lang === 'vi' ? item.activityVi : item.activityEn}
+                                                  </span>
+                                                </div>
+                                                <p style={{ margin: 0, fontSize: '0.78rem', color: '#475569', fontWeight: 700, lineHeight: '1.4' }}>
+                                                  💬 <strong>{lang === 'vi' ? 'Biểu hiện lâm sàng:' : 'Clinical behavior:'}</strong> {lang === 'vi' ? item.behaviorVi : item.behaviorEn}
+                                                </p>
+                                              </div>
+                                              <div style={{ textAlign: 'right' }}>
+                                                <span style={{ 
+                                                  fontSize: '0.72rem', 
+                                                  fontWeight: 900, 
+                                                  color: '#1E293B', 
+                                                  background: item.score === 2 ? '#D1FAE5' : item.score === 1 ? '#FEF3C7' : '#FEE2E2', 
+                                                  padding: '4px 10px', 
+                                                  borderRadius: '8px', 
+                                                  border: '2px solid #1E293B',
+                                                  whiteSpace: 'nowrap',
+                                                  boxShadow: '1.5px 1.5px 0 #1E293B'
+                                                }}>
+                                                  {item.score} {lang === 'vi' ? 'Điểm' : 'Pts'}
+                                                </span>
+                                              </div>
+                                            </div>
+                                          ))
+                                        ) : (
+                                          <p style={{ margin: 0, fontSize: '0.8rem', color: '#64748B', fontStyle: 'italic' }}>
+                                            {lang === 'vi' ? 'Không có dữ liệu bài đánh giá cụ thể cho tiểu test này.' : 'No assessment items recorded for this subtest.'}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                              )}
+                            </React.Fragment>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              )}
+
+              {/* 3. Tổng kết & Nhận xét của chuyên gia lâm sàng */}
+              <div style={{ marginTop: '1.8rem', borderTop: '2.5px dashed #CBD5E1', paddingTop: '1.25rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem', background: '#F0FDF4', border: '2.5px solid #1E293B', padding: '10px 18px', borderRadius: '14px', boxShadow: '3px 3px 0 #1E293B' }}>
+                  <strong style={{ fontSize: '0.92rem', color: '#166534', fontWeight: 900, fontFamily: 'Be Vietnam Pro, sans-serif' }}>
+                    {lang === 'vi' ? '🏆 Tổng điểm tích lũy toàn bài PEP-3:' : '🏆 Total Accumulated PEP-3 Score:'}
+                  </strong>
+                  <span style={{ fontSize: '1.3rem', fontWeight: 900, color: '#166534' }}>
+                    {selectedDetails.totalScore}
+                  </span>
+                </div>
+
+                <div style={{ background: '#FFFDF5', border: '2.5px solid #1E293B', padding: '14px 18px', borderRadius: '16px', boxShadow: '4px 4px 0 #1E293B' }}>
+                  <h5 style={{ margin: '0 0 8px 0', fontWeight: 900, color: '#1E293B', fontSize: '0.92rem', display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'Be Vietnam Pro, sans-serif' }}>
+                    📑 {lang === 'vi' ? 'Nhận xét chuyên khoa lâm sàng của bác sĩ:' : 'Clinical Specialist Remarks & Recommendations:'}
+                  </h5>
+                  <p style={{ margin: 0, fontSize: '0.82rem', color: '#475569', fontWeight: 700, lineHeight: '1.5' }}>
+                    {lang === 'vi' ? selectedDetails.notesVi : selectedDetails.notesEn}
+                  </p>
+                </div>
+              </div>
+
             </div>
             <div className="profile-modal-footer" style={{ borderTop: '2.5px solid #1E293B', background: '#F8FAFC' }}>
               <button type="button" className="profile-page-btn-primary" onClick={() => setSelectedDetails(null)} style={{ background: '#1E293B' }}>{t.close}</button>
