@@ -82,6 +82,7 @@ interface PlanDetailViewProps {
   onBack: () => void;
   onUpdatePlan: (updatedPlan: Plan) => void;
   onDeletePlan: (planId: number) => void;
+  role?: 'Teacher' | 'Parent'; // Thêm prop này
 }
 
 const translations = {
@@ -357,7 +358,8 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
   plan,
   onBack,
   onUpdatePlan,
-  onDeletePlan
+  onDeletePlan,
+  role = 'Teacher' // Mặc định là Teacher
 }) => {
   const t = translations[lang];
 
@@ -371,7 +373,18 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
   const [selectedParentObjId, setSelectedParentObjId] = useState<number | null>(null);
 
   // Role Simulator State
-  const [currentSimulatorRole, setCurrentSimulatorRole] = useState<'Teacher' | 'Parent'>('Teacher');
+  const currentSimulatorRole: any = role;
+
+  // Tự động chọn Phase hoạt động làm mặc định cho Phụ huynh
+  React.useEffect(() => {
+    if (role === 'Parent' && !selectedPhase && plan.phases.length > 0) {
+      const activePhase = plan.phases.find(p => p.status === 'Active' && !p.is_deleted) 
+                        || plan.phases.filter(p => !p.is_deleted)[0];
+      if (activePhase) {
+        setSelectedPhase(activePhase);
+      }
+    }
+  }, [role, selectedPhase, plan.phases]);
 
   // Activity Progress Reports State
   const [activeActivityForReport, setActiveActivityForReport] = useState<ObjectiveActivity | null>(null);
@@ -714,6 +727,20 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
     setIsActModalOpen(true);
   };
 
+  const handleParentViewActivity = (act: ObjectiveActivity, objId: number) => {
+    setSelectedActivity(act);
+    setSelectedParentObjId(objId);
+    setActiveActivityForReport(act);
+    setReportMediaFile('');
+    setReportParentNote('');
+    setEvalFeedback('');
+    setActName(act.activity_name);
+    setActFrequency(act.frequency || '');
+    setActAssigneeType(act.assignee_type || 'Parent');
+    setActTeachingMethod(act.teaching_method || '');
+    setActTargetCriteria(act.target_criteria || '');
+  };
+
   const handleSaveAct = (e: React.FormEvent) => {
     e.preventDefault();
     alert(t.success || 'Success');
@@ -772,6 +799,600 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
     onUpdatePlan({ ...plan, phases: updatedPhases });
     alert(t.success);
     setIsObjModalOpen(false);
+  };
+
+  const renderParentDashboard = () => {
+    // Tính toán tổng tiến trình của kế hoạch dựa trên các mục tiêu đã hoàn thành
+    const allObjectives = plan.phases.flatMap(p => p.objectives);
+    const completedObjectives = allObjectives.filter(o => o.status === 'Completed').length;
+    const totalObjectives = allObjectives.length || 1;
+    const overallProgress = Math.round((completedObjectives / totalObjectives) * 100);
+
+    // Xác định Phase đang hiển thị mục tiêu & bài tập: dùng selectedPhase hoặc phase hoạt động đầu tiên
+    const activeP = selectedPhase || plan.phases.find(p => p.status === 'Active' && !p.is_deleted) || plan.phases.filter(p => !p.is_deleted)[0] || null;
+
+    return (
+      <div className="parent-plan-dashboard" style={{
+        fontFamily: '"Be Vietnam Pro", sans-serif',
+        padding: '1.5rem',
+        background: '#FFFDF5',
+        minHeight: '100vh',
+        color: '#1E293B',
+        animation: 'profile-fade-in 0.3s ease-out'
+      }}>
+        <style>{`
+          .parent-plan-dashboard {
+            --primary-grad: linear-gradient(135deg, #6366F1, #A855F7, #EC4899);
+            --emerald-grad: linear-gradient(135deg, #059669, #10B981);
+            --indigo-grad: linear-gradient(135deg, #4F46E5, #6366F1);
+            --cyan-grad: linear-gradient(135deg, #0891B2, #06B6D4);
+          }
+
+          @keyframes profile-fade-in {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+
+          @keyframes parentPulse {
+            0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(139, 92, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+          }
+
+          .parent-hero-card {
+            background: var(--primary-grad);
+            border: 3px solid #1E293B;
+            border-radius: 20px;
+            padding: 2rem;
+            color: #FFFFFF;
+            box-shadow: 8px 8px 0px #1E293B;
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+          }
+
+          .parent-hero-card::before {
+            content: "";
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+          }
+
+          .hero-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+          }
+
+          .parent-bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+          }
+
+          .parent-bento-card {
+            border: 2px solid #1E293B;
+            border-radius: 18px;
+            padding: 1.25rem;
+            box-shadow: 5px 5px 0px #1E293B;
+            transition: transform 0.2s ease;
+          }
+
+          .parent-bento-card:hover {
+            transform: translateY(-2px);
+          }
+
+          .parent-bento-card .card-title {
+            margin: 0 0 0.5rem 0;
+            font-weight: 900;
+            font-size: 0.95rem;
+            color: #1E293B;
+          }
+
+          .parent-bento-card .card-body {
+            margin: 0;
+            font-size: 0.8rem;
+            color: #475569;
+            font-weight: 700;
+            line-height: 1.5;
+          }
+
+          .parent-pathway-card {
+            background: #FFFFFF;
+            border: 3px solid #1E293B;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 8px 8px 0px #1E293B;
+            margin-bottom: 2.5rem;
+          }
+
+          .pathway-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            padding: 1.5rem 1rem;
+            margin-top: 1rem;
+          }
+
+          .pathway-line {
+            position: absolute;
+            top: 42px;
+            left: 5%;
+            right: 5%;
+            height: 4px;
+            background: #E2E8F0;
+            border: 1.5px dashed #CBD5E1;
+            z-index: 1;
+          }
+
+          .pathway-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            width: 140px;
+            text-align: center;
+          }
+
+          .pathway-checkpoint {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            border: 3px solid #1E293B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+            color: #64748B;
+            box-shadow: 3px 3px 0px #1E293B;
+            transition: all 0.2s ease;
+          }
+
+          .pathway-node:hover .pathway-checkpoint {
+            transform: scale(1.1);
+          }
+
+          .pathway-node.completed .pathway-checkpoint {
+            background: #CCFBF1;
+            color: #0D9488;
+            border-color: #0D9488;
+            box-shadow: 3px 3px 0px #0D9488;
+          }
+
+          .pathway-node.active .pathway-checkpoint {
+            background: #EDE9FE;
+            color: #8B5CF6;
+            border-color: #8B5CF6;
+            box-shadow: 3px 3px 0px #8B5CF6;
+            animation: parentPulse 2s infinite;
+          }
+
+          .pathway-node.selected-node .pathway-checkpoint {
+            transform: scale(1.15);
+            border-color: #EC4899;
+            box-shadow: 4px 4px 0px #1E293B;
+          }
+
+          .pathway-label {
+            margin-top: 0.75rem;
+            font-weight: 900;
+            font-size: 0.85rem;
+            color: #1E293B;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.5rem;
+            line-height: 1.25;
+          }
+
+          .parent-back-btn, .parent-activity-btn {
+            transition: all 0.15s ease;
+          }
+
+          .parent-back-btn:hover, .parent-activity-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0px #1E293B !important;
+          }
+
+          .parent-back-btn:active, .parent-activity-btn:active {
+            transform: translate(0px, 0px);
+            box-shadow: 1px 1px 0px #1E293B !important;
+          }
+
+          .parent-goal-card {
+            border: 2px solid #1E293B;
+            border-radius: 18px;
+            padding: 1.25rem;
+            background: #FFFFFF;
+            box-shadow: 4px 4px 0px #1E293B;
+            margin-bottom: 1.25rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+          }
+
+          .parent-goal-card:hover {
+            box-shadow: 6px 6px 0px #1E293B;
+          }
+
+          .parent-goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+          }
+
+          .parent-goal-title {
+            margin: 0;
+            font-weight: 900;
+            color: #1E293B;
+            font-size: 1.1rem;
+          }
+
+          .parent-progress-bar-container {
+            height: 8px;
+            background: #E2E8F0;
+            border-radius: 99px;
+            overflow: hidden;
+            border: 1px solid #1E293B;
+          }
+
+          .parent-progress-fill {
+            height: 100%;
+            background: var(--emerald-grad);
+            border-radius: 99px;
+          }
+
+          .parent-activity-card {
+            border: 1.5px solid #E2E8F0;
+            border-radius: 14px;
+            padding: 1rem;
+            background: #FFFDF5;
+            margin-top: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+          }
+
+          @media (max-width: 1024px) {
+            .parent-bento-grid {
+              grid-template-columns: repeat(2, 1fr);
+            }
+          }
+
+          @media (max-width: 768px) {
+            .parent-bento-grid {
+              grid-template-columns: 1fr;
+            }
+            .pathway-flow {
+              flex-direction: column;
+              align-items: center;
+              gap: 1.5rem;
+            }
+            .pathway-line {
+              display: none;
+            }
+            .pathway-node {
+              width: 100%;
+            }
+            .pathway-label {
+              height: auto;
+            }
+          }
+        `}</style>
+
+        {/* TOPBAR / BACK BUTTON */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+          <button className="parent-back-btn" onClick={onBack} style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#F1F5F9', border: '2px solid #1E293B', borderRadius: '99px', padding: '6px 16px', fontSize: '0.85rem', fontWeight: 900, color: '#1E293B', cursor: 'pointer', boxShadow: '3px 3px 0px #1E293B' }}>
+            ← {lang === 'vi' ? 'Quay lại Hồ sơ trẻ' : 'Back to Child Profile'}
+          </button>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#FFFFFF', padding: '6px 12px', borderRadius: '12px', border: '1.5px solid #E2E8F0', fontSize: '0.8rem', fontWeight: 800 }}>
+            <span>🎯 {lang === 'vi' ? 'Tiến độ chung:' : 'Overall Progress:'}</span>
+            <span style={{ color: '#0D9488', fontSize: '0.9rem' }}>{overallProgress}%</span>
+          </div>
+        </div>
+
+        {/* GRADIENT HERO CARD */}
+        <div className="parent-hero-card">
+          <span className="hero-badge">🧬 {lang === 'vi' ? 'Kế Hoạch Can Thiệp IEP' : 'Intervention IEP Plan'}</span>
+          <h1 style={{ margin: '0 0 0.5rem 0', fontWeight: 900, fontSize: '1.8rem', letterSpacing: '-0.3px' }}>
+            {plan.plan_name}
+          </h1>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', fontSize: '0.88rem', fontWeight: 600, opacity: 0.95, marginTop: '0.8rem' }}>
+            <span>👶 <strong>{lang === 'vi' ? 'Trẻ em:' : 'Child:'}</strong> {plan.child_id === 1 ? (lang === 'vi' ? 'Nguyễn Minh Khôi' : 'Nguyen Minh Khoi') : (lang === 'vi' ? 'Trần Đức Nam' : 'Tran Duc Nam')}</span>
+            <span>📅 <strong>{lang === 'vi' ? 'Thời gian:' : 'Duration:'}</strong> {plan.start_date} ~ {plan.end_date}</span>
+            <span>🔑 <strong>{lang === 'vi' ? 'Mã kế hoạch:' : 'Plan ID:'}</strong> PL-{plan.plan_id}</span>
+            <span>🏥 <strong>{lang === 'vi' ? 'Công cụ:' : 'Assessment:'}</strong> {plan.assessment_tool}</span>
+          </div>
+        </div>
+
+        {/* BENTO GRID (Strengths, Weaknesses, Interests, Family Comments) */}
+        <div className="parent-bento-grid">
+          <div className="parent-bento-card" style={{ borderLeft: '6px solid #10B981', background: '#F0FDF4' }}>
+            <h4 className="card-title">✨ {lang === 'vi' ? 'Điểm mạnh của bé' : 'Child Strengths'}</h4>
+            <p className="card-body">{plan.child_strengths || t.noData}</p>
+          </div>
+
+          <div className="parent-bento-card" style={{ borderLeft: '6px solid #F59E0B', background: '#FFF7ED' }}>
+            <h4 className="card-title">🩹 {lang === 'vi' ? 'Điểm cần hỗ trợ' : 'Areas to Assist'}</h4>
+            <p className="card-body">{plan.child_weaknesses || t.noData}</p>
+          </div>
+
+          <div className="parent-bento-card" style={{ borderLeft: '6px solid #EC4899', background: '#FDF2F8' }}>
+            <h4 className="card-title">🎨 {lang === 'vi' ? 'Sở thích đặc biệt' : 'Special Interests'}</h4>
+            <p className="card-body">{plan.child_interests || t.noData}</p>
+          </div>
+
+          <div className="parent-bento-card" style={{ borderLeft: '6px solid #8B5CF6', background: '#F5F3FF' }}>
+            <h4 className="card-title">💬 {lang === 'vi' ? 'Ý kiến gia đình' : 'Family Comments'}</h4>
+            <p className="card-body">{plan.family_feedback || t.noData}</p>
+          </div>
+        </div>
+
+        {/* INTERACTIVE PATHWAY (Con đường Giai đoạn) */}
+        <div className="parent-pathway-card">
+          <h3 style={{ margin: '0 0 1.5rem 0', fontWeight: 900, fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            🐾 {lang === 'vi' ? 'Hành trình can thiệp của bé' : "Baby's Intervention Pathway"}
+          </h3>
+          
+          <div className="pathway-flow">
+            <div className="pathway-line"></div>
+            {plan.phases.filter(p => !p.is_deleted).map((p, idx) => {
+              const isActive = p.status === 'Active';
+              const isCompleted = idx === 0 && plan.phases.length > 1; // Giả lập Phase 1 đã xong cho sinh động
+              const isSelected = activeP && activeP.plan_phase_id === p.plan_phase_id;
+              
+              let nodeClass = "";
+              if (isActive) nodeClass = "active";
+              else if (isCompleted) nodeClass = "completed";
+              if (isSelected) nodeClass += " selected-node";
+
+              return (
+                <div 
+                  key={p.plan_phase_id} 
+                  className={`pathway-node ${nodeClass}`}
+                  onClick={() => setSelectedPhase(p)}
+                >
+                  <div className="pathway-checkpoint">
+                    {isCompleted ? '✔️' : idx + 1}
+                  </div>
+                  <div className="pathway-label" title={p.phase_name}>
+                    {p.phase_name}
+                  </div>
+                  <span style={{ fontSize: '0.68rem', fontWeight: 700, color: '#64748B', marginTop: '2px' }}>
+                    {p.phase_type}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+          <p style={{ margin: '1rem 0 0 0', fontSize: '0.8rem', color: '#64748B', fontStyle: 'italic', textAlign: 'center', fontWeight: 600 }}>
+            💡 {lang === 'vi' ? 'Nhấp chọn từng chặng dừng trên bản đồ để cập nhật nhanh danh sách mục tiêu và bài tập ở dưới.' : 'Click on each milestone checkpoint to update goals and exercises below.'}
+          </p>
+        </div>
+
+        {/* GOALS & OBJECTIVES SECTION (Luôn hiển thị bên dưới Pathway Map!) */}
+        {activeP && (
+          <div style={{ animation: 'profile-fade-in 0.25s ease-out' }}>
+            {/* PHASE HEADER LABEL */}
+            <div style={{ 
+              background: 'var(--indigo-grad)', 
+              border: '3px solid #1E293B', 
+              borderRadius: '20px', 
+              padding: '1.5rem', 
+              color: '#FFFFFF', 
+              boxShadow: '6px 6px 0px #1E293B',
+              marginBottom: '2rem' 
+            }}>
+              <span className="hero-badge" style={{ background: 'rgba(255, 255, 255, 0.25)', marginBottom: '0.5rem' }}>⛳ {lang === 'vi' ? 'Chi tiết Chặng học hiện tại' : 'Active Milestone Details'}</span>
+              <h2 style={{ margin: '0 0 0.5rem 0', fontWeight: 900, fontSize: '1.4rem' }}>
+                {activeP.phase_name}
+              </h2>
+              <p style={{ margin: 0, opacity: 0.9, fontSize: '0.82rem', fontWeight: 600 }}>
+                🚀 <strong>{lang === 'vi' ? 'Loại giai đoạn:' : 'Phase Type:'}</strong> {activeP.phase_type} &nbsp;|&nbsp; 
+                📅 <strong>{lang === 'vi' ? 'Thời hạn:' : 'Duration:'}</strong> {activeP.start_date} ~ {activeP.end_date}
+              </p>
+            </div>
+
+            {/* OBJECTIVES SECTION */}
+            <div style={{ background: '#FFFFFF', border: '2.5px solid #1E293B', borderRadius: '24px', padding: '1.8rem', boxShadow: '8px 8px 0px #1E293B' }}>
+              <h3 style={{ margin: '0 0 1.5rem 0', fontWeight: 900, fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                🎯 {lang === 'vi' ? 'Các mục tiêu & bài tập cần đạt' : 'Intervention Objectives & Exercises'}
+              </h3>
+
+              {activeP.objectives.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '2rem', background: '#F8FAFC', borderRadius: '16px', border: '1.5px dashed #CBD5E1', color: '#64748B' }}>
+                  {lang === 'vi' ? 'Chưa có mục tiêu nào được cấu hình cho giai đoạn này.' : 'No objectives configured for this phase yet.'}
+                </div>
+              ) : (
+                <div>
+                  {activeP.objectives.map(obj => {
+                    const activities = obj.activities || [];
+                    const completedActivitiesCount = activities.filter(a => a.reviews && a.reviews.length > 0).length;
+                    const totalActivitiesCount = activities.length || 1;
+                    const goalProgress = Math.round((completedActivitiesCount / totalActivitiesCount) * 100);
+                    const isExpanded = expandedObjId === obj.objective_id;
+
+                    return (
+                      <div key={obj.objective_id} className="parent-goal-card">
+                        <div 
+                          className="parent-goal-header"
+                          onClick={() => setExpandedObjId(isExpanded ? null : obj.objective_id)}
+                        >
+                          <div style={{ flex: 1 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                              <span style={{ 
+                                background: obj.status === 'Completed' ? '#CCFBF1' : '#E0F2FE', 
+                                color: obj.status === 'Completed' ? '#0D9488' : '#0369A1', 
+                                padding: '2px 8px', 
+                                borderRadius: '99px', 
+                                fontSize: '0.7rem', 
+                                fontWeight: 800,
+                                border: obj.status === 'Completed' ? '1px solid #0D9488' : '1.5px solid #0EA5E9'
+                              }}>
+                                {obj.status === 'Completed' ? (lang === 'vi' ? '✅ Đạt' : '✅ Completed') : (lang === 'vi' ? '🏃 Đang học' : '🏃 In Progress')}
+                              </span>
+                              <h4 className="parent-goal-title">{obj.objective_name}</h4>
+                            </div>
+                            
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '4px' }}>
+                              <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>
+                                🎯 {lang === 'vi' ? `Hạn hoàn thành: ${obj.target_date}` : `Target Date: ${obj.target_date}`}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#1E293B' }}>
+                                {lang === 'vi' ? 'Tiến độ:' : 'Progress:'} {goalProgress}%
+                              </span>
+                              <div className="parent-progress-bar-container" style={{ width: '80px', marginTop: '2px' }}>
+                                <div className="parent-progress-fill" style={{ width: `${goalProgress}%` }}></div>
+                              </div>
+                            </div>
+                            <span style={{ fontSize: '1.2rem', transform: isExpanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
+                              ▼
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* LIST ACTIVITIES WHEN EXPANDED */}
+                        {isExpanded && (
+                          <div style={{ marginTop: '1rem', borderTop: '1px dashed #E2E8F0', paddingTop: '0.5rem', animation: 'profile-fade-in 0.2s ease-out' }}>
+                            <p style={{ margin: '0.5rem 0 0.8rem 0', fontSize: '0.78rem', color: '#64748B', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                              📋 {lang === 'vi' ? 'Danh sách các bài tập về nhà:' : 'Home Practice Activities Checklist:'}
+                            </p>
+
+                            {activities.length === 0 ? (
+                              <div style={{ fontSize: '0.8rem', color: '#94A3B8', fontStyle: 'italic', padding: '8px 0' }}>
+                                {lang === 'vi' ? 'Chưa có hoạt động thực hành nào cho mục tiêu này.' : 'No home practice activities configured for this objective.'}
+                              </div>
+                            ) : (
+                              activities.map(act => {
+                                const reviews = act.reviews || [];
+                                const hasReviews = reviews.length > 0;
+                                const isSubmitted = act.status === 'Submitted';
+
+                                let badgeColor = '#E0F2FE';
+                                let badgeTextColor = '#0369A1';
+                                let badgeBorderColor = '#38BDF8';
+                                let badgeText = lang === 'vi' ? '🏃 Đang học' : '🏃 In Progress';
+
+                                if (hasReviews) {
+                                  badgeColor = '#DEF7EC';
+                                  badgeTextColor = '#03543F';
+                                  badgeBorderColor = '#34D399';
+                                  badgeText = lang === 'vi' ? '✅ Đã Review' : '✅ Reviewed';
+                                } else if (isSubmitted) {
+                                  badgeColor = '#FEF3C7';
+                                  badgeTextColor = '#D97706';
+                                  badgeBorderColor = '#FBBF24';
+                                  badgeText = lang === 'vi' ? '⏳ Chờ Review' : '⏳ Submitted';
+                                }
+
+                                const isParentTask = act.assignee_type === 'Parent';
+
+                                return (
+                                  <div key={act.activity_id} className="parent-activity-card">
+                                    <div>
+                                      <h5 style={{ margin: '0 0 0.3rem 0', fontWeight: 800, fontSize: '0.95rem', color: '#1E293B' }}>
+                                        {act.activity_name}
+                                      </h5>
+                                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem', fontSize: '0.72rem', color: '#64748B', fontWeight: 700 }}>
+                                        <span>📅 {lang === 'vi' ? 'Tần suất:' : 'Frequency:'} {act.frequency}</span>
+                                        <span>👤 {lang === 'vi' ? 'Người thực hiện:' : 'Assignee:'} {isParentTask ? (lang === 'vi' ? '🏠 Phụ huynh' : '🏠 Parent') : (lang === 'vi' ? '🩺 Chuyên gia' : '🩺 Specialist')}</span>
+                                        {act.teaching_method && <span>🧠 {lang === 'vi' ? 'Phương pháp:' : 'Method:'} {act.teaching_method}</span>}
+                                      </div>
+                                    </div>
+
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                      <span style={{ 
+                                        background: badgeColor, 
+                                        color: badgeTextColor, 
+                                        border: `1.5px solid ${badgeBorderColor}`, 
+                                        borderRadius: '99px', 
+                                        padding: '3px 10px', 
+                                        fontSize: '0.7rem', 
+                                        fontWeight: 800 
+                                      }}>
+                                        {badgeText}
+                                      </span>
+
+                                      {isParentTask ? (
+                                        <button 
+                                          className="parent-activity-btn"
+                                          onClick={() => handleParentViewActivity(act, obj.objective_id)}
+                                          style={{ 
+                                            background: '#8B5CF6', 
+                                            color: '#FFF', 
+                                            border: '2px solid #1E293B', 
+                                            borderRadius: '10px', 
+                                            padding: '5px 12px', 
+                                            fontSize: '0.75rem', 
+                                            fontWeight: 800, 
+                                            cursor: 'pointer',
+                                            boxShadow: '2.5px 2.5px 0px #1E293B'
+                                          }}
+                                        >
+                                          {isSubmitted ? (lang === 'vi' ? 'Xem báo cáo 👁️' : 'View Report 👁️') : (lang === 'vi' ? 'Nộp bài tập 📤' : 'Submit Practice 📤')}
+                                        </button>
+                                      ) : (
+                                        <button 
+                                          className="parent-activity-btn"
+                                          onClick={() => handleParentViewActivity(act, obj.objective_id)}
+                                          style={{ 
+                                            background: '#14B8A6', 
+                                            color: '#FFF', 
+                                            border: '2px solid #1E293B', 
+                                            borderRadius: '10px', 
+                                            padding: '5px 12px', 
+                                            fontSize: '0.75rem', 
+                                            fontWeight: 800, 
+                                            cursor: 'pointer',
+                                            boxShadow: '2.5px 2.5px 0px #1E293B'
+                                          }}
+                                        >
+                                          {lang === 'vi' ? 'Xem tiến trình 👁️' : 'View Progress 👁️'}
+                                        </button>
+                                      )}
+                                    </div>
+                                  </div>
+                                );
+                              })
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    );
   };
 
   // ============================================================================================
@@ -1016,27 +1637,6 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
             >
               ← {lang === 'vi' ? 'Quay lại Giai đoạn' : 'Back to Phase'}
             </button>
-
-            {/* Role Simulator Widget */}
-            <div className="role-simulator-widget">
-              <span className="widget-label">{lang === 'vi' ? 'Vai trò:' : 'Role:'}</span>
-              <div className="simulator-btn-group">
-                <button
-                  type="button"
-                  className={`simulator-btn ${currentSimulatorRole === 'Teacher' ? 'active' : ''}`}
-                  onClick={() => setCurrentSimulatorRole('Teacher')}
-                >
-                  🩺 {lang === 'vi' ? 'Chuyên gia' : 'Specialist'}
-                </button>
-                <button
-                  type="button"
-                  className={`simulator-btn ${currentSimulatorRole === 'Parent' ? 'active' : ''}`}
-                  onClick={() => setCurrentSimulatorRole('Parent')}
-                >
-                  🏠 {lang === 'vi' ? 'Phụ huynh' : 'Parent'}
-                </button>
-              </div>
-            </div>
           </div>
 
           {/* HEADER CARD */}
@@ -1323,6 +1923,10 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
         )}
       </div>
     );
+  }
+
+  if (currentSimulatorRole === 'Parent') {
+    return renderParentDashboard();
   }
 
   return (
@@ -2536,27 +3140,6 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
         <button className="back-btn-v2" onClick={onBack}>
           {t.backBtn}
         </button>
-
-        {/* ROLE SIMULATOR WIDGET */}
-        <div className="role-simulator-widget">
-          <span className="widget-label">🎭 {lang === 'vi' ? 'Giả lập vai trò:' : 'Role Simulator:'}</span>
-          <div className="simulator-btn-group">
-            <button 
-              type="button"
-              className={`simulator-btn ${currentSimulatorRole === 'Teacher' ? 'active' : ''}`}
-              onClick={() => setCurrentSimulatorRole('Teacher')}
-            >
-              🩺 {lang === 'vi' ? 'Chuyên gia' : 'Specialist'}
-            </button>
-            <button 
-              type="button"
-              className={`simulator-btn ${currentSimulatorRole === 'Parent' ? 'active' : ''}`}
-              onClick={() => setCurrentSimulatorRole('Parent')}
-            >
-              🏠 {lang === 'vi' ? 'Phụ huynh' : 'Parent'}
-            </button>
-          </div>
-        </div>
 
         {!selectedPhase && (
           <div className="detail-action-group">
