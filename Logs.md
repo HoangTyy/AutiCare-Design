@@ -1,5 +1,18 @@
 # Project Logs
 
+## [2026-06-02] - Tích hợp Tab Chẩn đoán (Diagnoses) vào Hồ sơ Chi tiết Trẻ em (ChildDetailView)
+- **Implementation**:
+  * **Khai báo Interface & INITIAL_DIAGNOSES**: Định nghĩa cấu trúc `DiagnosisRecord` khớp chuẩn Schema cơ sở dữ liệu (doctor_full_name, diagnosis_place, age_at_diagnosis, doctor_answers, diagnosis_content, recommendation, confirmation_code, diagnostic_date, external_doctor_name, conclusion, created_at). Tạo dữ liệu giả lập chất lượng cao dành cho bé Nguyễn Minh Khôi và Trần Đức Nam.
+  * **Song ngữ hóa ngôn ngữ**: Bổ sung đầy đủ các chuỗi dịch thuật tiếng Việt (`vi`) và tiếng Anh (`en`) vào đối tượng `translations` cho tab chẩn đoán y tế.
+  * **Thiết lập State & Routing Tab**: Cập nhật `activeSubTab` hỗ trợ thêm giá trị `'diagnoses'` và bổ sung state quản lý bản ghi đang chọn `selectedDiagnosis`.
+  * **Tích hợp UI Tab**: Thêm nút `🩺 Chẩn đoán` / `🩺 Medical Diagnoses` vào thanh điều hướng `sub-tab-navigation`.
+  * **Thiết kế Thẻ Sticker Memphis 3D**: Render danh sách bản ghi chẩn đoán dưới dạng thẻ sticker Memphis 3D viền đen Slate dày dặn `#1E293B`, bóng đổ 3D sắc nét, hỗ trợ responsive.
+  * **Thiết kế Modal chi tiết Premium**: Xây dựng cửa sổ Modal hiển thị chi tiết chẩn đoán Memphis 3D nổi bật: bố cục lưới 2-4 cột khoa học, chia nhóm thông tin bằng các card kem ấm `#FFFDF5`, hỗ trợ cuộn mượt và nút tắt trực quan.
+- **Walkthrough**:
+  * Tab Chẩn đoán y khoa tích hợp hoàn hảo vào hồ sơ chi tiết của bé Nguyễn Minh Khôi và Trần Đức Nam.
+  * Giao diện đồng bộ phong cách Memphis 3D chủ đạo của AutiCare, tuyệt đối không bị vỡ bố cục trên mobile.
+  * Bản dịch chuyển đổi trơn tru tức thời khi nhấp nút đổi ngôn ngữ VI/EN trên topbar.
+
 ## [2026-06-01-Part9] - Khắc phục triệt để lỗi điều hướng Two-way Hash Routing trang chi tiết trung tâm từ AllCentersPage
 - **Implementation**:
   * **Cấu hình định tuyến URL Hash riêng cho Center Detail**: Bổ sung URL Hash động có dạng `#/center-detail?id=AC-XXX` tương ứng với màn hình chi tiết trung tâm (`CenterDetailClientPage`) trong `src/App.tsx`.

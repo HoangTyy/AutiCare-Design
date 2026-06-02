@@ -135,7 +135,7 @@ const translations = {
 
 function App() {
   const [scrolled, setScrolled] = useState(false)
-  const [lang, setLang] = useState<Language>('vi')
+  const [lang, setLang] = useState<Language>('en')
   const [view, setView] = useState<View>('landing')
   const [activeSection, setActiveSection] = useState('hero')
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
@@ -601,6 +601,13 @@ function App() {
               {t.reviews}
             </a>
             <a 
+              href="#centers" 
+              className={activeSection === 'centers' ? 'active' : ''}
+              onClick={(e) => { e.preventDefault(); scrollToSection('centers'); }}
+            >
+              {t.centers}
+            </a>
+            <a 
               href="#blogs" 
               className={activeSection === 'blogs' ? 'active' : ''}
               onClick={(e) => { e.preventDefault(); scrollToSection('blogs'); }}
@@ -613,13 +620,6 @@ function App() {
               onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}
             >
               {t.about}
-            </a>
-            <a 
-              href="#centers" 
-              className={activeSection === 'centers' ? 'active' : ''}
-              onClick={(e) => { e.preventDefault(); scrollToSection('centers'); }}
-            >
-              {t.centers}
             </a>
             <a 
               href="#cta" 
@@ -736,11 +736,7 @@ function App() {
         <CategoriesSection id="category" lang={lang} />
         
         <ReviewsSection id="reviews" lang={lang} />
-        
-        <BlogsSection id="blogs" lang={lang} />
-        
-        <AboutSection id="about" lang={lang} />
-        
+
         <CentersSection 
           id="centers" 
           lang={lang} 
@@ -752,6 +748,10 @@ function App() {
             setView('center-detail');
           }}
         />
+        
+        <BlogsSection id="blogs" lang={lang} />
+        
+        <AboutSection id="about" lang={lang} />
         
         <CtaSection id="cta" t={t} />
 
