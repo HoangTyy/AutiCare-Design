@@ -1,25 +1,5 @@
 # Project Logs
 
-## [2026-06-02-Part2] - Tích hợp luồng Xem Danh sách & Chi tiết Kết quả Đánh giá PEP-3 vào Không gian làm việc Chuyên gia
-- **Implementation**:
-  * **Cải tiến Card Hồ sơ Trẻ**: Tại mỗi card trong tab Hồ sơ can thiệp (`StaffInterventionTab.tsx`), chuyển đổi nút xem đơn lẻ thành cụm 2 nút Candy Memphis song song: "Xem bệnh án chi tiết 📊" và "Xem các bài đánh giá 🩺".
-  * **Thiết kế View List lịch sử bài đánh giá chẩn đoán**: Khi chuyên gia click chọn xem bài đánh giá, hệ thống sẽ render giao diện danh sách lịch sử bài test của trẻ với nút quay lại Memphis pill-shape, tiêu đề lớn song ngữ rõ nét, và danh sách các bài test chẩn đoán (PEP-3, CARS...) được trích xuất động từ `MOCK_ASSESSMENTS_MAP`.
-  * **Tái sử dụng Modal Chi tiết PEP-3 (View Detail) lộng lẫy**: Nhấp chọn "Xem chi tiết 📊" ở bất kỳ bài test PEP-3 nào của trẻ sẽ mở ra Modal chi tiết subtests lâm sàng lộng lẫy thừa hưởng 100% từ Profile Phụ huynh (bao gồm progress bars, accordion mở rộng chi tiết các bài test con lâm sàng từ `SUBTEST_ITEMS_DB`, và nhận xét của Bác sĩ).
-- **Walkthrough**:
-  * Trải nghiệm Không gian làm việc của Bác sĩ lâm sàng và Giáo viên can thiệp đạt sự đồng bộ và nhất quán hoàn mỹ với luồng của Profile phụ huynh.
-  * Biên dịch sản phẩm thành công 100% sạch lỗi chỉ trong **512ms** (`npm.cmd run build`).
-
-## [2026-06-02] - Khôi phục và nâng cấp Modal Chi tiết Kết quả Đánh giá PEP-3 trong Profile Phụ huynh
-- **Implementation**:
-  * **Kích hoạt lại state đóng/mở (expandedSubtests)**: Kích hoạt thành công state `expandedSubtests` trong `ChildDetailView.tsx` để quản lý trạng thái hiển thị chi tiết của các subtest con khi bấm nút toggle.
-  * **Thiết kế bảng phân rã 13 tiểu test lâm sàng lộng lẫy**: Xây dựng bảng hiển thị đầy đủ 6 cột: Tiểu test lâm sàng, Điểm đạt, Điểm tối đa, Tỷ lệ phát triển (với thanh progress bar Amber-to-Orange gradient phẳng), Đặc tả lâm sàng y học và Cột Chi tiết. Bảng tương thích hoàn hảo với song ngữ (lang === 'vi' ? 'Tiếng Việt' : 'English') và có responsiveness đầy đủ.
-  * **Tích hợp Accordion Panel (`subtest-accordion-panel`)**: Khi click mở rộng, trích xuất dữ liệu bài tập thực hành cụ thể theo từng tiểu test từ `SUBTEST_ITEMS_DB` để render sticker cards Memphis có viền đen Slate dày dặn, có badge điểm số phủ màu trạng thái nổi bật (Lục nhạt cho 2đ, Vàng nhạt cho 1đ, Đỏ nhạt cho 0đ).
-  * **Bổ sung banner Tổng điểm & Nhận xét lâm sàng y học**: Thiết kế khung Memphis tổng hợp ở chân Modal hiển thị tổng điểm nổi bật trên nền xanh ngọc `#F0FDF4` và hộp nhận xét y khoa của chuyên gia (`notesVi` / `notesEn`) chân thực, tối giản.
-- **Walkthrough**:
-  * Khắc phục triệt để 100% lỗi trống thông tin chi tiết PEP-3 trong Profile Phụ huynh.
-  * Giao diện Modal đạt độ thẩm mỹ Memphis cao cấp, đồng bộ và nhất quán với ngôn ngữ thiết kế chung.
-  * Biên dịch sản phẩm thành công 100% sạch lỗi TypeScript chỉ trong **1.16s** (`npm run build`).
-
 ## [2026-06-01-Part9] - Khắc phục triệt để lỗi điều hướng Two-way Hash Routing trang chi tiết trung tâm từ AllCentersPage
 - **Implementation**:
   * **Cấu hình định tuyến URL Hash riêng cho Center Detail**: Bổ sung URL Hash động có dạng `#/center-detail?id=AC-XXX` tương ứng với màn hình chi tiết trung tâm (`CenterDetailClientPage`) trong `src/App.tsx`.
