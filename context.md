@@ -847,3 +847,24 @@ Hệ thống AutiCare đã tích hợp hoàn hảo 3 phân hệ thống kê tr�
     4. **Exercise Progress (Tiến trình bài tập)**: Khi Phụ huynh nhấp chọn nút Candy "Nộp bài tập 📤" hoặc "Xem báo cáo 👁️" của bài tập thì mới mở trang chi tiết hoạt động (Activity Detail Page) chiếm 100% viewport để nộp báo cáo và xem timeline tiến trình bình thường.
 - **Biên dịch & Đóng gói**:
   - Biên dịch production thành công 100% sạch lỗi chỉ trong **368ms**.
+
+# Cập nhật thiết kế 2026-06-03 - Làm phẳng và tách rời bảng Objectives & Activities trong Dashboard Chuyên gia
+
+## Implementation
+- **Loại bỏ hoàn toàn cơ chế bảng con lồng ghép cũ**: 
+  - Trước đây, danh sách hoạt động can thiệp (Activities) được nhúng bên trong một dòng phụ mở rộng (`tr.activity-row-expanded`) trực tiếp của dòng Objective cha trong bảng Objectives. Cơ chế này gây ra lỗi nhảy z-index, chồng chéo layer màu và lỗi chuyển động (elastic float lift) khi rê chuột.
+  - Chúng ta đã loại bỏ hoàn toàn cơ chế lồng ghép này. Thay vào đó, bảng Objectives và bảng Activities đã được tách riêng biệt thành 2 Sticker Card Memphis phẳng kiên cố.
+- **Tách biệt danh sách bài tập rèn luyện (Activities List) thành Sticker Card độc lập**:
+  - **CARD 2 (Quản lý mục tiêu - Manage Objectives)**: Chỉ hiển thị danh sách các mục tiêu (Objectives) phẳng, không còn cột chỉ hướng đóng/mở `▶`. Thay vào đó, hàng Objective đang được chọn (Active) sẽ được highlight bằng màu tím nhạt `#F3E8FF` và vệt lề trái tím đậm `#8B5CF6` dày `6px`.
+  - **CARD 3 (Danh sách Hoạt động rèn luyện - Intervention Activities List)**: Xuất hiện độc lập ngay bên dưới bảng Objectives, tự động lọc và hiển thị danh sách các bài tập can thiệp thuộc Objective đang được chọn (`expandedObjId`). Căn lề rộng 100%, tạo giao diện thoáng đãng, chuyên nghiệp và tránh bị bóp méo layout.
+- **Tối ưu hóa CSS phẳng (Flat Table Overrides)**:
+  - Thêm các quy tắc CSS scoped nội bộ vào `PlanDetailView.tsx` để ghi đè các thuộc tính di chuyển và bóng đổ khi di chuột từ file CSS toàn cục (`AdminDashboard.css`).
+  - Thiết lập thuộc tính `transform: none !important` và `box-shadow: none !important` khi hover chuột lên các dòng trong cả bảng Objectives và Activities.
+  - Khi hover, các hàng bảng chỉ chuyển nhẹ màu nền sang màu vàng kem nhạt `#FFFDF5` để định vị vị trí con trỏ mà hoàn toàn không bị dịch chuyển vị trí hay vỡ layout.
+- **TypeScript Type Safety**: Dọn dẹp các hàm không còn sử dụng như `toggleExpandRow` để tránh cảnh báo biến không sử dụng (TS6133), đảm bảo biên dịch thành công 100% sạch lỗi.
+
+## Walkthrough
+- Trị liệu viên/Giáo viên khi truy cập chi tiết Kế hoạch can thiệp trong Dashboard sẽ thấy giao diện quản lý mục tiêu kiên cố và khoa học.
+- Nhấp chọn từng dòng Objective trong bảng để đổi mục tiêu chọn, bảng danh sách hoạt động bên dưới sẽ tự động thay đổi dữ liệu tương ứng mượt mà.
+- Khi rê chuột qua các dòng dữ liệu, giao diện chỉ đổi nhẹ màu nền tĩnh mà không bị nẩy nổi gây chéo các lớp z-index.
+- Chức năng xem chi tiết hoạt động `👁️` hoạt động tốt, mở màn hình chi tiết 100% viewport để nộp bài hoặc nhận xét chuyên môn.

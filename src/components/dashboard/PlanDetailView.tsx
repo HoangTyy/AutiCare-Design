@@ -386,6 +386,18 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
     }
   }, [role, selectedPhase, plan.phases]);
 
+  // Tự động chọn Objective đầu tiên làm mục tiêu tích cực khi selectedPhase thay đổi (cho Specialist)
+  React.useEffect(() => {
+    if (role === 'Teacher' && selectedPhase && selectedPhase.objectives && selectedPhase.objectives.length > 0) {
+      const exists = selectedPhase.objectives.some(o => o.objective_id === expandedObjId);
+      if (!exists) {
+        setExpandedObjId(selectedPhase.objectives[0].objective_id);
+      }
+    } else if (!selectedPhase) {
+      setExpandedObjId(null);
+    }
+  }, [role, selectedPhase]);
+
   // Activity Progress Reports State
   const [activeActivityForReport, setActiveActivityForReport] = useState<ObjectiveActivity | null>(null);
   
@@ -427,14 +439,6 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
   const [selectedPhaseForEdit, setSelectedPhaseForEdit] = useState<PlanPhase | null>(null);
 
   const [expandedObjId, setExpandedObjId] = useState<number | null>(null);
-
-  const toggleExpandRow = (objectiveId: number) => {
-    if (expandedObjId === objectiveId) {
-      setExpandedObjId(null); // Đóng lại nếu click lần 2
-    } else {
-      setExpandedObjId(objectiveId); // Mở dòng được chọn
-    }
-  };
 
   // Phase Form Fields
   const [phaseName, setPhaseName] = useState('');
@@ -3133,6 +3137,94 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
             background: #EDE9FE;
           }
         }
+
+        /* Làm phẳng hoàn toàn bảng Objectives và Activities trong Dashboard */
+        .plan-detail-view-container .objectives-table,
+        .plan-detail-view-container .activity-sub-table {
+          width: 100%;
+          border-collapse: separate !important;
+          border-spacing: 0 !important;
+          border: 3px solid #1E293B !important;
+          border-radius: 16px !important;
+          overflow: hidden !important;
+          background: #FFFFFF !important;
+          margin-bottom: 1rem !important;
+          box-shadow: 4px 4px 0px #1E293B !important;
+        }
+
+        .plan-detail-view-container .objectives-table thead th,
+        .plan-detail-view-container .activity-sub-table thead th {
+          background: #FFFDF5 !important;
+          color: #1E293B !important;
+          font-weight: 900 !important;
+          text-transform: uppercase !important;
+          font-size: 0.82rem !important;
+          letter-spacing: 0.05em !important;
+          padding: 12px 14px !important;
+          border-bottom: 3px solid #1E293B !important;
+          border-right: 2px dashed #E2E8F0 !important;
+          text-align: left;
+        }
+
+        .plan-detail-view-container .objectives-table thead th:last-child,
+        .plan-detail-view-container .activity-sub-table thead th:last-child {
+          border-right: none !important;
+        }
+
+        .plan-detail-view-container .objectives-table tbody tr,
+        .plan-detail-view-container .activity-sub-table tbody tr {
+          transition: background 0.15s ease !important;
+          cursor: pointer;
+        }
+
+        /* VÔ HIỆU HÓA HOÀN TOÀN LỖI LỆCH LAYER VÀ FLOATING TRANSITIONS CHO CẢ HAI BẢNG */
+        .admin-theme-root .plan-detail-view-container .objectives-table tbody tr:hover,
+        .plan-detail-view-container .objectives-table tbody tr:hover,
+        .admin-theme-root .plan-detail-view-container .activity-sub-table tbody tr:hover,
+        .plan-detail-view-container .activity-sub-table tbody tr:hover,
+        .admin-theme-root .plan-detail-view-container .objectives-table tbody tr:hover td,
+        .plan-detail-view-container .objectives-table tbody tr:hover td,
+        .admin-theme-root .plan-detail-view-container .activity-sub-table tbody tr:hover td,
+        .plan-detail-view-container .activity-sub-table tbody tr:hover td {
+          transform: none !important;
+          box-shadow: none !important;
+          background: #FFFDF5 !important; /* Đổi màu kem nhẹ nhàng khi hover */
+        }
+
+        .plan-detail-view-container .objectives-table tbody tr.active,
+        .plan-detail-view-container .objectives-table tbody tr.active td {
+          background: #F3E8FF !important; /* Đánh dấu màu tím nhẹ khi chọn */
+        }
+
+        .plan-detail-view-container .objectives-table tbody td,
+        .plan-detail-view-container .activity-sub-table tbody td {
+          padding: 14px 14px !important;
+          border-bottom: 2px solid #E2E8F0 !important;
+          border-right: 2px dashed #E2E8F0 !important;
+          color: #1E293B !important;
+          font-weight: 600 !important;
+          font-size: 0.9rem !important;
+        }
+
+        .plan-detail-view-container .objectives-table tbody tr:last-child td,
+        .plan-detail-view-container .activity-sub-table tbody tr:last-child td {
+          border-bottom: none !important;
+        }
+
+        .plan-detail-view-container .objectives-table tbody td:last-child,
+        .plan-detail-view-container .activity-sub-table tbody td:last-child {
+          border-right: none !important;
+        }
+
+        /* Bật viền lề trái tím khi dòng Objective được chọn (Active State) */
+        .plan-detail-view-container .objectives-table tbody tr.active td:first-child {
+          border-left: 6px solid #8B5CF6 !important;
+        }
+
+        /* Custom Hover indicator cho dòng thường */
+        .plan-detail-view-container .objectives-table tbody tr:not(.active):hover td:first-child {
+          border-left: 6px solid #C084FC !important;
+        }
       `}</style>
 
       {/* HEADER ACTION */}
@@ -3485,8 +3577,7 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                     <table className="objectives-table">
                       <thead>
                         <tr>
-                          <th style={{ width: '8%', textAlign: 'center' }}></th>
-                          <th style={{ width: '47%', textAlign: 'left' }}>
+                          <th style={{ width: '55%', textAlign: 'left' }}>
                             {t.objName || 'Tên mục tiêu'}
                           </th>
                           <th style={{ width: '15%', textAlign: 'center' }}>
@@ -3502,248 +3593,74 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                       </thead>
                       <tbody>
                         {selectedPhase.objectives.map(obj => {
-                          const isExpanded = expandedObjId === obj.objective_id;
-                          // Giả định dữ liệu activities đi kèm trong object hoặc fallback mảng rỗng
-                          const activities = obj.activities || [];
+                          const isSelected = expandedObjId === obj.objective_id;
 
                           return (
-                            <React.Fragment key={obj.objective_id}>
-                              {/* Dòng chính chứa Objective */}
-                              <tr
-                                className={`obj-main-row ${isExpanded ? 'active' : ''}`}
-                                style={{ cursor: 'pointer' }}
-                                onClick={() => toggleExpandRow(obj.objective_id)}
-                              >
-                                {/* Mũi tên chỉ trạng thái đóng/mở */}
-                                <td style={{ textAlign: 'center' }}>
-                                  <div 
-                                    style={{
-                                      width: '28px',
-                                      height: '28px',
-                                      borderRadius: '50%',
-                                      border: '2px solid #1E293B',
-                                      background: isExpanded ? '#8B5CF6' : '#FFFFFF',
-                                      color: isExpanded ? '#FFFFFF' : '#1E293B',
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      boxShadow: '2px 2px 0px #1E293B',
-                                      transition: 'all 0.2s ease',
-                                      transform: isExpanded ? 'scale(1.05)' : 'scale(1)',
-                                      margin: '0 auto'
-                                    }}
+                            <tr
+                              key={obj.objective_id}
+                              className={`obj-main-row ${isSelected ? 'active' : ''}`}
+                              style={{ 
+                                cursor: 'pointer',
+                                background: isSelected ? '#F3E8FF' : 'transparent'
+                              }}
+                              onClick={() => setExpandedObjId(obj.objective_id)}
+                            >
+                              <td style={{ color: '#1E293B', fontWeight: isSelected ? 800 : 500 }}>
+                                {obj.objective_name}
+                              </td>
+                              <td style={{ textAlign: 'center' }}>
+                                <span className="item-card-tag duration" style={{ display: 'inline-block', padding: '0.25rem 0.5rem', background: '#F1F5F9', borderRadius: '4px', fontSize: '0.85rem' }}>
+                                  {obj.target_date}
+                                </span>
+                              </td>
+                              <td style={{ textAlign: 'center' }}>
+                                <span 
+                                  className={`report-badge ${obj.status === 'Completed' ? 'approved' : 'pending'}`}
+                                  style={{
+                                    backgroundColor: obj.status === 'Completed' ? '#D1FAE5' : '#FEF9C3',
+                                    color: obj.status === 'Completed' ? '#065F46' : '#854D0E',
+                                    borderColor: '#1E293B',
+                                    borderWidth: '2.5px',
+                                    borderStyle: 'solid',
+                                    fontSize: '0.75rem',
+                                    padding: '4px 10px',
+                                    boxShadow: '1.5px 1.5px 0px #1E293B'
+                                  }}
+                                >
+                                  {obj.status === 'Completed' ? (lang === 'vi' ? '👍 Hoàn thành' : 'Completed') : (lang === 'vi' ? '⏳ Đang thực hiện' : 'In process')}
+                                </span>
+                              </td>
+                              {/* Cột Action chặn sụp đổ dòng khi click nút bấm (stopPropagation) */}
+                              <td style={{ textAlign: 'right' }} onClick={(e) => e.stopPropagation()}>
+                                <div className="item-card-actions" style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                                  <button className="edit-btn-v2" 
+                                  title={'details'}
+                                   onClick={() => openObjModal('view', obj)}>
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                                    </svg>
+                                  </button>
+                                  <button
+                                    className="edit-btn-v2"
+                                    title={t.editPhase || 'Sửa'}
+                                    onClick={() => openObjModal('update', obj)}
                                   >
-                                    <span style={{ display: 'inline-block', fontSize: '0.65rem', transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
-                                      ▶
-                                    </span>
-                                  </div>
-                                </td>
-                                <td style={{ color: '#1E293B' }}>
-                                  {obj.objective_name}
-                                </td>
-                                <td style={{ textAlign: 'center' }}>
-                                  <span className="item-card-tag duration" style={{ display: 'inline-block', padding: '0.25rem 0.5rem', background: '#F1F5F9', borderRadius: '4px', fontSize: '0.85rem' }}>
-                                    {obj.target_date}
-                                  </span>
-                                </td>
-                                <td style={{ textAlign: 'center' }}>
-                                  <span 
-                                    className={`report-badge ${obj.status === 'Completed' ? 'approved' : 'pending'}`}
-                                    style={{
-                                      backgroundColor: obj.status === 'Completed' ? '#D1FAE5' : '#FEF9C3',
-                                      color: obj.status === 'Completed' ? '#065F46' : '#854D0E',
-                                      borderColor: '#1E293B',
-                                      borderWidth: '2.5px',
-                                      borderStyle: 'solid',
-                                      fontSize: '0.75rem',
-                                      padding: '4px 10px',
-                                      boxShadow: '1.5px 1.5px 0px #1E293B'
-                                    }}
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                      <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                                    </svg>
+                                  </button>
+                                  <button
+                                    className="delete-btn-v2"
+                                    title={t.deletePhase || 'Xóa'}
+                                    onClick={() => openObjModal('delete', obj)}
                                   >
-                                    {obj.status === 'Completed' ? (lang === 'vi' ? '👍 Hoàn thành' : 'Completed') : (lang === 'vi' ? '⏳ Đang thực hiện' : 'In process')}
-                                  </span>
-                                </td>
-                                {/* Cột Action chặn sụp đổ dòng khi click nút bấm (stopPropagation) */}
-                                <td style={{ textAlign: 'right' }} onClick={(e) => e.stopPropagation()}>
-                                  <div className="item-card-actions" style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-                                    <button className="edit-btn-v2" 
-                                    title={'details'}
-                                     onClick={() => openObjModal('view', obj)}>
-                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-                                      </svg>
-                                    </button>
-                                    <button
-                                      className="edit-btn-v2"
-                                      title={t.editPhase || 'Sửa'}
-                                      onClick={() => openObjModal('update', obj)}
-                                    >
-                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-                                      </svg>
-                                    </button>
-                                    <button
-                                      className="delete-btn-v2"
-                                      title={t.deletePhase || 'Xóa'}
-                                      onClick={() => openObjModal('delete', obj)}
-                                    >
-                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                                        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
-                                      </svg>
-                                    </button>
-                                  </div>
-                                </td>
-                              </tr>
-
-                              {/* Dòng phụ hiển thị danh sách Activity (Chỉ render khi dòng này được mở) */}
-                              {isExpanded && (
-                                <tr className="activity-row-expanded">
-                                  <td colSpan={5}>
-                                    <div className="activity-section-wrapper" style={{ animation: 'fadeIn 0.2s ease-out', padding: '12px' }}>
-                                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                                        <h5 style={{ margin: 0, fontSize: '0.9rem', color: '#1E293B', fontWeight: '800' }}>
-                                          📋 {lang === 'vi' ? 'Danh sách Hoạt động rèn luyện' : 'Intervention Activities List'}
-                                        </h5>
-                                        
-                                        {currentSimulatorRole === 'Teacher' && (
-                                          <button 
-                                            type="button" 
-                                            className="add-btn" 
-                                            style={{ padding: '4px 12px', fontSize: '0.75rem', height: 'auto' }}
-                                            onClick={() => openActModal('create', obj.objective_id)}
-                                          >
-                                            ➕ {lang === 'vi' ? 'Thêm Hoạt động' : 'Add Activity'}
-                                          </button>
-                                        )}
-                                      </div>
-
-                                      {(!activities || activities.filter(a => !a.is_deleted).length === 0) ? (
-                                        <div style={{ textAlign: 'center', padding: '20px', color: '#94A3B8', fontStyle: 'italic', background: '#ffffff', borderRadius: '6px', border: '1px dashed #CBD5E1' }}>
-                                          {lang === 'vi' ? 'Chưa có hoạt động nào được lập cho mục tiêu này.' : 'No activities planned for this objective.'}
-                                        </div>
-                                      ) : (
-                                        <table className="activity-sub-table">
-                                          <thead>
-                                            <tr>
-                                              <th>{(t as any).actExercise || 'Bài tập'}</th>
-                                              <th>{(t as any).actFreq || 'Tần suất'}</th>
-                                              <th>{(t as any).actMethodCol || 'PP Giảng dạy'}</th>
-                                              <th>{(t as any).actCriteria || 'Tiêu chí'}</th>
-                                              <th>{(t as any).actAssigneeCol || 'Thực hiện'}</th>
-                                              <th>{lang === 'vi' ? 'Trạng thái & Bài nộp' : 'Status & Submissions'}</th>
-                                              <th style={{ textAlign: 'right' }}>{(t as any).actActions || 'Thao tác'}</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            {activities.filter(a => !a.is_deleted).map((act, index) => {
-                                              const subs = act.submissions || [];
-                                              const reviews = act.reviews || [];
-                                              const hasReviews = reviews.length > 0;
-                                              const currentStatus = act.status === 'Submitted' ? 'Submitted' : 'In Progress';
-                                              const submitTimes = subs.length > 0 ? Math.max(...subs.map(s => s.submit_times)) : 0;
-                                              return (
-                                                <tr key={act.activity_id || index}>
-                                                  <td style={{ color: '#0F172A' }}>{act.activity_name}</td>
-                                                  <td>{act.frequency}</td>
-                                                  <td style={{ whiteSpace: 'pre-wrap' }}>{act.teaching_method}</td>
-                                                  <td>{act.target_criteria}</td>
-                                                  <td>
-                                                    <span style={{ padding: '2px 8px', borderRadius: '4px', background: '#E2E8F0', fontSize: '0.75rem', fontWeight: 700 }}>{act.assignee_type}</span>
-                                                  </td>
-                                                  <td>
-                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-start' }}>
-                                                      {hasReviews ? (
-                                                        <span 
-                                                          className="report-badge approved"
-                                                          style={{ 
-                                                            backgroundColor: '#D1FAE5',
-                                                            color: '#065F46',
-                                                            borderColor: '#1E293B',
-                                                            borderWidth: '2px',
-                                                            borderStyle: 'solid',
-                                                            boxShadow: '1.5px 1.5px 0px #1E293B'
-                                                          }}
-                                                        >
-                                                          {lang === 'vi' ? '✅ Đã Review' : '✅ Reviewed'}
-                                                        </span>
-                                                      ) : currentStatus === 'Submitted' ? (
-                                                        <span 
-                                                          className="report-badge pending"
-                                                          style={{ 
-                                                            backgroundColor: '#FEF3C7',
-                                                            color: '#B45309',
-                                                            borderColor: '#1E293B',
-                                                            borderWidth: '2px',
-                                                            borderStyle: 'solid',
-                                                            boxShadow: '1.5px 1.5px 0px #1E293B'
-                                                          }}
-                                                        >
-                                                          {lang === 'vi' ? '⏳ Chờ Review' : '⏳ Submitted'}
-                                                        </span>
-                                                      ) : (
-                                                        <span 
-                                                          className="report-badge progress"
-                                                          style={{ 
-                                                            backgroundColor: '#E2E8F0',
-                                                            color: '#334155',
-                                                            borderColor: '#1E293B',
-                                                            borderWidth: '2px',
-                                                            borderStyle: 'solid',
-                                                            boxShadow: '1.5px 1.5px 0px #1E293B'
-                                                          }}
-                                                        >
-                                                          {lang === 'vi' ? '🏃 Đang thực hiện' : '🏃 In Progress'}
-                                                        </span>
-                                                      )}
-                                                      {submitTimes > 0 && (
-                                                        <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#1E293B' }}>
-                                                          📥 {lang === 'vi' ? `Đã nộp: ${submitTimes} lần` : `Submitted: ${submitTimes} times`}
-                                                        </span>
-                                                      )}
-                                                    </div>
-                                                  </td>
-                                                  <td>
-                                                    <div style={{ display: 'flex', gap: '6px', justifyContent: 'flex-end', alignItems: 'center' }}>
-                                                      <button 
-                                                        type="button"
-                                                        className="edit-btn-v2"
-                                                        title={currentStatus === 'Submitted' && !hasReviews && currentSimulatorRole === 'Teacher' 
-                                                              ? (lang === 'vi' ? 'Review ngay' : 'Review') 
-                                                              : (lang === 'vi' ? 'Chi tiết' : 'Details')}
-                                                        style={{
-                                                          background: currentStatus === 'Submitted' && !hasReviews && currentSimulatorRole === 'Teacher' ? '#FBBF24' : undefined,
-                                                          color: currentStatus === 'Submitted' && !hasReviews && currentSimulatorRole === 'Teacher' ? '#1E293B' : undefined
-                                                        }}
-                                                        onClick={() => openActModal('view', obj.objective_id, act)}
-                                                      >
-                                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                                                          <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-                                                        </svg>
-                                                      </button>
-                                                      
-                                                      {currentSimulatorRole === 'Teacher' && (
-                                                        <div style={{ display: 'flex', gap: '4px' }}>
-                                                          <button type="button" className="edit-btn-v2" onClick={() => openActModal('update', obj.objective_id, act)}>
-                                                            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" /></svg>
-                                                          </button>
-                                                          <button type="button" className="delete-btn-v2" onClick={() => openActModal('delete', obj.objective_id, act)}>
-                                                            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" /></svg>
-                                                          </button>
-                                                        </div>
-                                                      )}
-                                                    </div>
-                                                  </td>
-                                                </tr>
-                                              );
-                                            })}
-                                          </tbody>
-                                        </table>
-                                      )}
-                                    </div>
-                                  </td>
-                                </tr>
-                              )}
-                            </React.Fragment>
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                      <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                                    </svg>
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
                           );
                         })}
                       </tbody>
@@ -3752,6 +3669,211 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
                 )}
               </div>
             </div>
+
+            {/* CARD 3: INTERVENTION ACTIVITIES (Tách biệt hoàn toàn thành một Card riêng giống Phase details) */}
+            {selectedPhase && (() => {
+              const selectedObj = selectedPhase.objectives.find(o => o.objective_id === expandedObjId);
+              if (!selectedObj) return null;
+              const activities = selectedObj.activities || [];
+
+              return (
+                <div 
+                  className="phase-detail-card" 
+                  style={{ 
+                    marginTop: '2.5rem', 
+                    border: '3px solid #1E293B', 
+                    borderRadius: '24px', 
+                    background: '#FFFFFF', 
+                    padding: '1.75rem',
+                    boxShadow: '6px 6px 0px #1E293B',
+                    animation: 'fadeIn 0.25s ease-out'
+                  }}
+                >
+                  <div 
+                    className="section-pane-header" 
+                    style={{ 
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: '1.5rem', 
+                      padding: '14px 20px',
+                      background: '#FFFDF5',
+                      border: '3px solid #1E293B',
+                      borderRadius: '16px',
+                      boxShadow: '4px 4px 0px #1E293B'
+                    }}
+                  >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      <h4 className="section-pane-title" style={{ fontSize: '1.1rem', fontWeight: 950, color: '#1E293B', margin: 0 }}>
+                        📋 {lang === 'vi' ? 'Danh sách Hoạt động rèn luyện' : 'Intervention Activities List'}
+                      </h4>
+                      <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 800 }}>
+                        🎯 {lang === 'vi' ? `Mục tiêu: ${selectedObj.objective_name}` : `Objective: ${selectedObj.objective_name}`}
+                      </span>
+                    </div>
+                    
+                    {currentSimulatorRole === 'Teacher' && (
+                      <button 
+                        type="button" 
+                        className="add-btn" 
+                        style={{ 
+                          height: 'auto',
+                          padding: '6px 14px',
+                          fontSize: '0.8rem',
+                          fontWeight: 800,
+                          boxShadow: '2.5px 2.5px 0px #1E293B',
+                          background: '#E11D48',
+                          borderColor: '#1E293B'
+                        }}
+                        onClick={() => openActModal('create', selectedObj.objective_id)}
+                      >
+                        ➕ {lang === 'vi' ? 'Thêm Hoạt động' : 'Add Activity'}
+                      </button>
+                    )}
+                  </div>
+
+                  {(!activities || activities.filter(a => !a.is_deleted).length === 0) ? (
+                    <div style={{ textAlign: 'center', padding: '30px', color: '#94A3B8', fontStyle: 'italic', background: '#FFFDF5', borderRadius: '16px', border: '2.5px dashed #CBD5E1' }}>
+                      {lang === 'vi' ? 'Chưa có hoạt động nào được lập cho mục tiêu này.' : 'No activities planned for this objective.'}
+                    </div>
+                  ) : (
+                    <div className="activity-table-container" style={{ overflowX: 'auto' }}>
+                      <table className="activity-sub-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <thead>
+                          <tr>
+                            <th style={{ textAlign: 'left', padding: '12px 10px' }}>{(t as any).actExercise || 'Bài tập'}</th>
+                            <th style={{ textAlign: 'center', padding: '12px 10px', width: '12%' }}>{(t as any).actFreq || 'Tần suất'}</th>
+                            <th style={{ textAlign: 'left', padding: '12px 10px', width: '25%' }}>{(t as any).actMethodCol || 'PP Giảng dạy'}</th>
+                            <th style={{ textAlign: 'left', padding: '12px 10px', width: '22%' }}>{(t as any).actCriteria || 'Tiêu chí'}</th>
+                            <th style={{ textAlign: 'center', padding: '12px 10px', width: '10%' }}>{(t as any).actAssigneeCol || 'Thực hiện'}</th>
+                            <th style={{ textAlign: 'center', padding: '12px 10px', width: '13%' }}>{lang === 'vi' ? 'Trạng thái' : 'Status'}</th>
+                            <th style={{ textAlign: 'right', padding: '12px 10px', width: '10%' }}>{(t as any).actActions || 'Thao tác'}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {activities.filter(a => !a.is_deleted).map((act, index) => {
+                            const subs = act.submissions || [];
+                            const reviews = act.reviews || [];
+                            const hasReviews = reviews.length > 0;
+                            const currentStatus = act.status === 'Submitted' ? 'Submitted' : 'In Progress';
+                            const submitTimes = subs.length > 0 ? Math.max(...subs.map(s => s.submit_times)) : 0;
+                            return (
+                              <tr key={act.activity_id || index} className="activity-flat-row">
+                                <td style={{ color: '#0F172A', fontWeight: 600, padding: '12px 10px' }}>{act.activity_name}</td>
+                                <td style={{ textAlign: 'center', padding: '12px 10px' }}>{act.frequency}</td>
+                                <td style={{ whiteSpace: 'pre-wrap', padding: '12px 10px', fontSize: '0.85rem' }}>{act.teaching_method}</td>
+                                <td style={{ padding: '12px 10px', fontSize: '0.85rem' }}>{act.target_criteria}</td>
+                                <td style={{ textAlign: 'center', padding: '12px 10px' }}>
+                                  <span style={{ padding: '2px 8px', borderRadius: '4px', background: '#E2E8F0', fontSize: '0.75rem', fontWeight: 700 }}>{act.assignee_type}</span>
+                                </td>
+                                <td style={{ textAlign: 'center', padding: '12px 10px' }}>
+                                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'center' }}>
+                                    {hasReviews ? (
+                                      <span 
+                                        className="report-badge approved"
+                                        style={{ 
+                                          backgroundColor: '#D1FAE5',
+                                          color: '#065F46',
+                                          borderColor: '#1E293B',
+                                          borderWidth: '2px',
+                                          borderStyle: 'solid',
+                                          boxShadow: '1.5px 1.5px 0px #1E293B',
+                                          fontSize: '0.7rem',
+                                          padding: '2px 6px'
+                                        }}
+                                      >
+                                        {lang === 'vi' ? '✅ Đã Review' : '✅ Reviewed'}
+                                      </span>
+                                    ) : currentStatus === 'Submitted' ? (
+                                      <span 
+                                        className="report-badge pending"
+                                        style={{ 
+                                          backgroundColor: '#FEF3C7',
+                                          color: '#B45309',
+                                          borderColor: '#1E293B',
+                                          borderWidth: '2px',
+                                          borderStyle: 'solid',
+                                          boxShadow: '1.5px 1.5px 0px #1E293B',
+                                          fontSize: '0.7rem',
+                                          padding: '2px 6px'
+                                        }}
+                                      >
+                                        {lang === 'vi' ? '⏳ Chờ Review' : '⏳ Submitted'}
+                                      </span>
+                                    ) : (
+                                      <span 
+                                        className="report-badge progress"
+                                        style={{ 
+                                          backgroundColor: '#E0F2FE',
+                                          color: '#0369A1',
+                                          borderColor: '#1E293B',
+                                          borderWidth: '2px',
+                                          borderStyle: 'solid',
+                                          boxShadow: '1.5px 1.5px 0px #1E293B',
+                                          fontSize: '0.7rem',
+                                          padding: '2px 6px'
+                                        }}
+                                      >
+                                        {lang === 'vi' ? '🏃 Đang học' : '🏃 In Progress'}
+                                      </span>
+                                    )}
+                                    {submitTimes > 0 && (
+                                      <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#64748B' }}>
+                                        📥 {lang === 'vi' ? `${submitTimes} lần` : `${submitTimes} times`}
+                                      </span>
+                                    )}
+                                  </div>
+                                </td>
+                                <td style={{ textAlign: 'right', padding: '12px 10px' }}>
+                                  <div style={{ display: 'flex', gap: '0.35rem', justifyContent: 'flex-end' }}>
+                                    <button 
+                                      className="edit-btn-v2" 
+                                      style={{
+                                        backgroundColor: currentStatus === 'Submitted' && currentSimulatorRole === 'Teacher' ? '#FBBF24' : '#FFFFFF',
+                                        border: '2px solid #1E293B',
+                                        boxShadow: '2px 2px 0px #1E293B'
+                                      }}
+                                      title={currentStatus === 'Submitted' && currentSimulatorRole === 'Teacher' ? (lang === 'vi' ? 'Đánh giá ngay' : 'Review report') : (lang === 'vi' ? 'Xem chi tiết' : 'Details')}
+                                      onClick={() => handleParentViewActivity(act, selectedObj.objective_id)}
+                                    >
+                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                                      </svg>
+                                    </button>
+                                    {currentSimulatorRole === 'Teacher' && (
+                                      <>
+                                        <button 
+                                          className="edit-btn-v2" 
+                                          title={t.editPhase || 'Sửa'}
+                                          onClick={() => openActModal('update', selectedObj.objective_id, act)}
+                                        >
+                                          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                                          </svg>
+                                        </button>
+                                        <button 
+                                          className="delete-btn-v2" 
+                                          title={t.deletePhase || 'Xóa'}
+                                          onClick={() => openActModal('delete', selectedObj.objective_id, act)}
+                                        >
+                                          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                                          </svg>
+                                        </button>
+                                      </>
+                                    )}
+                                  </div>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
           </div>
         </div>
       )}

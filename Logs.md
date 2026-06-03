@@ -2258,3 +2258,15 @@
   - Bam Detailed Profile de xem bo thong tin day du cua view details children trong sidebar ben trai.
 - **Build Verification**:
   - Da chay `npm.cmd run build` thanh cong. Vite chi canh bao chunk JavaScript lon hon 500 kB sau minify.
+
+## [2026-06-03] - Làm phẳng bảng Objectives & Activities và tách biệt danh sách Hoạt động rèn luyện trong Dashboard Chuyên gia
+- **Implementation**:
+  * **Loại bỏ hoàn toàn bảng lồng (Nested Tables)**: Xóa bỏ hàng dòng phụ mở rộng `tr.activity-row-expanded` lồng trong bảng Objectives. Thay đổi chiều rộng các cột bảng Objectives: Objective Name (`55%`), Target (`15%`), Status (`15%`), Actions (`15%`), và loại bỏ cột đóng/mở `▶`.
+  * **Tự động chọn Objective đầu tiên**: Bổ sung hook `React.useEffect` tự động chọn Objective đầu tiên của phase làm mục tiêu hoạt động khi phase thay đổi.
+  * **Tách danh sách hoạt động can thiệp (Activities List) thành Card độc lập**: Tạo khối Sticker Card Memphis mới **Intervention Activities List** (CARD 3) độc lập nằm ngay dưới bảng Objectives (CARD 2), tự động lọc theo `expandedObjId` đang được chọn.
+  * **Tối ưu hóa CSS phẳng (Flat Table Overrides)**: Cấu hình scoped CSS trong `PlanDetailView.tsx` thiết lập `transform: none !important` và `box-shadow: none !important` khi hover chuột trên các dòng của hai bảng Objectives và Activities, triệt tiêu hoàn toàn hiệu ứng elastic hover lift rò rỉ từ CSS toàn cục làm lệch layer màu và z-index.
+  * **Dọn dẹp mã nguồn**: Loại bỏ hàm không còn sử dụng `toggleExpandRow` để tránh cảnh báo biến không sử dụng (`TS6133`).
+- **Walkthrough**:
+  * Giao diện quản lý mục tiêu IEP trong Dashboard Chuyên gia hiển thị kiên cố, các hàng bảng phẳng lặng khi rê chuột, không có hiện tượng nẩy nổi hay lệch layer z-index.
+  * Việc đổi mục tiêu bằng cách nhấp chọn dòng Objective diễn ra mượt mà, đồng thời cập nhật tức thì danh sách hoạt động tương ứng ở Card bên dưới.
+  * Biên dịch sản phẩm Vite & TypeScript (`npm.cmd run build`) thành công 100% sạch lỗi chỉ trong **430ms**.
