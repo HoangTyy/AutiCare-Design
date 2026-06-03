@@ -3138,92 +3138,40 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
           }
         }
 
-        /* Làm phẳng hoàn toàn bảng Objectives và Activities trong Dashboard */
-        .plan-detail-view-container .objectives-table,
-        .plan-detail-view-container .activity-sub-table {
-          width: 100%;
-          border-collapse: separate !important;
-          border-spacing: 0 !important;
+        /* Làm phẳng hoàn toàn các Goal Cards và Activity Cards trong Dashboard Chuyên gia */
+        .plan-detail-view-container .spec-goal-card {
           border: 3px solid #1E293B !important;
-          border-radius: 16px !important;
-          overflow: hidden !important;
-          background: #FFFFFF !important;
-          margin-bottom: 1rem !important;
+          border-radius: 20px !important;
+          padding: 1.25rem !important;
           box-shadow: 4px 4px 0px #1E293B !important;
+          margin-bottom: 1.5rem !important;
+          transition: background 0.15s ease, border-color 0.15s ease, border-left 0.15s ease !important;
+          background: #FFFFFF;
         }
 
-        .plan-detail-view-container .objectives-table thead th,
-        .plan-detail-view-container .activity-sub-table thead th {
-          background: #FFFDF5 !important;
-          color: #1E293B !important;
-          font-weight: 900 !important;
-          text-transform: uppercase !important;
-          font-size: 0.82rem !important;
-          letter-spacing: 0.05em !important;
-          padding: 12px 14px !important;
-          border-bottom: 3px solid #1E293B !important;
-          border-right: 2px dashed #E2E8F0 !important;
-          text-align: left;
-        }
-
-        .plan-detail-view-container .objectives-table thead th:last-child,
-        .plan-detail-view-container .activity-sub-table thead th:last-child {
-          border-right: none !important;
-        }
-
-        .plan-detail-view-container .objectives-table tbody tr,
-        .plan-detail-view-container .activity-sub-table tbody tr {
-          transition: background 0.15s ease !important;
-          cursor: pointer;
-        }
-
-        /* VÔ HIỆU HÓA HOÀN TOÀN LỖI LỆCH LAYER VÀ FLOATING TRANSITIONS CHO CẢ HAI BẢNG */
-        .admin-theme-root .plan-detail-view-container .objectives-table tbody tr:hover,
-        .plan-detail-view-container .objectives-table tbody tr:hover,
-        .admin-theme-root .plan-detail-view-container .activity-sub-table tbody tr:hover,
-        .plan-detail-view-container .activity-sub-table tbody tr:hover,
-        .admin-theme-root .plan-detail-view-container .objectives-table tbody tr:hover td,
-        .plan-detail-view-container .objectives-table tbody tr:hover td,
-        .admin-theme-root .plan-detail-view-container .activity-sub-table tbody tr:hover td,
-        .plan-detail-view-container .activity-sub-table tbody tr:hover td {
+        .plan-detail-view-container .spec-goal-card:hover {
           transform: none !important;
-          box-shadow: none !important;
-          background: #FFFDF5 !important; /* Đổi màu kem nhẹ nhàng khi hover */
+          box-shadow: 4px 4px 0px #1E293B !important;
+          background: #FFFDF5 !important;
         }
 
-        .plan-detail-view-container .objectives-table tbody tr.active,
-        .plan-detail-view-container .objectives-table tbody tr.active td {
-          background: #F3E8FF !important; /* Đánh dấu màu tím nhẹ khi chọn */
+        .plan-detail-view-container .spec-goal-card.active {
+          background: #F3E8FF !important;
         }
 
-        .plan-detail-view-container .objectives-table tbody td,
-        .plan-detail-view-container .activity-sub-table tbody td {
-          padding: 14px 14px !important;
-          border-bottom: 2px solid #E2E8F0 !important;
-          border-right: 2px dashed #E2E8F0 !important;
-          color: #1E293B !important;
-          font-weight: 600 !important;
-          font-size: 0.9rem !important;
+        .plan-detail-view-container .spec-activity-card {
+          border: 2.5px solid #1E293B !important;
+          border-radius: 14px !important;
+          padding: 1rem !important;
+          background: #FFFDF5 !important;
+          box-shadow: 3px 3px 0px #1E293B !important;
+          transition: background 0.15s ease !important;
         }
 
-        .plan-detail-view-container .objectives-table tbody tr:last-child td,
-        .plan-detail-view-container .activity-sub-table tbody tr:last-child td {
-          border-bottom: none !important;
-        }
-
-        .plan-detail-view-container .objectives-table tbody td:last-child,
-        .plan-detail-view-container .activity-sub-table tbody td:last-child {
-          border-right: none !important;
-        }
-
-        /* Bật viền lề trái tím khi dòng Objective được chọn (Active State) */
-        .plan-detail-view-container .objectives-table tbody tr.active td:first-child {
-          border-left: 6px solid #8B5CF6 !important;
-        }
-
-        /* Custom Hover indicator cho dòng thường */
-        .plan-detail-view-container .objectives-table tbody tr:not(.active):hover td:first-child {
-          border-left: 6px solid #C084FC !important;
+        .plan-detail-view-container .spec-activity-card:hover {
+          transform: none !important;
+          box-shadow: 3px 3px 0px #1E293B !important;
+          background: #F8FAFC !important;
         }
       `}</style>
 
@@ -3530,350 +3478,343 @@ const PlanDetailView: React.FC<PlanDetailViewProps> = ({
               </div>
             </div>
 
-            {/* CARD 2: MANAGE OBJECTIVES */}
-            <div id="objectives-section-block" className="phase-detail-card" style={{ marginTop: '3.5rem' }}>
-              {/* Section Objectives */}
-              <div className="objectives-section">
-                <div 
-                  className="section-pane-header" 
-                  style={{ 
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginBottom: '1.5rem', 
-                    padding: '14px 20px',
-                    background: '#FFFFFF',
-                    border: '3px solid #1E293B',
-                    borderRadius: '16px',
-                    boxShadow: '4px 4px 0px #1E293B'
+            {/* CARD 2: MANAGE OBJECTIVES & ACTIVITIES (Gộp chung trong dòng chảy Goal Cards giống Homepage) */}
+            <div id="objectives-section-block" style={{ marginTop: '3rem' }}>
+              <div 
+                className="section-pane-header" 
+                style={{ 
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '1.5rem', 
+                  padding: '14px 20px',
+                  background: '#FFFFFF',
+                  border: '3px solid #1E293B',
+                  borderRadius: '16px',
+                  boxShadow: '4px 4px 0px #1E293B'
+                }}
+              >
+                <h4 className="section-pane-title" style={{ fontSize: '1.15rem', fontWeight: 900, color: '#1E293B', margin: 0 }}>
+                  📝 {t.objTitle || 'Manage Objectives'}
+                </h4>
+                <button 
+                  className="add-btn" 
+                  onClick={() => openObjModal('create')}
+                  style={{
+                    height: 'auto',
+                    padding: '6px 14px',
+                    fontSize: '0.8rem',
+                    fontWeight: 800,
+                    boxShadow: '2.5px 2.5px 0px #1E293B',
+                    background: '#8B5CF6',
+                    borderColor: '#1E293B'
                   }}
                 >
-                  <h4 className="section-pane-title" style={{ fontSize: '1.15rem', fontWeight: 900, color: '#1E293B', margin: 0 }}>
-                    📝 {t.objTitle || 'Manage Objectives'}
-                  </h4>
-                  <button 
-                    className="add-btn" 
-                    onClick={() => openObjModal('create')}
-                    style={{
-                      height: 'auto',
-                      padding: '6px 14px',
-                      fontSize: '0.8rem',
-                      fontWeight: 800,
-                      boxShadow: '2.5px 2.5px 0px #1E293B',
-                      background: '#8B5CF6',
-                      borderColor: '#1E293B'
-                    }}
-                  >
-                    + {t.addObj || 'Add Objective'}
-                  </button>
-                </div>
-
-                {selectedPhase.objectives.length === 0 ? (
-                  <div className="empty-sub-state">
-                    <p>{t.noObj}</p>
-                  </div>
-                ) : (
-                  <div className="objectives-table-wrapper" style={{ overflowX: 'auto' }}>
-                    <table className="objectives-table">
-                      <thead>
-                        <tr>
-                          <th style={{ width: '55%', textAlign: 'left' }}>
-                            {t.objName || 'Tên mục tiêu'}
-                          </th>
-                          <th style={{ width: '15%', textAlign: 'center' }}>
-                            {'Target'}
-                          </th>
-                          <th style={{ width: '15%', textAlign: 'center' }}>
-                            {'Status'}
-                          </th>
-                          <th style={{ width: '15%', textAlign: 'center' }}>
-                            {'Actions'}
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {selectedPhase.objectives.map(obj => {
-                          const isSelected = expandedObjId === obj.objective_id;
-
-                          return (
-                            <tr
-                              key={obj.objective_id}
-                              className={`obj-main-row ${isSelected ? 'active' : ''}`}
-                              style={{ 
-                                cursor: 'pointer',
-                                background: isSelected ? '#F3E8FF' : 'transparent'
-                              }}
-                              onClick={() => setExpandedObjId(obj.objective_id)}
-                            >
-                              <td style={{ color: '#1E293B', fontWeight: isSelected ? 800 : 500 }}>
-                                {obj.objective_name}
-                              </td>
-                              <td style={{ textAlign: 'center' }}>
-                                <span className="item-card-tag duration" style={{ display: 'inline-block', padding: '0.25rem 0.5rem', background: '#F1F5F9', borderRadius: '4px', fontSize: '0.85rem' }}>
-                                  {obj.target_date}
-                                </span>
-                              </td>
-                              <td style={{ textAlign: 'center' }}>
-                                <span 
-                                  className={`report-badge ${obj.status === 'Completed' ? 'approved' : 'pending'}`}
-                                  style={{
-                                    backgroundColor: obj.status === 'Completed' ? '#D1FAE5' : '#FEF9C3',
-                                    color: obj.status === 'Completed' ? '#065F46' : '#854D0E',
-                                    borderColor: '#1E293B',
-                                    borderWidth: '2.5px',
-                                    borderStyle: 'solid',
-                                    fontSize: '0.75rem',
-                                    padding: '4px 10px',
-                                    boxShadow: '1.5px 1.5px 0px #1E293B'
-                                  }}
-                                >
-                                  {obj.status === 'Completed' ? (lang === 'vi' ? '👍 Hoàn thành' : 'Completed') : (lang === 'vi' ? '⏳ Đang thực hiện' : 'In process')}
-                                </span>
-                              </td>
-                              {/* Cột Action chặn sụp đổ dòng khi click nút bấm (stopPropagation) */}
-                              <td style={{ textAlign: 'right' }} onClick={(e) => e.stopPropagation()}>
-                                <div className="item-card-actions" style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-                                  <button className="edit-btn-v2" 
-                                  title={'details'}
-                                   onClick={() => openObjModal('view', obj)}>
-                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-                                    </svg>
-                                  </button>
-                                  <button
-                                    className="edit-btn-v2"
-                                    title={t.editPhase || 'Sửa'}
-                                    onClick={() => openObjModal('update', obj)}
-                                  >
-                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                                      <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-                                    </svg>
-                                  </button>
-                                  <button
-                                    className="delete-btn-v2"
-                                    title={t.deletePhase || 'Xóa'}
-                                    onClick={() => openObjModal('delete', obj)}
-                                  >
-                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                                      <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
-                                    </svg>
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
+                  + {t.addObj || 'Add Objective'}
+                </button>
               </div>
-            </div>
 
-            {/* CARD 3: INTERVENTION ACTIVITIES (Tách biệt hoàn toàn thành một Card riêng giống Phase details) */}
-            {selectedPhase && (() => {
-              const selectedObj = selectedPhase.objectives.find(o => o.objective_id === expandedObjId);
-              if (!selectedObj) return null;
-              const activities = selectedObj.activities || [];
-
-              return (
-                <div 
-                  className="phase-detail-card" 
-                  style={{ 
-                    marginTop: '2.5rem', 
-                    border: '3px solid #1E293B', 
-                    borderRadius: '24px', 
-                    background: '#FFFFFF', 
-                    padding: '1.75rem',
-                    boxShadow: '6px 6px 0px #1E293B',
-                    animation: 'fadeIn 0.25s ease-out'
-                  }}
-                >
-                  <div 
-                    className="section-pane-header" 
-                    style={{ 
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginBottom: '1.5rem', 
-                      padding: '14px 20px',
-                      background: '#FFFDF5',
-                      border: '3px solid #1E293B',
-                      borderRadius: '16px',
-                      boxShadow: '4px 4px 0px #1E293B'
-                    }}
-                  >
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      <h4 className="section-pane-title" style={{ fontSize: '1.1rem', fontWeight: 950, color: '#1E293B', margin: 0 }}>
-                        📋 {lang === 'vi' ? 'Danh sách Hoạt động rèn luyện' : 'Intervention Activities List'}
-                      </h4>
-                      <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 800 }}>
-                        🎯 {lang === 'vi' ? `Mục tiêu: ${selectedObj.objective_name}` : `Objective: ${selectedObj.objective_name}`}
-                      </span>
-                    </div>
-                    
-                    {currentSimulatorRole === 'Teacher' && (
-                      <button 
-                        type="button" 
-                        className="add-btn" 
-                        style={{ 
-                          height: 'auto',
-                          padding: '6px 14px',
-                          fontSize: '0.8rem',
-                          fontWeight: 800,
-                          boxShadow: '2.5px 2.5px 0px #1E293B',
-                          background: '#E11D48',
-                          borderColor: '#1E293B'
-                        }}
-                        onClick={() => openActModal('create', selectedObj.objective_id)}
-                      >
-                        ➕ {lang === 'vi' ? 'Thêm Hoạt động' : 'Add Activity'}
-                      </button>
-                    )}
-                  </div>
-
-                  {(!activities || activities.filter(a => !a.is_deleted).length === 0) ? (
-                    <div style={{ textAlign: 'center', padding: '30px', color: '#94A3B8', fontStyle: 'italic', background: '#FFFDF5', borderRadius: '16px', border: '2.5px dashed #CBD5E1' }}>
-                      {lang === 'vi' ? 'Chưa có hoạt động nào được lập cho mục tiêu này.' : 'No activities planned for this objective.'}
-                    </div>
-                  ) : (
-                    <div className="activity-table-container" style={{ overflowX: 'auto' }}>
-                      <table className="activity-sub-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
-                        <thead>
-                          <tr>
-                            <th style={{ textAlign: 'left', padding: '12px 10px' }}>{(t as any).actExercise || 'Bài tập'}</th>
-                            <th style={{ textAlign: 'center', padding: '12px 10px', width: '12%' }}>{(t as any).actFreq || 'Tần suất'}</th>
-                            <th style={{ textAlign: 'left', padding: '12px 10px', width: '25%' }}>{(t as any).actMethodCol || 'PP Giảng dạy'}</th>
-                            <th style={{ textAlign: 'left', padding: '12px 10px', width: '22%' }}>{(t as any).actCriteria || 'Tiêu chí'}</th>
-                            <th style={{ textAlign: 'center', padding: '12px 10px', width: '10%' }}>{(t as any).actAssigneeCol || 'Thực hiện'}</th>
-                            <th style={{ textAlign: 'center', padding: '12px 10px', width: '13%' }}>{lang === 'vi' ? 'Trạng thái' : 'Status'}</th>
-                            <th style={{ textAlign: 'right', padding: '12px 10px', width: '10%' }}>{(t as any).actActions || 'Thao tác'}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {activities.filter(a => !a.is_deleted).map((act, index) => {
-                            const subs = act.submissions || [];
-                            const reviews = act.reviews || [];
-                            const hasReviews = reviews.length > 0;
-                            const currentStatus = act.status === 'Submitted' ? 'Submitted' : 'In Progress';
-                            const submitTimes = subs.length > 0 ? Math.max(...subs.map(s => s.submit_times)) : 0;
-                            return (
-                              <tr key={act.activity_id || index} className="activity-flat-row">
-                                <td style={{ color: '#0F172A', fontWeight: 600, padding: '12px 10px' }}>{act.activity_name}</td>
-                                <td style={{ textAlign: 'center', padding: '12px 10px' }}>{act.frequency}</td>
-                                <td style={{ whiteSpace: 'pre-wrap', padding: '12px 10px', fontSize: '0.85rem' }}>{act.teaching_method}</td>
-                                <td style={{ padding: '12px 10px', fontSize: '0.85rem' }}>{act.target_criteria}</td>
-                                <td style={{ textAlign: 'center', padding: '12px 10px' }}>
-                                  <span style={{ padding: '2px 8px', borderRadius: '4px', background: '#E2E8F0', fontSize: '0.75rem', fontWeight: 700 }}>{act.assignee_type}</span>
-                                </td>
-                                <td style={{ textAlign: 'center', padding: '12px 10px' }}>
-                                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'center' }}>
-                                    {hasReviews ? (
-                                      <span 
-                                        className="report-badge approved"
-                                        style={{ 
-                                          backgroundColor: '#D1FAE5',
-                                          color: '#065F46',
-                                          borderColor: '#1E293B',
-                                          borderWidth: '2px',
-                                          borderStyle: 'solid',
-                                          boxShadow: '1.5px 1.5px 0px #1E293B',
-                                          fontSize: '0.7rem',
-                                          padding: '2px 6px'
-                                        }}
-                                      >
-                                        {lang === 'vi' ? '✅ Đã Review' : '✅ Reviewed'}
-                                      </span>
-                                    ) : currentStatus === 'Submitted' ? (
-                                      <span 
-                                        className="report-badge pending"
-                                        style={{ 
-                                          backgroundColor: '#FEF3C7',
-                                          color: '#B45309',
-                                          borderColor: '#1E293B',
-                                          borderWidth: '2px',
-                                          borderStyle: 'solid',
-                                          boxShadow: '1.5px 1.5px 0px #1E293B',
-                                          fontSize: '0.7rem',
-                                          padding: '2px 6px'
-                                        }}
-                                      >
-                                        {lang === 'vi' ? '⏳ Chờ Review' : '⏳ Submitted'}
-                                      </span>
-                                    ) : (
-                                      <span 
-                                        className="report-badge progress"
-                                        style={{ 
-                                          backgroundColor: '#E0F2FE',
-                                          color: '#0369A1',
-                                          borderColor: '#1E293B',
-                                          borderWidth: '2px',
-                                          borderStyle: 'solid',
-                                          boxShadow: '1.5px 1.5px 0px #1E293B',
-                                          fontSize: '0.7rem',
-                                          padding: '2px 6px'
-                                        }}
-                                      >
-                                        {lang === 'vi' ? '🏃 Đang học' : '🏃 In Progress'}
-                                      </span>
-                                    )}
-                                    {submitTimes > 0 && (
-                                      <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#64748B' }}>
-                                        📥 {lang === 'vi' ? `${submitTimes} lần` : `${submitTimes} times`}
-                                      </span>
-                                    )}
-                                  </div>
-                                </td>
-                                <td style={{ textAlign: 'right', padding: '12px 10px' }}>
-                                  <div style={{ display: 'flex', gap: '0.35rem', justifyContent: 'flex-end' }}>
-                                    <button 
-                                      className="edit-btn-v2" 
-                                      style={{
-                                        backgroundColor: currentStatus === 'Submitted' && currentSimulatorRole === 'Teacher' ? '#FBBF24' : '#FFFFFF',
-                                        border: '2px solid #1E293B',
-                                        boxShadow: '2px 2px 0px #1E293B'
-                                      }}
-                                      title={currentStatus === 'Submitted' && currentSimulatorRole === 'Teacher' ? (lang === 'vi' ? 'Đánh giá ngay' : 'Review report') : (lang === 'vi' ? 'Xem chi tiết' : 'Details')}
-                                      onClick={() => handleParentViewActivity(act, selectedObj.objective_id)}
-                                    >
-                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-                                      </svg>
-                                    </button>
-                                    {currentSimulatorRole === 'Teacher' && (
-                                      <>
-                                        <button 
-                                          className="edit-btn-v2" 
-                                          title={t.editPhase || 'Sửa'}
-                                          onClick={() => openActModal('update', selectedObj.objective_id, act)}
-                                        >
-                                          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-                                          </svg>
-                                        </button>
-                                        <button 
-                                          className="delete-btn-v2" 
-                                          title={t.deletePhase || 'Xóa'}
-                                          onClick={() => openActModal('delete', selectedObj.objective_id, act)}
-                                        >
-                                          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
-                                          </svg>
-                                        </button>
-                                      </>
-                                    )}
-                                  </div>
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-                  )}
+              {selectedPhase.objectives.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '30px', color: '#94A3B8', fontStyle: 'italic', background: '#FFFFFF', borderRadius: '16px', border: '3px solid #1E293B', boxShadow: '4px 4px 0px #1E293B' }}>
+                  <p style={{ margin: 0 }}>{t.noObj}</p>
                 </div>
-              );
-            })()}
+              ) : (
+                <div>
+                  {selectedPhase.objectives.map(obj => {
+                    const activities = obj.activities || [];
+                    const completedActivitiesCount = activities.filter(a => a.reviews && a.reviews.length > 0).length;
+                    const totalActivitiesCount = activities.length || 1;
+                    const goalProgress = Math.round((completedActivitiesCount / totalActivitiesCount) * 100);
+                    const isExpanded = expandedObjId === obj.objective_id;
+
+                    return (
+                      <div 
+                        key={obj.objective_id} 
+                        className={`spec-goal-card ${isExpanded ? 'active' : ''}`}
+                        style={{
+                          border: '3px solid #1E293B',
+                          borderRadius: '20px',
+                          padding: '1.25rem',
+                          background: isExpanded ? '#F3E8FF' : '#FFFFFF',
+                          boxShadow: '4px 4px 0px #1E293B',
+                          marginBottom: '1.5rem',
+                          transition: 'all 0.15s ease',
+                          borderLeft: isExpanded ? '8px solid #8B5CF6' : '3px solid #1E293B'
+                        }}
+                      >
+                        <div 
+                          className="spec-goal-header"
+                          onClick={() => setExpandedObjId(isExpanded ? null : obj.objective_id)}
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            cursor: 'pointer',
+                            flexWrap: 'wrap',
+                            gap: '12px'
+                          }}
+                        >
+                          <div style={{ flex: 1 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                              <span style={{ 
+                                background: obj.status === 'Completed' ? '#D1FAE5' : '#FEF9C3', 
+                                color: obj.status === 'Completed' ? '#065F46' : '#854D0E', 
+                                padding: '2px 8px', 
+                                borderRadius: '99px', 
+                                fontSize: '0.72rem', 
+                                fontWeight: 800,
+                                border: '2px solid #1E293B',
+                                boxShadow: '1.5px 1.5px 0px #1E293B',
+                                display: 'inline-block'
+                              }}>
+                                {obj.status === 'Completed' ? (lang === 'vi' ? '👍 Hoàn thành' : 'Completed') : (lang === 'vi' ? '⏳ Đang thực hiện' : 'In process')}
+                              </span>
+                              <h4 style={{ margin: 0, fontWeight: 900, color: '#1E293B', fontSize: '1.05rem' }}>
+                                {obj.objective_name}
+                              </h4>
+                            </div>
+                            
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '6px' }}>
+                              <span style={{ fontSize: '0.78rem', color: '#64748B', fontWeight: 700 }}>
+                                🎯 {lang === 'vi' ? `Hạn hoàn thành: ${obj.target_date}` : `Target Date: ${obj.target_date}`}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#1E293B' }}>
+                                {lang === 'vi' ? 'Tiến độ:' : 'Progress:'} {goalProgress}%
+                              </span>
+                              <div style={{ 
+                                width: '80px', 
+                                height: '8px', 
+                                background: '#E2E8F0', 
+                                borderRadius: '99px', 
+                                overflow: 'hidden', 
+                                border: '1.5px solid #1E293B',
+                                marginTop: '2px' 
+                              }}>
+                                <div style={{ 
+                                  height: '100%', 
+                                  width: `${goalProgress}%`, 
+                                  background: 'linear-gradient(135deg, #8B5CF6, #6366F1)', 
+                                  borderRadius: '99px' 
+                                }}></div>
+                              </div>
+                            </div>
+
+                            <div style={{ display: 'flex', gap: '6px' }} onClick={(e) => e.stopPropagation()}>
+                              <button 
+                                className="edit-btn-v2" 
+                                title={lang === 'vi' ? 'Xem chi tiết' : 'Details'}
+                                onClick={() => openObjModal('view', obj)}
+                                style={{ border: '2px solid #1E293B', boxShadow: '2px 2px 0px #1E293B', background: '#FFFFFF' }}
+                              >
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                  <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                                </svg>
+                              </button>
+                              <button 
+                                className="edit-btn-v2" 
+                                title={t.editPhase || 'Sửa'}
+                                onClick={() => openObjModal('update', obj)}
+                                style={{ border: '2px solid #1E293B', boxShadow: '2px 2px 0px #1E293B', background: '#FFFFFF' }}
+                              >
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                                </svg>
+                              </button>
+                              <button 
+                                className="delete-btn-v2" 
+                                title={t.deletePhase || 'Xóa'}
+                                onClick={() => openObjModal('delete', obj)}
+                                style={{ border: '2px solid #1E293B', boxShadow: '2px 2px 0px #1E293B', background: '#FFFFFF' }}
+                              >
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                  <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                                </svg>
+                              </button>
+                            </div>
+
+                            <span style={{ fontSize: '1.2rem', transform: isExpanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s', color: '#1E293B', fontWeight: 900 }}>
+                              ▼
+                            </span>
+                          </div>
+                        </div>
+
+                        {isExpanded && (
+                          <div style={{ 
+                            marginTop: '1.25rem', 
+                            borderTop: '2px dashed #1E293B', 
+                            paddingTop: '1.25rem',
+                            animation: 'profile-fade-in 0.2s ease-out'
+                          }}
+                          onClick={(e) => e.stopPropagation()}
+                          >
+                            <div style={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              alignItems: 'center',
+                              marginBottom: '1rem',
+                              flexWrap: 'wrap',
+                              gap: '8px'
+                            }}>
+                              <h5 style={{ margin: 0, fontWeight: 950, fontSize: '0.88rem', color: '#1E293B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                📋 {lang === 'vi' ? 'Danh sách Hoạt động rèn luyện:' : 'Intervention Activities List:'}
+                              </h5>
+                              {currentSimulatorRole === 'Teacher' && (
+                                <button 
+                                  type="button" 
+                                  className="add-btn" 
+                                  style={{ 
+                                    height: 'auto',
+                                    padding: '5px 12px',
+                                    fontSize: '0.75rem',
+                                    fontWeight: 800,
+                                    boxShadow: '2px 2px 0px #1E293B',
+                                    background: '#E11D48',
+                                    borderColor: '#1E293B'
+                                  }}
+                                  onClick={() => openActModal('create', obj.objective_id)}
+                                >
+                                  ➕ {lang === 'vi' ? 'Thêm Hoạt động' : 'Add Activity'}
+                                </button>
+                              )}
+                            </div>
+
+                            {(!activities || activities.filter(a => !a.is_deleted).length === 0) ? (
+                              <div style={{ textAlign: 'center', padding: '20px', color: '#94A3B8', fontStyle: 'italic', background: '#F8FAFC', borderRadius: '12px', border: '2px dashed #CBD5E1' }}>
+                                {lang === 'vi' ? 'Chưa có hoạt động nào được lập cho mục tiêu này.' : 'No activities planned for this objective.'}
+                              </div>
+                            ) : (
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                                {activities.filter(a => !a.is_deleted).map((act, idx) => {
+                                  const sbs = act.submissions || [];
+                                  const rvs = act.reviews || [];
+                                  const hasRvs = rvs.length > 0;
+                                  const actStatus = act.status === 'Submitted' ? 'Submitted' : 'In Progress';
+                                  const subTimes = sbs.length > 0 ? Math.max(...sbs.map(s => s.submit_times)) : 0;
+
+                                  let badgeColor = '#E0F2FE';
+                                  let badgeTextColor = '#0369A1';
+                                  let badgeText = lang === 'vi' ? '🏃 Đang học' : 'In Progress';
+
+                                  if (hasRvs) {
+                                    badgeColor = '#D1FAE5';
+                                    badgeTextColor = '#065F46';
+                                    badgeText = lang === 'vi' ? '✅ Đã Review' : 'Reviewed';
+                                  } else if (actStatus === 'Submitted') {
+                                    badgeColor = '#FEF3C7';
+                                    badgeTextColor = '#B45309';
+                                    badgeText = lang === 'vi' ? '⏳ Chờ Review' : 'Submitted';
+                                  }
+
+                                  return (
+                                    <div 
+                                      key={act.activity_id || idx} 
+                                      className="spec-activity-card"
+                                      style={{
+                                        border: '2.5px solid #1E293B',
+                                        borderRadius: '14px',
+                                        padding: '1rem',
+                                        background: '#FFFDF5',
+                                        boxShadow: '3px 3px 0px #1E293B',
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        flexWrap: 'wrap',
+                                        gap: '1rem'
+                                      }}
+                                    >
+                                      <div style={{ flex: 1, minWidth: '260px' }}>
+                                        <h6 style={{ margin: '0 0 0.4rem 0', fontWeight: 900, fontSize: '0.95rem', color: '#1E293B' }}>
+                                          {act.activity_name}
+                                        </h6>
+                                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem', fontSize: '0.75rem', color: '#475569', fontWeight: 700 }}>
+                                          <span>📅 {lang === 'vi' ? 'Tần suất:' : 'Frequency:'} {act.frequency}</span>
+                                          <span>👤 {lang === 'vi' ? 'Thực hiện:' : 'Assignee:'} <span style={{ padding: '1px 6px', borderRadius: '4px', background: '#E2E8F0', fontSize: '0.7rem' }}>{act.assignee_type}</span></span>
+                                          {act.teaching_method && <span style={{ width: '100%', marginTop: '4px', color: '#64748B', fontWeight: 500 }}>🧠 <strong>{lang === 'vi' ? 'PP Giảng dạy:' : 'Method:'}</strong> {act.teaching_method}</span>}
+                                          {act.target_criteria && <span style={{ width: '100%', marginTop: '2px', color: '#64748B', fontWeight: 500 }}>🎯 <strong>{lang === 'vi' ? 'Tiêu chí đạt:' : 'Criteria:'}</strong> {act.target_criteria}</span>}
+                                        </div>
+                                      </div>
+
+                                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
+                                          <span style={{ 
+                                            background: badgeColor, 
+                                            color: badgeTextColor, 
+                                            border: '2px solid #1E293B', 
+                                            borderRadius: '99px', 
+                                            padding: '3px 10px', 
+                                            fontSize: '0.7rem', 
+                                            fontWeight: 800,
+                                            boxShadow: '1.5px 1.5px 0px #1E293B',
+                                            whiteSpace: 'nowrap'
+                                          }}>
+                                            {badgeText}
+                                          </span>
+                                          {subTimes > 0 && (
+                                            <span style={{ fontSize: '0.68rem', fontWeight: 800, color: '#64748B' }}>
+                                              📥 {lang === 'vi' ? `${subTimes} lần nộp` : `${subTimes} times`}
+                                            </span>
+                                          )}
+                                        </div>
+
+                                        <div style={{ display: 'flex', gap: '0.35rem' }}>
+                                          <button 
+                                            className="edit-btn-v2" 
+                                            style={{
+                                              backgroundColor: actStatus === 'Submitted' && currentSimulatorRole === 'Teacher' ? '#FBBF24' : '#FFFFFF',
+                                              border: '2px solid #1E293B',
+                                              boxShadow: '2px 2px 0px #1E293B'
+                                            }}
+                                            title={actStatus === 'Submitted' && currentSimulatorRole === 'Teacher' ? (lang === 'vi' ? 'Đánh giá ngay' : 'Review report') : (lang === 'vi' ? 'Xem chi tiết' : 'Details')}
+                                            onClick={() => handleParentViewActivity(act, obj.objective_id)}
+                                          >
+                                            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                              <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                                            </svg>
+                                          </button>
+                                          {currentSimulatorRole === 'Teacher' && (
+                                            <>
+                                              <button 
+                                                className="edit-btn-v2" 
+                                                title={t.editPhase || 'Sửa'}
+                                                onClick={() => openActModal('update', obj.objective_id, act)}
+                                                style={{ border: '2px solid #1E293B', boxShadow: '2px 2px 0px #1E293B', background: '#FFFFFF' }}
+                                              >
+                                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                                  <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                                                </svg>
+                                              </button>
+                                              <button 
+                                                className="delete-btn-v2" 
+                                                title={t.deletePhase || 'Xóa'}
+                                                onClick={() => openActModal('delete', obj.objective_id, act)}
+                                                style={{ border: '2px solid #1E293B', boxShadow: '2px 2px 0px #1E293B', background: '#FFFFFF' }}
+                                              >
+                                                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                                                  <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                                                </svg>
+                                              </button>
+                                            </>
+                                          )}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
