@@ -424,6 +424,45 @@ const INITIAL_PLANS: Plan[] = [
             ]
           }
         ]
+      },
+      {
+        plan_phase_id: 4,
+        plan_id: 1,
+        phase_name: 'Giai đoạn 3: Phát triển kỹ năng tự phục vụ nâng cao và xã hội hóa',
+        phase_type: 'ABA & OT',
+        start_date: '2026-11-01',
+        end_date: '2027-01-31',
+        status: 'Inactive',
+        is_deleted: false,
+        created_at: '2026-05-01 08:35:00',
+        updated_at: '2026-05-01 08:35:00',
+        objectives: [
+          {
+            objective_id: 4,
+            plan_phase_id: 4,
+            objective_name: 'Trẻ biết chủ động chia sẻ đồ chơi luân phiên với bạn',
+            target_date: '2027-01-15',
+            status: 'In process',
+            created_at: '2026-05-01 08:35:00',
+            updated_at: '2026-05-01 08:35:00',
+            activities: [
+              {
+                activity_id: 401,
+                plan_phase_id: 4,
+                activity_name: 'Chơi chuyền bóng luân phiên theo nhóm nhỏ',
+                description: 'Tổ chức hoạt động chuyền bóng theo lượt từ 3-4 bạn nhỏ. Hướng dẫn trẻ nói "đến lượt bạn X" và ném bóng chính xác.',
+                duration: '30 phút / buổi',
+                frequency: '3 lần / tuần',
+                target_criteria: 'Trẻ chuyền bóng đúng lượt 5 lần liên tục mà không tranh bóng',
+                teaching_method: 'Giáo viên làm mẫu, hỗ trợ trẻ gọi tên bạn và trao thưởng bằng nhãn dán.',
+                assignee_type: 'Teacher',
+                status: 'In Progress',
+                submissions: [],
+                reviews: []
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -526,6 +565,45 @@ const INITIAL_PLANS: Plan[] = [
                     created_at: '2026-05-28 13:00:00'
                   }
                 ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        plan_phase_id: 5,
+        plan_id: 2,
+        phase_name: 'Giai đoạn 2: Phát triển tự phục vụ bữa ăn và giao tiếp chức năng',
+        phase_type: 'PECS & Sensory Integration',
+        start_date: '2026-08-11',
+        end_date: '2026-11-10',
+        status: 'Inactive',
+        is_deleted: false,
+        created_at: '2026-05-10 09:00:00',
+        updated_at: '2026-05-10 09:00:00',
+        objectives: [
+          {
+            objective_id: 5,
+            plan_phase_id: 5,
+            objective_name: 'Tự xúc ăn cơm dẻo bằng thìa không rơi vãi',
+            target_date: '2026-10-30',
+            status: 'In process',
+            created_at: '2026-05-10 09:00:00',
+            updated_at: '2026-05-10 09:00:00',
+            activities: [
+              {
+                activity_id: 501,
+                plan_phase_id: 5,
+                activity_name: 'Thực hành cầm thìa xúc cơm dẻo trong bữa ăn',
+                description: 'Phụ huynh chuẩn bị cơm dẻo hạt bám tốt, đặt thìa nhựa vừa tay trẻ. Hướng dẫn trẻ tự cầm thìa múc cơm và đưa vào miệng.',
+                duration: '20 phút / bữa ăn',
+                frequency: 'Hàng ngày',
+                target_criteria: 'Trẻ tự xúc ăn tối thiểu 10 thìa liên tục không làm đổ quá 2 thìa',
+                teaching_method: 'Hỗ trợ nâng khuỷu tay trẻ những thìa đầu, giảm dần sự trợ giúp và khen thưởng khi trẻ tự xúc ăn.',
+                assignee_type: 'Parent',
+                status: 'In Progress',
+                submissions: [],
+                reviews: []
               }
             ]
           }

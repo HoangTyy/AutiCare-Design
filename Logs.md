@@ -2271,3 +2271,15 @@
   * Khi click vào một Goal Card, danh sách bài tập rèn luyện (Activity Cards) con lồng bên trong sẽ xổ ra với hiệu ứng chuyển động mượt mà.
   * Giao diện co giãn responsive tốt, chuyển đổi song ngữ VI/EN hoạt động chuẩn xác 100%.
   * Biên dịch sản phẩm Vite & TypeScript (`npm.cmd run build`) thành công 100% sạch lỗi chỉ trong **423ms**.
+
+## [2026-06-03] - Bổ sung dữ liệu mẫu Plan Phase 4 và Phase 5 cho Kế hoạch can thiệp
+- **Implementation**:
+  * **Bổ sung Phase 4 (ABA & OT) cho Kế hoạch 1 (Nguyễn Minh Khôi)**: Thêm Phase 4 "Giai đoạn 3: Phát triển kỹ năng tự phục vụ nâng cao và xã hội hóa" vào danh sách phase của Kế hoạch 1 trong cả `src/components/AdminDashboard.tsx` và `src/components/profile/tabs/ChildDetailView.tsx` để đồng bộ dữ liệu giữa Phụ huynh và Bác sĩ/Giáo viên. Phase 4 chứa Objective 4 ("Trẻ biết chủ động chia sẻ đồ chơi luân phiên với bạn") và Activity 401 ("Chơi chuyền bóng luân phiên theo nhóm nhỏ").
+  * **Bổ sung Phase 5 (PECS & Sensory Integration) cho Kế hoạch 2 (Trần Đức Nam)**: Thêm Phase 5 "Giai đoạn 2: Phát triển tự phục vụ bữa ăn và giao tiếp chức năng" vào danh sách phase của Kế hoạch 2 trong cả hai file trên. Phase 5 chứa Objective 5 ("Tự xúc ăn cơm dẻo bằng thìa không rơi vãi") và Activity 501 ("Thực hành cầm thìa xúc cơm dẻo trong bữa ăn").
+- **Walkthrough**:
+  * Đăng nhập góc nhìn Chuyên gia (Dashboard) -> Xem Chi tiết Kế hoạch của Nguyễn Minh Khôi -> Xuất hiện thêm Giai đoạn 3 (Phase 4, ABA & OT) ở trạng thái Inactive. Click mở mục tiêu để xem hoạt động chuyền bóng luân phiên.
+  * Xem Chi tiết Kế hoạch của Trần Đức Nam -> Xuất hiện thêm Giai đoạn 2 (Phase 5, PECS & Sensory Integration) ở trạng thái Inactive. Click mở mục tiêu để xem hoạt động thực hành xúc ăn bằng thìa.
+  * Chuyển sang góc nhìn Phụ huynh (Homepage -> Children Profiles) -> Chọn bé Nguyễn Minh Khôi / Trần Đức Nam -> Chi tiết Kế hoạch Can thiệp (IEP) hiển thị đầy đủ các Giai đoạn mới được đồng bộ hoàn hảo.
+- **Build Verification**:
+  * Đã chạy kiểm tra biên dịch bằng `npm.cmd run build` thành công 100% không phát sinh bất kỳ lỗi cú pháp hay cảnh báo kiểu dữ liệu nào.
+

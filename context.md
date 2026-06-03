@@ -866,3 +866,19 @@ Hệ thống AutiCare đã tích hợp hoàn hảo 3 phân hệ thống kê tr�
 - Các nút hành động hoạt động chuẩn xác, tích hợp stopPropagation để không kích hoạt đóng/mở thẻ khi chuyên gia nhấp nút sửa/xóa.
 - Hệ thống hỗ trợ responsive hoàn hảo trên di động và chuyển đổi song ngữ VI/EN nhanh chóng.
 
+# Cập nhật thiết kế 2026-06-03 (Part 2) - Bổ sung dữ liệu mẫu 2 Plan Phase cho Nguyễn Minh Khôi và Trần Đức Nam
+
+## Implementation
+- **Bổ sung Phase 4 (ABA & OT) cho Nguyễn Minh Khôi (`CH001`)**:
+  - Giai đoạn 3: "Phát triển kỹ năng tự phục vụ nâng cao và xã hội hóa" (`plan_phase_id: 4`) kéo dài từ 2026-11-01 đến 2027-01-31.
+  - Chứa Mục tiêu 4: "Trẻ biết chủ động chia sẻ đồ chơi luân phiên với bạn".
+  - Chứa Hoạt động 401: "Chơi chuyền bóng luân phiên theo nhóm nhỏ" (tần suất 3 lần/tuần, do Giáo viên phụ trách thực hành trong In Progress).
+- **Bổ sung Phase 5 (PECS & Sensory Integration) cho Trần Đức Nam (`CH002`)**:
+  - Giai đoạn 2: "Phát triển tự phục vụ bữa ăn và giao tiếp chức năng" (`plan_phase_id: 5`) kéo dài từ 2026-08-11 đến 2026-11-10.
+  - Chứa Mục tiêu 5: "Tự xúc ăn cơm dẻo bằng thìa không rơi vãi".
+  - Chứa Hoạt động 501: "Thực hành cầm thìa xúc cơm dẻo trong bữa ăn" (tần suất hàng ngày, do Phụ huynh phụ trách thực hành trong In Progress).
+- **Đồng bộ hóa dữ liệu hai chiều**:
+  - Tích hợp 2 Giai đoạn mới này vào mảng dữ liệu mẫu `INITIAL_PLANS` ở cả `AdminDashboard.tsx` (Dashboard Chuyên gia) và `ChildDetailView.tsx` (Hồ sơ Phụ huynh).
+  - Giúp các góc nhìn của Phụ huynh và Chuyên gia đều khớp nhau về các giai đoạn can thiệp mới, cải thiện khả năng kiểm thử toàn diện các Phase ở trạng thái `Inactive` hoặc chuẩn bị học.
+
+
