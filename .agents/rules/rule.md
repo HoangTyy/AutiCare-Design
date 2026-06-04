@@ -15,3 +15,6 @@ BẮT BUỘC: mỗi khi bắt đầu code, phải nắm lại tổng quan ngữ 
 9 Luôn dùng font chữ "Be Vietnam Pro" cho tất cả các trang, riêng Header thì tùy
 10. 1 Trang hiển thị sẽ là một file .tsx khác nhau ( ví dụ như Dashboard, có nhiều tab, thì mỗi tab một file .tsx, không gom toàn bộ component vào một file .tsx)
 11. Cấu trúc thư mục phải chuyên nghiệp, chặt chẽ, không được chung chung quá giao diện nhiều chức năng không liên quan và khác nhau trong một file .tsx
+12. Đọc sơ style của hệ thống và code chức năng cho đồng bộ style đó, trừ khi có yêu cầu thiết kế style khác.
+13. Chỉ push khi có yêu cầu trực tiếp từ người dùng. Quy trình bắt buộc là: pull -> tạo nhánh mới -> commit -> push -> tạo link merge/pull request để người dùng phê duyệt.
+14. Luôn luôn kiểm tra kỹ lưỡng lại code của chức năng đã thêm và chỉnh sửa trước khi hoàn tất.

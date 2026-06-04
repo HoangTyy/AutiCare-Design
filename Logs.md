@@ -2283,3 +2283,13 @@
 - **Build Verification**:
   * Đã chạy kiểm tra biên dịch bằng `npm.cmd run build` thành công 100% không phát sinh bất kỳ lỗi cú pháp hay cảnh báo kiểu dữ liệu nào.
 
+## [2026-06-04] - Cập nhật Quy định Phát triển và Quy trình Git (rule.md)
+- **Implementation**:
+  * **Cập nhật `.agents/rules/rule.md`**: Bổ sung thêm 3 quy tắc quan trọng của dự án gồm:
+    1. Quy tắc 12: Đọc sơ style của hệ thống và code chức năng cho đồng bộ style đó, trừ khi có yêu cầu thiết kế style khác.
+    2. Quy tắc 13: Chỉ push khi có yêu cầu trực tiếp từ người dùng. Quy trình bắt buộc là: pull -> tạo nhánh mới -> commit -> push -> tạo link merge/pull request để người dùng phê duyệt.
+    3. Quy tắc 14: Luôn luôn kiểm tra kỹ lưỡng lại code của chức năng đã thêm và chỉnh sửa trước khi hoàn tất.
+- **Walkthrough**:
+  * Các tác nhân AI sau này sẽ tự động đọc được 14 quy tắc này tại `.agents/rules/rule.md` và tuân thủ chặt chẽ.
+
+
