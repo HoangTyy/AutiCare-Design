@@ -1,4 +1,16 @@
-# Project Logs
+## [2026-06-04] - Khôi phục toàn diện dữ liệu và chức năng Đánh giá PEP-3 lâm sàng bị mất trong commit d5d4b22
+- **Implementation**:
+  * **Khôi phục ChildDetailView.tsx**:
+    - Tái cấu trúc và trả lại hằng số cơ sở dữ liệu `SUBTEST_ITEMS_DB` chứa đầy đủ thông tin bài test lâm sàng chi tiết.
+    - Phục hồi giao diện phân rã 13 tiểu test lâm sàng (CVP, EL, RL, FM, GM, VMI, AE, SR, CMB, CVB, PB, PSC, AB) với tiến trình Progress Rate Amber-to-Orange và accordion mở rộng chi tiết có phản ứng `expandedSubtests`.
+    - Phục hồi banner tổng điểm đạt được `#F0FDF4` và nhận xét chi tiết của Bác sĩ chuyên khoa y học lâm sàng.
+  * **Khôi phục StaffInterventionTab.tsx**:
+    - Phục hồi cụm nút bấm Candy đôi: "Xem bệnh án chi tiết" và "Xem các bài đánh giá" cho mỗi thẻ hồ sơ trẻ.
+    - Khôi phục giao diện Danh sách lịch sử các bài đánh giá (PEP-3, CARS...) được trích xuất động từ `MOCK_ASSESSMENTS_MAP` của chuyên gia.
+    - Kết nối an toàn modal chi tiết chẩn đoán PEP-3 lâm sàng y hệt như luồng của Phụ huynh để giáo viên và trị liệu viên theo dõi.
+- **Walkthrough**:
+  * Đảm bảo đồng bộ hóa trải nghiệm lâm sàng nhất quán giữa Chuyên gia và Phụ huynh.
+  * Dự án đã được kiểm thử build thành công (`npm run build`) không có lỗi.
 
 ## [2026-06-02] - Tích hợp Tab Chẩn đoán (Diagnoses) vào Hồ sơ Chi tiết Trẻ em (ChildDetailView)
 - **Implementation**:
@@ -2282,4 +2294,14 @@
   * Chuyển sang góc nhìn Phụ huynh (Homepage -> Children Profiles) -> Chọn bé Nguyễn Minh Khôi / Trần Đức Nam -> Chi tiết Kế hoạch Can thiệp (IEP) hiển thị đầy đủ các Giai đoạn mới được đồng bộ hoàn hảo.
 - **Build Verification**:
   * Đã chạy kiểm tra biên dịch bằng `npm.cmd run build` thành công 100% không phát sinh bất kỳ lỗi cú pháp hay cảnh báo kiểu dữ liệu nào.
+
+## [2026-06-04] - Cập nhật Quy định Phát triển và Quy trình Git (rule.md)
+- **Implementation**:
+  * **Cập nhật `.agents/rules/rule.md`**: Bổ sung thêm 3 quy tắc quan trọng của dự án gồm:
+    1. Quy tắc 12: Đọc sơ style của hệ thống và code chức năng cho đồng bộ style đó, trừ khi có yêu cầu thiết kế style khác.
+    2. Quy tắc 13: Chỉ push khi có yêu cầu trực tiếp từ người dùng. Quy trình bắt buộc là: pull -> tạo nhánh mới -> commit -> push -> tạo link merge/pull request để người dùng phê duyệt.
+    3. Quy tắc 14: Luôn luôn kiểm tra kỹ lưỡng lại code của chức năng đã thêm và chỉnh sửa trước khi hoàn tất.
+- **Walkthrough**:
+  * Các tác nhân AI sau này sẽ tự động đọc được 14 quy tắc này tại `.agents/rules/rule.md` và tuân thủ chặt chẽ.
+
 

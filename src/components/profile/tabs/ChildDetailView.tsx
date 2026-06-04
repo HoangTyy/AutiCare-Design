@@ -43,62 +43,6 @@ interface DatabaseScreeningResult {
   deleted_at?: string | null;
 }
 
-export interface DiagnosisRecord {
-  diagnose_result_id: number;
-  staff_id?: string;
-  child_id?: number;
-  child_name: string;
-  doctor_full_name: string;
-  diagnosis_place: 'Online' | 'Offline';
-  age_at_diagnosis: string;
-  doctor_answers: string;
-  diagnosis_content: string;
-  recommendation: string;
-  confirmation_code: string;
-  diagnostic_date: string;
-  external_doctor_name: string;
-  conclusion: string;
-  created_at: string;
-}
-
-const INITIAL_DIAGNOSES: DiagnosisRecord[] = [
-  {
-    diagnose_result_id: 1,
-    staff_id: 'S-001',
-    child_id: 1, // Nguyễn Minh Khôi
-    child_name: 'Nguyễn Minh Khôi',
-    doctor_full_name: 'TS. BS. Trần Minh Tuấn',
-    diagnosis_place: 'Offline',
-    age_at_diagnosis: '4 tuổi 2 tháng',
-    doctor_answers: 'Trẻ ít phản ứng khi gọi tên, giao tiếp mắt hạn chế dưới 1 giây, có hành vi xoay tròn bánh xe ô tô đồ chơi rập khuôn.',
-    diagnosis_content: 'Rối loạn phổ tự kỷ (ASD) mức độ nhẹ-trung bình, có kèm chậm phát triển ngôn ngữ diễn đạt.',
-    recommendation: 'Can thiệp giáo dục đặc biệt sớm theo mô hình Denver (ESDM), tăng cường giao tiếp PECS tại nhà và điều hòa giác quan thính giác.',
-    confirmation_code: 'DX-AC-2026-KH01',
-    diagnostic_date: '2026-05-12T10:30:00',
-    external_doctor_name: 'GS. TS. Nguyễn Khánh Linh (Cố vấn Viện Nhi Trung Ương)',
-    conclusion: 'ASD Mild-Moderate. Khuyến nghị can thiệp tích cực tối thiểu 15 giờ/tuần.',
-    created_at: '2026-05-12T11:45:00'
-  },
-  {
-    diagnose_result_id: 2,
-    staff_id: 'S-002',
-    child_id: 2, // Trần Đức Nam
-    child_name: 'Trần Đức Nam',
-    doctor_full_name: 'ThS. BS. Nguyễn Thị Mai',
-    diagnosis_place: 'Online',
-    age_at_diagnosis: '3 tuổi 8 tháng',
-    doctor_answers: 'Nhạy cảm quá mức với tiếng ồn lớn, bùng nổ cảm xúc ăn vạ khi đổi hoạt động đột ngột. Vận động thô thăng bằng tiền đình chưa tốt.',
-    diagnosis_content: 'Rối loạn phổ tự kỷ nhẹ kèm theo Rối loạn điều hòa cảm giác (Sensory Processing Disorder).',
-    recommendation: 'Can thiệp điều hòa giác quan (Sensory Integration), rèn luyện thăng bằng tiền đình, hướng dẫn phụ huynh phương pháp dập tắt bùng nổ hành vi.',
-    confirmation_code: 'DX-AC-2026-NA02',
-    diagnostic_date: '2026-05-20T15:00:00',
-    external_doctor_name: 'BS. Lê Hoài Nam (Bệnh viện Nhi Đồng 1)',
-    conclusion: 'ASD Mild & Sensory Processing Issues. Khuyến nghị trị liệu giác quan 3 buổi/tuần.',
-    created_at: '2026-05-20T16:15:00'
-  }
-];
-
-
 const INITIAL_HEALTH_RECORDS: HealthRecord[] = [
   {
     id: "HLT-001",
@@ -424,45 +368,6 @@ const INITIAL_PLANS: Plan[] = [
             ]
           }
         ]
-      },
-      {
-        plan_phase_id: 4,
-        plan_id: 1,
-        phase_name: 'Giai đoạn 3: Phát triển kỹ năng tự phục vụ nâng cao và xã hội hóa',
-        phase_type: 'ABA & OT',
-        start_date: '2026-11-01',
-        end_date: '2027-01-31',
-        status: 'Inactive',
-        is_deleted: false,
-        created_at: '2026-05-01 08:35:00',
-        updated_at: '2026-05-01 08:35:00',
-        objectives: [
-          {
-            objective_id: 4,
-            plan_phase_id: 4,
-            objective_name: 'Trẻ biết chủ động chia sẻ đồ chơi luân phiên với bạn',
-            target_date: '2027-01-15',
-            status: 'In process',
-            created_at: '2026-05-01 08:35:00',
-            updated_at: '2026-05-01 08:35:00',
-            activities: [
-              {
-                activity_id: 401,
-                plan_phase_id: 4,
-                activity_name: 'Chơi chuyền bóng luân phiên theo nhóm nhỏ',
-                description: 'Tổ chức hoạt động chuyền bóng theo lượt từ 3-4 bạn nhỏ. Hướng dẫn trẻ nói "đến lượt bạn X" và ném bóng chính xác.',
-                duration: '30 phút / buổi',
-                frequency: '3 lần / tuần',
-                target_criteria: 'Trẻ chuyền bóng đúng lượt 5 lần liên tục mà không tranh bóng',
-                teaching_method: 'Giáo viên làm mẫu, hỗ trợ trẻ gọi tên bạn và trao thưởng bằng nhãn dán.',
-                assignee_type: 'Teacher',
-                status: 'In Progress',
-                submissions: [],
-                reviews: []
-              }
-            ]
-          }
-        ]
       }
     ]
   },
@@ -569,45 +474,6 @@ const INITIAL_PLANS: Plan[] = [
             ]
           }
         ]
-      },
-      {
-        plan_phase_id: 5,
-        plan_id: 2,
-        phase_name: 'Giai đoạn 2: Phát triển tự phục vụ bữa ăn và giao tiếp chức năng',
-        phase_type: 'PECS & Sensory Integration',
-        start_date: '2026-08-11',
-        end_date: '2026-11-10',
-        status: 'Inactive',
-        is_deleted: false,
-        created_at: '2026-05-10 09:00:00',
-        updated_at: '2026-05-10 09:00:00',
-        objectives: [
-          {
-            objective_id: 5,
-            plan_phase_id: 5,
-            objective_name: 'Tự xúc ăn cơm dẻo bằng thìa không rơi vãi',
-            target_date: '2026-10-30',
-            status: 'In process',
-            created_at: '2026-05-10 09:00:00',
-            updated_at: '2026-05-10 09:00:00',
-            activities: [
-              {
-                activity_id: 501,
-                plan_phase_id: 5,
-                activity_name: 'Thực hành cầm thìa xúc cơm dẻo trong bữa ăn',
-                description: 'Phụ huynh chuẩn bị cơm dẻo hạt bám tốt, đặt thìa nhựa vừa tay trẻ. Hướng dẫn trẻ tự cầm thìa múc cơm và đưa vào miệng.',
-                duration: '20 phút / bữa ăn',
-                frequency: 'Hàng ngày',
-                target_criteria: 'Trẻ tự xúc ăn tối thiểu 10 thìa liên tục không làm đổ quá 2 thìa',
-                teaching_method: 'Hỗ trợ nâng khuỷu tay trẻ những thìa đầu, giảm dần sự trợ giúp và khen thưởng khi trẻ tự xúc ăn.',
-                assignee_type: 'Parent',
-                status: 'In Progress',
-                submissions: [],
-                reviews: []
-              }
-            ]
-          }
-        ]
       }
     ]
   }
@@ -707,31 +573,7 @@ const translations = {
     screeningDetailTitle: "🔍 Chi Tiết Kết Quả Sàng Lọc Sớm",
     screeningFormTotalScore: "Tổng điểm tự động",
     screeningFormRiskCalc: "Phân loại nguy cơ gợi ý",
-    screeningDetailSubTitle: "Thông số chi tiết lưu trữ dưới dạng details_json thô trong cơ sở dữ liệu",
-
-    // Diagnoses Tab translations
-    diagnosesTabTitle: "Chẩn đoán y khoa",
-    diagnosesSectionTitle: "📋 Hồ Sơ Chẩn Đoán Lâm Sàng",
-    diagnosesSectionSubtitle: "Quản lý và tra cứu các kết quả chẩn đoán chính thức từ bác sĩ nhi khoa chuyên môn",
-    diagnosesEmpty: "Chưa có hồ sơ chẩn đoán chính thức nào cho bé.",
-    diagnosesColDoctor: "Bác sĩ thực hiện",
-    diagnosesColPlace: "Địa điểm chẩn đoán",
-    diagnosesColDate: "Ngày chẩn đoán",
-    diagnosesColCode: "Mã xác nhận",
-    diagnosesDetailTitle: "🔍 CHI TIẾT BẢN GHI CHẨN ĐOÁN LÂM SÀNG",
-    diagnosesFieldDoctor: "Bác sĩ chẩn đoán chính",
-    diagnosesFieldPlace: "Nơi thực hiện chẩn đoán",
-    diagnosesFieldAge: "Tuổi phát triển tại thời điểm khám",
-    diagnosesFieldDate: "Thời điểm chẩn đoán",
-    diagnosesFieldAnswers: "Phản hồi/Hỏi đáp lâm sàng của Bác sĩ",
-    diagnosesFieldContent: "Nội dung đặc tả chẩn đoán chuyên khoa",
-    diagnosesFieldRecommendation: "Khuyến nghị/Chỉ định can thiệp trị liệu",
-    diagnosesFieldExternalDoctor: "Hội đồng cố vấn/Bác sĩ bên ngoài",
-    diagnosesFieldConclusion: "Kết luận chuyên môn cuối cùng",
-    diagnosesFieldCode: "Mã xác thực hồ sơ (Confirmation Code)",
-    diagnosesFieldCreatedAt: "Thời điểm tạo hồ sơ",
-    diagnosesPlaceOnline: "Trực tuyến (Online)",
-    diagnosesPlaceOffline: "Trực tiếp tại phòng khám (Offline)"
+    screeningDetailSubTitle: "Thông số chi tiết lưu trữ dưới dạng details_json thô trong cơ sở dữ liệu"
   },
   en: {
     backToList: "⬅️ Back to List",
@@ -827,31 +669,7 @@ const translations = {
     screeningAddTitle: "➕ Save New Screening Result",
     screeningFormTotalScore: "Automatic score calculation",
     screeningFormRiskCalc: "Suggested risk classification",
-    screeningDetailSubTitle: "Detailed",
-
-    // Diagnoses Tab translations
-    diagnosesTabTitle: "Diagnoses",
-    diagnosesSectionTitle: "📋 Clinical Diagnostic Records",
-    diagnosesSectionSubtitle: "Manage and inspect official pediatric diagnostic records for the child",
-    diagnosesEmpty: "No clinical diagnostic records found for this child.",
-    diagnosesColDoctor: "Doctor Name",
-    diagnosesColPlace: "Place",
-    diagnosesColDate: "Diagnosis Date",
-    diagnosesColCode: "Confirmation Code",
-    diagnosesDetailTitle: "🔍 CLINICAL DIAGNOSTIC RECORD DETAILS",
-    diagnosesFieldDoctor: "Primary Diagnosing Doctor",
-    diagnosesFieldPlace: "Diagnosis Location",
-    diagnosesFieldAge: "Developmental Age at Diagnosis",
-    diagnosesFieldDate: "Date of Diagnosis",
-    diagnosesFieldAnswers: "Clinical Q&A / Doctor Observation Notes",
-    diagnosesFieldContent: "Specialized Diagnostic Content Specifications",
-    diagnosesFieldRecommendation: "Intervention Clinical Recommendations",
-    diagnosesFieldExternalDoctor: "Consulting Council / External Medical Specialist",
-    diagnosesFieldConclusion: "Expert Clinical Conclusion",
-    diagnosesFieldCode: "Confirmation Code",
-    diagnosesFieldCreatedAt: "Record Created At",
-    diagnosesPlaceOnline: "Online Video Consult",
-    diagnosesPlaceOffline: "On-site Clinic Visit (Offline)"
+    screeningDetailSubTitle: "Detailed"
   }
 };
 
@@ -924,7 +742,7 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
     childDisplaySex === 'Male' ? t.male : childDisplaySex === 'Female' ? t.female : 'Other';
 
   // Tab State
-  const [activeSubTab, setActiveSubTab] = useState<'progress' | 'assessments' | 'health' | 'screening' | 'iep' | 'schedule' | 'diagnoses'>('progress');
+  const [activeSubTab, setActiveSubTab] = useState<'progress' | 'assessments' | 'health' | 'screening' | 'iep' | 'schedule'>('progress');
   const [toast, setToast] = useState<string | null>(null);
 
   // Core Data States
@@ -933,9 +751,7 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
   const [screeningResults] = useState<DatabaseScreeningResult[]>(INITIAL_SCREENING_RESULTS);
   const [plansList, setPlansList] = useState<Plan[]>(INITIAL_PLANS);
   const [selectedPlanForParentDetail, setSelectedPlanForParentDetail] = useState<Plan | null>(null);
-  const [diagnosesList] = useState<DiagnosisRecord[]>(INITIAL_DIAGNOSES);
-  const [selectedDiagnosis, setSelectedDiagnosis] = useState<DiagnosisRecord | null>(null);
-  // const [expandedSubtests, setExpandedSubtests] = useState<Record<string, boolean>>({});
+  const [expandedSubtests, setExpandedSubtests] = useState<Record<string, boolean>>({});
 
   // Modals state
   const [selectedDetails, setSelectedDetails] = useState<AssessmentResult | null>(null);
@@ -1380,13 +1196,6 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
             >
               📅 {lang === 'vi' ? 'Lịch' : 'Schedule'}
             </button>
-            <button
-              type="button"
-              className={`sub-tab-btn ${activeSubTab === 'diagnoses' ? 'active' : ''}`}
-              onClick={() => setActiveSubTab('diagnoses')}
-            >
-              🩺 {t.diagnosesTabTitle}
-            </button>
           </div>
 
           {/* Sub Tab Renderings */}
@@ -1664,106 +1473,6 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
             </div>
           )}
 
-          {activeSubTab === 'diagnoses' && (
-            <div className="profile-sticker-card diagnoses-records-card" style={{ border: '3px solid #1E293B', padding: '1.5rem', background: '#FFF', animation: 'profile-fade-in 0.25s ease-out' }}>
-              <div style={{ marginBottom: '1.5rem' }}>
-                <h2 style={{ margin: 0, fontWeight: 900, fontSize: '1.5rem', color: '#1E293B' }}>{t.diagnosesSectionTitle}</h2>
-                <p style={{ color: '#64748B', fontSize: '0.85rem', margin: '0.2rem 0 0 0' }}>{t.diagnosesSectionSubtitle}</p>
-              </div>
-
-              {(() => {
-                // Lọc chẩn đoán của đúng đứa trẻ dựa trên childDisplayId (CH001 hoặc CH002)
-                const currentChildId = childDisplayId === 'CH001' ? 1 : 2;
-                const filteredDiagnoses = diagnosesList.filter(d => d.child_id === currentChildId);
-
-                if (filteredDiagnoses.length === 0) {
-                  return (
-                    <div style={{ padding: '3rem 1rem', textAlign: 'center', border: '3px dashed #CBD5E1', borderRadius: '16px' }}>
-                      <span style={{ fontSize: '3rem' }}>🩺</span>
-                      <p style={{ color: '#64748B', fontWeight: 700 }}>{t.diagnosesEmpty}</p>
-                    </div>
-                  );
-                }
-
-                return (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-                    {filteredDiagnoses.map((diag) => (
-                      <div
-                        key={diag.diagnose_result_id}
-                        className="diagnosis-record-sticker-row"
-                        style={{
-                          border: '3px solid #1E293B',
-                          borderRadius: '16px',
-                          padding: '1.2rem',
-                          background: '#FFFDF5',
-                          boxShadow: '4px 4px 0px #1E293B',
-                          display: 'grid',
-                          gridTemplateColumns: '1.5fr 1fr 1.2fr auto',
-                          alignItems: 'center',
-                          gap: '1rem'
-                        }}
-                      >
-                        <div>
-                          <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0D9488', display: 'block' }}>
-                            👨‍⚕️ {t.diagnosesColDoctor}
-                          </span>
-                          <h3 style={{ margin: '0.15rem 0 0 0', fontWeight: 900, color: '#1E293B', fontSize: '1.15rem' }}>
-                            {diag.doctor_full_name}
-                          </h3>
-                        </div>
-
-                        <div>
-                          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'block' }}>📍 {t.diagnosesColPlace}</span>
-                          <span style={{
-                            fontWeight: 800,
-                            color: '#1E293B',
-                            fontSize: '0.82rem',
-                            background: diag.diagnosis_place === 'Online' ? '#E0F2FE' : '#FEF3C7',
-                            padding: '3px 8px',
-                            borderRadius: '8px',
-                            border: '1.5px solid #1E293B',
-                            display: 'inline-block',
-                            marginTop: '0.15rem'
-                          }}>
-                            {diag.diagnosis_place === 'Online' ? t.diagnosesPlaceOnline : t.diagnosesPlaceOffline}
-                          </span>
-                        </div>
-
-                        <div>
-                          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'block' }}>📅 {t.diagnosesColDate}</span>
-                          <span style={{ fontWeight: 800, color: '#1E293B', fontSize: '0.9rem', display: 'block', marginTop: '0.15rem' }}>
-                            {new Date(diag.diagnostic_date).toLocaleDateString()}
-                          </span>
-                        </div>
-
-                        <div className="diagnoses-actions" style={{ display: 'flex', gap: '0.5rem' }}>
-                          <button
-                            type="button"
-                            className="candy-btn-action view-btn"
-                            onClick={() => setSelectedDiagnosis(diag)}
-                            style={{
-                              padding: '8px 16px',
-                              background: '#FBBF24',
-                              border: '2px solid #1E293B',
-                              borderRadius: '12px',
-                              fontSize: '0.8rem',
-                              fontWeight: 900,
-                              color: '#1E293B',
-                              cursor: 'pointer',
-                              boxShadow: '2px 2px 0 #1E293B'
-                            }}
-                          >
-                            🔍 {lang === 'vi' ? 'Xem chi tiết' : 'View Details'}
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                );
-              })()}
-            </div>
-          )}
-
           {activeSubTab === 'iep' && (
             <div className="profile-sticker-card child-iep-card" style={{ border: '3px solid #1E293B', padding: '1.5rem', background: '#FFF', animation: 'profile-fade-in 0.25s ease-out' }}>
               <h2 style={{ margin: 0, fontWeight: 900, fontSize: '1.5rem', color: '#1E293B' }}>
@@ -1870,116 +1579,205 @@ const ChildDetailView: React.FC<ChildDetailViewProps> = ({ child, onBack, lang }
               <button type="button" className="profile-modal-close-btn" onClick={() => setSelectedDetails(null)} style={{ color: '#FFF' }}>×</button>
             </div>
             <div className="profile-modal-body" style={{ padding: '1.5rem' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', background: '#F8FAFC', padding: '1rem', borderRadius: '16px', border: '2.5px solid #1E293B' }}>
+              
+              {/* 1. Thông tin chung */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', background: '#F8FAFC', padding: '1rem', borderRadius: '16px', border: '2.5px solid #1E293B', marginBottom: '1.5rem' }}>
                 <div>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>👶 Trẻ đánh giá:</span>
-                  <span style={{ fontWeight: 800, color: '#1E293B' }}>{child.name}</span>
+                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>👶 {lang === 'vi' ? 'Trẻ đánh giá:' : 'Patient:'}</span>
+                  <span style={{ fontWeight: 800, color: '#1E293B' }}>{childDisplayName}</span>
                 </div>
                 <div>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>📅 Ngày thực hiện:</span>
+                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>📅 {lang === 'vi' ? 'Ngày thực hiện:' : 'Date:'}</span>
                   <span style={{ fontWeight: 800, color: '#1E293B' }}>{selectedDetails.date}</span>
                 </div>
                 <div>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>👩‍⚕️ Người đánh giá:</span>
+                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 700, display: 'block' }}>👩‍⚕️ {lang === 'vi' ? 'Người đánh giá:' : 'Examiner:'}</span>
                   <span style={{ fontWeight: 800, color: '#1E293B' }}>{selectedDetails.examiner}</span>
                 </div>
               </div>
+
+              {/* 2. Bảng phân rã các tiểu test lâm sàng (nếu có dữ liệu scores) */}
+              {selectedDetails.scores && (
+                <>
+                  <h4 style={{ margin: '1.5rem 0 1rem 0', fontWeight: 900, color: '#1E293B', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.2rem', fontFamily: 'Be Vietnam Pro, sans-serif' }}>
+                    📊 {lang === 'vi' ? 'Phân rã 100% chỉ số tiểu test lâm sàng:' : '100% Clinical Subtests Breakdown:'}
+                  </h4>
+                  <div className="pep3-detail-table-wrapper">
+                    <table>
+                      <thead>
+                        <tr style={{ background: '#F8FAFC' }}>
+                          <th style={{ padding: '12px 16px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem' }}>
+                            {t.subtestCol || (lang === 'vi' ? 'Tiểu test lâm sàng' : 'Clinical Subtest')}
+                          </th>
+                          <th style={{ padding: '12px 16px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem', textAlign: 'center' }}>
+                            {t.scoredCol || (lang === 'vi' ? 'Điểm số đạt' : 'Score')}
+                          </th>
+                          <th style={{ padding: '12px 16px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem', textAlign: 'center' }}>
+                            {t.maxCol || (lang === 'vi' ? 'Điểm tối đa' : 'Max')}
+                          </th>
+                          <th style={{ padding: '12px 16px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem' }}>
+                            {t.percentCol || (lang === 'vi' ? 'Tỷ lệ phát triển' : 'Progress Rate')}
+                          </th>
+                          <th style={{ padding: '12px 16px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem' }}>
+                            {t.descCol || (lang === 'vi' ? 'Đặc tả lâm sàng y học' : 'Clinical Medical Description')}
+                          </th>
+                          <th style={{ padding: '12px 16px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem', textAlign: 'center' }}>
+                            {lang === 'vi' ? 'Chi tiết' : 'Details'}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {Object.entries(selectedDetails.scores).map(([code, scoreData]) => {
+                          const percent = Math.round((scoreData.scored / scoreData.max) * 100);
+                          const isExpanded = !!expandedSubtests[code];
+                          return (
+                            <React.Fragment key={code}>
+                              <tr className="pep3-table-main-row">
+                                <td style={{ padding: '14px 16px', fontWeight: 800, color: '#1E293B', fontSize: '0.9rem' }}>
+                                  {lang === 'vi' ? scoreData.labelVi : scoreData.labelEn}
+                                </td>
+                                <td style={{ padding: '14px 16px', fontWeight: 900, color: '#0D9488', fontSize: '1rem', textAlign: 'center' }}>
+                                  {scoreData.scored}
+                                </td>
+                                <td style={{ padding: '14px 16px', fontWeight: 800, color: '#475569', fontSize: '0.9rem', textAlign: 'center' }}>
+                                  {scoreData.max}
+                                </td>
+                                <td style={{ padding: '14px 16px' }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: '130px' }}>
+                                    <div style={{ width: '80px', height: '8px', background: '#E2E8F0', border: '1px solid #1E293B', borderRadius: '4px', overflow: 'hidden' }}>
+                                      <div style={{ width: `${percent}%`, height: '100%', background: 'linear-gradient(90deg, #F97316, #EA580C)', transition: 'width 0.3s ease' }} />
+                                    </div>
+                                    <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#1E293B' }}>{percent}%</span>
+                                  </div>
+                                </td>
+                                <td style={{ padding: '14px 16px', color: '#475569', fontSize: '0.8rem', fontWeight: 700, maxWidth: '280px', lineHeight: '1.45', whiteSpace: 'normal', wordBreak: 'break-word' }}>
+                                  {lang === 'vi' ? scoreData.descVi : scoreData.descEn}
+                                </td>
+                                <td style={{ padding: '14px 16px', textAlign: 'center' }}>
+                                  <button
+                                    type="button"
+                                    className="candy-btn-action"
+                                    onClick={() => setExpandedSubtests(prev => ({ ...prev, [code]: !prev[code] }))}
+                                    style={{
+                                      padding: '5px 12px',
+                                      background: '#0D9488',
+                                      border: '2px solid #1E293B',
+                                      borderRadius: '8px',
+                                      fontSize: '0.75rem',
+                                      fontWeight: 800,
+                                      color: '#FFF',
+                                      cursor: 'pointer',
+                                      boxShadow: '1.5px 1.5px 0 #1E293B',
+                                      whiteSpace: 'nowrap'
+                                    }}
+                                  >
+                                    {isExpanded 
+                                      ? (lang === 'vi' ? 'Ẩn bớt 🔍' : 'Hide items 🔍')
+                                      : (lang === 'vi' ? 'Xem mục 🔍' : 'View items 🔍')
+                                    }
+                                  </button>
+                                </td>
+                              </tr>
+                              
+                              {/* Accordion detail subtest items */}
+                              {isExpanded && (
+                                <tr>
+                                  <td colSpan={6} style={{ padding: '0 16px 16px 16px', background: '#F8FAFC' }}>
+                                    <div className="subtest-accordion-panel">
+                                      <h5 style={{ margin: '0 0 10px 0', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem', fontFamily: 'Be Vietnam Pro, sans-serif' }}>
+                                        📝 {lang === 'vi' ? `Chi tiết bài tập kiểm thử của tiểu test ${code}:` : `Diagnostic test items detail of subtest ${code}:`}
+                                      </h5>
+                                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                                        {SUBTEST_ITEMS_DB[code] && SUBTEST_ITEMS_DB[code].length > 0 ? (
+                                          SUBTEST_ITEMS_DB[code].map((item) => (
+                                            <div 
+                                              key={item.id} 
+                                              className="subtest-item-sticker-card"
+                                              style={{
+                                                background: '#FFFFFF',
+                                                border: '2px solid #1E293B',
+                                                borderRadius: '12px',
+                                                padding: '10px 14px',
+                                                boxShadow: '3px 3px 0 #1E293B',
+                                                display: 'grid',
+                                                gridTemplateColumns: '1fr auto',
+                                                gap: '1rem',
+                                                alignItems: 'center'
+                                              }}
+                                            >
+                                              <div>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                                                  <span style={{ fontSize: '0.68rem', fontWeight: 900, color: '#0D9488', background: '#E6F4F1', padding: '1px 6px', borderRadius: '4px', border: '1.5px solid #0D9488' }}>
+                                                    {item.id}
+                                                  </span>
+                                                  <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#1E293B', fontFamily: 'Be Vietnam Pro, sans-serif' }}>
+                                                    {lang === 'vi' ? item.activityVi : item.activityEn}
+                                                  </span>
+                                                </div>
+                                                <p style={{ margin: 0, fontSize: '0.78rem', color: '#475569', fontWeight: 700, lineHeight: '1.4' }}>
+                                                  💬 <strong>{lang === 'vi' ? 'Biểu hiện lâm sàng:' : 'Clinical behavior:'}</strong> {lang === 'vi' ? item.behaviorVi : item.behaviorEn}
+                                                </p>
+                                              </div>
+                                              <div style={{ textAlign: 'right' }}>
+                                                <span style={{ 
+                                                  fontSize: '0.72rem', 
+                                                  fontWeight: 900, 
+                                                  color: '#1E293B', 
+                                                  background: item.score === 2 ? '#D1FAE5' : item.score === 1 ? '#FEF3C7' : '#FEE2E2', 
+                                                  padding: '4px 10px', 
+                                                  borderRadius: '8px', 
+                                                  border: '2px solid #1E293B',
+                                                  whiteSpace: 'nowrap',
+                                                  boxShadow: '1.5px 1.5px 0 #1E293B'
+                                                }}>
+                                                  {item.score} {lang === 'vi' ? 'Điểm' : 'Pts'}
+                                                </span>
+                                              </div>
+                                            </div>
+                                          ))
+                                        ) : (
+                                          <p style={{ margin: 0, fontSize: '0.8rem', color: '#64748B', fontStyle: 'italic' }}>
+                                            {lang === 'vi' ? 'Không có dữ liệu bài đánh giá cụ thể cho tiểu test này.' : 'No assessment items recorded for this subtest.'}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                              )}
+                            </React.Fragment>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              )}
+
+              {/* 3. Tổng kết & Nhận xét của chuyên gia lâm sàng */}
+              <div style={{ marginTop: '1.8rem', borderTop: '2.5px dashed #CBD5E1', paddingTop: '1.25rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem', background: '#F0FDF4', border: '2.5px solid #1E293B', padding: '10px 18px', borderRadius: '14px', boxShadow: '3px 3px 0 #1E293B' }}>
+                  <strong style={{ fontSize: '0.92rem', color: '#166534', fontWeight: 900, fontFamily: 'Be Vietnam Pro, sans-serif' }}>
+                    {lang === 'vi' ? '🏆 Tổng điểm tích lũy toàn bài PEP-3:' : '🏆 Total Accumulated PEP-3 Score:'}
+                  </strong>
+                  <span style={{ fontSize: '1.3rem', fontWeight: 900, color: '#166534' }}>
+                    {selectedDetails.totalScore}
+                  </span>
+                </div>
+
+                <div style={{ background: '#FFFDF5', border: '2.5px solid #1E293B', padding: '14px 18px', borderRadius: '16px', boxShadow: '4px 4px 0 #1E293B' }}>
+                  <h5 style={{ margin: '0 0 8px 0', fontWeight: 900, color: '#1E293B', fontSize: '0.92rem', display: 'flex', alignItems: 'center', gap: '6px', fontFamily: 'Be Vietnam Pro, sans-serif' }}>
+                    📑 {lang === 'vi' ? 'Nhận xét chuyên khoa lâm sàng của bác sĩ:' : 'Clinical Specialist Remarks & Recommendations:'}
+                  </h5>
+                  <p style={{ margin: 0, fontSize: '0.82rem', color: '#475569', fontWeight: 700, lineHeight: '1.5' }}>
+                    {lang === 'vi' ? selectedDetails.notesVi : selectedDetails.notesEn}
+                  </p>
+                </div>
+              </div>
+
             </div>
             <div className="profile-modal-footer" style={{ borderTop: '2.5px solid #1E293B', background: '#F8FAFC' }}>
               <button type="button" className="profile-page-btn-primary" onClick={() => setSelectedDetails(null)} style={{ background: '#1E293B' }}>{t.close}</button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ── MODAL: VIEW DIAGNOSIS DETAILS ── */}
-      {selectedDiagnosis && (
-        <div className="profile-modal-overlay" onClick={() => setSelectedDiagnosis(null)}>
-          <div className="profile-admin-modal detailed-report-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '750px', animation: 'profile-fade-in 0.25s ease-out' }}>
-            <div className="profile-modal-header" style={{ background: '#0D9488', borderBottom: '3px solid #1E293B', padding: '1.25rem 1.5rem' }}>
-              <div style={{ color: '#FFF' }}>
-                <h3 className="profile-modal-title" style={{ margin: 0, color: '#FFF', fontWeight: 900, fontSize: '1.4rem' }}>{t.diagnosesDetailTitle}</h3>
-                <span style={{ fontSize: '0.82rem', opacity: 0.95 }}>{selectedDiagnosis.confirmation_code}</span>
-              </div>
-              <button type="button" className="profile-modal-close-btn" onClick={() => setSelectedDiagnosis(null)} style={{ color: '#FFF' }}>×</button>
-            </div>
-            
-            <div className="profile-modal-body" style={{ padding: '1.5rem', maxHeight: '68vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              {/* Bio Summary Grid */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', background: '#F8FAFC', padding: '1.1rem', borderRadius: '16px', border: '2.5px solid #1E293B' }}>
-                <div>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 800, display: 'block' }}>👨‍⚕️ {t.diagnosesFieldDoctor}:</span>
-                  <span style={{ fontWeight: 900, color: '#1E293B', fontSize: '0.95rem' }}>{selectedDiagnosis.doctor_full_name}</span>
-                </div>
-                <div>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 800, display: 'block' }}>📍 {t.diagnosesFieldPlace}:</span>
-                  <span style={{ fontWeight: 900, color: '#0D9488', fontSize: '0.95rem' }}>
-                    {selectedDiagnosis.diagnosis_place === 'Online' ? t.diagnosesPlaceOnline : t.diagnosesPlaceOffline}
-                  </span>
-                </div>
-                <div>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 800, display: 'block' }}>👶 {t.diagnosesFieldAge}:</span>
-                  <span style={{ fontWeight: 900, color: '#1E293B', fontSize: '0.95rem' }}>{selectedDiagnosis.age_at_diagnosis}</span>
-                </div>
-                <div>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 800, display: 'block' }}>📅 {t.diagnosesFieldDate}:</span>
-                  <span style={{ fontWeight: 900, color: '#1E293B', fontSize: '0.95rem' }}>{new Date(selectedDiagnosis.diagnostic_date).toLocaleString()}</span>
-                </div>
-              </div>
-
-              {/* Answers */}
-              <div style={{ border: '2px solid #1E293B', borderRadius: '12px', overflow: 'hidden', boxShadow: '2px 2px 0px #1E293B' }}>
-                <div style={{ background: '#F1F5F9', borderBottom: '2px solid #1E293B', padding: '8px 12px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem' }}>
-                  💬 {t.diagnosesFieldAnswers}
-                </div>
-                <div style={{ padding: '1rem', background: '#FFFDF5', fontSize: '0.88rem', color: '#334155', fontWeight: 700, lineHeight: '1.6' }}>
-                  {selectedDiagnosis.doctor_answers}
-                </div>
-              </div>
-
-              {/* Content Description */}
-              <div style={{ border: '2px solid #1E293B', borderRadius: '12px', overflow: 'hidden', boxShadow: '2px 2px 0px #1E293B' }}>
-                <div style={{ background: '#F1F5F9', borderBottom: '2px solid #1E293B', padding: '8px 12px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem' }}>
-                  🧠 {t.diagnosesFieldContent}
-                </div>
-                <div style={{ padding: '1rem', background: '#FFFDF5', fontSize: '0.88rem', color: '#334155', fontWeight: 700, lineHeight: '1.6' }}>
-                  {selectedDiagnosis.diagnosis_content}
-                </div>
-              </div>
-
-              {/* Recommendation */}
-              <div style={{ border: '2px solid #1E293B', borderRadius: '12px', overflow: 'hidden', boxShadow: '2px 2px 0px #1E293B' }}>
-                <div style={{ background: '#F1F5F9', borderBottom: '2px solid #1E293B', padding: '8px 12px', fontWeight: 900, color: '#1E293B', fontSize: '0.85rem' }}>
-                  📋 {t.diagnosesFieldRecommendation}
-                </div>
-                <div style={{ padding: '1rem', background: '#E8F5E9', fontSize: '0.88rem', color: '#1B5E20', fontWeight: 700, lineHeight: '1.6' }}>
-                  {selectedDiagnosis.recommendation}
-                </div>
-              </div>
-
-              {/* Conclusion */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
-                <div style={{ border: '2.5px solid #1E293B', borderRadius: '14px', padding: '1rem', background: '#FFFDF5' }}>
-                  <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 800, display: 'block', marginBottom: '0.2rem' }}>🎓 {t.diagnosesFieldConclusion}:</span>
-                  <span style={{ fontWeight: 900, color: '#B91C1C', fontSize: '0.92rem', lineHeight: '1.5' }}>{selectedDiagnosis.conclusion}</span>
-                </div>
-              </div>
-
-              {/* Advisors and Log */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', flexWrap: 'wrap' }}>
-                <div>
-                  <span style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 800, display: 'block' }}>🩺 {t.diagnosesFieldExternalDoctor}:</span>
-                  <span style={{ fontWeight: 800, color: '#475569', fontSize: '0.82rem' }}>{selectedDiagnosis.external_doctor_name || '-'}</span>
-                </div>
-                <div>
-                  <span style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 800, display: 'block' }}>📅 {t.diagnosesFieldCreatedAt}:</span>
-                  <span style={{ fontWeight: 800, color: '#475569', fontSize: '0.82rem' }}>{new Date(selectedDiagnosis.created_at).toLocaleString()}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="profile-modal-footer" style={{ borderTop: '2.5px solid #1E293B', background: '#F8FAFC' }}>
-              <button type="button" className="profile-page-btn-primary" onClick={() => setSelectedDiagnosis(null)} style={{ background: '#1E293B' }}>{t.close}</button>
             </div>
           </div>
         </div>
