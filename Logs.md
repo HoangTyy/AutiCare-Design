@@ -1,4 +1,16 @@
-# Project Logs
+## [2026-06-04] - Khôi phục toàn diện dữ liệu và chức năng Đánh giá PEP-3 lâm sàng bị mất trong commit d5d4b22
+- **Implementation**:
+  * **Khôi phục ChildDetailView.tsx**:
+    - Tái cấu trúc và trả lại hằng số cơ sở dữ liệu `SUBTEST_ITEMS_DB` chứa đầy đủ thông tin bài test lâm sàng chi tiết.
+    - Phục hồi giao diện phân rã 13 tiểu test lâm sàng (CVP, EL, RL, FM, GM, VMI, AE, SR, CMB, CVB, PB, PSC, AB) với tiến trình Progress Rate Amber-to-Orange và accordion mở rộng chi tiết có phản ứng `expandedSubtests`.
+    - Phục hồi banner tổng điểm đạt được `#F0FDF4` và nhận xét chi tiết của Bác sĩ chuyên khoa y học lâm sàng.
+  * **Khôi phục StaffInterventionTab.tsx**:
+    - Phục hồi cụm nút bấm Candy đôi: "Xem bệnh án chi tiết" và "Xem các bài đánh giá" cho mỗi thẻ hồ sơ trẻ.
+    - Khôi phục giao diện Danh sách lịch sử các bài đánh giá (PEP-3, CARS...) được trích xuất động từ `MOCK_ASSESSMENTS_MAP` của chuyên gia.
+    - Kết nối an toàn modal chi tiết chẩn đoán PEP-3 lâm sàng y hệt như luồng của Phụ huynh để giáo viên và trị liệu viên theo dõi.
+- **Walkthrough**:
+  * Đảm bảo đồng bộ hóa trải nghiệm lâm sàng nhất quán giữa Chuyên gia và Phụ huynh.
+  * Dự án đã được kiểm thử build thành công (`npm run build`) không có lỗi.
 
 ## [2026-06-02] - Tích hợp Tab Chẩn đoán (Diagnoses) vào Hồ sơ Chi tiết Trẻ em (ChildDetailView)
 - **Implementation**:
